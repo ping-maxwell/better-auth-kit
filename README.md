@@ -2,9 +2,11 @@
 
 <img src="./assets/banner/1600x600.png" />
 
-A collection of plugins for [Better Auth](https://github.com/better-auth/better-auth) built by [me](https://github.com/ping-maxwell), for the community!
+Better Auth kit is a collection of plugins for [Better Auth](https://github.com/better-auth/better-auth) built by [ping-maxwell](https://github.com/ping-maxwell), and free to use for the community!
 
-Read the [docs](https://better-auth-kit.vercel.app/docs) to learn more.
+## Getting Started
+
+Head over to our [getting started guide](https://better-auth-kit.vercel.app/docs/getting-started) to get started with Better Auth Kit!
 
 ## Plugins
 
