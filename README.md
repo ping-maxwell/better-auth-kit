@@ -13,10 +13,6 @@ Head over to our [getting started guide](https://better-auth-kit.vercel.app/docs
 - [🧑‍⚖️ Legal Consent](https://github.com/ping-maxwell/better-auth-legal-consent)
 - [✋ Waitlist](https://github.com/ping-maxwell/better-auth-waitlist)
 
-### Plugin Roadmap & Requests
-
-Check out our [roadmap](https://better-auth-kit.vercel.app/docs/roadmap) for a list of planned features and [requests](https://github.com/ping-maxwell/better-auth-kit/issues/new/choose) for new features!
-
 ## Example code & Demos
 
 - [🌐 Browser Extension Demo]()
@@ -24,6 +20,10 @@ Check out our [roadmap](https://better-auth-kit.vercel.app/docs/roadmap) for a l
 ## Database Adapters
 
 - [💾 Convex DB Adapter]()
+
+## Roadmap & Requests
+
+Check out our [roadmap](https://better-auth-kit.vercel.app/docs/roadmap) for a list of planned features and [requests](https://github.com/ping-maxwell/better-auth-kit/issues/new/choose) for new features!
 
 ## Contributing
 
