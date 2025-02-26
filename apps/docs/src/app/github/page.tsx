@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
+import Redirect from "./redirect";
 
 export const metadata: Metadata = {
   title: "Better Auth Kit Github",
@@ -35,7 +35,5 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  redirect("https://github.com/ping-maxwell/better-auth-kit");
-
-  return <a href="https://github.com/ping-maxwell/better-auth-kit">GitHub</a>;
+  return <Redirect />;
 }
