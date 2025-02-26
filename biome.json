@@ -31,7 +31,8 @@
         "a11y": {
           "useMediaCaption": "off",
           "useSemanticElements": "off",
-          "noNoninteractiveTabindex": "off"
+          "noNoninteractiveTabindex": "off",
+          "noSvgWithoutTitle": "off"
         }
       }
     },
