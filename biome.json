@@ -1,0 +1,58 @@
+{
+    "linter": {
+      "rules": {
+        "suspicious": {
+          "noDebugger": "off",
+          "noConsoleLog": "off",
+          "noArrayIndexKey": "off",
+          "noExplicitAny": "off",
+          "noAsyncPromiseExecutor": "off"
+        },
+        "style": {
+          "noShoutyConstants": "warn",
+          "useNamingConvention": "off",
+          "noUnusedTemplateLiteral": "off",
+          "noParameterAssign": "off",
+          "useConst": "warn",
+          "useSelfClosingElements": "off",
+          "noNonNullAssertion": "off",
+          "useTemplate": "off"
+        },
+        "complexity": {
+          "noBannedTypes": "off",
+          "noUselessLoneBlockStatements": "off",
+          "useOptionalChain": "off",
+          "noForEach": "off"
+        },
+        "correctness": {
+          "noEmptyPattern": "off",
+          "useExhaustiveDependencies": "warn"
+        },
+        "a11y": {
+          "useMediaCaption": "off",
+          "useSemanticElements": "off",
+          "noNoninteractiveTabindex": "off"
+        }
+      }
+    },
+    "formatter": {
+      "indentWidth": 2,
+      "indentStyle": "space"
+    },
+    "javascript": {
+      "formatter": {
+        "arrowParentheses": "always",
+        "bracketSameLine": false,
+        "bracketSpacing": true,
+        "jsxQuoteStyle": "double",
+        "quoteProperties": "asNeeded",
+        "semicolons": "always",
+        "trailingCommas": "all"
+      }
+    },
+    "json": {
+      "formatter": {
+        "trailingCommas": "none"
+      }
+    }
+  }

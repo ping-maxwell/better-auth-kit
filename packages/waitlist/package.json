@@ -1,0 +1,29 @@
+{
+  "name": "better-auth-waitlist",
+  "version": "1.0.0",
+  "description": "A plugin for better-auth that allows you to add a waitlist to your application.",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ping-maxwell/better-auth-kit"
+  },
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "bun build.ts"
+  },
+  "keywords": ["better-auth", "waitlist", "plugin"],
+  "author": "ping-maxwell",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "better-auth": "^1.1.21"
+  }
+}
