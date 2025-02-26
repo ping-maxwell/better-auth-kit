@@ -1,5 +1,7 @@
 # Better Auth Kit
 
+<img src="./assets/banner/1600x600.png" />
+
 A collection of plugins for [Better Auth](https://github.com/better-auth/better-auth) built by [me](https://github.com/ping-maxwell), for the community!
 
 Read the [docs](https://better-auth-kit.vercel.app/docs) to learn more.
