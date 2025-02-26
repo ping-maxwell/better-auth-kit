@@ -1,6 +1,6 @@
 # Better Auth Kit
 
-<img src="./assets/banner/1600x600.png" />
+<img src="./assets/banner/1600x600.png" style="border-radius: 20px;" />
 
 Better Auth kit is a collection of plugins for [Better Auth](https://github.com/better-auth/better-auth) built by [ping-maxwell](https://github.com/ping-maxwell), and free to use for the open source community!
 
