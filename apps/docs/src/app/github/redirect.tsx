@@ -7,5 +7,10 @@ export default function Redirect() {
     window.location.href = "https://github.com/ping-maxwell/better-auth-kit";
   });
 
-  return <a href="https://github.com/ping-maxwell/better-auth-kit">GitHub</a>;
+  return (
+    <div className="flex flex-col items-center justify-center h-screen w-screen">
+      You're being redirected... If you do not get redirected, click{" "}
+      <a href="https://github.com/ping-maxwell/better-auth-kit">here</a>
+    </div>
+  );
 }
