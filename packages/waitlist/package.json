@@ -14,7 +14,6 @@
     }
   },
   "scripts": {
-    "dev": "tsc --watch",
     "build": "bun build.ts"
   },
   "keywords": ["better-auth", "waitlist", "plugin"],
