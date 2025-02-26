@@ -16,3 +16,5 @@ if (res.success) {
 } else {
   console.error(`Failed to build in ${Date.now() - start}ms`);
 }
+
+Bun.build;

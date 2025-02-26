@@ -1,0 +1,28 @@
+{
+  "name": "better-auth-legal-consent",
+  "version": "1.0.4",
+  "description": "Keep your application compliant by requiring legal consent on your sign-up routes.",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ping-maxwell/better-auth-kit"
+  },
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "bun build.ts"
+  },
+  "keywords": ["better-auth", "legal-consent", "plugin"],
+  "author": "ping-maxwell",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "better-auth": "^1.1.21"
+  }
+}
