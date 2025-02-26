@@ -17,6 +17,10 @@ Head over to our [getting started guide](https://better-auth-kit.vercel.app/docs
 
 Check out our [roadmap](https://better-auth-kit.vercel.app/docs/roadmap) for a list of planned features and [requests](https://github.com/ping-maxwell/better-auth-kit/issues/new/choose) for new features!
 
+## Demo code
+
+- [🌐 Browser Extension Demo]()
+
 ## Contributing
 
 Contributions are always welcome! If you're interested in contributing, check out our [contributing guide](https://github.com/ping-maxwell/better-auth-kit/blob/main/CONTRIBUTING.md) for more information.
