@@ -1,4 +1,16 @@
-import { BookCheck, Drill, EthernetPort, FileQuestion, Flag, Info, Play, Plug, type LucideIcon } from "lucide-react";
+import {
+  BookCheck,
+  Drill,
+  EthernetPort,
+  FileQuestion,
+  Flag,
+  Info,
+  OctagonPause,
+  Play,
+  Plug,
+  Scale,
+  type LucideIcon,
+} from "lucide-react";
 import type { ReactNode, SVGProps } from "react";
 
 interface Content {
@@ -34,19 +46,14 @@ export const contents: Content[] = [
     title: "Plugins",
     list: [
       {
-        href: "/docs/getting-started",
-        title: "Getting Started",
-        icon: () => <FileQuestion size={16} />,
+        href: "/docs/plugins/waitlist",
+        title: "Waitlist",
+        icon: () => <OctagonPause size={16} />,
       },
       {
-        href: "/docs/getting-started",
-        title: "Getting Started",
-        icon: () => <FileQuestion size={16} />,
-      },
-      {
-        href: "/docs/getting-started",
-        title: "Getting Started",
-        icon: () => <FileQuestion size={16} />,
+        href: "/docs/plugins/legal-consent",
+        title: "Legal Consent",
+        icon: () => <Scale size={16} />,
       },
     ],
   },
@@ -55,18 +62,8 @@ export const contents: Content[] = [
     title: "Adapters",
     list: [
       {
-        href: "/docs/getting-started",
-        title: "Getting Started",
-        icon: () => <FileQuestion size={16} />,
-      },
-      {
-        href: "/docs/getting-started",
-        title: "Getting Started",
-        icon: () => <FileQuestion size={16} />,
-      },
-      {
-        href: "/docs/getting-started",
-        title: "Getting Started",
+        href: "/docs/adapters/convex",
+        title: "Convex DB",
         icon: () => <FileQuestion size={16} />,
       },
     ],
@@ -74,43 +71,11 @@ export const contents: Content[] = [
   {
     Icon: () => <Drill size={16} />,
     title: "Tools",
-    list: [
-      {
-        href: "/docs/getting-started",
-        title: "Getting Started",
-        icon: () => <FileQuestion size={16} />,
-      },
-      {
-        href: "/docs/getting-started",
-        title: "Getting Started",
-        icon: () => <FileQuestion size={16} />,
-      },
-      {
-        href: "/docs/getting-started",
-        title: "Getting Started",
-        icon: () => <FileQuestion size={16} />,
-      },
-    ],
+    list: [],
   },
   {
     Icon: () => <BookCheck size={16} />,
     title: "Examples",
-    list: [
-      {
-        href: "/docs/getting-started",
-        title: "Getting Started",
-        icon: () => <FileQuestion size={16} />,
-      },
-      {
-        href: "/docs/getting-started",
-        title: "Getting Started",
-        icon: () => <FileQuestion size={16} />,
-      },
-      {
-        href: "/docs/getting-started",
-        title: "Getting Started",
-        icon: () => <FileQuestion size={16} />,
-      },
-    ],
+    list: [],
   },
 ];
