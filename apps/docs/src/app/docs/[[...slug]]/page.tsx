@@ -28,9 +28,10 @@ export default async function Page(props: {
       toc={page.data.toc}
       full={page.data.full}
       editOnGithub={{
-        owner: "better-auth",
-        repo: "better-auth",
-        path: "/docs/content/docs",
+        owner: "ping-maxwell",
+        repo: "better-auth-kit",
+        sha: "main",
+        path: `apps/docs/content/docs/${params.slug.join("/")}.mdx`,
       }}
       tableOfContent={{
         style: "clerk",
