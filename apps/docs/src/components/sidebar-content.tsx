@@ -1,5 +1,6 @@
 import {
   BookCheck,
+  Database,
   Drill,
   EthernetPort,
   FileQuestion,
@@ -89,7 +90,7 @@ export const contents: Content[] = [
       {
         href: "/docs/adapters/convex",
         title: "Convex DB",
-        icon: () => <FileQuestion size={16} />,
+        icon: () => <Database size={16} />,
       },
     ],
   },
