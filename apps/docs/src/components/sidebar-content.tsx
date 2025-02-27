@@ -1,0 +1,116 @@
+import { BookCheck, Drill, EthernetPort, FileQuestion, Flag, Info, Play, Plug, type LucideIcon } from "lucide-react";
+import type { ReactNode, SVGProps } from "react";
+
+interface Content {
+  title: string;
+  Icon: ((props?: SVGProps<any>) => ReactNode) | LucideIcon;
+  list: {
+    title: string;
+    href: string;
+    icon: ((props?: SVGProps<any>) => ReactNode) | LucideIcon;
+    group?: boolean;
+  }[];
+}
+
+export const contents: Content[] = [
+  {
+    Icon: () => <Info size={16} />,
+    title: "Introduction",
+    list: [
+      {
+        href: "/docs/info",
+        title: "Information",
+        icon: () => <Flag size={16} />,
+      },
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <Play size={16} />,
+      },
+    ],
+  },
+  {
+    Icon: () => <Plug size={16} />,
+    title: "Plugins",
+    list: [
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+    ],
+  },
+  {
+    Icon: () => <EthernetPort size={16} />,
+    title: "Adapters",
+    list: [
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+    ],
+  },
+  {
+    Icon: () => <Drill size={16} />,
+    title: "Tools",
+    list: [
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+    ],
+  },
+  {
+    Icon: () => <BookCheck size={16} />,
+    title: "Examples",
+    list: [
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+      {
+        href: "/docs/getting-started",
+        title: "Getting Started",
+        icon: () => <FileQuestion size={16} />,
+      },
+    ],
+  },
+];
