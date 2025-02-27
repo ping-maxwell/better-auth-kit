@@ -6,7 +6,7 @@ Better Auth kit is a collection of plugins, tools, guides, adapters, and example
 
 ## Getting Started
 
-Head over to our [getting started guide](https://better-auth-kit.vercel.app/docs/getting-started) to get started with Better Auth Kit! 🫡
+Head over to our [docs](https://better-auth-kit.vercel.app/) to see what we offer! 🫡
 
 ## Plugins
 
@@ -14,6 +14,10 @@ Head over to our [getting started guide](https://better-auth-kit.vercel.app/docs
 - [✋ Waitlist](https://better-auth-kit.vercel.app/docs/plugins/waitlist) - A waitlist for your app.
 - [📜 Blockade](https://better-auth-kit.vercel.app/docs/plugins/blockade) - Whitelist or blacklist users.
 - [🚫 Shutdown](https://better-auth-kit.vercel.app/docs/plugins/shutdown) - Stop signins or signups at any moment. (Eg for maintenance reasons)
+
+## Libraries
+
+- [🤵‍♂️ Admin Dashboard](https://better-auth-kit.vercel.app/docs/libraries/admin-dashboard) - An admin dashboard library hosted on **your** React app.
 
 ## Example code & Demos
 
