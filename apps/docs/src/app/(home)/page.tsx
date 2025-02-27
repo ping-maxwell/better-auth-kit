@@ -52,7 +52,7 @@ export default function HomePage() {
             <Block
               emoji="🫷"
               title="Waitlist"
-              description="Want to let your users know when you're open for signups?"
+              description="Want to allow your users to join a waitlist?"
               href="/docs/plugins/waitlist"
             />
             <Block
@@ -64,7 +64,7 @@ export default function HomePage() {
             <Block
               emoji="🚧"
               title="Shutdown"
-              description="Want to stop sign-in or sign-ups for a period of time? (eg for maintenance)"
+              description="Want to stop sign-in or sign-ups during maintenance?"
               href="/docs/plugins/shutdown"
             />
             <Block
