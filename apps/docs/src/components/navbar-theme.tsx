@@ -11,8 +11,13 @@ export const NavbarTheme = () => {
         type="button"
         onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
         className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-color duration-150 ease-in-out cursor-pointer"
+        suppressHydrationWarning={true}
       >
-        {resolvedTheme === "dark" ? <Moon /> : <Sun />}
+        {resolvedTheme === "dark" ? (
+          <Moon suppressHydrationWarning={true} />
+        ) : (
+          <Sun suppressHydrationWarning={true} />
+        )}
       </button>
     </div>
   );

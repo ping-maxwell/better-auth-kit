@@ -2,7 +2,7 @@ import logo from "../../public/logo/500x500.png";
 import Image from "next/image";
 import { NavbarSearch } from "./navbar-search";
 import { NavbarGithub } from "./navbar-github";
-import { NavbarTheme } from "./navbar-theme";
+import { NavbarThemeServer } from "./navbar-theme-server";
 
 export const Navbar = () => {
   return (
@@ -23,7 +23,7 @@ export const Navbar = () => {
       <div className="w-full"></div>
       <NavbarSearch />
       <NavbarGithub />
-      <NavbarTheme />
+      <NavbarThemeServer />
     </header>
   );
 };
