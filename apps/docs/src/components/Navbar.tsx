@@ -1,6 +1,7 @@
 import logo from "../../public/logo/500x500.png";
 import Image from "next/image";
-import { NavbarSearch } from "./NavbarSearch";
+import { NavbarSearch } from "./navbar-search";
+import { NavbarGithub } from "./navbar-github";
 
 export const Navbar = () => {
   return (
@@ -9,19 +10,20 @@ export const Navbar = () => {
       aria-label="Main"
       dir="ltr"
     >
-      <div className="h-12 w-fit ml-5">
+      <div className="h-12 w-full px-5">
         <a
           href="/"
-          className="flex justify-center items-center gap-2 h-full w-fit text-nowrap"
+          className="flex justify-start items-center gap-2 h-full w-full text-nowrap"
         >
           <Image src={logo} alt="logo" width={32} height={32} />
           Better-Auth-Kit
         </a>
       </div>
-      <div className=""></div>
+      <div className="w-full"></div>
       <div className="">
         <NavbarSearch />
       </div>
+      <NavbarGithub />
     </header>
   );
 };
