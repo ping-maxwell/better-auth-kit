@@ -10,8 +10,10 @@ Head over to our [getting started guide](https://better-auth-kit.vercel.app/docs
 
 ## Plugins
 
-- [🧑‍⚖️ Legal Consent](https://github.com/ping-maxwell/better-auth-legal-consent)
-- [✋ Waitlist](https://github.com/ping-maxwell/better-auth-waitlist)
+- [🧑‍⚖️ Legal Consent](https://better-auth-kit.vercel.app/docs/plugins/legal-consent) - Ensure legal compliance from your users.
+- [✋ Waitlist](https://better-auth-kit.vercel.app/docs/plugins/waitlist) - A waitlist for your app.
+- [📜 Blockade](https://better-auth-kit.vercel.app/docs/plugins/blockade) - Whitelist or blacklist users.
+- [🚫 Shutdown](https://better-auth-kit.vercel.app/docs/plugins/shutdown) - Stop signins or signups at any moment. (Eg for maintenance reasons)
 
 ## Example code & Demos
 
