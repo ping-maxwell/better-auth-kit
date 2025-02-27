@@ -7,10 +7,12 @@ import {
   Info,
   OctagonMinus,
   OctagonPause,
+  Package,
   Play,
   Plug,
   Scale,
   ShieldBan,
+  ShieldUserIcon,
   type LucideIcon,
 } from "lucide-react";
 import type { ReactNode, SVGProps } from "react";
@@ -66,6 +68,17 @@ export const contents: Content[] = [
         href: "/docs/plugins/shutdown",
         title: "Shutdown",
         icon: () => <OctagonMinus size={16} />,
+      },
+    ],
+  },
+  {
+    Icon: () => <Package size={16} />,
+    title: "Libraries",
+    list: [
+      {
+        href: "/docs/libraries/admin-dashboard",
+        title: "Admin Dashboard",
+        icon: () => <ShieldUserIcon size={16} />,
       },
     ],
   },
