@@ -6,7 +6,7 @@ import { NavbarGithub } from "./navbar-github";
 export const Navbar = () => {
   return (
     <header
-      className="fixed left-1/2 top-(--fd-banner-height) z-40 box-content w-full -translate-x-1/2 transition-colors lg:mt-2 border-b shadow-sm bg-fd-background/80 backdrop-blur-lg pb-2 flex items-center justify-between"
+      className="fixed left-1/2 top-(--fd-banner-height) z-40 box-content w-full -translate-x-1/2 transition-colors border-b shadow-sm bg-fd-background/80 backdrop-blur-lg py-2 flex items-center justify-between"
       aria-label="Main"
       dir="ltr"
     >
