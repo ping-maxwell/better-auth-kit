@@ -7,13 +7,14 @@ import {
 } from "fumadocs-ui/page";
 import { notFound, redirect } from "next/navigation";
 import defaultMdxComponents from "fumadocs-ui/mdx";
+import { GithubUser } from "@/components/github-user";
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
 }) {
   const params = await props.params;
 
-  if(!params.slug || params.slug.length === 0) {
+  if (!params.slug || params.slug.length === 0) {
     return redirect("/docs/info");
   }
 
@@ -43,7 +44,7 @@ export default async function Page(props: {
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
-        <MDX components={{ ...defaultMdxComponents }} />
+        <MDX components={{ ...defaultMdxComponents, GithubUser }} />
       </DocsBody>
     </DocsPage>
   );
