@@ -5,10 +5,12 @@ import {
   FileQuestion,
   Flag,
   Info,
+  OctagonMinus,
   OctagonPause,
   Play,
   Plug,
   Scale,
+  ShieldBan,
   type LucideIcon,
 } from "lucide-react";
 import type { ReactNode, SVGProps } from "react";
@@ -54,6 +56,16 @@ export const contents: Content[] = [
         href: "/docs/plugins/legal-consent",
         title: "Legal Consent",
         icon: () => <Scale size={16} />,
+      },
+      {
+        href: "/docs/plugins/blockade",
+        title: "Blockade",
+        icon: () => <ShieldBan size={16} />,
+      },
+      {
+        href: "/docs/plugins/shutdown",
+        title: "Shutdown",
+        icon: () => <OctagonMinus size={16} />,
       },
     ],
   },
