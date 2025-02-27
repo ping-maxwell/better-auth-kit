@@ -64,7 +64,7 @@ export default function HomePage() {
             <Block
               emoji="🚧"
               title="Shutdown"
-              description="Want to stop sign-in or sign-ups during maintenance?"
+              description="Want to stop sign-ins or sign-ups during maintenance?"
               href="/docs/plugins/shutdown"
             />
             <Block
