@@ -9,13 +9,12 @@ export const NavbarSearch = () => {
   return (
     <Button
       variant={"outline"}
-      className="relative flex w-full gap-3 mr-2 font-normal border-transparent text-muted-foreground sm:w-fit hover:border-muted hover:bg-transparent cursor-pointer"
+      className="relative flex gap-3 border-none! sm:mr-2 font-normal text-muted-foreground w-fit hover:bg-transparent cursor-text"
       onClick={() => {
         setOpenSearch(true);
       }}
     >
-      <Search className="size-4 text-muted-foreground" />
-      <p className="lg:hidden">Search...</p>{" "}
+      <Search className="sm:size-4 text-muted-foreground" />
       <p className="hidden lg:inline">Search documentation...</p>
       <kbd className="pointer-events-none hidden h-5 select-none items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
         <span className="text-xs">⌘</span>K
