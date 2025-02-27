@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import bgImg from "./wallpaper.jpg";
 import logo from "./../../../public/logo/500x500.png";
 import { GithubUser } from "@/components/github-user";
-import { ArrowRight, Plug } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
