@@ -51,19 +51,25 @@ export default function HomePage() {
           <div className="sm:flex flex-wrap justify-center items-center w-full content-center gap-10 mt-10 hidden">
             <Block
               emoji="🫷"
-              title="Waitlist"
+              title="Waitlist Plugin"
               description="Want to allow your users to join a waitlist?"
               href="/docs/plugins/waitlist"
             />
             <Block
               emoji="🚫"
-              title="Blockade"
+              title="Blockade Plugin"
               description="Want to whitelist or blacklist users?"
               href="/docs/plugins/blockade"
             />
             <Block
+              emoji="🤵‍♂️"
+              title="Admin Dashbord Library"
+              description="Want an admin dashboard for your app?"
+              href="/docs/libraries/admin-dashboard"
+            />
+            <Block
               emoji="🚧"
-              title="Shutdown"
+              title="Shutdown Plugin"
               description="Want to stop sign-ins or sign-ups during maintenance?"
               href="/docs/plugins/shutdown"
             />
