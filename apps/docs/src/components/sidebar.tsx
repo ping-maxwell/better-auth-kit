@@ -26,7 +26,7 @@ export function Sidebar() {
 
 
   return (
-    <div className="fixed top-0 z-50">
+    <div className="fixed top-0 z-10">
       <aside className={
         cn(
           "border-r border-lines sm:w-[var(--fd-sidebar-width)] bg-background w-screen overflow-y-auto absolute top-[65px] h-dvh flex-col justify-between",
