@@ -8,6 +8,7 @@ import {
 import { notFound, redirect } from "next/navigation";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { GithubUser } from "@/components/github-user";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -45,7 +46,7 @@ export default async function Page(props: {
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
-        <MDX components={{ ...defaultMdxComponents, GithubUser }} />
+        <MDX components={{ ...defaultMdxComponents, GithubUser, Tab, Tabs }} />
       </DocsBody>
     </DocsPage>
   );
