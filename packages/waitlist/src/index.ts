@@ -73,8 +73,8 @@ export const waitlist = (options?: WaitlistOptions) => {
             required: false,
             input: false,
           },
-        }
-      }
+        },
+      },
     },
     $ERROR_CODES: ERROR_CODES,
   } satisfies BetterAuthPlugin;

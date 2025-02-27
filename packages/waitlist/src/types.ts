@@ -45,7 +45,7 @@ export type WaitlistEndConfig =
 
 interface WaitlistOptions_base {
   /**
-   * 
+   *
    */
   schema?: {};
   /**
