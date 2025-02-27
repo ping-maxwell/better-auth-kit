@@ -9,7 +9,7 @@ export const NavbarSearch = () => {
   return (
     <Button
       variant={"outline"}
-      className="relative flex gap-3 border-none! sm:mr-2 font-normal text-muted-foreground w-fit hover:bg-transparent cursor-text"
+      className="relative flex gap-3 border-none! sm:mr-2 font-normal text-muted-foreground w-fit cursor-text shadow-none bg-transparent!"
       onClick={() => {
         setOpenSearch(true);
       }}
