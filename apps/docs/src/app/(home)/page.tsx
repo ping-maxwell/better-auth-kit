@@ -44,7 +44,7 @@ export default function HomePage() {
             Better Auth Kit
           </h1>
           <p className="text-center text-xl  ">
-            A handy collection of <b>plugins</b>, <b>adapters</b>, <b>tools</b>{" "}
+            A handy collection of <b>plugins</b>, <b>adapters</b>, <b>libraries</b>{" "}
             and more.
           </p>
 
