@@ -1,10 +1,12 @@
-export const GithubUser = ({ children: username }: { children: string }) => {
+import { cn } from "@/lib/utils";
+
+export const GithubUser = ({ children: username, className }: { children: string, className?: string }) => {
   return (
       <a
         href={`https://github.com/${username}`}
         rel="noreferrer noopener"
         target="_blank"
-        className="font-normal"
+        className={cn("font-normal", className)}
       >
         <img
           className="rounded-full w-6 h-6 border  m-0! mr-1! inline"
