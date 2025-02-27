@@ -8,7 +8,7 @@ import {
 
 export const NavbarGithub = () => {
   return (
-    <div className="w-fit px-5 h-full flex items-center justify-center border-l border-muted">
+    <div className="w-fit px-5 h-6 flex items-center justify-center border-l border-muted">
       <TooltipProvider delayDuration={100}>
         <Tooltip>
           <TooltipTrigger asChild>
