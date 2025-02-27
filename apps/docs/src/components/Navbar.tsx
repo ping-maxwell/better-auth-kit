@@ -3,6 +3,7 @@ import Image from "next/image";
 import { NavbarSearch } from "./navbar-search";
 import { NavbarGithub } from "./navbar-github";
 import { NavbarThemeServer } from "./navbar-theme-server";
+import { NavbarMobileSidebarToggle } from "./navbar-mobile-sidebar-toggle";
 
 export const Navbar = () => {
   return (
@@ -11,6 +12,7 @@ export const Navbar = () => {
       aria-label="Main"
       dir="ltr"
     >
+      <NavbarMobileSidebarToggle />
       <div className="h-12 w-full px-5">
         <a
           href="/"

@@ -4,6 +4,7 @@ import { baseOptions } from "@/app/layout.config";
 import { source } from "@/lib/source";
 import { Navbar } from "@/components/navbar";
 import { Sidebar } from "@/components/sidebar";
+import { MobileSidebarController } from "@/components/mobile-sidebar-controller";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -19,11 +20,13 @@ export default function Layout({ children }: { children: ReactNode }) {
         enabled: false,
       }}
     >
-      <Navbar />
-      <Sidebar />
-      <div className="w-[calc(100vw_-_var(--fd-sidebar-width))] ml-[var(--fd-sidebar-width)] h-[calc(100vh_-_64px)] mt-[64px] flex relative overflow-y-auto">
-        {children}
-      </div>
+      <MobileSidebarController>
+        <Navbar />
+        <Sidebar />
+        <div className="w-[calc(100vw_-_var(--fd-sidebar-width))] ml-[var(--fd-sidebar-width)] h-[calc(100vh_-_64px)] mt-[64px] flex relative overflow-y-auto">
+          {children}
+        </div>
+      </MobileSidebarController>
     </DocsLayout>
   );
 }
