@@ -32,8 +32,8 @@ export default function HomePage() {
         <div className="bg-background opacity-50 absolute inset-0 w-full h-full"></div>
       </motion.div>
 
-      <div className="w-full absolute inset-0 overflow-y-auto max-h-screen">
-        <div className="w-full h-[800px] mt-16 flex flex-col justify-center items-center gap-3">
+      <div className="w-full absolute inset-0 h-screen">
+        <div className="w-full mt-16 flex flex-col justify-center items-center content-start gap-3 overflow-y-auto h-screen">
           <Image
             src={logo}
             alt="Better Auth Kit logo"
@@ -48,7 +48,7 @@ export default function HomePage() {
             and more.
           </p>
 
-          <div className="flex flex-wrap gap-10 mt-10">
+          <div className="sm:flex flex-wrap justify-center items-center w-full content-center gap-10 mt-10 hidden">
             <Block
               emoji="🫷"
               title="Waitlist"
@@ -75,7 +75,7 @@ export default function HomePage() {
             />
           </div>
 
-          <div className="absolute bottom-5 flex justify-center items-center gap-18 flex-col">
+          <div className="flex justify-center items-center gap-10 flex-col sm:pb-10 mt-32">
             <Link
               href="/docs/info"
               className="text-center w-fit rounded-full border border-primary/50 bg-primary/20 px-5 py-1 text-sm flex gap-2 items-center justify-center my-3 transition-all duration-150 ease-in-out hover:scale-110"
