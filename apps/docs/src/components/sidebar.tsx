@@ -4,8 +4,6 @@ import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 
 import { AsideLink } from "@/components/ui/aside-link";
 import { Suspense, useCallback, useEffect, useState } from "react";
-import { useSearchContext } from "fumadocs-ui/provider";
-import { usePathname, useRouter } from "next/navigation";
 import { contents } from "./sidebar-content";
 import { ChevronDownIcon, Search } from "lucide-react";
 import {
@@ -17,12 +15,24 @@ import {
 } from "./ui/select";
 import { cn } from "@/lib/utils";
 import { useMobileSidebar } from "./mobile-sidebar-controller";
+import { usePathname } from "next/navigation";
 
 export function Sidebar() {
   const [currentOpen, setCurrentOpen] = useState<number>(0);
   const {isOpen, setIsOpen} = useMobileSidebar();
   const cts = contents;
+  const pathname = usePathname();
 
+  const getDefaultValue = useCallback(() => {
+		const defaultValue = contents.findIndex((item) =>
+			item.list.some((listItem) => listItem.href === pathname),
+		);
+		return defaultValue === -1 ? 0 : defaultValue;
+	}, [pathname])
+
+  useEffect(() => {
+		setCurrentOpen(getDefaultValue());
+	}, [getDefaultValue]);
 
 
   return (
