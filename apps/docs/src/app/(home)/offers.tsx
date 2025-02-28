@@ -14,7 +14,7 @@ const offerItems = [
       <WaitlistOffer isHovering={isHovering} />
     ),
     className: "md:col-span-1",
-    icon: <ScrollText className="sm:size-4 text-muted-foreground" />,
+    icon: <ScrollText className="sm:size-4 text-fd-muted-foreground" />,
     href: "/docs/plugins/waitlist",
   },
   {
@@ -65,7 +65,7 @@ export function Offers() {
             title={item.title}
             description={item.description}
             header={item.header({ isHovering: currentlyHovering === i })}
-            className={cn("[&>p:text-lg] cursor-pointer", item.className)}
+            className={cn("[&>p:text-lg] cursor-pointer bg-transparent! backdrop-blur-sm", item.className)}
             icon={item.icon}
             onMouseEnter={() => {
               setCurrentlyHovering(i);
