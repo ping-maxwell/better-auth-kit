@@ -1,10 +1,11 @@
 "use client";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { cn } from "@/lib/utils";
-import { ScrollText } from "lucide-react";
+import { Scale, ScrollText, Shield, ShieldUser } from "lucide-react";
 import { WaitlistOffer } from "./offers/waitlist";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { BlockadeOffer } from "./offers/blockade";
 
 const offerItems = [
   {
@@ -18,34 +19,34 @@ const offerItems = [
     href: "/docs/plugins/waitlist",
   },
   {
-    title: "Waitlist Plugin",
-    description: "Want to allow your users to join a waitlist?",
+    title: "Blockade Plugin",
+    description: "Want to have an allowlist or blocklist of users?",
+    header: ({ isHovering }: { isHovering: boolean }) => (
+      <BlockadeOffer isHovering={isHovering} />
+    ),
+    className: "md:col-span-2",
+    icon: <Shield className="sm:size-4 text-fd-muted-foreground" />,
+    href: "/docs/plugins/blockade",
+  },
+  {
+    title: "Admin Dashboard Library",
+    description: "Want your own custom admin dashboard?",
     header: ({ isHovering }: { isHovering: boolean }) => (
       <div className=" w-full h-full"></div>
     ),
     className: "md:col-span-2",
-    icon: <></>,
-    href: "/docs/plugins/waitlist",
+    icon: <ShieldUser className="sm:size-4 text-fd-muted-foreground" />,
+    href: "/docs/libraries/admin-dashboard",
   },
   {
-    title: "Waitlist Plugin",
-    description: "Want to allow your users to join a waitlist?",
-    header: ({ isHovering }: { isHovering: boolean }) => (
-      <div className=" w-full h-full"></div>
-    ),
-    className: "md:col-span-2",
-    icon: <></>,
-    href: "/docs/plugins/waitlist",
-  },
-  {
-    title: "Waitlist Plugin",
-    description: "Want to allow your users to join a waitlist?",
+    title: "Legal Consent Plugin",
+    description: "Want your users to accept legal terms and conditions?",
     header: ({ isHovering }: { isHovering: boolean }) => (
       <div className=" w-full h-full"></div>
     ),
     className: "md:col-span-1",
-    icon: <></>,
-    href: "/docs/plugins/waitlist",
+    icon:  <Scale className="sm:size-4 text-fd-muted-foreground" />,
+    href: "/docs/plugins/legal-consent",
   },
 ];
 

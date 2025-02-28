@@ -38,7 +38,7 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
     if (loadingSpinner.current) {
       clearTimeout(loadingSpinner.current);
     }
-    if(autoRestartLoopTimer.current){
+    if (autoRestartLoopTimer.current) {
       clearTimeout(autoRestartLoopTimer.current);
     }
     setEmailPlaceholderDisplay(true);
@@ -52,7 +52,7 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
     emailPlaceholderDisplayTimeout.current = setTimeout(() => {
       setUpdateTitle(true);
       setShowLetters(false);
-      
+
       setTimeout(() => {
         setUpdateTitle(false);
         setEmailPlaceholderDisplay(true);
@@ -60,7 +60,7 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
           setInputBoxLoading(false);
           autoRestartLoopTimer.current = setTimeout(() => {
             restartAnimation();
-          }, 1000)
+          }, 1000);
         }, 300);
       }, 1500);
     }, lettersAnimationDuration);
@@ -73,6 +73,8 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
   useEffect(() => {
     if (isHovering) {
       restartAnimation();
+    } else {
+      clear();
     }
 
     return () => {
@@ -81,13 +83,25 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
   }, [isHovering, clear, restartAnimation]);
 
   return (
-    <div
+    <motion.div
       className={cn(
         "w-full h-full p-5 select-none transition-opacity duration-150 ease-in-out",
-        !isHovering && "opacity-90"
+        !isHovering ? "opacity-90" : ""
       )}
+      animate={
+        isHovering
+          ? {
+              scale: 1.1,
+            }
+          : { scale: 1 }
+      }
     >
-      <div className="w-full h-full  rounded-2xl bg-gradient-to-br from-fd-border/50 to-fd-border/20 py-5 px-2">
+      <div
+        className={cn(
+          "w-full h-full  rounded-2xl bg-gradient-to-br from-fd-border/50 to-fd-border/20 py-5 px-2",
+          isHovering && "shadow-xl "
+        )}
+      >
         <div className="mt-5"></div>
         <AnimatedTitle shouldUpdate={updateTitle} />
         <div className="w-full flex justify-center items-center mt-3 px-8">
@@ -131,17 +145,11 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-function AnimatedTitle({
-  shouldUpdate: started,
-}: //   delay,
-{
-  shouldUpdate: boolean;
-  //   delay: number;
-}) {
+function AnimatedTitle({ shouldUpdate: started }: { shouldUpdate: boolean }) {
   const [title, setTitle] = useState("Join the waitlist!");
   const [currentAni, setCurrentAni] = useState("show");
 
