@@ -1,6 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { LoaderCircle } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const emailVariants = {
@@ -21,8 +22,11 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
   const [emailPlaceholderDisplay, setEmailPlaceholderDisplay] = useState(true);
   const [showLetters, setShowLetters] = useState(false);
   const [updateTitle, setUpdateTitle] = useState(false);
+  const [inputBoxLoading, setInputBoxLoading] = useState(false);
   const emailPlaceholderDisplayTimeout = useRef<Timer | null>(null);
   const lettersInterval = useRef<Timer | null>(null);
+  const loadingSpinner = useRef<Timer | null>(null);
+  const autoRestartLoopTimer = useRef<Timer | null>(null);
 
   const clear = useCallback(() => {
     if (emailPlaceholderDisplayTimeout.current) {
@@ -30,6 +34,12 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
     }
     if (lettersInterval.current) {
       clearInterval(lettersInterval.current);
+    }
+    if (loadingSpinner.current) {
+      clearTimeout(loadingSpinner.current);
+    }
+    if(autoRestartLoopTimer.current){
+      clearTimeout(autoRestartLoopTimer.current);
     }
     setEmailPlaceholderDisplay(true);
     setShowLetters(false);
@@ -42,11 +52,21 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
     emailPlaceholderDisplayTimeout.current = setTimeout(() => {
       setUpdateTitle(true);
       setShowLetters(false);
+      
       setTimeout(() => {
         setUpdateTitle(false);
         setEmailPlaceholderDisplay(true);
+        setTimeout(() => {
+          setInputBoxLoading(false);
+          autoRestartLoopTimer.current = setTimeout(() => {
+            restartAnimation();
+          }, 1000)
+        }, 300);
       }, 1500);
     }, lettersAnimationDuration);
+    loadingSpinner.current = setTimeout(() => {
+      setInputBoxLoading(true);
+    }, lettersAnimationDuration + 200);
     setShowLetters(true);
   }, [clear]);
 
@@ -67,13 +87,21 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
         !isHovering && "opacity-90"
       )}
     >
-      <div className="w-full h-full  rounded-2xl bg-gradient-to-br from-muted/50 to-muted/20 py-5 px-2">
+      <div className="w-full h-full  rounded-2xl bg-gradient-to-br from-fd-border/50 to-fd-border/20 py-5 px-2">
         <div className="mt-5"></div>
         <AnimatedTitle shouldUpdate={updateTitle} />
         <div className="w-full flex justify-center items-center mt-3 px-8">
-          <div className="w-full h-6 rounded-sm border-1 border-muted flex items-center px-2 overflow-hidden relative">
+          {inputBoxLoading && (
+            <LoaderCircle className="animate-spin text-fd-muted-foreground/50 size-4" />
+          )}
+          <div
+            className={cn(
+              "w-full h-6 rounded-sm border-1 border-fd-border items-center px-2 overflow-hidden relative",
+              inputBoxLoading ? "hidden" : "flex"
+            )}
+          >
             <motion.span
-              className="text-muted-foreground/50"
+              className="text-fd-muted-foreground/50"
               style={{
                 fontSize: "10px",
               }}
