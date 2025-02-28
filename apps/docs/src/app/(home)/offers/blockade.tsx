@@ -54,6 +54,7 @@ function LineTop() {
 function UserCircle({ isHovering }: { isHovering: boolean }) {
   const [scope, animate] = useAnimate();
   const isDuringAnimation = useRef(false);
+  const isHoveringRef = useRef(isHovering);
 
   const startAnimation = useCallback(() => {
     const userSuccess = Math.random() >= 0.5;
@@ -74,7 +75,7 @@ function UserCircle({ isHovering }: { isHovering: boolean }) {
     }
     if (isDuringAnimation.current) return;
     isDuringAnimation.current = true;
-    
+
     animate(
       scope.current,
       {
@@ -109,12 +110,16 @@ function UserCircle({ isHovering }: { isHovering: boolean }) {
         ease: "linear",
         onComplete() {
           isDuringAnimation.current = false;
+          if(isHoveringRef.current === true){
+            startAnimation();
+          }
         },
       }
     );
   }, [animate, scope.current]);
 
   useEffect(() => {
+    isHoveringRef.current = isHovering;
     if (isHovering && !isDuringAnimation.current) {
       startAnimation();
     }
