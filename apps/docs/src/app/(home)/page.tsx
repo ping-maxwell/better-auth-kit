@@ -51,7 +51,7 @@ function Callout() {
         <ArrowRight size={16} />
       </Link>
 
-      <div className="text-sm text-secondary-foreground rounded-full">
+      <div className="text-sm text-fd-muted-foreground rounded-full">
         Built with ❤️ by{" "}
         <GithubUser className="underline">ping-maxwell</GithubUser>
       </div>
