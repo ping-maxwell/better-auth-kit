@@ -106,7 +106,7 @@ function UserCircle({ isHovering }: { isHovering: boolean }) {
       },
       {
         duration: 2.5,
-        delay: 0.1,
+        delay: 0,
         ease: "linear",
         onComplete() {
           isDuringAnimation.current = false;

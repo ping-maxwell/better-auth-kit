@@ -1,11 +1,12 @@
 "use client";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { cn } from "@/lib/utils";
-import { Scale, ScrollText, Shield, ShieldUser } from "lucide-react";
+import { Ban, Scale, ScrollText, Shield, ShieldUser } from "lucide-react";
 import { WaitlistOffer } from "./offers/waitlist";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { BlockadeOffer } from "./offers/blockade";
+import { AdminDashboardOffer } from "./offers/admin-dashboard";
 
 const offerItems = [
   {
@@ -30,11 +31,11 @@ const offerItems = [
   },
   {
     title: "Admin Dashboard Library",
-    description: "Want your own custom admin dashboard?",
+    description: "Want your own custom admin dashboard that's hosted on your site?",
     header: ({ isHovering }: { isHovering: boolean }) => (
-      <div className=" w-full h-full"></div>
+      <AdminDashboardOffer isHovering={isHovering} />
     ),
-    className: "md:col-span-2",
+    className: "md:col-span-1",
     icon: <ShieldUser className="sm:size-4 text-fd-muted-foreground" />,
     href: "/docs/libraries/admin-dashboard",
   },
@@ -45,7 +46,17 @@ const offerItems = [
       <div className=" w-full h-full"></div>
     ),
     className: "md:col-span-1",
-    icon:  <Scale className="sm:size-4 text-fd-muted-foreground" />,
+    icon: <Scale className="sm:size-4 text-fd-muted-foreground" />,
+    href: "/docs/plugins/legal-consent",
+  },
+  {
+    title: "Shutdown Plugin",
+    description: "Need to stop signins or signups for maintenance?",
+    header: ({ isHovering }: { isHovering: boolean }) => (
+      <div className=" w-full h-full"></div>
+    ),
+    className: "md:col-span-1",
+    icon: <Ban className="sm:size-4 text-fd-muted-foreground" />,
     href: "/docs/plugins/legal-consent",
   },
 ];
@@ -66,7 +77,10 @@ export function Offers() {
             title={item.title}
             description={item.description}
             header={item.header({ isHovering: currentlyHovering === i })}
-            className={cn("[&>p:text-lg] cursor-pointer bg-background! backdrop-blur-sm", item.className)}
+            className={cn(
+              "[&>p:text-lg] cursor-pointer bg-background! backdrop-blur-sm",
+              item.className
+            )}
             icon={item.icon}
             onMouseEnter={() => {
               setCurrentlyHovering(i);
