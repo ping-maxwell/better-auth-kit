@@ -38,7 +38,7 @@ export const LegalConsentOffer = ({ isHovering }: { isHovering: boolean }) => {
     >
       <motion.div
         className={cn(
-          "w-full h-[400px] rounded-2xl bg-gradient-to-br from-fd-border/50 to-fd-border/50 py-5 px-2 absolute inset-0 drop-shadow-lg"
+          "w-full h-[400px] rounded-2xl bg-fd-card border border-fd-border py-5 px-2 absolute inset-0 drop-shadow-lg"
         )}
         animate={isHovering ? { y: -220, scale: 0.9 } : { y: -120, scale: 0.4 }}
       >
