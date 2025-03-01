@@ -57,7 +57,7 @@ function UserCircle({ isHovering }: { isHovering: boolean }) {
   const isHoveringRef = useRef(isHovering);
 
   const startAnimation = useCallback(() => {
-    const userSuccess = Math.random() >= 0.5;
+    const userSuccess = Math.random() >= 0.4;
     //   const userSuccess = true
     let direction: [
       [number, number, number, number],
@@ -94,13 +94,13 @@ function UserCircle({ isHovering }: { isHovering: boolean }) {
         boxShadow: [
           ...duplicateArrays(["0 0 10px 0px transparent"], 4),
           ...(userSuccess
-            ? duplicateArrays(["0 0 10px 0px green"], 4)
+            ? duplicateArrays(["0 0 10px 0px lime"], 4)
             : duplicateArrays(["0 0 10px 0px red"], 4)),
         ],
         color: [
           ...duplicateArrays(["var(--color-fd-muted-foreground)"], 4),
           ...(userSuccess
-            ? duplicateArrays(["green"], 4)
+            ? duplicateArrays(["lime"], 4)
             : duplicateArrays(["red"], 4)),
         ],
       },
