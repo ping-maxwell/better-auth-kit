@@ -28,7 +28,7 @@ export const AdminDashboardOffer = ({
   return (
     <motion.div
       className={cn(
-        "w-full h-full p-5 select-none transition-opacity duration-150 ease-in-out relative overflow-hidden flex justify-center items-center",
+        "w-full h-full p-5 select-none transition-opacity duration-150 ease-in-out relative  flex justify-center items-center",
         !isHovering && "opacity-90"
       )}
       animate={
@@ -39,7 +39,12 @@ export const AdminDashboardOffer = ({
           : { scale: 1 }
       }
     >
-      <div className="w-full h-full bg-gradient-to-br from-fd-border/50 to-fd-border/40 rounded-lg relative flex">
+      <div
+        className={cn(
+          "w-full h-full bg-gradient-to-br from-fd-border/50 to-fd-border/40 rounded-lg relative flex",
+          isHovering && "shadow-xl "
+        )}
+      >
         <Sidebar />
         <div className="w-full h-full relative p-2 flex gap-3 justify-center items-center flex-wrap">
           <Graph1 isHover={isHovering} />
@@ -52,14 +57,27 @@ export const AdminDashboardOffer = ({
 };
 
 function Sidebar() {
-  return <div className="w-[30%] h-full bg-fd-border/30 rounded-l-lg flex flex-col p-1 gap-1" style={{
-    fontSize: "6.5px"
-  }}>
-    <div className="w-full rounded-sm py-[1px] bg-fd-border text-center text-fd-muted-foreground">Home</div>
-    <div className="w-full rounded-sm py-[1px] bg-fd-border/50 text-center text-fd-muted-foreground/50">Users</div>
-    <div className="w-full rounded-sm py-[1px] bg-fd-border/50 text-center text-fd-muted-foreground/50">Orgs</div>
-    <div className="w-full rounded-sm py-[1px] bg-fd-border/50 text-center text-fd-muted-foreground/50">API Keys</div>
-  </div>;
+  return (
+    <div
+      className="w-[30%] h-full bg-fd-border/30 rounded-l-lg flex flex-col p-1 gap-1"
+      style={{
+        fontSize: "6.5px",
+      }}
+    >
+      <div className="w-full rounded-sm py-[1px] bg-fd-border text-center text-fd-muted-foreground">
+        Home
+      </div>
+      <div className="w-full rounded-sm py-[1px] bg-fd-border/50 text-center text-fd-muted-foreground/50">
+        Users
+      </div>
+      <div className="w-full rounded-sm py-[1px] bg-fd-border/50 text-center text-fd-muted-foreground/50">
+        Orgs
+      </div>
+      <div className="w-full rounded-sm py-[1px] bg-fd-border/50 text-center text-fd-muted-foreground/50">
+        API Keys
+      </div>
+    </div>
+  );
 }
 
 function Graph1({ isHover }: { isHover: boolean }) {
