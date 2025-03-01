@@ -79,7 +79,7 @@ export function Offers() {
             description={item.description}
             header={item.header({ isHovering: currentlyHovering === i })}
             className={cn(
-              "[&>p:text-lg] cursor-pointer bg-background! backdrop-blur-sm",
+              "[&>p:text-lg] cursor-pointer bg-background! backdrop-blur-sm hover:border-muted-foreground/30",
               item.className
             )}
             icon={item.icon}
