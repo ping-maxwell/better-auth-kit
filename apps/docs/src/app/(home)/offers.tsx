@@ -61,7 +61,7 @@ const offerItems = [
     ),
     className: "md:col-span-1",
     icon: <Ban className="sm:size-4 text-fd-muted-foreground" />,
-    href: "/docs/plugins/legal-consent",
+    href: "/docs/plugins/shutdown",
   },
 ];
 
