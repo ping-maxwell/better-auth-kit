@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { BlockadeOffer } from "./offers/blockade";
 import { AdminDashboardOffer } from "./offers/admin-dashboard";
+import { LegalConsentOffer } from "./offers/legal-consent";
 
 const offerItems = [
   {
@@ -44,7 +45,7 @@ const offerItems = [
     title: "Legal Consent Plugin",
     description: "Want your users to accept legal terms and conditions?",
     header: ({ isHovering }: { isHovering: boolean }) => (
-      <div className=" w-full h-full"></div>
+      <LegalConsentOffer isHovering={isHovering} />
     ),
     className: "md:col-span-1",
     icon: <Scale className="sm:size-4 text-fd-muted-foreground" />,
@@ -77,7 +78,9 @@ export function Offers() {
             key={i}
             title={item.title}
             description={item.description}
-            header={item.header({ isHovering: currentlyHovering === i })}
+            header={<div className="w-full h-full hidden sm:block">
+              {item.header({ isHovering: currentlyHovering === i })}
+            </div>}
             className={cn(
               "[&>p:text-lg] cursor-pointer bg-background! backdrop-blur-sm hover:border-muted-foreground/30",
               item.className
