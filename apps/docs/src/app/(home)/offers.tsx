@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { BlockadeOffer } from "./offers/blockade";
 import { AdminDashboardOffer } from "./offers/admin-dashboard";
 import { LegalConsentOffer } from "./offers/legal-consent";
+import { ShutdownOffer } from "./offers/shutdown";
 
 const offerItems = [
   {
@@ -31,17 +32,6 @@ const offerItems = [
     href: "/docs/plugins/blockade",
   },
   {
-    title: "Admin Dashboard Library",
-    description:
-      "Want your own custom admin dashboard that's hosted on your site?",
-    header: ({ isHovering }: { isHovering: boolean }) => (
-      <AdminDashboardOffer isHovering={isHovering} />
-    ),
-    className: "md:col-span-1",
-    icon: <ShieldUser className="sm:size-4 text-fd-muted-foreground" />,
-    href: "/docs/libraries/admin-dashboard",
-  },
-  {
     title: "Legal Consent Plugin",
     description: "Want your users to accept legal terms and conditions?",
     header: ({ isHovering }: { isHovering: boolean }) => (
@@ -52,10 +42,22 @@ const offerItems = [
     href: "/docs/plugins/legal-consent",
   },
   {
+    title: "Admin Dashboard Library",
+    description:
+      "Want your own custom admin dashboard that's hosted on your site?",
+    header: ({ isHovering }: { isHovering: boolean }) => (
+      <AdminDashboardOffer isHovering={isHovering} />
+    ),
+    className: "md:col-span-1",
+    icon: <ShieldUser className="sm:size-4 text-fd-muted-foreground" />,
+    href: "/docs/libraries/admin-dashboard",
+  },
+
+  {
     title: "Shutdown Plugin",
     description: "Need to stop signins or signups for maintenance?",
     header: ({ isHovering }: { isHovering: boolean }) => (
-      <div className=" w-full h-full"></div>
+      <ShutdownOffer isHovering={isHovering} />
     ),
     className: "md:col-span-1",
     icon: <Ban className="sm:size-4 text-fd-muted-foreground" />,
@@ -78,9 +80,11 @@ export function Offers() {
             key={i}
             title={item.title}
             description={item.description}
-            header={<div className="w-full h-full hidden sm:block">
-              {item.header({ isHovering: currentlyHovering === i })}
-            </div>}
+            header={
+              <div className="w-full h-full hidden sm:block">
+                {item.header({ isHovering: currentlyHovering === i })}
+              </div>
+            }
             className={cn(
               "[&>p:text-lg] cursor-pointer bg-background! backdrop-blur-sm hover:border-muted-foreground/30",
               item.className
