@@ -31,7 +31,8 @@ const offerItems = [
   },
   {
     title: "Admin Dashboard Library",
-    description: "Want your own custom admin dashboard that's hosted on your site?",
+    description:
+      "Want your own custom admin dashboard that's hosted on your site?",
     header: ({ isHovering }: { isHovering: boolean }) => (
       <AdminDashboardOffer isHovering={isHovering} />
     ),
@@ -94,6 +95,7 @@ export function Offers() {
           />
         ))}
       </BentoGrid>
+      <h2 className="text-center text-2xl font-bold mt-15">And more!</h2>
     </div>
   );
 }
