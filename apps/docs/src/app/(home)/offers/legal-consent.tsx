@@ -55,10 +55,10 @@ function Form({ isHovering }: { isHovering: boolean }) {
       <span className="text-center w-full flex justify-center items-center text-lg">
         Sign Up
       </span>
-      <div className="w-full h-8 rounded-sm border-2 border-fd-border text-fd-muted-foreground px-2">
+      <div className="w-full h-8 rounded-sm border-2 border-fd-border text-fd-muted-foreground px-2 flex justify-start items-center">
         Email
       </div>
-      <div className="w-full h-8 rounded-sm border-2 border-fd-border text-fd-muted-foreground px-2">
+      <div className="w-full h-8 rounded-sm border-2 border-fd-border text-fd-muted-foreground px-2 flex justify-start items-center">
         Password
       </div>
       <div className="mt-[10px]"></div>
@@ -72,7 +72,7 @@ function Form({ isHovering }: { isHovering: boolean }) {
           <CheckboxLabel>Agree to Privacy Policy</CheckboxLabel>
         </Checkbox>
       </span>
-      <div className="w-full text-center bg-fd-card/50 py-1.5 rounded-md text-muted-foreground mt-2">
+      <div className="w-full text-center border border-fd-border py-1.5 rounded-md text-muted-foreground mt-2">
         Sign up!
       </div>
     </div>
