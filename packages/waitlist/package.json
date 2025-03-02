@@ -10,11 +10,15 @@
   "exports": {
     ".": {
       "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./src/index.ts"
+    },
+    "./client": {
+      "default": "./dist/client.js",
+      "types": "./src/client.ts"
     }
   },
   "scripts": {
-    "dev": "bun build --entrypoints ./src/index.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
+    "dev": "bun build --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch --entrypoints ./src/index.ts ./src/schema.ts ./src/client.ts",
     "build": "bun build.ts"
   },
   "keywords": ["better-auth", "waitlist", "plugin"],
@@ -24,6 +28,9 @@
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "better-auth": "^1.1.21"
+    "better-auth": "^1.2.1"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
   }
 }

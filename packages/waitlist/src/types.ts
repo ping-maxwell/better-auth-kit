@@ -1,5 +1,18 @@
+import type { InferOptionSchema, User } from "better-auth";
+import type { schema, WaitlistUser } from "./schema";
+import type { FieldAttribute } from "better-auth/db";
+
 interface WaitlistEndConfig_base {
   event: "max-signups-reached" | "date-reached" | "trigger-function";
+  onWaitlistEnd: (
+    /**
+     * The users that are currently in the waitlist.
+     * From here, you could either immediately migrate them to a new user, send them emails to inform them of the waitlist end, or do whatever you want.
+     *
+     * Note: If you extended the waitlist schema, then the type definition for the waitlistUser will be incorrect.
+     */
+    users: WaitlistUser[],
+  ) => void;
 }
 
 interface WaitlistEndConfig_maxSignups extends WaitlistEndConfig_base {
@@ -45,10 +58,6 @@ export type WaitlistEndConfig =
 
 interface WaitlistOptions_base {
   /**
-   *
-   */
-  schema?: {};
-  /**
    * The maximum number of users that can be added to the waitlist.
    * If null, there is no limit.
    *
@@ -56,9 +65,13 @@ interface WaitlistOptions_base {
    */
   maximumWaitlistParticipants?: number | null;
   /**
-   * Custom schema for the waitlist plugin
+   * schema for the waitlist plugin. Use this to rename fields.
    */
   schema?: InferOptionSchema<typeof schema>;
+  /**
+   * Extend the `waitlist` schema with additional fields.
+   */
+  additionalFields?: Record<string, FieldAttribute>;
 }
 
 interface WaitlistOptions_enabled extends WaitlistOptions_base {

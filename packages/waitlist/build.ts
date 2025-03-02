@@ -5,7 +5,7 @@ const res = await Bun.build({
   outdir: "./dist",
   minify: true,
   sourcemap: "external",
-  entrypoints: ["./src/index.ts"],
+  entrypoints: ["./src/index.ts", "./src/schema.ts", "./src/client.ts"],
   packages: "external",
 });
 res.logs.forEach((log) => {
