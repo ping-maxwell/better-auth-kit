@@ -73,7 +73,7 @@ export const waitlist = (options?: WaitlistOptions) => {
           );
 
           if (found) {
-            throw new APIError("FORBIDDEN", {
+            throw ctx.error("FORBIDDEN", {
               message: ERROR_CODES.USER_EXISTS,
             });
           }
@@ -86,7 +86,7 @@ export const waitlist = (options?: WaitlistOptions) => {
             });
 
             if (count >= opts.maximumWaitlistParticipants) {
-              throw new APIError("FORBIDDEN", {
+              throw ctx.error("FORBIDDEN", {
                 message: ERROR_CODES.MAX_PARTICIPANTS_REACHED,
               });
             }

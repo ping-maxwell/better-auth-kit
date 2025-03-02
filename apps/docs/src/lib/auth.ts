@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth";
+import { apiKey, openAPI } from "better-auth/plugins";
 import { nextCookies } from "better-auth/next-js";
 import { waitlist } from "better-auth-waitlist";
 import Database from "better-sqlite3";
@@ -16,6 +17,8 @@ export const auth = betterAuth({
         },
       },
     }),
+    openAPI(),
+    apiKey(),
     nextCookies(),
   ],
 });
