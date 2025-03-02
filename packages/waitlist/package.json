@@ -11,10 +11,6 @@
     ".": {
       "default": "./dist/index.js",
       "types": "./src/index.ts"
-    },
-    "./client": {
-      "default": "./dist/client.js",
-      "types": "./src/client.ts"
     }
   },
   "scripts": {

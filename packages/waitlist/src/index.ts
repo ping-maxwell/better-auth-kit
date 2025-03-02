@@ -14,6 +14,7 @@ import {
   type InferFieldsInput,
 } from "better-auth/db";
 export * from "./types";
+export * from "./client";
 
 export const ERROR_CODES = {
   MAX_PARTICIPANTS_REACHED: "Maximum waitlist participants reached",
@@ -72,7 +73,7 @@ export const waitlist = (options?: WaitlistOptions) => {
           );
 
           if (found) {
-            throw new APIError("BAD_REQUEST", {
+            throw new APIError("FORBIDDEN", {
               message: ERROR_CODES.USER_EXISTS,
             });
           }
@@ -85,7 +86,7 @@ export const waitlist = (options?: WaitlistOptions) => {
             });
 
             if (count >= opts.maximumWaitlistParticipants) {
-              throw new APIError("BAD_REQUEST", {
+              throw new APIError("FORBIDDEN", {
                 message: ERROR_CODES.MAX_PARTICIPANTS_REACHED,
               });
             }
