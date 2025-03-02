@@ -38,6 +38,9 @@
     "@radix-ui/react-toggle": "^1.1.0",
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.4",
+    "better-auth": "^1.2.1",
+    "better-auth-waitlist": "*",
+    "better-sqlite3": "^11.8.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.4",
@@ -61,13 +64,14 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.7",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/mdx": "^2.0.13",
     "@types/node": "22.13.4",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "typescript": "^5.7.3",
-    "@types/mdx": "^2.0.13",
-    "@tailwindcss/postcss": "^4.0.7",
+    "postcss": "^8.5.3",
     "tailwindcss": "^4.0.7",
-    "postcss": "^8.5.3"
+    "typescript": "^5.7.3"
   }
 }
