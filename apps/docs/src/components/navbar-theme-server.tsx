@@ -12,5 +12,5 @@ export const NavbarThemeServer = dynamic(
         <Moon />
       </div>
     ),
-  }
+  },
 );

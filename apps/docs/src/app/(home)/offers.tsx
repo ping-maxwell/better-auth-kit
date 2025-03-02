@@ -87,7 +87,7 @@ export function Offers() {
             }
             className={cn(
               "[&>p:text-lg] cursor-pointer bg-background! backdrop-blur-sm hover:border-muted-foreground/30",
-              item.className
+              item.className,
             )}
             icon={item.icon}
             onMouseEnter={() => {

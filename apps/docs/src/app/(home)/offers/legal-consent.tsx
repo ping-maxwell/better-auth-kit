@@ -33,12 +33,12 @@ export const LegalConsentOffer = ({ isHovering }: { isHovering: boolean }) => {
     <div
       className={cn(
         "w-full h-full p-5 select-none transition-opacity duration-150 ease-in-out overflow-hidden relative",
-        !isHovering ? "opacity-90" : ""
+        !isHovering ? "opacity-90" : "",
       )}
     >
       <motion.div
         className={cn(
-          "w-full h-[400px] rounded-2xl bg-fd-card border border-fd-border py-5 px-2 absolute inset-0 drop-shadow-lg"
+          "w-full h-[400px] rounded-2xl bg-fd-card border border-fd-border py-5 px-2 absolute inset-0 drop-shadow-lg",
         )}
         animate={isHovering ? { y: -220, scale: 0.9 } : { y: -120, scale: 0.4 }}
       >

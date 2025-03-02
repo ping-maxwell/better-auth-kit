@@ -86,7 +86,7 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
     <motion.div
       className={cn(
         "w-full h-full p-5 select-none transition-opacity duration-150 ease-in-out",
-        !isHovering ? "opacity-90" : ""
+        !isHovering ? "opacity-90" : "",
       )}
       animate={
         isHovering
@@ -99,7 +99,7 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
       <div
         className={cn(
           "w-full h-full  rounded-2xl bg-gradient-to-br from-fd-border/50 to-fd-border/20 py-5 px-2",
-          isHovering && "shadow-xl "
+          isHovering && "shadow-xl ",
         )}
       >
         <div className="mt-5"></div>
@@ -111,7 +111,7 @@ export const WaitlistOffer = ({ isHovering }: { isHovering: boolean }) => {
           <div
             className={cn(
               "w-full h-6 rounded-sm border-1 border-fd-border items-center px-2 overflow-hidden relative",
-              inputBoxLoading ? "hidden" : "flex"
+              inputBoxLoading ? "hidden" : "flex",
             )}
           >
             <motion.span

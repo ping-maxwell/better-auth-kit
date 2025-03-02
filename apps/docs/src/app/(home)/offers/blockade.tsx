@@ -25,7 +25,7 @@ export const BlockadeOffer = ({ isHovering }: { isHovering: boolean }) => {
     <div
       className={cn(
         "w-full h-full p-5 select-none transition-opacity duration-150 ease-in-out relative overflow-hidden",
-        !isHovering && "opacity-90"
+        !isHovering && "opacity-90",
       )}
     >
       <UserCircle isHovering={isHovering} />
@@ -61,7 +61,7 @@ function UserCircle({ isHovering }: { isHovering: boolean }) {
     //   const userSuccess = true
     let direction: [
       [number, number, number, number],
-      [number, number, number, number]
+      [number, number, number, number],
     ] = [
       [220, 350, 430, 430],
       [50, 50, 150, 200],
@@ -110,11 +110,11 @@ function UserCircle({ isHovering }: { isHovering: boolean }) {
         ease: "linear",
         onComplete() {
           isDuringAnimation.current = false;
-          if(isHoveringRef.current === true){
+          if (isHoveringRef.current === true) {
             startAnimation();
           }
         },
-      }
+      },
     );
   }, [animate, scope.current]);
 

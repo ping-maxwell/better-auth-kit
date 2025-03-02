@@ -19,30 +19,29 @@ import { usePathname } from "next/navigation";
 
 export function Sidebar() {
   const [currentOpen, setCurrentOpen] = useState<number>(0);
-  const {isOpen, setIsOpen} = useMobileSidebar();
+  const { isOpen, setIsOpen } = useMobileSidebar();
   const cts = contents;
   const pathname = usePathname();
 
   const getDefaultValue = useCallback(() => {
-		const defaultValue = contents.findIndex((item) =>
-			item.list.some((listItem) => listItem.href === pathname),
-		);
-		return defaultValue === -1 ? 0 : defaultValue;
-	}, [pathname])
+    const defaultValue = contents.findIndex((item) =>
+      item.list.some((listItem) => listItem.href === pathname),
+    );
+    return defaultValue === -1 ? 0 : defaultValue;
+  }, [pathname]);
 
   useEffect(() => {
-		setCurrentOpen(getDefaultValue());
-	}, [getDefaultValue]);
-
+    setCurrentOpen(getDefaultValue());
+  }, [getDefaultValue]);
 
   return (
     <div className="fixed top-0 z-10">
-      <aside className={
-        cn(
+      <aside
+        className={cn(
           "border-r border-lines sm:w-[var(--fd-sidebar-width)] bg-background w-screen overflow-y-auto absolute top-[65px] h-dvh flex-col justify-between",
-          isOpen ? "flex" : "hidden sm:flex"
-        )
-      }>
+          isOpen ? "flex" : "hidden sm:flex",
+        )}
+      >
         <MotionConfig transition={{ duration: 0.4, type: "spring", bounce: 0 }}>
           <div className="flex flex-col">
             {cts.map((item, index) => (
@@ -65,7 +64,7 @@ export function Sidebar() {
                   >
                     <ChevronDownIcon
                       className={cn(
-                        "h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200"
+                        "h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200",
                       )}
                     />
                   </motion.div>

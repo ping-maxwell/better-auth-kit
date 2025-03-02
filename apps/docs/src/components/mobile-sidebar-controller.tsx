@@ -28,7 +28,7 @@ export const useMobileSidebar = () => {
   const context = useContext(MobileSidebarContext);
   if (context === undefined) {
     throw new Error(
-      "useMobileSidebar must be used within a MobileSidebarController"
+      "useMobileSidebar must be used within a MobileSidebarController",
     );
   }
   return context;

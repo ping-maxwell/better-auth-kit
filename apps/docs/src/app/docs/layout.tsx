@@ -20,11 +20,11 @@ export default function Layout({ children }: { children: ReactNode }) {
         enabled: false,
       }}
     >
-        <Navbar />
-        <Sidebar />
-        <div className="w-[calc(100vw_-_var(--fd-sidebar-width))] ml-[var(--fd-sidebar-width)] h-[calc(100vh_-_64px)] mt-[64px] flex relative overflow-y-auto">
-          {children}
-        </div>
+      <Navbar />
+      <Sidebar />
+      <div className="w-[calc(100vw_-_var(--fd-sidebar-width))] ml-[var(--fd-sidebar-width)] h-[calc(100vh_-_64px)] mt-[64px] flex relative overflow-y-auto">
+        {children}
+      </div>
     </DocsLayout>
   );
 }

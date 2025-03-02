@@ -1,5 +1,5 @@
 import { defineDocs, defineConfig } from "fumadocs-mdx/config";
-import { remarkInstall } from 'fumadocs-docgen';
+import { remarkInstall } from "fumadocs-docgen";
 
 export const docs = defineDocs({
   dir: "content/docs",

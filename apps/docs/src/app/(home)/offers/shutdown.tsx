@@ -7,14 +7,14 @@ export const ShutdownOffer = ({ isHovering }: { isHovering: boolean }) => {
     <div
       className={cn(
         "w-full h-full select-none transition-opacity duration-150 ease-in-out overflow-hidden relative",
-        !isHovering ? "opacity-90" : ""
+        !isHovering ? "opacity-90" : "",
       )}
     >
       <DoorBottom isHovering={isHovering} />
       <DoorTop isHovering={isHovering} />
       <motion.div
         className={cn(
-          "w-full h-[300px] rounded-2xl bg-fd-card border border-fd-border py-5 px-2 absolute inset-0 drop-shadow-lg"
+          "w-full h-[300px] rounded-2xl bg-fd-card border border-fd-border py-5 px-2 absolute inset-0 drop-shadow-lg",
         )}
         initial={{ y: -60, scale: 0.4 }}
       >
@@ -45,7 +45,7 @@ function DoorTop({ isHovering }: { isHovering: boolean }) {
             "h-[40px] w-[10px] border rounded-sm transition-colors duration-300 ease-in-out delay-300",
             isHovering
               ? "border-red-500 bg-red-500/50"
-              : "bg-fd-border/50 border-fd-border"
+              : "bg-fd-border/50 border-fd-border",
           )}
           initial={{
             rotate: 0,

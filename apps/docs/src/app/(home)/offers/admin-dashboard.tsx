@@ -29,7 +29,7 @@ export const AdminDashboardOffer = ({
     <motion.div
       className={cn(
         "w-full h-full p-5 select-none transition-opacity duration-150 ease-in-out relative  flex justify-center items-center",
-        !isHovering && "opacity-90"
+        !isHovering && "opacity-90",
       )}
       animate={
         isHovering
@@ -42,7 +42,7 @@ export const AdminDashboardOffer = ({
       <div
         className={cn(
           "w-full h-full bg-gradient-to-br from-fd-border/50 to-fd-border/40 rounded-lg relative flex",
-          isHovering && "shadow-xl "
+          isHovering && "shadow-xl ",
         )}
       >
         <Sidebar />
@@ -220,7 +220,7 @@ function UserLog(user: { avatar: string; name: string; email: string }) {
 const generateRandomData = (
   numPoints: number,
   maxX: number,
-  maxY: number
+  maxY: number,
 ): { x: number; y: number }[] => {
   const data: { x: number; y: number }[] = [];
 

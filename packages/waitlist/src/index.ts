@@ -70,6 +70,7 @@ export const waitlist = (options?: WaitlistOptions) => {
               where: [{ field: "email", value: email, operator: "eq" }],
             },
           );
+
           if (found) {
             throw new APIError("BAD_REQUEST", {
               message: ERROR_CODES.USER_EXISTS,
