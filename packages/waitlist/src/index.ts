@@ -48,17 +48,6 @@ export const waitlist = (options?: WaitlistOptions) => {
     id: "waitlist",
     schema: merged_schema,
     $ERROR_CODES: ERROR_CODES,
-    init(ctx) {
-      if (opts.waitlistEndConfig.event === "trigger-function") {
-        opts.waitlistEndConfig.triggerFunction(async () => {
-          const users = await getAllWaitlistUsers({
-            ctx,
-            modelName: model,
-          });
-          opts.waitlistEndConfig.onWaitlistEnd(users);
-        });
-      }
-    },
     endpoints: {
       addWaitlistUser: createAuthEndpoint(
         "/waitlist/add-user",
