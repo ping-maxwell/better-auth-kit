@@ -16,20 +16,14 @@ import {
 import { cn } from "@/lib/utils";
 import { useMobileSidebar } from "./mobile-sidebar-controller";
 import { usePathname } from "next/navigation";
-import { Switch } from "./ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip";
+import { useComprehensive } from "./comprehensive-provider";
 
 export function Sidebar() {
   const [currentOpen, setCurrentOpen] = useState<number>(0);
   const { isOpen, setIsOpen } = useMobileSidebar();
+  const { levelOfDetail: levelOfDetailR, set, onChange } = useComprehensive();
   const [levelOfDetail, setLevelOfDetail] = useState<"basic" | "comprehensive">(
-    "basic"
+    levelOfDetailR
   );
   const cts = contents;
   const pathname = usePathname();
@@ -46,10 +40,11 @@ export function Sidebar() {
   }, [getDefaultValue]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("levelOfDetail", levelOfDetail);
-    }
-  }, [levelOfDetail]);
+    const unsub = onChange((detail) => {
+      setLevelOfDetail(detail);
+    });
+    return unsub;
+  }, [onChange]);
 
   return (
     <div className="fixed top-0 z-10">
@@ -142,7 +137,7 @@ export function Sidebar() {
               defaultValue="basic"
               value={levelOfDetail}
               onValueChange={(val: "basic" | "comprehensive") => {
-                setLevelOfDetail(val);
+                set(val);
               }}
             >
               <SelectTrigger className="h-16 border w-full shadow-none border-b border-none rounded-none outline-none focus:ring-transparent">
