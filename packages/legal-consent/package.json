@@ -1,6 +1,6 @@
 {
   "name": "better-auth-legal-consent",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Keep your application compliant by requiring legal consent on your sign-up routes.",
   "type": "module",
   "repository": {
