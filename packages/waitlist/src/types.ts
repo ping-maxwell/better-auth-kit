@@ -4,36 +4,26 @@ import type { FieldAttribute } from "better-auth/db";
 
 interface WaitlistEndConfig_base {
   event: "max-signups-reached" | "date-reached" | "trigger-only";
-  onWaitlistEnd: (
-    /**
-     * The users that are currently in the waitlist.
-     * From here, you could either immediately migrate them to a new user, send them emails to inform them of the waitlist end, or do whatever you want.
-     *
-     * Note: If you extended the waitlist schema, then the type definition for the waitlistUser will be incorrect.
-     */
-    users: WaitlistUser[],
-  ) => void;
+  onWaitlistEnd: () => void;
 }
 
 interface WaitlistEndConfig_maxSignups extends WaitlistEndConfig_base {
   /**
-   * The waitlist will end once your maximum signup count is reached.
-   * 
+   * The waitlist will end once your `maximumWaitlistParticipants` count is reached.
+   *
+   * Note: If you do not set a `maximumWaitlistParticipants` value, then the count will never be reached, therefore the waitlist can only end if you call the `trigger` function.
+   *
    * Note: The `trigger` function will still work.
    */
   event: "max-signups-reached";
-  /**
-   * The maximum number of signups that can be reached before the waitlist ends.
-   */
-  maximumSignups: number;
 }
 
 interface WaitlistEndConfig_date extends WaitlistEndConfig_base {
   /**
-   * When the given `date` value has reached, the waitlist ends. 
-   * 
+   * When the given `date` value has reached, the waitlist ends.
+   *
    * Note: This won't work if you're running Better Auth in a serverless enviroment.
-   * 
+   *
    * The `trigger` function will still work.
    */
   event: "date-reached";
@@ -73,7 +63,7 @@ interface WaitlistOptions_base {
   additionalFields?: Record<string, FieldAttribute>;
   /**
    * Wether to disable sign in & sign ups while the waitlist is active.
-   * 
+   *
    * @default false
    */
   disableSignInAndSignUp?: boolean;

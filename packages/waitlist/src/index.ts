@@ -27,8 +27,7 @@ export const waitlist = (options?: WaitlistOptions) => {
     schema: options?.schema,
     waitlistEndConfig: options?.waitlistEndConfig ?? {
       event: "max-signups-reached",
-      maximumSignups: -1,
-      onWaitlistEnd(users) {},
+      onWaitlistEnd() {},
     },
     additionalFields: options?.additionalFields ?? {},
   } satisfies WaitlistOptions;
@@ -92,26 +91,21 @@ export const waitlist = (options?: WaitlistOptions) => {
             }
           }
 
-          if (opts.waitlistEndConfig.event === "max-signups-reached") {
+          if (
+            opts.waitlistEndConfig.event === "max-signups-reached" &&
+            opts.maximumWaitlistParticipants !== null
+          ) {
             if (count === null) {
               count = await ctx.context.adapter.count({
                 model: model,
               });
             }
-            if (count >= opts.waitlistEndConfig.maximumSignups) {
-              const users = await getAllWaitlistUsers({
-                ctx: ctx.context,
-                modelName: model,
-              });
-              opts.waitlistEndConfig.onWaitlistEnd(users);
+            if (count >= opts.maximumWaitlistParticipants) {
+              opts.waitlistEndConfig.onWaitlistEnd();
             }
           } else if (opts.waitlistEndConfig.event === "date-reached") {
             if (new Date() > opts.waitlistEndConfig.date) {
-              const users = await getAllWaitlistUsers({
-                ctx: ctx.context,
-                modelName: model,
-              });
-              opts.waitlistEndConfig.onWaitlistEnd(users);
+              opts.waitlistEndConfig.onWaitlistEnd();
             }
           }
 
@@ -180,25 +174,4 @@ function convertAdditionalFieldsToZodSchema(
     additionalFieldsZodSchema[key] = res;
   }
   return z.object(additionalFieldsZodSchema);
-}
-
-async function getAllWaitlistUsers({
-  ctx,
-  modelName,
-  allUserCount,
-}: {
-  ctx: AuthContext;
-  modelName: string;
-  allUserCount?: number;
-}) {
-  allUserCount =
-    allUserCount ??
-    (await ctx.adapter.count({
-      model: modelName,
-    }));
-  const allUsers = await ctx.adapter.findMany<WaitlistUser>({
-    model: modelName,
-    limit: allUserCount,
-  });
-  return allUsers;
 }
