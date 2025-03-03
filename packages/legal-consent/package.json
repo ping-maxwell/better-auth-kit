@@ -1,6 +1,6 @@
 {
   "name": "better-auth-legal-consent",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Keep your application compliant by requiring legal consent on your sign-up routes.",
   "type": "module",
   "repository": {
@@ -15,7 +15,8 @@
   },
   "scripts": {
     "dev": "bun build --entrypoints ./src/index.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
-    "build": "bun build.ts"
+    "build": "bun build.ts && bun run build:declaration",
+    "build:declaration": "tsc --emitDeclarationOnly --outDir dist && echo \"completed type generation.\""
   },
   "keywords": ["better-auth", "legal-consent", "plugin"],
   "author": "ping-maxwell",
