@@ -92,6 +92,11 @@ export const contents: Content[] = [
         title: "Convex DB",
         icon: () => <Database size={16} />,
       },
+      {
+        href: "/docs/adapters/pocketbase",
+        title: "Pocketbase DB",
+        icon: () => <Database size={16} />,
+      },
     ],
   },
   {

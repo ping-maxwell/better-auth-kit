@@ -1,3 +1,5 @@
+import dts from "bun-plugin-dts";
+
 (async () => {
   const start = Date.now();
   const res = await Bun.build({
@@ -8,6 +10,8 @@
     sourcemap: "external",
     entrypoints: ["./src/index.ts", "./src/schema.ts", "./src/client.ts"],
     packages: "external",
+    plugins: [dts()],
+    splitting: true
   });
   res.logs.forEach((log) => {
     console.log(log);
