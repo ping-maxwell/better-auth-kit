@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "sources": ["../src/client.ts"],
+  "sourcesContent": [
+    "import type { BetterAuthClientPlugin } from \"better-auth\";\nimport type { waitlist } from \".\";\n\nexport const waitlistClient = () => {\n  return {\n    id: \"waitlist\",\n    $InferServerPlugin: {} as ReturnType<typeof waitlist>,\n  } satisfies BetterAuthClientPlugin;\n};\n"
+  ],
+  "mappings": "AAGO,IAAM,EAAiB,IAAM,CAClC,MAAO,CACL,GAAI,WACJ,mBAAoB,CAAC,CACvB",
+  "debugId": "9C9F52F06665BD1064756E2164756E21",
+  "names": []
+}
