@@ -1,6 +1,6 @@
 {
   "name": "better-auth-waitlist",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A plugin for better-auth that allows you to add a waitlist to your application.",
   "type": "module",
   "repository": {
