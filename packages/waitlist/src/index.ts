@@ -2,12 +2,11 @@ import {
   generateId,
   type AuthContext,
   type BetterAuthPlugin,
-  type EndpointContext,
 } from "better-auth";
 import { z, type ZodRawShape, type ZodTypeAny } from "zod";
 import type { WaitlistOptions } from "./types";
 import { schema, type WaitlistUser } from "./schema";
-import { createAuthEndpoint, APIError } from "better-auth/api";
+import { createAuthEndpoint } from "better-auth/api";
 import {
   mergeSchema,
   type FieldAttribute,
@@ -43,10 +42,23 @@ export const waitlist = (options?: WaitlistOptions) => {
   type WaitlistUserModified = WaitlistUser &
     InferFieldsInput<typeof opts.additionalFields>;
 
+  const model = Object.keys(merged_schema)[0] as string;
+
   return {
     id: "waitlist",
     schema: merged_schema,
     $ERROR_CODES: ERROR_CODES,
+    init(ctx) {
+      if (opts.waitlistEndConfig.event === "trigger-function") {
+        opts.waitlistEndConfig.triggerFunction(async () => {
+          const users = await getAllWaitlistUsers({
+            ctx,
+            modelName: model,
+          });
+          opts.waitlistEndConfig.onWaitlistEnd(users);
+        });
+      }
+    },
     endpoints: {
       addWaitlistUser: createAuthEndpoint(
         "/waitlist/add-user",
@@ -59,7 +71,6 @@ export const waitlist = (options?: WaitlistOptions) => {
           }) as never as z.ZodType<Omit<WaitlistUser, "id" | "joinedAt">>,
         },
         async (ctx) => {
-          const model = Object.keys(merged_schema)[0] as string;
           const { email, name, ...everythingElse } = ctx.body as {
             email: string;
             name: string;
@@ -100,30 +111,19 @@ export const waitlist = (options?: WaitlistOptions) => {
             }
             if (count >= opts.waitlistEndConfig.maximumSignups) {
               const users = await getAllWaitlistUsers({
-                ctx,
+                ctx: ctx.context,
                 modelName: model,
               });
               opts.waitlistEndConfig.onWaitlistEnd(users);
-              return;
             }
           } else if (opts.waitlistEndConfig.event === "date-reached") {
             if (new Date() > opts.waitlistEndConfig.date) {
               const users = await getAllWaitlistUsers({
-                ctx,
+                ctx: ctx.context,
                 modelName: model,
               });
               opts.waitlistEndConfig.onWaitlistEnd(users);
-              return;
             }
-          } else if (opts.waitlistEndConfig.event === "trigger-function") {
-            opts.waitlistEndConfig.triggerFunction(async () => {
-              const users = await getAllWaitlistUsers({
-                ctx,
-                modelName: model,
-              });
-              opts.waitlistEndConfig.onWaitlistEnd(users);
-              return;
-            });
           }
 
           const res = await ctx.context.adapter.create<WaitlistUserModified>({
@@ -198,33 +198,16 @@ async function getAllWaitlistUsers({
   modelName,
   allUserCount,
 }: {
-  ctx: EndpointContext<
-    string,
-    {
-      method: "POST";
-      body: z.ZodObject<
-        z.ZodRawShape,
-        "strip",
-        z.ZodTypeAny,
-        {
-          [x: string]: any;
-        },
-        {
-          [x: string]: any;
-        }
-      >;
-    },
-    AuthContext
-  >;
+  ctx: AuthContext;
   modelName: string;
   allUserCount?: number;
 }) {
   allUserCount =
     allUserCount ??
-    (await ctx.context.adapter.count({
+    (await ctx.adapter.count({
       model: modelName,
     }));
-  const allUsers = await ctx.context.adapter.findMany<WaitlistUser>({
+  const allUsers = await ctx.adapter.findMany<WaitlistUser>({
     model: modelName,
     limit: allUserCount,
   });

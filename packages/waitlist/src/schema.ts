@@ -7,6 +7,7 @@ export const schema = {
         type: "string",
         required: true,
         input: true,
+        unique: true,
       },
       joinedAt: {
         type: "date",

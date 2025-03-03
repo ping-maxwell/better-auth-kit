@@ -3,7 +3,7 @@ import type { schema, WaitlistUser } from "./schema";
 import type { FieldAttribute } from "better-auth/db";
 
 interface WaitlistEndConfig_base {
-  event: "max-signups-reached" | "date-reached" | "trigger-function";
+  event: "max-signups-reached" | "date-reached" | "trigger-only";
   onWaitlistEnd: (
     /**
      * The users that are currently in the waitlist.
@@ -16,6 +16,11 @@ interface WaitlistEndConfig_base {
 }
 
 interface WaitlistEndConfig_maxSignups extends WaitlistEndConfig_base {
+  /**
+   * The waitlist will end once your maximum signup count is reached.
+   * 
+   * Note: The `trigger` function will still work.
+   */
   event: "max-signups-reached";
   /**
    * The maximum number of signups that can be reached before the waitlist ends.
@@ -24,6 +29,13 @@ interface WaitlistEndConfig_maxSignups extends WaitlistEndConfig_base {
 }
 
 interface WaitlistEndConfig_date extends WaitlistEndConfig_base {
+  /**
+   * When the given `date` value has reached, the waitlist ends. 
+   * 
+   * Note: This won't work if you're running Better Auth in a serverless enviroment.
+   * 
+   * The `trigger` function will still work.
+   */
   event: "date-reached";
   /**
    * The date which the waitlist ends.
@@ -32,23 +44,10 @@ interface WaitlistEndConfig_date extends WaitlistEndConfig_base {
 }
 
 interface WaitlistEndConfig_trigger extends WaitlistEndConfig_base {
-  event: "trigger-function";
   /**
-   * The function which provides a `trigger` which you can call at any time to end the waitlist.
-   *
-   * @example
-   * ```ts
-   * const waitlistEndConfig = {
-   *   event: "custom-trigger-function",
-   *   triggerFunction: (trigger) => {
-   *     setTimeout(() => {
-   *       trigger();
-   *     }, 1000 * 60 * 60 * 24); // triggers at the end of 24 hours
-   *   }
-   * }
-   * ```
+   * The only way to end the waitlist is for you to call the `trigger` function.
    */
-  triggerFunction: (trigger: () => void) => void;
+  event: "trigger-only";
 }
 
 export type WaitlistEndConfig =
@@ -72,6 +71,12 @@ interface WaitlistOptions_base {
    * Extend the `waitlist` schema with additional fields.
    */
   additionalFields?: Record<string, FieldAttribute>;
+  /**
+   * Wether to disable sign in & sign ups while the waitlist is active.
+   * 
+   * @default false
+   */
+  disableSignInAndSignUp?: boolean;
 }
 
 interface WaitlistOptions_enabled extends WaitlistOptions_base {
