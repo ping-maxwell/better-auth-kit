@@ -36,6 +36,10 @@ export const auth = betterAuth({
 });
 ```
 
+## Documentation
+
+Read our documentation at [better-auth-kit.vercel.app](https://better-auth-kit.vercel.app/docs/plugins/legal-consent).
+
 ## What does it do?
 
 By utilizing the `legalConsent` plugin, you can require the following legal consents on your sign-up routes:

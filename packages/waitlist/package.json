@@ -1,6 +1,6 @@
 {
   "name": "better-auth-waitlist",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A plugin for better-auth that allows you to add a waitlist to your application.",
   "type": "module",
   "repository": {
@@ -14,7 +14,7 @@
     }
   },
   "scripts": {
-    "dev": "bun build --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch --entrypoints ./src/index.ts ./src/schema.ts ./src/client.ts",
+    "dev": "bun build --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch --entrypoints ./src/index.ts",
     "build": "bun build.ts"
   },
   "keywords": ["better-auth", "waitlist", "plugin"],
