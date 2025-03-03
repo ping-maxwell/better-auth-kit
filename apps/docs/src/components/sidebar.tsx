@@ -151,7 +151,7 @@ export function Sidebar() {
               <SelectContent>
                 <SelectItem value="basic" className="h-12">
                   <div className="flex justify-center items-center gap-3">
-                    <Book className="size-6" />
+                    <Book className="size-6 min-w-7" />
                     <div className="flex flex-col justify-start items-start">
                       Basic
                       <p className="text-xs text-fd-muted-foreground ">
@@ -160,9 +160,9 @@ export function Sidebar() {
                     </div>
                   </div>
                 </SelectItem>
-                <SelectItem value="comprehensive" className="h-12 px-3">
+                <SelectItem value="comprehensive" className="h-12">
                   <div className="flex justify-center items-center gap-3">
-                    <BookCopy className="size-6" />
+                    <BookCopy className="size-6 min-w-7" />
                     <div className="flex flex-col justify-start items-start">
                       Comprehensive
                       <p className="text-xs text-fd-muted-foreground ">
