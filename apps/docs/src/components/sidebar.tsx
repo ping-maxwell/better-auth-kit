@@ -138,6 +138,7 @@ export function Sidebar() {
               value={levelOfDetail}
               onValueChange={(val: "basic" | "comprehensive") => {
                 set(val);
+                setIsOpen(false)
               }}
             >
               <SelectTrigger className="h-16 border w-full shadow-none border-b border-none rounded-none outline-none focus:ring-transparent">
