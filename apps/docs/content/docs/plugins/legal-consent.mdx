@@ -3,11 +3,9 @@ title: Legal Consent
 description: Legal Consent plugin for Better Auth Kit
 ---
 
-Keep your application compliant by requiring legal consent on your sign-up routes.
+Require your users to accept the required compliances before they can sign up.
 
-In short, this plugin will require the user to accept the terms of service, privacy policy, age verification, marketing consent, or cookie consent before they can sign up.
-
-Supported compliances:
+Supported compliances include:
 
 - Terms of Service
 - Privacy Policy
@@ -44,6 +42,7 @@ export const auth = betterAuth({
 });
 ```
 
+<Comprehensive>
 ## What does it do?
 
 By utilizing the `legalConsent` plugin, you can require the following legal consents on your sign-up routes:
@@ -58,16 +57,60 @@ Whenever a user signs up, the plugin requires you to pass additional data to the
 The data can vary depending on the legal consent requirements you have set.
 For example, if you require the user to accept the terms of service, you must pass `tosAccepted: true` to the `signup` method.
 After the plugin has verified the given data is all valid, it will pass those legal consent values to the user data that will be created.
+</Comprehensive>
 
 ## Configuring the saved values
 
-The plugin will save the following values to the user data:
+The plugin can save the following values to the user data based on which compliances are enabled:
 
 - `tosAccepted`
 - `privacyPolicyAccepted`
 - `ageVerified`
 - `marketingConsentAccepted`
 - `cookieConsentAccepted`
+
+### Schema
+
+Table: `user`
+
+
+<Callout type="warn">
+Note: Not all keys will be in the table as it depends on if you enabled each compliance.
+</Callout>
+
+<DatabaseTable
+  fields={[
+    {
+      name: "tosAccepted",
+      type: "boolean",
+      description: "Wether the user accepted the TOS.",
+    },
+    {
+      name: "requirePrivacyPolicy",
+      type: "boolean",
+      description:
+        "Wether the user accepted the privacy policy.",
+    },
+    {
+      name: "requireAgeVerification",
+      type: "boolean",
+      description: "Wether the user accepted the age verification.",
+    },
+    {
+      name: "requireMarketingConsent",
+      type: "boolean",
+      description: "Wether the user accepted the marketing consent.",
+    },
+    {
+      name: "requireCookieConsent",
+      type: "boolean",
+      description: "Wether the user accepted the cookie consent.",
+    },
+  ]}
+/>
+
+
+#### Schema Configuration
 
 You can configure the name of these fields by passing the `schema` option to the plugin.
 
@@ -83,3 +126,4 @@ legalConsent({
   },
 });
 ```
+
