@@ -11,9 +11,8 @@ export const auth = betterAuth({
       enabled: true,
       waitlistEndConfig: {
         event: "max-signups-reached",
-        maximumSignups: 2,
-        onWaitlistEnd: (users) => {
-          console.log("Waitlist complete!", users);
+        onWaitlistEnd: () => {
+          console.log("Waitlist complete!");
         },
       },
     }),
