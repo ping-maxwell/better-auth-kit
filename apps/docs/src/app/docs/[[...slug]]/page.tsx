@@ -10,7 +10,8 @@ import defaultMdxComponents from "fumadocs-ui/mdx";
 import { GithubUser } from "@/components/github-user";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 import { Comprehensive } from "@/components/comprehensive";
-import {DatabaseTable} from "@/components/database-table";
+import { DatabaseTable } from "@/components/database-table";
+import { Step, Steps } from "fumadocs-ui/components/steps";
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -56,6 +57,8 @@ export default async function Page(props: {
             Tabs,
             Comprehensive,
             DatabaseTable,
+            Step,
+            Steps,
           }}
         />
       </DocsBody>

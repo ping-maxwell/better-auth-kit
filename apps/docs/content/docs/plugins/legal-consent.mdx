@@ -18,13 +18,18 @@ Supported compliances include:
     We recommend checking out [better-auth-ui](https://github.com/daveyplate/better-auth-ui) to implement pre-made shadcn styled components.
 </Callout>
 
-## Installation
+<Steps>
+
+<Step>
+## 1. Installation
 
 ```package-install
 npm install better-auth-legal-consent
 ```
+</Step>
 
-## Usage
+<Step>
+## 2. Initialize
 
 ```ts
 import { legalConsent } from "better-auth-legal-consent";
@@ -41,6 +46,28 @@ export const auth = betterAuth({
   ],
 });
 ```
+</Step>
+
+<Step>
+## 3. Sign up methods
+
+Add the following methods to your sign up page.
+
+```ts
+authClient.signUp.email({
+  email: "some_email@example.com",
+  password: "some_password",
+  tosAccepted: true,
+  privacyPolicyAccepted: true,
+  ageVerified: true,
+  marketingConsentAccepted: true,
+  cookieConsentAccepted: true,
+});
+```
+</Step>
+
+</Steps>
+
 
 <Comprehensive>
 ## What does it do?
@@ -59,23 +86,47 @@ For example, if you require the user to accept the terms of service, you must pa
 After the plugin has verified the given data is all valid, it will pass those legal consent values to the user data that will be created.
 </Comprehensive>
 
-## Configuring the saved values
+## Options
 
-The plugin can save the following values to the user data based on which compliances are enabled:
+### Legal Compliance Configuration
 
-- `tosAccepted`
-- `privacyPolicyAccepted`
-- `ageVerified`
-- `marketingConsentAccepted`
-- `cookieConsentAccepted`
+You can enable the following legal compliance options:
 
-### Schema
+```ts
+legalConsent({
+  tosAccepted: true,
+  privacyPolicyAccepted: true,
+  ageVerified: true,
+  marketingConsentAccepted: true,
+  cookieConsentAccepted: true
+});
+```
+
+### Configuring the schema
+
+You can configure the name of these fields by passing the `schema` option to the plugin.
+
+```ts
+legalConsent({
+  schema: {
+    userModelName: "user",
+    tosAccepted: "tosAccepted",
+    privacyPolicyAccepted: "privacyPolicyAccepted",
+    ageVerified: "ageVerified",
+    marketingConsentAccepted: "marketingConsentAccepted",
+    cookieConsentAccepted: "cookieConsentAccepted",
+  },
+});
+```
+
+
+## Schema
 
 Table: `user`
 
 
 <Callout type="warn">
-Note: Not all keys will be in the table as it depends on if you enabled each compliance.
+Note: Not all keys will be in the table as it depends on if you enabled each compliance, as well as if you changed the name of a given schema field.
 </Callout>
 
 <DatabaseTable
@@ -108,22 +159,3 @@ Note: Not all keys will be in the table as it depends on if you enabled each com
     },
   ]}
 />
-
-
-#### Schema Configuration
-
-You can configure the name of these fields by passing the `schema` option to the plugin.
-
-```ts
-legalConsent({
-  schema: {
-    userModelName: "user",
-    tosAccepted: "tosAccepted",
-    privacyPolicyAccepted: "privacyPolicyAccepted",
-    ageVerified: "ageVerified",
-    marketingConsentAccepted: "marketingConsentAccepted",
-    cookieConsentAccepted: "cookieConsentAccepted",
-  },
-});
-```
-
