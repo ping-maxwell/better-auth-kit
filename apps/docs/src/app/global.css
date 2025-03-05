@@ -3,6 +3,7 @@
 @import "fumadocs-ui/css/preset.css";
 
 @source '../../../../node_modules/fumadocs-ui/dist/**/*.js';
+@source '../../../../node_modules/@daveyplate/better-auth-ui/dist/**/*.{js,ts,jsx,tsx,mdx}';
 
 @layer base {
   :root {

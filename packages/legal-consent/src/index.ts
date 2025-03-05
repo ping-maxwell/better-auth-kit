@@ -94,6 +94,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
       input: true,
       required: true,
       fieldName: opts.schema.tosAccepted,
+      defaultValue: false,
     };
   }
   if (opts.requirePrivacyPolicy) {
@@ -102,6 +103,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
       input: true,
       required: true,
       fieldName: opts.schema.privacyPolicyAccepted,
+      defaultValue: false,
     };
   }
   if (opts.requireAgeVerification) {
@@ -110,6 +112,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
       input: true,
       required: true,
       fieldName: opts.schema.ageVerified,
+      defaultValue: false,
     };
   }
   if (opts.requireMarketingConsent) {
@@ -118,6 +121,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
       input: true,
       required: true,
       fieldName: opts.schema.marketingConsentAccepted,
+      defaultValue: false,
     };
   }
   if (opts.requireCookieConsent) {
@@ -126,6 +130,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
       input: true,
       required: true,
       fieldName: opts.schema.cookieConsentAccepted,
+      defaultValue: false,
     };
   }
 
