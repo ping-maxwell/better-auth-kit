@@ -17,5 +17,10 @@
   },
   "author": "ping-maxwell",
   "packageManager": "bun@1.2.4",
-  "workspaces": ["apps/*", "packages/*"]
+  "workspaces": [
+    "apps/*",
+    "packages/plugins/*",
+    "packages/libraries/*",
+    "packages/tools/*"
+  ]
 }
