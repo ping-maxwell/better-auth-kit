@@ -1,33 +1,33 @@
 {
-  "name": "better-auth-waitlist",
-  "version": "0.0.5",
-  "description": "A plugin for better-auth that allows you to add a waitlist to your application.",
-  "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ping-maxwell/better-auth-kit"
-  },
-  "exports": {
-    ".": {
-      "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "scripts": {
-    "dev": "bun build --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch --entrypoints ./src/index.ts",
-    "build": "bun build.ts"
-  },
-  "keywords": ["better-auth", "waitlist", "plugin"],
-  "author": "ping-maxwell",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/bun": "latest",
-    "bun-plugin-dts": "^0.3.0"
-  },
-  "peerDependencies": {
-    "better-auth": "^1.2.1"
-  },
-  "dependencies": {
-    "zod": "^3.24.2"
-  }
+	"name": "better-auth-waitlist",
+	"version": "0.0.5",
+	"description": "A plugin for better-auth that allows you to add a waitlist to your application.",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit"
+	},
+	"exports": {
+		".": {
+			"default": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"scripts": {
+		"dev": "bun build --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch --entrypoints ./src/index.ts",
+		"build": "bun build.ts"
+	},
+	"keywords": ["better-auth", "waitlist", "plugin"],
+	"author": "ping-maxwell",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/bun": "latest",
+		"bun-plugin-dts": "^0.3.0"
+	},
+	"peerDependencies": {
+		"better-auth": "^1.2.1"
+	},
+	"dependencies": {
+		"zod": "^3.24.2"
+	}
 }

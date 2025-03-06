@@ -4,10 +4,10 @@ const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const config = {
-  reactStrictMode: true,
-  devIndicators: {
-    appIsrStatus: false,
-  },
+	reactStrictMode: true,
+	devIndicators: {
+		appIsrStatus: false,
+	},
 };
 
 export default withMDX(config);

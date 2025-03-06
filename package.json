@@ -1,26 +1,26 @@
 {
-  "name": "better-auth-kit",
-  "private": true,
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "format": "biome format --write",
-    "lint": "biome lint",
-    "check-types": "turbo run check-types"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "turbo": "^2.4.4"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "author": "ping-maxwell",
-  "packageManager": "bun@1.2.4",
-  "workspaces": [
-    "apps/*",
-    "packages/plugins/*",
-    "packages/libraries/*",
-    "packages/tools/*"
-  ]
+	"name": "better-auth-kit",
+	"private": true,
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"format": "biome format --write",
+		"lint": "biome lint",
+		"check-types": "turbo run check-types"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"turbo": "^2.4.4"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"author": "ping-maxwell",
+	"packageManager": "bun@1.2.4",
+	"workspaces": [
+		"apps/*",
+		"packages/plugins/*",
+		"packages/libraries/*",
+		"packages/tools/*"
+	]
 }
