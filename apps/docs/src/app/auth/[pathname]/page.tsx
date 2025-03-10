@@ -21,7 +21,8 @@ export default async function AuthPage({
 						base: "gap-10",
 					},
 				}}
-			/>
+				
+/>
 		</div>
 	);
 }

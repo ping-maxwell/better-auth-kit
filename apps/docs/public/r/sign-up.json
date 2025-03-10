@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sign-up",
+  "type": "registry:component",
+  "title": "Sign Up",
+  "description": "A sign up component for Better Auth.",
+  "dependencies": [
+    "better-auth"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/sign-up/sign-up.tsx",
+      "content": "import { Button } from \"@/components/ui/button\"\n\nexport function HelloWorld() {\n  return <Button>Hello World</Button>\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}

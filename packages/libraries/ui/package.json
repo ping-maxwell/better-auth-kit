@@ -1,0 +1,43 @@
+{
+	"name": "@better-auth-kit/ui",
+	"version": "0.0.0",
+	"description": "Dynamic UI for Better Auth",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit"
+	},
+	"exports": {
+		".": {
+			"default": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"scripts": {
+		"build": "shadcn build && bun run move.ts"
+	},
+	"keywords": [
+		"better-auth",
+		"ui",
+		"user-interface",
+		"auth",
+		"shadcn",
+		"better-auth-ui"
+	],
+	"author": "ping-maxwell",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/bun": "latest",
+		"bun-plugin-dts": "^0.3.0"
+	},
+	"peerDependencies": {
+		"better-auth": "^1.2.1"
+	},
+	"dependencies": {
+		"shadcn": "^2.4.0-canary.13",
+		"zod": "^3.24.2"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

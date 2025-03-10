@@ -1,7 +1,7 @@
 import { createAuthClient } from "better-auth/react";
-import { apiKeyClient } from "better-auth/client/plugins";
-import { waitlistClient } from "better-auth-waitlist";
+import { apiKeyClient, usernameClient } from "better-auth/client/plugins";
+import { waitlistClient } from "@better-auth-kit/waitlist";
 
 export const authClient = createAuthClient({
-	plugins: [waitlistClient(), apiKeyClient()],
+	plugins: [waitlistClient(), apiKeyClient(), usernameClient()],
 });

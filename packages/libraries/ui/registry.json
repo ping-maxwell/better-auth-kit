@@ -1,0 +1,20 @@
+{
+	"$schema": "https://ui.shadcn.com/schema/registry.json",
+	"name": "better-auth-kit",
+	"homepage": "https://better-auth-kit.vercel.app",
+	"items": [
+		{
+			"name": "sign-up",
+			"type": "registry:component",
+			"title": "Sign Up",
+			"description": "A sign up component for Better Auth.",
+			"dependencies": ["better-auth"],
+			"files": [
+				{
+					"path": "registry/new-york/sign-up/sign-up.tsx",
+					"type": "registry:component"
+				}
+			]
+		}
+	]
+}
