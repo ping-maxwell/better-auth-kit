@@ -40,8 +40,6 @@
 		"@radix-ui/react-toggle-group": "^1.1.0",
 		"@radix-ui/react-tooltip": "^1.1.4",
 		"better-auth": "^1.2.1",
-		"better-auth-legal-consent": "workspace:*",
-		"better-auth-waitlist": "workspace:*",
 		"better-sqlite3": "^11.8.1",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
@@ -65,7 +63,9 @@
 		"recharts": "^2.15.1",
 		"sonner": "^2.0.1",
 		"tailwind-merge": "^3.0.2",
-		"vaul": "^1.1.2"
+		"vaul": "^1.1.2",
+		"@better-auth-kit/waitlist": "workspace:*",
+		"@better-auth-kit/legal-consent": "workspace:*"
 	},
 	"devDependencies": {
 		"@tailwindcss/postcss": "^4.0.7",

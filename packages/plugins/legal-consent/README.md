@@ -15,13 +15,13 @@ Supported compliances:
 ## Installation
 
 ```bash
-npm install better-auth-legal-consent
+npm install @better-auth-kit/legal-consent
 ```
 
 ## Usage
 
 ```ts
-import { legalConsent } from "better-auth-legal-consent";
+import { legalConsent } from "@better-auth-kit/legal-consent";
 
 export const auth = betterAuth({
   plugins: [

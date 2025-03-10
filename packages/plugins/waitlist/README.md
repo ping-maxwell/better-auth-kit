@@ -5,13 +5,13 @@ This plugin allows you to add a waitlist to your application.
 ## Installation
 
 ```bash
-npm install better-auth-waitlist
+npm install @better-auth-kit/waitlist
 ```
 
 ## Usage
 
 ```ts
-import { waitlist } from "better-auth-legal-consent";
+import { waitlist } from "@better-auth-kit/waitlist";
 
 export const auth = betterAuth({
   plugins: [

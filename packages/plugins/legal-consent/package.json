@@ -1,5 +1,5 @@
 {
-	"name": "better-auth-legal-consent",
+	"name": "@better-auth-kit/legal-consent",
 	"version": "1.0.9",
 	"description": "Keep your application compliant by requiring legal consent on your sign-up routes.",
 	"type": "module",
@@ -26,5 +26,8 @@
 	},
 	"peerDependencies": {
 		"better-auth": "^1.1.21"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }
