@@ -44,7 +44,7 @@ function Callout() {
 	return (
 		<div className="flex justify-center items-center gap-10 flex-col sm:pb-10 mt-32 sm:mt-[200px]">
 			<Link
-				href="/docs/info"
+				href="/docs/introduction"
 				className="text-center w-fit rounded-full border border-primary/50 bg-primary/20 px-5 py-1 text-sm flex gap-2 items-center justify-center transition-all duration-150 ease-in-out hover:scale-110"
 			>
 				See Docs
