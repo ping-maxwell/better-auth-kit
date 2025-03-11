@@ -35,7 +35,13 @@ export type OAuthButtonPressEvent = ({
   type: "supported-provider" | "external-provider";
 }) => void;
 
-export function OAuth({ callbackURL }: { callbackURL?: string }) {
+export function OAuth({
+  callbackURL,
+  iconOnly,
+}: {
+  callbackURL?: string;
+  iconOnly?: boolean;
+}) {
   const onClick = useCallback<OAuthButtonPressEvent>(
     ({ providerId, type }) => {
       if (type === "supported-provider") {
@@ -55,8 +61,8 @@ export function OAuth({ callbackURL }: { callbackURL?: string }) {
     <div className="w-full flex flex-col gap-3">
       <Divider />
       <div className="w-full flex flex-wrap items-stretch gap-2 mt-4">
-        <GoogleOAuth onClick={onClick} />
-        <DiscordOAuth onClick={onClick} />
+        <GoogleOAuth onClick={onClick} iconOnly={iconOnly} />
+        <DiscordOAuth onClick={onClick} iconOnly={iconOnly} />
       </div>
     </div>
   );

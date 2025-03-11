@@ -85,7 +85,7 @@ export function SignUp(props?: SignUpProps) {
             Create account
           </Button>
         </form>
-        <OAuth callbackURL={props?.callbackURL} />
+        <OAuth  />
         <AlreadyHaveAccount />
       </Form>
     </div>

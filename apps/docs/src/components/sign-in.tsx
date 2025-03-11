@@ -12,7 +12,6 @@ import { EmailField } from "@/components/email-field";
 import type { ErrorContext, SuccessContext } from "better-auth/react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { OAuth } from "./oauth";
 
 const formSchema = z.object({
   email: z.string().email(),

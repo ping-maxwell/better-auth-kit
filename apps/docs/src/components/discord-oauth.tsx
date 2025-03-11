@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
-import type { OAuthButtonPressEvent } from "../oauth/oauth";
+import type { OAuthButtonPressEvent } from "@/components/oauth";
+import { cn } from "@/lib/utils";
 
 interface Props {
   onClick: OAuthButtonPressEvent;
+  iconOnly?: boolean;
 }
 
 const logo = (
@@ -31,7 +33,10 @@ export function DiscordOAuth(props: Props) {
       }
       variant={"outline"}
     >
-      {logo}
+      {logo}{" "}
+      <span className={cn(props.iconOnly && "hidden", "text-muted-foreground w-16")}>
+        Discord
+      </span>
     </Button>
   );
 }
