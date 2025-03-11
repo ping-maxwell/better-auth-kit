@@ -8,10 +8,23 @@
 			"type": "registry:component",
 			"title": "Sign Up",
 			"description": "A sign up component for Better Auth.",
-			"dependencies": ["better-auth"],
+			"dependencies": ["better-auth", "zod"],
+			"registryDependencies": ["form", "input", "button"],
 			"files": [
 				{
 					"path": "registry/new-york/sign-up/sign-up.tsx",
+					"type": "registry:block"
+				},
+				{
+					"path": "registry/new-york/name-field/name-field.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/password-field/password-field.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/email-field/email-field.tsx",
 					"type": "registry:component"
 				}
 			]
