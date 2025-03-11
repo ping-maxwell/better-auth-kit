@@ -12,6 +12,7 @@ import {
 import { BuilderProvider } from "../utils/builder-provider";
 import { BuilderSidebar } from "../utils/builder-sidebar";
 import { SignUp } from "./component";
+import { BuilderExport } from "../utils/builder-export";
 
 export default function Page() {
   return (
@@ -24,6 +25,7 @@ export default function Page() {
         }}
       >
         <SignUp />
+        <BuilderExport />
         <BuilderSidebar />
       </BuilderProvider>
     </div>
