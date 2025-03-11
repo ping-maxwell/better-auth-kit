@@ -8,12 +8,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { UseFormReturn } from "react-hook-form";
-import type { FormSchema } from "../sign-up/sign-up";
+import type { FormSchema } from "@/components/sign-up";
 
 export function PasswordField({
   form,
 }: {
-  form: UseFormReturn<FormSchema, any, undefined>;
+  form: UseFormReturn<FormSchema>;
 }) {
   return (
     <FormField
