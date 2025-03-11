@@ -21,7 +21,7 @@
 	"author": "ping-maxwell",
 	"license": "MIT",
 	"devDependencies": {
-		"@types/bun": "latest",
+		"@types/bun": "1.2.4",
 		"bun-plugin-dts": "^0.3.0"
 	},
 	"peerDependencies": {
