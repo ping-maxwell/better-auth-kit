@@ -34,7 +34,7 @@ export function DiscordOAuth(props: Props) {
       variant={"outline"}
     >
       {logo}{" "}
-      <span className={cn(props.iconOnly && "hidden", "text-muted-foreground w-16")}>
+      <span className={cn(props.iconOnly && "hidden", "text-muted-foreground font-normal")}>
         Discord
       </span>
     </Button>

@@ -1,5 +1,6 @@
 {
-	"name": "@better-auth-kit/ui",
+	"name": "ui",
+	"private": true,
 	"version": "0.0.0",
 	"description": "Dynamic UI for Better Auth",
 	"type": "module",

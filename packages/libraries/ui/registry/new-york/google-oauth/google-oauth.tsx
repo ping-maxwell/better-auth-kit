@@ -43,7 +43,7 @@ export function GoogleOAuth(props: Props) {
       variant={"outline"}
     >
       {logo}{" "}
-      <span className={cn(props.iconOnly && "hidden", "text-muted-foreground")}>
+      <span className={cn(props.iconOnly && "hidden", "text-muted-foreground font-normal")}>
         Google
       </span>
     </Button>

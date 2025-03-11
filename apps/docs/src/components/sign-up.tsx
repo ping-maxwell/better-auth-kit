@@ -14,6 +14,7 @@ import { RootError } from "@/components/root-error";
 import type { ErrorContext, SuccessContext } from "better-auth/react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { OAuth } from "./oauth";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -87,6 +88,7 @@ export function SignUp(props?: SignUpProps) {
             Create account
           </Button>
         </form>
+        <OAuth />
         <AlreadyHaveAccount />
       </Form>
     </div>
