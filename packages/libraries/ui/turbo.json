@@ -3,7 +3,6 @@
 	"tasks": {
 		"build": {
             "cache": false
-        },
-		"special-task": {}
+        }
 	}
 }
