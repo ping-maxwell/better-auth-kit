@@ -28,6 +28,74 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "sign-in",
+			"type": "registry:component",
+			"title": "Sign In",
+			"description": "A sign in component for Better Auth.",
+			"dependencies": ["better-auth", "zod"],
+			"registryDependencies": ["form", "input", "button"],
+			"files": [
+				{
+					"path": "registry/new-york/sign-in/sign-in.tsx",
+					"type": "registry:block"
+				},
+				{
+					"path": "registry/new-york/password-field/password-field.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/email-field/email-field.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "google-oauth",
+			"type": "registry:component",
+			"title": "Google OAuth",
+			"description": "A Google OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/google-oauth/google-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "discord-oauth",
+			"type": "registry:component",
+			"title": "Discord OAuth",
+			"description": "A Discord OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/discord-oauth/discord-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "oauth",
+			"type": "registry:component",
+			"title": "OAuth",
+			"description": "A OAuth component for Better Auth.",
+			"files": [
+				{
+					"path": "registry/new-york/oauth/oauth.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/google-oauth/google-oauth.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/discord-oauth/discord-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }

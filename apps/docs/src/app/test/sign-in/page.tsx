@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/navbar";
-import { SignUp } from "@/components/sign-up";
+import { SignIn } from "@/components/sign-in";
 import { Toaster } from "@/components/ui/sonner";
 
 const Page = () => {
@@ -7,7 +7,7 @@ const Page = () => {
     <div className=" w-screen h-screen flex justify-center items-center relative overflow-hidden">
       <Navbar />
       <Background />
-      <SignUp className="mb-32 z-10" callbackURL="/docs" />
+      <SignIn className=" mb-32 z-10" />
       <Toaster />
     </div>
   );

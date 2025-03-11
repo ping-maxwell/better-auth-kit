@@ -12,6 +12,8 @@ import { PasswordField } from "@/components/password-field";
 import { EmailField } from "@/components/email-field";
 import type { ErrorContext, SuccessContext } from "better-auth/react";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
+import { OAuth } from "./oauth";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -51,9 +53,13 @@ export function SignUp(props?: SignUpProps) {
         },
         {
           onSuccess(context) {
+            toast.success(`Welcome ${context.data.name}!`);
             return props?.onSuccess?.(context);
           },
           onError(context) {
+            toast.error(`There was an issue signing you up.`, {
+              description: <>{context.error.message}</>,
+            });
             return props?.onError?.(context);
           },
         }
@@ -63,26 +69,26 @@ export function SignUp(props?: SignUpProps) {
   );
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className={cn(
-          "space-y-8 w-96 border border-border rounded-2xl p-8 shadow-2xl bg-card text-card-foreground",
-          props?.className
-        )}
-      >
+    <div
+      className={cn(
+        "space-y-8 w-96 border border-border rounded-2xl p-8 shadow-2xl bg-card text-card-foreground",
+        props?.className
+      )}
+    >
+      <Form {...form}>
         <Title />
-        <div className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <NameField form={form} />
           <EmailField form={form} />
           <PasswordField form={form} />
           <Button type="submit" className="w-full cursor-pointer">
             Create account
           </Button>
-        </div>
+        </form>
+        <OAuth callbackURL={props?.callbackURL} />
         <AlreadyHaveAccount />
-      </form>
-    </Form>
+      </Form>
+    </div>
   );
 }
 

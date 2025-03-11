@@ -7,9 +7,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { UseFormReturn } from "react-hook-form";
-import type { FormSchema } from "@/components/sign-up";
 
-export function PasswordField({ form }: { form: UseFormReturn<FormSchema> }) {
+export function PasswordField({ form }: { form: UseFormReturn<any> }) {
   return (
     <FormField
       control={form.control}

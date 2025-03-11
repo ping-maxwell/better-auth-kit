@@ -9,7 +9,12 @@ export const auth = betterAuth({
 	emailAndPassword: {
 		enabled: true,
 	},
-	socialProviders: {},
+	socialProviders: {
+		google: {
+			clientId: process.env.GOOGLE_CLIENT_ID as string,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+		},
+	},
 	plugins: [
 		// waitlist({
 		//   enabled: true,
@@ -22,9 +27,6 @@ export const auth = betterAuth({
 		// }),
 		openAPI(),
 		apiKey(),
-		legalConsent({
-			requireTOS: true,
-		}),
 		username(),
 		nextCookies(),
 	],

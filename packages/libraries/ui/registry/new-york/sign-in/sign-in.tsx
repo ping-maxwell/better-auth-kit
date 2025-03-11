@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { NameField } from "@/components/name-field";
 import { PasswordField } from "@/components/password-field";
 import { EmailField } from "@/components/email-field";
 import type { ErrorContext, SuccessContext } from "better-auth/react";
@@ -15,9 +14,6 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters",
-  }),
   email: z.string().email(),
   password: z.string().min(6, {
     message: "Password must be at least 6 characters",
@@ -26,37 +22,36 @@ const formSchema = z.object({
 
 export type FormSchema = z.infer<typeof formSchema>;
 
-export interface SignUpProps {
+export interface SignInProps {
   onSuccess?: (context: SuccessContext) => void;
   onError?: (context: ErrorContext) => void;
   callbackURL?: string;
   className?: string;
 }
 
-export function SignUp(props?: SignUpProps) {
+export function SignIn(props?: SignInProps) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      name: "",
       password: "",
     },
   });
 
   const onSubmit = useCallback(
     (values: FormSchema) => {
-      authClient.signUp.email(
+      authClient.signIn.email(
         {
           ...values,
           callbackURL: props?.callbackURL,
         },
         {
           onSuccess(context) {
-            toast.success(`Welcome ${context.data.name}!`);
+            toast.success(`Welcome back ${context.data.name}!`);
             return props?.onSuccess?.(context);
           },
           onError(context) {
-            toast.error(`There was an issue signing you up.`, {
+            toast.error(`There was an issue signing you in.`, {
               description: <>{context.error.message}</>,
             });
             return props?.onError?.(context);
@@ -77,11 +72,10 @@ export function SignUp(props?: SignUpProps) {
       <Form {...form}>
         <Title />
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <NameField form={form} />
           <EmailField form={form} />
           <PasswordField form={form} />
           <Button type="submit" className="w-full cursor-pointer">
-            Create account
+            Continue
           </Button>
         </form>
         <AlreadyHaveAccount />
@@ -93,9 +87,9 @@ export function SignUp(props?: SignUpProps) {
 function Title() {
   return (
     <div className="w-full flex flex-col gap-2 justify-center items-center">
-      <h1 className="text-lg font-bold">Create your account</h1>
+      <h1 className="text-lg font-bold">Sign in to your account</h1>
       <p className="text-muted-foreground text-xs">
-        Welcome! Please fill in your details to get started.
+        Welcome back! Please sign in to continue.
       </p>
     </div>
   );
@@ -104,8 +98,8 @@ function Title() {
 function AlreadyHaveAccount() {
   return (
     <div className="w-full flex justify-center items-center gap-2 text-sm mt-5">
-      <p className="text-muted-foreground">Already have an account?</p>
-      <a href="/sign-in">Sign in</a>
+      <p className="text-muted-foreground">Don't have an account?</p>
+      <a href="/sign-up">Sign up</a>
     </div>
   );
 }

@@ -32,7 +32,7 @@ interface Content {
 export const contents: Content[] = [
 	{
 		Icon: () => <Info size={16} />,
-		title: "Introduction",
+		title: "Introduction-2",
 		list: [
 			{
 				href: "/docs/info",

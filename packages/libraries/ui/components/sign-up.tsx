@@ -1,1 +1,1 @@
-export * from "./../registry/new-york/sign-up/sign-up";
+export * from "../registry/new-york/sign-up/sign-up";
