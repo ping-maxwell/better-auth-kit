@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { NameField } from "@/components/name-field";
 import { PasswordField } from "@/components/password-field";
 import { EmailField } from "@/components/email-field";
+import type { ErrorContext, SuccessContext } from "better-auth/react";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -23,19 +24,36 @@ const formSchema = z.object({
 
 export type FormSchema = z.infer<typeof formSchema>;
 
-export function SignUp() {
+export interface SignUpProps {
+  onSuccess?: (context: SuccessContext) => void;
+  onError?: (context: ErrorContext) => void;
+  callbackURL?: string;
+}
+
+export function SignUp(props?: SignUpProps) {
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = useCallback((values: FormSchema) => {
-    authClient.signUp.email({
-      name: values.name,
-      email: values.email,
-      password: values.password,
-      callbackURL: "/",
-    });
-  }, []);
+  const onSubmit = useCallback(
+    (values: FormSchema) => {
+      authClient.signUp.email(
+        {
+          ...values,
+          callbackURL: props?.callbackURL,
+        },
+        {
+          onSuccess(context) {
+            return props?.onSuccess?.(context);
+          },
+          onError(context) {
+            return props?.onError?.(context);
+          },
+        }
+      );
+    },
+    [props?.onSuccess, props?.onError, props?.callbackURL]
+  );
 
   return (
     <Form {...form}>
