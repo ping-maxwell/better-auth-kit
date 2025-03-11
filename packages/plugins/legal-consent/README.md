@@ -38,7 +38,7 @@ export const auth = betterAuth({
 
 ## Documentation
 
-Read our documentation at [better-auth-kit.vercel.app](https://better-auth-kit.vercel.app/docs/plugins/legal-consent).
+Read our documentation at [better-auth-kit.com](https://better-auth-kit.com/docs/plugins/legal-consent).
 
 ## What does it do?
 

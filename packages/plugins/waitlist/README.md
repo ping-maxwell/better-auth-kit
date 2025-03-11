@@ -24,7 +24,7 @@ export const auth = betterAuth({
 
 ## Documentation
 
-Read our documentation at [better-auth-kit.vercel.app](https://better-auth-kit.vercel.app/docs/plugins/waitlist).
+Read our documentation at [better-auth-kit.com](https://better-auth-kit.com/docs/plugins/waitlist).
 
 ## What does it do?
 

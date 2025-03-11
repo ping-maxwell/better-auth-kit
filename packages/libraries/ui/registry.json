@@ -1,7 +1,7 @@
 {
 	"$schema": "https://ui.shadcn.com/schema/registry.json",
 	"name": "better-auth-kit",
-	"homepage": "https://better-auth-kit.vercel.app",
+	"homepage": "https://better-auth-kit.com",
 	"items": [
 		{
 			"name": "sign-up",
