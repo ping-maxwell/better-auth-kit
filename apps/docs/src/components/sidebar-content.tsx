@@ -35,8 +35,8 @@ export const contents: Content[] = [
 		title: "Introduction",
 		list: [
 			{
-				href: "/docs/info",
-				title: "Information",
+				href: "/docs/introduction",
+				title: "Introduction",
 				icon: () => <Flag size={16} />,
 			},
 			{

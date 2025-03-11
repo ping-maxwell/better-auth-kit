@@ -9,11 +9,11 @@ export default function TestWaitlistPage() {
 	const [name, setName] = useState("Bob");
 
 	const createWaitlistUser = useCallback(async () => {
-		const res = await authClient.waitlist.addUser({
-			email: email,
-			name: name,
-		});
-		console.log(res);
+		// const res = await authClient.waitlist.addUser({
+		// 	email: email,
+		// 	name: name,
+		// });
+		// console.log(res);
 	}, [email, name]);
 
 	return (
