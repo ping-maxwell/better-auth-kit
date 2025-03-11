@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
 import { Providers } from "./layout-client";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from '@vercel/analytics/next';
+
 
 const inter = Inter({
 	subsets: ["latin"],
@@ -22,6 +24,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 						</Providers>
 					</RootProvider>
 				</MobileSidebarController>
+				<Analytics />
 			</body>
 		</html>
 	);
