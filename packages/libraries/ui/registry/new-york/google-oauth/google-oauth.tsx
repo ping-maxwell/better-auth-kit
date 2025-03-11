@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 interface Props {
   onClick: OAuthButtonPressEvent;
   iconOnly?: boolean;
+  isLoading: boolean;
 }
 
 const logo = (
@@ -41,9 +42,15 @@ export function GoogleOAuth(props: Props) {
         props.onClick({ providerId: "google", type: "supported-provider" })
       }
       variant={"outline"}
+      disabled={props.isLoading}
     >
       {logo}{" "}
-      <span className={cn(props.iconOnly && "hidden", "text-muted-foreground font-normal")}>
+      <span
+        className={cn(
+          props.iconOnly && "hidden",
+          "text-muted-foreground font-normal"
+        )}
+      >
         Google
       </span>
     </Button>

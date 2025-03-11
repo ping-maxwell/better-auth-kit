@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 interface Props {
   onClick: OAuthButtonPressEvent;
   iconOnly?: boolean;
+  isLoading: boolean;
 }
 
 const logo = (
@@ -32,9 +33,15 @@ export function DiscordOAuth(props: Props) {
         props.onClick({ providerId: "discord", type: "supported-provider" })
       }
       variant={"outline"}
+      disabled={props.isLoading}
     >
       {logo}{" "}
-      <span className={cn(props.iconOnly && "hidden", "text-muted-foreground font-normal")}>
+      <span
+        className={cn(
+          props.iconOnly && "hidden",
+          "text-muted-foreground font-normal"
+        )}
+      >
         Discord
       </span>
     </Button>

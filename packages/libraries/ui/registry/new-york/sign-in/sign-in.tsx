@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useForm, type UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { authClient } from "@/lib/auth-client";
@@ -13,6 +13,7 @@ import { RootError } from "@/components/root-error";
 import type { ErrorContext, SuccessContext } from "better-auth/react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { LoaderCircle } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -38,9 +39,11 @@ export function SignIn(props?: SignInProps) {
       password: "",
     },
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = useCallback(
     (values: FormSchema) => {
+      setIsLoading(true);
       authClient.signIn.email(
         {
           ...values,
@@ -48,10 +51,12 @@ export function SignIn(props?: SignInProps) {
         },
         {
           onSuccess(context) {
-            toast.success(`Welcome back ${context.data.name}!`);
+            setIsLoading(false);
+            toast.success(`Welcome back ${context.data.user.name}!`);
             return props?.onSuccess?.(context);
           },
           onError(context) {
+            setIsLoading(false);
             toast.error(`There was an issue signing you in.`, {
               description: <>{context.error.message}</>,
             });
@@ -74,12 +79,10 @@ export function SignIn(props?: SignInProps) {
       <Form {...form}>
         <Title />
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <EmailField form={form} />
-          <PasswordField form={form} />
+          <EmailField form={form} isLoading={isLoading} />
+          <PasswordField form={form} isLoading={isLoading} />
           <RootError form={form} />
-          <Button type="submit" className="w-full cursor-pointer">
-            Continue
-          </Button>
+          <SubmitButton isLoading={isLoading} />
         </form>
         <DontHaveAccount />
       </Form>
@@ -104,5 +107,17 @@ function DontHaveAccount() {
       <p className="text-muted-foreground">Don't have an account?</p>
       <a href="/sign-up">Sign up</a>
     </div>
+  );
+}
+
+function SubmitButton({ isLoading }: { isLoading: boolean }) {
+  return (
+    <Button
+      type="submit"
+      className="w-full cursor-pointer"
+      disabled={isLoading}
+    >
+      {isLoading ? <LoaderCircle className="animate-spin" /> : "Continue"}
+    </Button>
   );
 }

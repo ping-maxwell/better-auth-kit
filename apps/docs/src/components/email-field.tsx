@@ -10,8 +10,10 @@ import type { UseFormReturn } from "react-hook-form";
 
 export function EmailField({
   form,
+  isLoading,
 }: {
   form: UseFormReturn<any>;
+  isLoading: boolean;
 }) {
   return (
     <FormField
@@ -24,6 +26,7 @@ export function EmailField({
             <Input
               type="email"
               placeholder="Enter your email address"
+              disabled={isLoading}
               {...field}
             />
           </FormControl>

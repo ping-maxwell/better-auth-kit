@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { authClient } from "@/lib/auth-client";
@@ -14,6 +14,7 @@ import { RootError } from "@/components/root-error";
 import type { ErrorContext, SuccessContext } from "better-auth/react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { LoaderCircle } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -43,9 +44,11 @@ export function SignUp(props?: SignUpProps) {
       password: "",
     },
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = useCallback(
     (values: FormSchema) => {
+      setIsLoading(true);
       authClient.signUp.email(
         {
           ...values,
@@ -53,10 +56,12 @@ export function SignUp(props?: SignUpProps) {
         },
         {
           onSuccess(context) {
-            toast.success(`Welcome ${context.data.name}!`);
+            setIsLoading(false);
+            toast.success(`Welcome ${context.data.user.name}!`);
             return props?.onSuccess?.(context);
           },
           onError(context) {
+            setIsLoading(false);
             toast.error(`There was an issue signing you up.`, {
               description: <>{context.error.message}</>,
             });
@@ -79,13 +84,11 @@ export function SignUp(props?: SignUpProps) {
       <Form {...form}>
         <Title />
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <NameField form={form} />
-          <EmailField form={form} />
-          <PasswordField form={form} />
+          <NameField form={form} isLoading={isLoading} />
+          <EmailField form={form} isLoading={isLoading} />
+          <PasswordField form={form} isLoading={isLoading} />
           <RootError form={form} />
-          <Button type="submit" className="w-full cursor-pointer">
-            Create account
-          </Button>
+          <SubmitButton isLoading={isLoading} />
         </form>
         <AlreadyHaveAccount />
       </Form>
@@ -110,5 +113,17 @@ function AlreadyHaveAccount() {
       <p className="text-muted-foreground">Already have an account?</p>
       <a href="/sign-in">Sign in</a>
     </div>
+  );
+}
+
+function SubmitButton({ isLoading }: { isLoading: boolean }) {
+  return (
+    <Button
+      type="submit"
+      className="w-full cursor-pointer"
+      disabled={isLoading}
+    >
+      {isLoading ? <LoaderCircle className="animate-spin" /> : "Create account"}
+    </Button>
   );
 }

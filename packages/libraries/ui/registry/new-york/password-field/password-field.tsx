@@ -8,7 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import type { UseFormReturn } from "react-hook-form";
 
-export function PasswordField({ form }: { form: UseFormReturn<any> }) {
+export function PasswordField({ form, isLoading }: { form: UseFormReturn<any>, isLoading: boolean }) {
   return (
     <FormField
       control={form.control}
@@ -20,6 +20,7 @@ export function PasswordField({ form }: { form: UseFormReturn<any> }) {
             <Input
               type="password"
               placeholder="Enter your password"
+              disabled={isLoading}
               {...field}
             />
           </FormControl>

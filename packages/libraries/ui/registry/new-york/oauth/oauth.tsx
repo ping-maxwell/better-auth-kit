@@ -2,9 +2,10 @@
 
 import { GoogleOAuth } from "@/components/google-oauth";
 import { DiscordOAuth } from "@/components/discord-oauth";
-import { useCallback } from "react";
+import { useCallback, type Dispatch, type SetStateAction } from "react";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 export type OAuthButtonPressEvent = ({
   providerId,
@@ -40,24 +41,58 @@ export function OAuth({
   callbackURL,
   iconOnly,
   dividerPlacement = "above",
+  isLoading,
+  setIsLoading,
 }: {
   callbackURL?: string;
   iconOnly?: boolean;
   dividerPlacement?: "above" | "below";
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }) {
   const onClick = useCallback<OAuthButtonPressEvent>(
     ({ providerId, type }) => {
+      setIsLoading(true);
       if (type === "supported-provider") {
-        authClient.signIn.social({ provider: providerId, callbackURL });
+        authClient.signIn.social(
+          { provider: providerId, callbackURL },
+          {
+            onSuccess(context) {
+              setIsLoading(false);
+              toast.success(`OAuth sign-in success!`);
+            },
+            onError(context) {
+              setIsLoading(false);
+              toast.error(`Something went wrong during OAuth sign-in.`, {
+                description: context.error.message,
+              });
+            },
+          }
+        );
       } else {
         //@ts-ignore - If you're not intending on using the Generic OAuth plugin, you can remove this.
-        authClient.signIn.oauth2({
-          providerId,
-          callbackURL,
-        });
+        authClient.signIn.oauth2(
+          {
+            providerId,
+            callbackURL,
+          },
+          {
+            onSuccess() {
+              setIsLoading(false);
+              toast.success(`OAuth sign-in success!`);
+            },
+            //@ts-expect-error - same reason as above.
+            onError(context) {
+              setIsLoading(false);
+              toast.error(`Something went wrong during OAuth sign-in.`, {
+                description: context.error.message,
+              });
+            },
+          }
+        );
       }
     },
-    [callbackURL]
+    [callbackURL, setIsLoading]
   );
 
   return (
@@ -69,8 +104,16 @@ export function OAuth({
           dividerPlacement === "above" ? "mt-4" : "mb-4"
         )}
       >
-        <GoogleOAuth onClick={onClick} iconOnly={iconOnly} />
-        <DiscordOAuth onClick={onClick} iconOnly={iconOnly} />
+        <GoogleOAuth
+          onClick={onClick}
+          iconOnly={iconOnly}
+          isLoading={isLoading}
+        />
+        <DiscordOAuth
+          onClick={onClick}
+          iconOnly={iconOnly}
+          isLoading={isLoading}
+        />
       </div>
       {dividerPlacement === "below" && <Divider />}
     </div>
