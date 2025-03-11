@@ -27,7 +27,6 @@ interface Option_base {
 interface Option_Selection extends Option_base {
   type: "selection";
   options: string[];
-  defaultValue: string;
   label: string;
 }
 
@@ -87,7 +86,6 @@ export function BuilderSidebar() {
       options: [
         {
           label: "placement",
-          defaultValue: "below",
           type: "selection",
           options: ["above", "below"],
           id: "placement",
@@ -194,11 +192,7 @@ export function BuilderSidebar() {
                             <p className="select-none">{opt.label}</p>
                             <div className="">
                               <Select
-                                // value={builder[item.id][opt.id]}
-                                // defaultValue={opt.defaultValue}
                                 onValueChange={(val) => {
-                                  console.log(1, builder[item.id][opt.id]);
-                                  console.log(2, opt.defaultValue);
                                   setBuilder({
                                     ...builder,
                                     [item.id]: {
@@ -215,7 +209,11 @@ export function BuilderSidebar() {
                                   <SelectGroup>
                                     {opt.options.map((x) => {
                                       return (
-                                        <SelectItem key={x} value={x} className="px-2 text-sm py-1 hover:bg-primary/5 rounded-sm text-muted-foreground cursor-pointer">
+                                        <SelectItem
+                                          key={x}
+                                          value={x}
+                                          className="px-2 text-sm py-1 hover:bg-primary/5 rounded-sm text-muted-foreground cursor-pointer"
+                                        >
                                           {x}
                                         </SelectItem>
                                       );
