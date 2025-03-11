@@ -27,7 +27,7 @@ const logo = (
 export function DiscordOAuth(props: Props) {
   return (
     <Button
-      className="grow cursor-pointer min-w-16"
+      className="grow cursor-pointer min-w-20"
       onClick={() =>
         props.onClick({ providerId: "discord", type: "supported-provider" })
       }

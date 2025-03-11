@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { NameField } from "@/components/name-field";
 import { PasswordField } from "@/components/password-field";
 import { EmailField } from "@/components/email-field";
+import { RootError } from "@/components/root-error";
 import type { ErrorContext, SuccessContext } from "better-auth/react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -59,12 +60,13 @@ export function SignUp(props?: SignUpProps) {
             toast.error(`There was an issue signing you up.`, {
               description: <>{context.error.message}</>,
             });
+            form.setError("root", { message: context.error.message });
             return props?.onError?.(context);
           },
         }
       );
     },
-    [props]
+    [props, form.setError]
   );
 
   return (
@@ -80,6 +82,7 @@ export function SignUp(props?: SignUpProps) {
           <NameField form={form} />
           <EmailField form={form} />
           <PasswordField form={form} />
+          <RootError form={form} />
           <Button type="submit" className="w-full cursor-pointer">
             Create account
           </Button>

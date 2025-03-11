@@ -26,6 +26,10 @@
 				{
 					"path": "registry/new-york/email-field/email-field.tsx",
 					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/root-error/root-error.tsx",
+					"type": "registry:component"
 				}
 			]
 		},
@@ -47,6 +51,10 @@
 				},
 				{
 					"path": "registry/new-york/email-field/email-field.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/root-error/root-error.tsx",
 					"type": "registry:component"
 				}
 			]

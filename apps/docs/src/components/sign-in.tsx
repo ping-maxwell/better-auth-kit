@@ -3,12 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useCallback } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PasswordField } from "@/components/password-field";
 import { EmailField } from "@/components/email-field";
+import { RootError } from "@/components/root-error";
 import type { ErrorContext, SuccessContext } from "better-auth/react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -54,12 +55,13 @@ export function SignIn(props?: SignInProps) {
             toast.error(`There was an issue signing you in.`, {
               description: <>{context.error.message}</>,
             });
+            form.setError("root", { message: context.error.message });
             return props?.onError?.(context);
           },
         }
       );
     },
-    [props]
+    [props, form.setError]
   );
 
   return (
@@ -74,11 +76,12 @@ export function SignIn(props?: SignInProps) {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <EmailField form={form} />
           <PasswordField form={form} />
+          <RootError form={form} />
           <Button type="submit" className="w-full cursor-pointer">
             Continue
           </Button>
         </form>
-        <AlreadyHaveAccount />
+        <DontHaveAccount />
       </Form>
     </div>
   );
@@ -95,7 +98,7 @@ function Title() {
   );
 }
 
-function AlreadyHaveAccount() {
+function DontHaveAccount() {
   return (
     <div className="w-full flex justify-center items-center gap-2 text-sm mt-5">
       <p className="text-muted-foreground">Don't have an account?</p>

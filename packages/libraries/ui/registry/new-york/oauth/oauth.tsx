@@ -4,6 +4,7 @@ import { GoogleOAuth } from "@/components/google-oauth";
 import { DiscordOAuth } from "@/components/discord-oauth";
 import { useCallback } from "react";
 import { authClient } from "@/lib/auth-client";
+import { cn } from "@/lib/utils";
 
 export type OAuthButtonPressEvent = ({
   providerId,
@@ -38,9 +39,11 @@ export type OAuthButtonPressEvent = ({
 export function OAuth({
   callbackURL,
   iconOnly,
+  dividerPlacement = "above",
 }: {
   callbackURL?: string;
   iconOnly?: boolean;
+  dividerPlacement?: "above" | "below";
 }) {
   const onClick = useCallback<OAuthButtonPressEvent>(
     ({ providerId, type }) => {
@@ -59,11 +62,17 @@ export function OAuth({
 
   return (
     <div className="w-full flex flex-col gap-3">
-      <Divider />
-      <div className="w-full flex flex-wrap items-stretch gap-2 mt-4">
+      {dividerPlacement === "above" && <Divider />}
+      <div
+        className={cn(
+          "w-full flex flex-wrap items-stretch gap-2",
+          dividerPlacement === "above" ? "mt-4" : "mb-4"
+        )}
+      >
         <GoogleOAuth onClick={onClick} iconOnly={iconOnly} />
         <DiscordOAuth onClick={onClick} iconOnly={iconOnly} />
       </div>
+      {dividerPlacement === "below" && <Divider />}
     </div>
   );
 }
