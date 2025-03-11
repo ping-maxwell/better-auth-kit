@@ -7,14 +7,8 @@
 		"type": "git",
 		"url": "https://github.com/ping-maxwell/better-auth-kit"
 	},
-	"exports": {
-		".": {
-			"default": "./dist/index.js",
-			"types": "./dist/index.d.ts"
-		}
-	},
 	"scripts": {
-		"build": "shadcn build && bun run move.ts"
+		"build": "shadcn build --output ../../../apps/docs/public/r"
 	},
 	"keywords": [
 		"better-auth",
