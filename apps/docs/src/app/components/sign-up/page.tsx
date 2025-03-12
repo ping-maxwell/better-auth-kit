@@ -7,7 +7,7 @@ import { BuilderExport } from "../utils/builder-export";
 
 export default function Page() {
   return (
-    <div className="w-full h-full relative flex justify-center items-center pr-[var(--fd-sidebar-width)] pb-32 bg-gradient-to-br from-fd-border/10 to-fd-border/50">
+    <div className="w-full h-full relative flex justify-center items-center pr-[var(--fd-sidebar-width)] bg-gradient-to-br from-fd-border/10 to-fd-border/50">
       <BuilderProvider
         defaultValue={{
           oauth: {
@@ -28,6 +28,7 @@ export default function Page() {
             reddit: true,
             roblox: true,
             spotify: true,
+            vk: true,
           },
           form: {
             name: true,

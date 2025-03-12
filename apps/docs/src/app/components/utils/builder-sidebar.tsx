@@ -195,6 +195,12 @@ export function BuilderSidebar() {
           defaultValue: true,
           id: "spotify",
         },
+        {
+          label: "VK OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "vk",
+        },
       ],
     },
   ]);

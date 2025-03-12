@@ -20,6 +20,7 @@ import { LinkedInOAuth } from "./linkedin-oauth";
 import { RedditOAuth } from "./reddit-oauth";
 import { RobloxOAuth } from "./roblox-oauth";
 import { SpotifyOAuth } from "./spotify-oauth";
+import { VkOAuth } from "./vk-oauth";
 
 export type OAuthButtonPressEvent = ({
   providerId,
@@ -217,6 +218,13 @@ export function OAuth({
         )}
         {builder.oauth.spotify && (
           <SpotifyOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.vk && (
+          <VkOAuth
             onClick={onClick}
             iconOnly={iconOnly}
             isLoading={isLoading}

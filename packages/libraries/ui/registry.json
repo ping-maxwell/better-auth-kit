@@ -273,6 +273,19 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "vk-oauth",
+			"type": "registry:component",
+			"title": "VK OAuth",
+			"description": "A VK OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/vk-oauth/vk-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }

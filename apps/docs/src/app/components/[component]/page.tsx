@@ -18,6 +18,7 @@ import { GitlabOAuth } from "@/components/gitlab-oauth";
 import { RedditOAuth } from "@/components/reddit-oauth";
 import { RobloxOAuth } from "@/components/roblox-oauth";
 import { SpotifyOAuth } from "@/components/spotify-oauth";
+import { VkOAuth } from "@/components/vk-oauth";
 
 const components = {
   "sign-in": () => <SignIn />,
@@ -100,6 +101,11 @@ const components = {
   "spotify-oauth": () => (
     <div className="w-[200px] flex justify-center items-center">
       <SpotifyOAuth isLoading={false} onClick={() => {}} />
+    </div>
+  ),
+  "vk-oauth": () => (
+    <div className="w-[200px] flex justify-center items-center">
+      <VkOAuth isLoading={false} onClick={() => {}} />
     </div>
   ),
 };
