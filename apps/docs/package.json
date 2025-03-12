@@ -18,7 +18,8 @@
 		"ui:microsoft": "bunx --bun shadcn@latest add http://localhost:3001/r/microsoft-oauth.json --overwrite",
 		"ui:tiktok": "bunx --bun shadcn@latest add http://localhost:3001/r/tiktok-oauth.json --overwrite",
 		"ui:twitch": "bunx --bun shadcn@latest add http://localhost:3001/r/twitch-oauth.json --overwrite",
-		"ui:twitter": "bunx --bun shadcn@latest add http://localhost:3001/r/twitter-oauth.json --overwrite"
+		"ui:twitter": "bunx --bun shadcn@latest add http://localhost:3001/r/twitter-oauth.json --overwrite",
+		"ui:dropbox": "bunx --bun shadcn@latest add http://localhost:3001/r/dropbox-oauth.json --overwrite"
 	},
 	"dependencies": {
 		"@better-auth-kit/legal-consent": "workspace:*",

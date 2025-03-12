@@ -12,6 +12,7 @@ import { SignUp } from "@/components/sign-up";
 import { use } from "react";
 import { TwitchOAuth } from "@/components/twitch-oauth";
 import { TwitterOAuth } from "@/components/twitter-oauth";
+import { DropboxOAuth } from "@/components/dropbox-oauth";
 
 const components = {
   "sign-in": () => <SignIn />,
@@ -64,6 +65,11 @@ const components = {
   "twitter-oauth": () => (
     <div className="w-[200px] flex justify-center items-center">
       <TwitterOAuth isLoading={false} onClick={() => {}} />
+    </div>
+  ),
+  "dropbox-oauth": () => (
+    <div className="w-[200px] flex justify-center items-center">
+      <DropboxOAuth isLoading={false} onClick={() => {}} />
     </div>
   ),
 };

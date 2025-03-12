@@ -195,6 +195,19 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "dropbox-oauth",
+			"type": "registry:component",
+			"title": "Dropbox OAuth",
+			"description": "A Dropbox OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/dropbox-oauth/dropbox-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }

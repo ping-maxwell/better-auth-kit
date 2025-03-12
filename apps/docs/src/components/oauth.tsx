@@ -14,6 +14,7 @@ import { MicrosoftOAuth } from "@/components/microsoft-oauth";
 import { TikTokOAuth } from "./tiktok-oauth";
 import { TwitchOAuth } from "./twitch-oauth";
 import { TwitterOAuth } from "./twitter-oauth";
+import { DropboxOAuth } from "./dropbox-oauth";
 
 export type OAuthButtonPressEvent = ({
   providerId,
@@ -169,6 +170,13 @@ export function OAuth({
         )}
         {builder.oauth.twitter && (
           <TwitterOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.dropbox && (
+          <DropboxOAuth
             onClick={onClick}
             iconOnly={iconOnly}
             isLoading={isLoading}

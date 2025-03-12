@@ -22,6 +22,7 @@ export default function Page() {
             tiktok: true,
             twitch: true,
             twitter: true,
+            dropbox: true,
           },
           form: {
             name: true,

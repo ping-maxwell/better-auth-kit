@@ -158,6 +158,13 @@ export function BuilderSidebar() {
           id: "twitter",
           isDisabled: false,
         },
+        {
+          label: "Dropbox OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "dropbox",
+          isDisabled: false,
+        },
       ],
     },
   ]);
