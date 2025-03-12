@@ -244,7 +244,7 @@ export function BuilderSidebar() {
                           return (
                             <div
                               key={opt.label + index}
-                              className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-x-2.5 hover:bg-primary/5 px-5 h-[46px] py-2 break-words sm:w-[var(--fd-sidebar-width)] w-screen justify-between text-sm"
+                              className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-x-2.5 hover:bg-primary/5 px-5 py-2 break-words sm:w-[var(--fd-sidebar-width)] w-screen justify-between text-sm"
                             >
                               <p className="select-none">{opt.label}</p>
                               <div className="flex">
