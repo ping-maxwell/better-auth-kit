@@ -221,6 +221,19 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "gitlab-oauth",
+			"type": "registry:component",
+			"title": "Gitlab OAuth",
+			"description": "A Gitlab OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/gitlab-oauth/gitlab-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }

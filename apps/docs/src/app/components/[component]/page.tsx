@@ -14,6 +14,7 @@ import { TwitchOAuth } from "@/components/twitch-oauth";
 import { TwitterOAuth } from "@/components/twitter-oauth";
 import { DropboxOAuth } from "@/components/dropbox-oauth";
 import { LinkedInOAuth } from "@/components/linkedin-oauth";
+import { GitlabOAuth } from "@/components/gitlab-oauth";
 
 const components = {
   "sign-in": () => <SignIn />,
@@ -76,6 +77,11 @@ const components = {
   "linkedin-oauth": () => (
     <div className="w-[200px] flex justify-center items-center">
       <LinkedInOAuth isLoading={false} onClick={() => {}} />
+    </div>
+  ),
+  "gitlab-oauth": () => (
+    <div className="w-[200px] flex justify-center items-center">
+      <GitlabOAuth isLoading={false} onClick={() => {}} />
     </div>
   ),
 };

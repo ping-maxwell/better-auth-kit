@@ -24,6 +24,7 @@ export default function Page() {
             twitter: true,
             dropbox: true,
             linkedin: true,
+            gitlab: true,
           },
           form: {
             name: true,

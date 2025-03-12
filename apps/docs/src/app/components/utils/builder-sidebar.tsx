@@ -171,6 +171,12 @@ export function BuilderSidebar() {
           defaultValue: true,
           id: "linkedin",
         },
+        {
+          label: "Gitlab OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "gitlab",
+        },
       ],
     },
   ]);

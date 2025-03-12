@@ -11,6 +11,7 @@ import { FacebookOAuth } from "@/components/facebook-oauth";
 import { AppleOAuth } from "./apple-oauth";
 import { GithubOAuth } from "@/components/github-oauth";
 import { MicrosoftOAuth } from "@/components/microsoft-oauth";
+import { GitlabOAuth } from "@/components/gitlab-oauth";
 import { TikTokOAuth } from "./tiktok-oauth";
 import { TwitchOAuth } from "./twitch-oauth";
 import { TwitterOAuth } from "./twitter-oauth";
@@ -185,6 +186,13 @@ export function OAuth({
         )}
         {builder.oauth.linkedin && (
           <LinkedInOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.gitlab && (
+          <GitlabOAuth
             onClick={onClick}
             iconOnly={iconOnly}
             isLoading={isLoading}
