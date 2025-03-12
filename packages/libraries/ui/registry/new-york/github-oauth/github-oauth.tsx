@@ -29,7 +29,10 @@ const logo = (
 export function GithubOAuth(props: Props) {
   return (
     <Button
-      className="grow cursor-pointer min-w-20"
+      className={cn(
+        "grow cursor-pointer",
+        props.iconOnly ? "min-w-[80px]" : "min-w-[110px]"
+      )}
       onClick={() =>
         props.onClick({ providerId: "github", type: "supported-provider" })
       }

@@ -15,7 +15,8 @@
 		"ui:apple": "bunx --bun shadcn@latest add http://localhost:3001/r/apple-oauth.json --overwrite",
 		"ui:facebook": "bunx --bun shadcn@latest add http://localhost:3001/r/facebook-oauth.json --overwrite",
 		"ui:github": "bunx --bun shadcn@latest add http://localhost:3001/r/github-oauth.json --overwrite",
-		"ui:microsoft": "bunx --bun shadcn@latest add http://localhost:3001/r/microsoft-oauth.json --overwrite"
+		"ui:microsoft": "bunx --bun shadcn@latest add http://localhost:3001/r/microsoft-oauth.json --overwrite",
+		"ui:tiktok": "bunx --bun shadcn@latest add http://localhost:3001/r/tiktok-oauth.json --overwrite"
 	},
 	"dependencies": {
 		"@better-auth-kit/legal-consent": "workspace:*",

@@ -11,14 +11,14 @@ interface Props {
 const logo = (
   <svg
     className="size-4"
-    viewBox="0 0 32 32"
+    viewBox="0 0 22 22"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect x="17" y="17" width="10" height="10" fill="#FEBA08" />
-    <rect x="5" y="17" width="10" height="10" fill="#05A6F0" />
-    <rect x="17" y="5" width="10" height="10" fill="#80BC06" />
-    <rect x="5" y="5" width="10" height="10" fill="#F25325" />
+    <rect x="12" y="12" width="10" height="10" fill="#FEBA08" />
+    <rect x="0" y="12" width="10" height="10" fill="#05A6F0" />
+    <rect x="12" y="0" width="10" height="10" fill="#80BC06" />
+    <rect x="0" y="0" width="10" height="10" fill="#F25325" />
   </svg>
 );
 
@@ -26,7 +26,7 @@ export function MicrosoftOAuth(props: Props) {
   return (
     <Button
       className={cn(
-        "grow basis-[calc(33.33%-0.5rem)] cursor-pointer",
+        "grow cursor-pointer",
         props.iconOnly ? "min-w-[80px]" : "min-w-[110px]"
       )}
       onClick={() =>

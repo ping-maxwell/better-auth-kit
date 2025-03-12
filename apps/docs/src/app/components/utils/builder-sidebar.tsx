@@ -137,6 +137,13 @@ export function BuilderSidebar() {
           id: "microsoft",
           isDisabled: false,
         },
+        {
+          label: "TikTok OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "tiktok",
+          isDisabled: false,
+        },
       ],
     },
   ]);

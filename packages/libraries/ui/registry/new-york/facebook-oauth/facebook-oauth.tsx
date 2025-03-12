@@ -10,7 +10,7 @@ interface Props {
 
 const logo = (
   <svg
-    className="size-4"
+    className="size-[18px]"
     viewBox="0 0 32 32"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +39,10 @@ const logo = (
 export function FacebookOAuth(props: Props) {
   return (
     <Button
-      className="grow cursor-pointer min-w-20"
+      className={cn(
+        "grow cursor-pointer",
+        props.iconOnly ? "min-w-[80px]" : "min-w-[110px]"
+      )}
       onClick={() =>
         props.onClick({ providerId: "facebook", type: "supported-provider" })
       }

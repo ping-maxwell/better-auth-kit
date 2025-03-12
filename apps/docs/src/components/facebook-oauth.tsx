@@ -10,7 +10,7 @@ interface Props {
 
 const logo = (
   <svg
-    className="size-4"
+    className="size-[18px]"
     viewBox="0 0 32 32"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +40,7 @@ export function FacebookOAuth(props: Props) {
   return (
     <Button
       className={cn(
-        "grow basis-[calc(33.33%-0.5rem)] cursor-pointer",
+        "grow cursor-pointer",
         props.iconOnly ? "min-w-[80px]" : "min-w-[110px]"
       )}
       onClick={() =>

@@ -152,7 +152,20 @@
 			"registryDependencies": ["button"],
 			"files": [
 				{
-					"path": "registry/new-york/microsoft/microsoft-oauth.tsx",
+					"path": "registry/new-york/microsoft-oauth/microsoft-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
+			},
+		{
+			"name": "tiktok-oauth",
+			"type": "registry:component",
+			"title": "TikTok OAuth",
+			"description": "A TikTok OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/tiktok-oauth/tiktok-oauth.tsx",
 					"type": "registry:component"
 				}
 			]
