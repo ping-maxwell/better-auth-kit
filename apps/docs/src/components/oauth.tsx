@@ -13,6 +13,7 @@ import { GithubOAuth } from "@/components/github-oauth";
 import { MicrosoftOAuth } from "@/components/microsoft-oauth";
 import { TikTokOAuth } from "./tiktok-oauth";
 import { TwitchOAuth } from "./twitch-oauth";
+import { TwitterOAuth } from "./twitter-oauth";
 
 export type OAuthButtonPressEvent = ({
   providerId,
@@ -161,6 +162,13 @@ export function OAuth({
         )}
         {builder.oauth.twitch && (
           <TwitchOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.twitter && (
+          <TwitterOAuth
             onClick={onClick}
             iconOnly={iconOnly}
             isLoading={isLoading}

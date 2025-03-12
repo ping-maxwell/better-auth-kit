@@ -151,6 +151,13 @@ export function BuilderSidebar() {
           id: "twitch",
           isDisabled: false,
         },
+        {
+          label: "Twitter OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "twitter",
+          isDisabled: false,
+        },
       ],
     },
   ]);

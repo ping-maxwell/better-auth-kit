@@ -182,6 +182,19 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "twitter-oauth",
+			"type": "registry:component",
+			"title": "Twitter OAuth",
+			"description": "A Twitter OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/twitter-oauth/twitter-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }

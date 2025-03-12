@@ -21,6 +21,7 @@ export default function Page() {
             microsoft: true,
             tiktok: true,
             twitch: true,
+            twitter: true,
           },
           form: {
             name: true,
