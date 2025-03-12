@@ -26,7 +26,7 @@
 		// Path aliases
 		"baseUrl": ".",
 		"paths": {
-		  "@/*": ["./*"]
+			"@/*": ["./*"]
 		}
 	},
 	"exclude": ["dist", "build.ts"]

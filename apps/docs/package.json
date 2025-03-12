@@ -25,7 +25,8 @@
 		"ui:reddit": "bunx --bun shadcn@latest add http://localhost:3001/r/reddit-oauth.json --overwrite",
 		"ui:roblox": "bunx --bun shadcn@latest add http://localhost:3001/r/roblox-oauth.json --overwrite",
 		"ui:spotify": "bunx --bun shadcn@latest add http://localhost:3001/r/spotify-oauth.json --overwrite",
-		"ui:vk": "bunx --bun shadcn@latest add http://localhost:3001/r/vk-oauth.json --overwrite"
+		"ui:vk": "bunx --bun shadcn@latest add http://localhost:3001/r/vk-oauth.json --overwrite",
+		"ui:oauth-all": "bun run ui:google && bun run ui:facebook && bun run ui:apple && bun run ui:github && bun run ui:microsoft && bun run ui:discord && bun run ui:tiktok && bun run ui:twitch && bun run ui:twitter && bun run ui:dropbox && bun run ui:linkedin && bun run ui:gitlab && bun run ui:reddit && bun run ui:roblox && bun run ui:spotify && bun run ui:vk"
 	},
 	"dependencies": {
 		"@better-auth-kit/legal-consent": "workspace:*",

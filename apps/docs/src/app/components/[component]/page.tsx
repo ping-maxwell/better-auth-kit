@@ -21,105 +21,105 @@ import { SpotifyOAuth } from "@/components/spotify-oauth";
 import { VkOAuth } from "@/components/vk-oauth";
 
 const components = {
-  "sign-in": () => <SignIn />,
-  "sign-up": () => <SignUp />,
-  oauth: () => (
-    <div className="w-[500px]">
-      <OAuth isLoading={false} setIsLoading={() => {}} />
-    </div>
-  ),
-  "discord-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <DiscordOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "google-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <GoogleOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "apple-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <AppleOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "facebook-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <FacebookOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "github-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <GithubOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "microsoft-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <MicrosoftOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "tiktok-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <TikTokOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "twitch-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <TwitchOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "twitter-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <TwitterOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "dropbox-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <DropboxOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "linkedin-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <LinkedInOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "gitlab-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <GitlabOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "reddit-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <RedditOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "roblox-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <RobloxOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "spotify-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <SpotifyOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
-  "vk-oauth": () => (
-    <div className="w-[200px] flex justify-center items-center">
-      <VkOAuth isLoading={false} onClick={() => {}} />
-    </div>
-  ),
+	"sign-in": () => <SignIn />,
+	"sign-up": () => <SignUp />,
+	oauth: () => (
+		<div className="w-[500px]">
+			<OAuth isLoading={false} setIsLoading={() => {}} />
+		</div>
+	),
+	"discord-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<DiscordOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"google-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<GoogleOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"apple-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<AppleOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"facebook-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<FacebookOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"github-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<GithubOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"microsoft-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<MicrosoftOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"tiktok-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<TikTokOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"twitch-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<TwitchOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"twitter-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<TwitterOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"dropbox-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<DropboxOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"linkedin-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<LinkedInOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"gitlab-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<GitlabOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"reddit-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<RedditOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"roblox-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<RobloxOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"spotify-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<SpotifyOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
+	"vk-oauth": () => (
+		<div className="w-[200px] flex justify-center items-center">
+			<VkOAuth isLoading={false} onClick={() => {}} />
+		</div>
+	),
 };
 
 export default function Page({
-  params,
+	params,
 }: {
-  params: Promise<{ component: keyof typeof components }>;
+	params: Promise<{ component: keyof typeof components }>;
 }) {
-  const { component } = use(params);
+	const { component } = use(params);
 
-  return (
-    <div className="flex justify-center items-center w-full h-full pb-32">
-      {components[component]?.()}
-    </div>
-  );
+	return (
+		<div className="flex justify-center items-center w-full h-full pb-32">
+			{components[component]?.()}
+		</div>
+	);
 }
