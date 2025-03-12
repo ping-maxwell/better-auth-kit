@@ -10,7 +10,6 @@ interface Props {
 
 const logo = (
   <svg
-    className="size-4"
     viewBox="0 0 48 48"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -35,8 +34,8 @@ export function LinkedInOAuth(props: Props) {
   return (
     <Button
       className={cn(
-        "grow cursor-pointer basis-[calc(33.33%-0.5rem)]",
-        props.iconOnly ? "min-w-[80px]" : "min-w-[110px]"
+        "grow cursor-pointer basis-[calc(33.33%-0.5rem)] relative",
+        props.iconOnly ? "min-w-[80px]" : "min-w-[110px] [&_svg]:absolute [&_svg]:left-5"
       )}
       onClick={() =>
         props.onClick({ providerId: "linkedin", type: "supported-provider" })

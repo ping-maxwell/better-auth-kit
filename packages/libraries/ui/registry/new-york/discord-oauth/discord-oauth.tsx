@@ -10,7 +10,6 @@ interface Props {
 
 const logo = (
   <svg
-    className="size-4"
     viewBox="0 -28.5 256 256"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
@@ -29,8 +28,8 @@ export function DiscordOAuth(props: Props) {
   return (
     <Button
       className={cn(
-        "grow cursor-pointer basis-[calc(33.33%-0.5rem)]",
-        props.iconOnly ? "min-w-[80px]" : "min-w-[110px]"
+        "grow cursor-pointer basis-[calc(33.33%-0.5rem)] relative",
+        props.iconOnly ? "min-w-[80px]" : "min-w-[110px] [&_svg]:absolute [&_svg]:left-5"
       )}
       onClick={() =>
         props.onClick({ providerId: "discord", type: "supported-provider" })
