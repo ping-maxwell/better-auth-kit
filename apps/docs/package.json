@@ -9,9 +9,11 @@
 		"postinstall": "fumadocs-mdx",
 		"ui:sign-up": "bunx --bun shadcn@latest add http://localhost:3001/r/sign-up.json --overwrite",
 		"ui:sign-in": "bunx --bun shadcn@latest add http://localhost:3001/r/sign-in.json --overwrite",
-		"ui:google": "bunx --bun shadcn@latest add http://localhost:3001/r/google-oauth.json --overwrite",
 		"ui:oauth": "bunx --bun shadcn@latest add http://localhost:3001/r/oauth.json --overwrite",
-		"ui": "bun ui:sign-up && bun ui:sign-in && bun ui:google && bun ui:oauth"
+		"ui:google": "bunx --bun shadcn@latest add http://localhost:3001/r/google-oauth.json --overwrite",
+		"ui:discord": "bunx --bun shadcn@latest add http://localhost:3001/r/discord-oauth.json --overwrite",
+		"ui:apple": "bunx --bun shadcn@latest add http://localhost:3001/r/apple-oauth.json --overwrite",
+		"ui": "bun ui:sign-up && bun ui:sign-in && bun ui:google && bun ui:discord && bun ui:oauth && bun ui:apple"
 	},
 	"dependencies": {
 		"@better-auth-kit/legal-consent": "workspace:*",

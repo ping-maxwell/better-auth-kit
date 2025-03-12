@@ -1,4 +1,5 @@
 "use client";
+import { AppleOAuth } from "@/components/apple-oauth";
 import { DiscordOAuth } from "@/components/discord-oauth";
 import { GoogleOAuth } from "@/components/google-oauth";
 import { OAuth } from "@/components/oauth";
@@ -22,6 +23,11 @@ const components = {
   "google-oauth": () => (
     <div className="w-[200px] flex justify-center items-center">
       <GoogleOAuth isLoading={false} onClick={() => {}} />
+    </div>
+  ),
+  "apple-oauth": () => (
+    <div className="w-[200px] flex justify-center items-center">
+      <AppleOAuth isLoading={false} onClick={() => {}} />
     </div>
   ),
 };

@@ -60,6 +60,26 @@
 			]
 		},
 		{
+			"name": "oauth",
+			"type": "registry:component",
+			"title": "OAuth",
+			"description": "A OAuth component for Better Auth.",
+			"files": [
+				{
+					"path": "registry/new-york/oauth/oauth.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/google-oauth/google-oauth.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/discord-oauth/discord-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
 			"name": "google-oauth",
 			"type": "registry:component",
 			"title": "Google OAuth",
@@ -86,21 +106,14 @@
 			]
 		},
 		{
-			"name": "oauth",
+			"name": "apple-oauth",
 			"type": "registry:component",
-			"title": "OAuth",
-			"description": "A OAuth component for Better Auth.",
+			"title": "Apple OAuth",
+			"description": "A Apple OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
 			"files": [
 				{
-					"path": "registry/new-york/oauth/oauth.tsx",
-					"type": "registry:component"
-				},
-				{
-					"path": "registry/new-york/google-oauth/google-oauth.tsx",
-					"type": "registry:component"
-				},
-				{
-					"path": "registry/new-york/discord-oauth/discord-oauth.tsx",
+					"path": "registry/new-york/apple-oauth/apple-oauth.tsx",
 					"type": "registry:component"
 				}
 			]
