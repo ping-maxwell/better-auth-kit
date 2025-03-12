@@ -29,7 +29,7 @@ export function DiscordOAuth(props: Props) {
   return (
     <Button
       className={cn(
-        "grow cursor-pointer",
+        "grow cursor-pointer basis-[calc(33.33%-0.5rem)]",
         props.iconOnly ? "min-w-[80px]" : "min-w-[110px]"
       )}
       onClick={() =>
