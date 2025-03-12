@@ -59,7 +59,6 @@ export function OAuth({
           {
             onSuccess(context) {
               setIsLoading(false);
-              toast.success(`OAuth sign-in success!`);
             },
             onError(context) {
               setIsLoading(false);
@@ -79,7 +78,6 @@ export function OAuth({
           {
             onSuccess() {
               setIsLoading(false);
-              toast.success(`OAuth sign-in success!`);
             },
             //@ts-expect-error - same reason as above.
             onError(context) {
