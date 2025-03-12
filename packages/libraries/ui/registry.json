@@ -247,6 +247,19 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "roblox-oauth",
+			"type": "registry:component",
+			"title": "Roblox OAuth",
+			"description": "A Roblox OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/roblox-oauth/roblox-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }

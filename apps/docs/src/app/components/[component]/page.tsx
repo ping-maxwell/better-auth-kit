@@ -16,6 +16,7 @@ import { DropboxOAuth } from "@/components/dropbox-oauth";
 import { LinkedInOAuth } from "@/components/linkedin-oauth";
 import { GitlabOAuth } from "@/components/gitlab-oauth";
 import { RedditOAuth } from "@/components/reddit-oauth";
+import { RobloxOAuth } from "@/components/roblox-oauth";
 
 const components = {
   "sign-in": () => <SignIn />,
@@ -88,6 +89,11 @@ const components = {
   "reddit-oauth": () => (
     <div className="w-[200px] flex justify-center items-center">
       <RedditOAuth isLoading={false} onClick={() => {}} />
+    </div>
+  ),
+  "roblox-oauth": () => (
+    <div className="w-[200px] flex justify-center items-center">
+      <RobloxOAuth isLoading={false} onClick={() => {}} />
     </div>
   ),
 };

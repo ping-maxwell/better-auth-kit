@@ -183,6 +183,12 @@ export function BuilderSidebar() {
           defaultValue: true,
           id: "reddit",
         },
+        {
+          label: "Roblox OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "roblox",
+        },
       ],
     },
   ]);
