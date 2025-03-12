@@ -92,6 +92,7 @@ export function SignUp(props?: SignUpProps) {
             isLoading={isLoading}
             setIsLoading={setIsLoading}
             dividerPlacement="below"
+            iconOnly={builder.oauth.isIconOnly}
           />
         )}
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -106,6 +107,7 @@ export function SignUp(props?: SignUpProps) {
             isLoading={isLoading}
             setIsLoading={setIsLoading}
             dividerPlacement="above"
+            iconOnly={builder.oauth.isIconOnly}
           />
         )}
         <AlreadyHaveAccount />

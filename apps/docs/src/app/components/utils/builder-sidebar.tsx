@@ -90,6 +90,13 @@ export function BuilderSidebar() {
           options: ["above", "below"],
           id: "placement",
         },
+        {
+          label: "Icon only",
+          type: "checkbox",
+          defaultValue: true,
+          id: "isIconOnly",
+          isDisabled: false,
+        },
       ],
     },
   ]);
@@ -171,13 +178,23 @@ export function BuilderSidebar() {
                                   defaultChecked={opt.defaultValue}
                                   className="rounded-sm size-4 cursor-pointer"
                                   disabled={opt.isDisabled}
+                                  checked={builder[item.id][opt.id]}
                                   id={opt.label + index}
+                                  onCheckedChange={(checked) => {
+                                    setBuilder({
+                                      ...builder,
+                                      [item.id]: {
+                                        ...builder[item.id],
+                                        [opt.id]: checked,
+                                      },
+                                    });
+                                  }}
                                 />
                                 <Label
                                   htmlFor={opt.label + index}
                                   className="select-none cursor-pointer text-xs"
                                 >
-                                  Enabled
+                                  {builder[item.id][opt.id] ? "Enabled" : "Disabled"}
                                 </Label>
                               </div>
                             </div>

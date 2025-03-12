@@ -1,14 +1,5 @@
 "use client";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { BuilderProvider } from "../utils/builder-provider";
 import { BuilderSidebar } from "../utils/builder-sidebar";
 import { SignUp } from "./component";
@@ -21,7 +12,14 @@ export default function Page() {
         defaultValue={{
           oauth: {
             placement: "below",
+            isIconOnly: false
           },
+          form: {
+            name: true,
+            email: true,
+            password: true,
+            submit: true
+          }
         }}
       >
         <SignUp />
