@@ -23,7 +23,8 @@
 		"ui:linkedin": "bunx --bun shadcn@latest add http://localhost:3001/r/linkedin-oauth.json --overwrite",
 		"ui:gitlab": "bunx --bun shadcn@latest add http://localhost:3001/r/gitlab-oauth.json --overwrite",
 		"ui:reddit": "bunx --bun shadcn@latest add http://localhost:3001/r/reddit-oauth.json --overwrite",
-		"ui:roblox": "bunx --bun shadcn@latest add http://localhost:3001/r/roblox-oauth.json --overwrite"
+		"ui:roblox": "bunx --bun shadcn@latest add http://localhost:3001/r/roblox-oauth.json --overwrite",
+		"ui:spotify": "bunx --bun shadcn@latest add http://localhost:3001/r/spotify-oauth.json --overwrite"
 	},
 	"dependencies": {
 		"@better-auth-kit/legal-consent": "workspace:*",

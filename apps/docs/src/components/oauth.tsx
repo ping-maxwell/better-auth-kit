@@ -19,6 +19,7 @@ import { DropboxOAuth } from "./dropbox-oauth";
 import { LinkedInOAuth } from "./linkedin-oauth";
 import { RedditOAuth } from "./reddit-oauth";
 import { RobloxOAuth } from "./roblox-oauth";
+import { SpotifyOAuth } from "./spotify-oauth";
 
 export type OAuthButtonPressEvent = ({
   providerId,
@@ -209,6 +210,13 @@ export function OAuth({
         )}
         {builder.oauth.roblox && (
           <RobloxOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.spotify && (
+          <SpotifyOAuth
             onClick={onClick}
             iconOnly={iconOnly}
             isLoading={isLoading}

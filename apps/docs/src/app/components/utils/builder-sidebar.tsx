@@ -189,6 +189,12 @@ export function BuilderSidebar() {
           defaultValue: true,
           id: "roblox",
         },
+        {
+          label: "Spotify OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "spotify",
+        },
       ],
     },
   ]);

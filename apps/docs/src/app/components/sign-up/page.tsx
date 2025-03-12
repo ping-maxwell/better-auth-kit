@@ -27,6 +27,7 @@ export default function Page() {
             gitlab: true,
             reddit: true,
             roblox: true,
+            spotify: true,
           },
           form: {
             name: true,

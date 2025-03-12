@@ -260,6 +260,19 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "spotify-oauth",
+			"type": "registry:component",
+			"title": "Spotify OAuth",
+			"description": "A Spotify OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/spotify-oauth/spotify-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }

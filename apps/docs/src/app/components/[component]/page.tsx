@@ -17,6 +17,7 @@ import { LinkedInOAuth } from "@/components/linkedin-oauth";
 import { GitlabOAuth } from "@/components/gitlab-oauth";
 import { RedditOAuth } from "@/components/reddit-oauth";
 import { RobloxOAuth } from "@/components/roblox-oauth";
+import { SpotifyOAuth } from "@/components/spotify-oauth";
 
 const components = {
   "sign-in": () => <SignIn />,
@@ -94,6 +95,11 @@ const components = {
   "roblox-oauth": () => (
     <div className="w-[200px] flex justify-center items-center">
       <RobloxOAuth isLoading={false} onClick={() => {}} />
+    </div>
+  ),
+  "spotify-oauth": () => (
+    <div className="w-[200px] flex justify-center items-center">
+      <SpotifyOAuth isLoading={false} onClick={() => {}} />
     </div>
   ),
 };
