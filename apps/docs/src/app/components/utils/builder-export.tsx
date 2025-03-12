@@ -13,8 +13,8 @@ export function BuilderExport() {
     <Sheet>
       <SheetTrigger asChild>
         <Button
-          className="absolute bottom-[25px] right-[calc(var(--fd-sidebar-width)_+_25px)]"
-          variant={"secondary"}
+          className="absolute bottom-[25px] right-[calc(var(--fd-sidebar-width)_+_25px)] drop-shadow-lg"
+          variant={"outline"}
         >
           Export
         </Button>

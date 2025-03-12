@@ -110,9 +110,8 @@ export function BuilderSidebar() {
               className="relative w-screen sm:w-full"
             >
               <Button
-                size={"xs"}
                 className={cn(
-                  "cursor-pointer absolute top-2 right-3 w-fit",
+                  "cursor-pointer absolute top-2 right-3 w-fit h-6 px-2 py-2 has-[>svg]:px-1.5",
                   !item.canRemove && "hidden"
                 )}
                 variant={"ghost"}
