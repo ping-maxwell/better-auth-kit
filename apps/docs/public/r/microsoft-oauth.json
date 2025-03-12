@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "microsoft-oauth",
+  "type": "registry:component",
+  "title": "Microsoft OAuth",
+  "description": "A Microsoft OAuth button component for Better Auth.",
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/microsoft/microsoft-oauth.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport type { OAuthButtonPressEvent } from \"@/components/oauth\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Props {\n  onClick: OAuthButtonPressEvent;\n  iconOnly?: boolean;\n  isLoading: boolean;\n}\n\nconst logo = (\n  <svg\n    className=\"size-4\"\n    viewBox=\"0 0 32 32\"\n    fill=\"none\"\n    xmlns=\"http://www.w3.org/2000/svg\"\n  >\n    <rect x=\"17\" y=\"17\" width=\"10\" height=\"10\" fill=\"#FEBA08\" />\n    <rect x=\"5\" y=\"17\" width=\"10\" height=\"10\" fill=\"#05A6F0\" />\n    <rect x=\"17\" y=\"5\" width=\"10\" height=\"10\" fill=\"#80BC06\" />\n    <rect x=\"5\" y=\"5\" width=\"10\" height=\"10\" fill=\"#F25325\" />\n  </svg>\n);\n\nexport function MicrosoftOAuth(props: Props) {\n  return (\n    <Button\n      className={\"grow cursor-pointer min-w-20\"}\n      onClick={() =>\n        props.onClick({ providerId: \"microsoft\", type: \"supported-provider\" })\n      }\n      variant={\"outline\"}\n      disabled={props.isLoading}\n    >\n      {logo}{\" \"}\n      <span\n        className={cn(\n          props.iconOnly && \"hidden\",\n          \"text-muted-foreground font-normal\"\n        )}\n      >\n        Microsoft\n      </span>\n    </Button>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}

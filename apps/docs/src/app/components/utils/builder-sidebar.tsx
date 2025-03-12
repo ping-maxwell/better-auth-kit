@@ -7,15 +7,13 @@ import {
   Select,
   SelectContent,
   SelectGroup,
-  SelectLabel,
   SelectTrigger,
-  SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { SelectItem } from "@radix-ui/react-select";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import { ChevronDownIcon, User, X } from "lucide-react";
-import { type ReactNode, type SVGProps, useState } from "react";
+import { ChevronDownIcon, X } from "lucide-react";
+import { useState } from "react";
 import { useBuilder } from "./builder-provider";
 
 interface Option_base {
@@ -130,6 +128,13 @@ export function BuilderSidebar() {
           type: "checkbox",
           defaultValue: true,
           id: "github",
+          isDisabled: false,
+        },
+        {
+          label: "Microsoft OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "microsoft",
           isDisabled: false,
         },
       ],

@@ -143,6 +143,19 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "microsoft-oauth",
+			"type": "registry:component",
+			"title": "Microsoft OAuth",
+			"description": "A Microsoft OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/microsoft/microsoft-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }

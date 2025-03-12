@@ -10,6 +10,7 @@ import { useBuilder } from "@/app/components/utils/builder-provider";
 import { FacebookOAuth } from "@/components/facebook-oauth";
 import { AppleOAuth } from "./apple-oauth";
 import { GithubOAuth } from "@/components/github-oauth";
+import { MicrosoftOAuth } from "@/components/microsoft-oauth";
 
 export type OAuthButtonPressEvent = ({
   providerId,
@@ -137,6 +138,13 @@ export function OAuth({
         )}
         {builder.oauth.github && (
           <GithubOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.microsoft && (
+          <MicrosoftOAuth
             onClick={onClick}
             iconOnly={iconOnly}
             isLoading={isLoading}

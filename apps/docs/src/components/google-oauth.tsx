@@ -37,7 +37,10 @@ const logo = (
 export function GoogleOAuth(props: Props) {
   return (
     <Button
-      className={"grow cursor-pointer min-w-20"}
+      className={cn(
+        "grow basis-[calc(33.33%-0.5rem)] cursor-pointer",
+        props.iconOnly ? "min-w-[80px]" : "min-w-[110px]"
+      )}
       onClick={() =>
         props.onClick({ providerId: "google", type: "supported-provider" })
       }

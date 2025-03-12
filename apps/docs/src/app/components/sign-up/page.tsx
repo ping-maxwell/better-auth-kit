@@ -18,6 +18,7 @@ export default function Page() {
             google: true,
             discord: true,
             github: true,
+            microsoft: true,
           },
           form: {
             name: true,
