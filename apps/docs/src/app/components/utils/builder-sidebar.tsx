@@ -144,6 +144,13 @@ export function BuilderSidebar() {
           id: "tiktok",
           isDisabled: false,
         },
+        {
+          label: "Twitch OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "twitch",
+          isDisabled: false,
+        },
       ],
     },
   ]);

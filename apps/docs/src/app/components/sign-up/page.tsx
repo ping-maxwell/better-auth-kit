@@ -19,6 +19,8 @@ export default function Page() {
             discord: true,
             github: true,
             microsoft: true,
+            tiktok: true,
+            twitch: true,
           },
           form: {
             name: true,

@@ -156,7 +156,7 @@
 					"type": "registry:component"
 				}
 			]
-			},
+		},
 		{
 			"name": "tiktok-oauth",
 			"type": "registry:component",
@@ -166,6 +166,19 @@
 			"files": [
 				{
 					"path": "registry/new-york/tiktok-oauth/tiktok-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "twitch-oauth",
+			"type": "registry:component",
+			"title": "Twitch OAuth",
+			"description": "A Twitch OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/twitch-oauth/twitch-oauth.tsx",
 					"type": "registry:component"
 				}
 			]

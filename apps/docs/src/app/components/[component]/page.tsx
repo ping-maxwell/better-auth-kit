@@ -10,6 +10,7 @@ import { OAuth } from "@/components/oauth";
 import { SignIn } from "@/components/sign-in";
 import { SignUp } from "@/components/sign-up";
 import { use } from "react";
+import { TwitchOAuth } from "@/components/twitch-oauth";
 
 const components = {
   "sign-in": () => <SignIn />,
@@ -52,6 +53,11 @@ const components = {
   "tiktok-oauth": () => (
     <div className="w-[200px] flex justify-center items-center">
       <TikTokOAuth isLoading={false} onClick={() => {}} />
+    </div>
+  ),
+  "twitch-oauth": () => (
+    <div className="w-[200px] flex justify-center items-center">
+      <TwitchOAuth isLoading={false} onClick={() => {}} />
     </div>
   ),
 };
