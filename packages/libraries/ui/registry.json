@@ -208,6 +208,19 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "linkedin-oauth",
+			"type": "registry:component",
+			"title": "LinkedIn OAuth",
+			"description": "A LinkedIn OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/linkedin-oauth/linkedin-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }

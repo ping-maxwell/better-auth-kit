@@ -23,6 +23,7 @@ export default function Page() {
             twitch: true,
             twitter: true,
             dropbox: true,
+            linkedin: true,
           },
           form: {
             name: true,

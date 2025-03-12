@@ -13,6 +13,7 @@ import { use } from "react";
 import { TwitchOAuth } from "@/components/twitch-oauth";
 import { TwitterOAuth } from "@/components/twitter-oauth";
 import { DropboxOAuth } from "@/components/dropbox-oauth";
+import { LinkedInOAuth } from "@/components/linkedin-oauth";
 
 const components = {
   "sign-in": () => <SignIn />,
@@ -70,6 +71,11 @@ const components = {
   "dropbox-oauth": () => (
     <div className="w-[200px] flex justify-center items-center">
       <DropboxOAuth isLoading={false} onClick={() => {}} />
+    </div>
+  ),
+  "linkedin-oauth": () => (
+    <div className="w-[200px] flex justify-center items-center">
+      <LinkedInOAuth isLoading={false} onClick={() => {}} />
     </div>
   ),
 };

@@ -165,6 +165,12 @@ export function BuilderSidebar() {
           id: "dropbox",
           isDisabled: false,
         },
+        {
+          label: "LinkedIn OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "linkedin",
+        },
       ],
     },
   ]);

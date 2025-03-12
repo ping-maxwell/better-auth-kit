@@ -15,6 +15,7 @@ import { TikTokOAuth } from "./tiktok-oauth";
 import { TwitchOAuth } from "./twitch-oauth";
 import { TwitterOAuth } from "./twitter-oauth";
 import { DropboxOAuth } from "./dropbox-oauth";
+import { LinkedInOAuth } from "./linkedin-oauth";
 
 export type OAuthButtonPressEvent = ({
   providerId,
@@ -177,6 +178,13 @@ export function OAuth({
         )}
         {builder.oauth.dropbox && (
           <DropboxOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.linkedin && (
+          <LinkedInOAuth
             onClick={onClick}
             iconOnly={iconOnly}
             isLoading={isLoading}
