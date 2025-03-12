@@ -208,7 +208,15 @@ export function BuilderSidebar() {
                               className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-x-2.5 hover:bg-primary/5 px-5 h-[46px] py-2 break-words sm:w-[var(--fd-sidebar-width)] w-screen justify-between text-sm"
                             >
                               <p className="select-none">{opt.label}</p>
-                              <div className="flex gap-2">
+                              <div className="flex">
+                                <Label
+                                  htmlFor={opt.label + index}
+                                  className="select-none cursor-pointer text-xs pr-2"
+                                >
+                                  {builder[item.id][opt.id]
+                                    ? "Enabled"
+                                    : "Disabled"}
+                                </Label>
                                 <Checkbox
                                   defaultChecked={opt.defaultValue}
                                   className="rounded-sm size-4 cursor-pointer"
@@ -225,12 +233,6 @@ export function BuilderSidebar() {
                                     });
                                   }}
                                 />
-                                <Label
-                                  htmlFor={opt.label + index}
-                                  className="select-none cursor-pointer text-xs"
-                                >
-                                  {builder[item.id][opt.id] ? "Enabled" : "Disabled"}
-                                </Label>
                               </div>
                             </div>
                           );
