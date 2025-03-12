@@ -125,6 +125,13 @@ export function BuilderSidebar() {
           id: "discord",
           isDisabled: false,
         },
+        {
+          label: "Github OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "github",
+          isDisabled: false,
+        },
       ],
     },
   ]);

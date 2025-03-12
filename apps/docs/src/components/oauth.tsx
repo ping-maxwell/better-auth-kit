@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { useBuilder } from "@/app/components/utils/builder-provider";
 import { FacebookOAuth } from "@/components/facebook-oauth";
 import { AppleOAuth } from "./apple-oauth";
+import { GithubOAuth } from "@/components/github-oauth";
 
 export type OAuthButtonPressEvent = ({
   providerId,
@@ -129,6 +130,13 @@ export function OAuth({
         )}
         {builder.oauth.discord && (
           <DiscordOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.github && (
+          <GithubOAuth
             onClick={onClick}
             iconOnly={iconOnly}
             isLoading={isLoading}

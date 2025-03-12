@@ -2,6 +2,7 @@
 import { AppleOAuth } from "@/components/apple-oauth";
 import { DiscordOAuth } from "@/components/discord-oauth";
 import { FacebookOAuth } from "@/components/facebook-oauth";
+import { GithubOAuth } from "@/components/github-oauth";
 import { GoogleOAuth } from "@/components/google-oauth";
 import { OAuth } from "@/components/oauth";
 import { SignIn } from "@/components/sign-in";
@@ -34,6 +35,11 @@ const components = {
   "facebook-oauth": () => (
     <div className="w-[200px] flex justify-center items-center">
       <FacebookOAuth isLoading={false} onClick={() => {}} />
+    </div>
+  ),
+  "github-oauth": () => (
+    <div className="w-[200px] flex justify-center items-center">
+      <GithubOAuth isLoading={false} onClick={() => {}} />
     </div>
   ),
 };

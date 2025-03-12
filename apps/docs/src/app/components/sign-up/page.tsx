@@ -17,6 +17,7 @@ export default function Page() {
             apple: true,
             google: true,
             discord: true,
+            github: true,
           },
           form: {
             name: true,

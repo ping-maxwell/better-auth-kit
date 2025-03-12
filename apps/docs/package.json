@@ -13,7 +13,8 @@
 		"ui:google": "bunx --bun shadcn@latest add http://localhost:3001/r/google-oauth.json --overwrite",
 		"ui:discord": "bunx --bun shadcn@latest add http://localhost:3001/r/discord-oauth.json --overwrite",
 		"ui:apple": "bunx --bun shadcn@latest add http://localhost:3001/r/apple-oauth.json --overwrite",
-		"ui:facebook": "bunx --bun shadcn@latest add http://localhost:3001/r/facebook-oauth.json --overwrite"
+		"ui:facebook": "bunx --bun shadcn@latest add http://localhost:3001/r/facebook-oauth.json --overwrite",
+		"ui:github": "bunx --bun shadcn@latest add http://localhost:3001/r/github-oauth.json --overwrite"
 	},
 	"dependencies": {
 		"@better-auth-kit/legal-consent": "workspace:*",

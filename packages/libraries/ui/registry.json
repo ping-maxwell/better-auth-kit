@@ -130,6 +130,19 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "github-oauth",
+			"type": "registry:component",
+			"title": "Github OAuth",
+			"description": "A Github OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/github-oauth/github-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }
