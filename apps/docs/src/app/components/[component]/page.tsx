@@ -15,6 +15,7 @@ import { TwitterOAuth } from "@/components/twitter-oauth";
 import { DropboxOAuth } from "@/components/dropbox-oauth";
 import { LinkedInOAuth } from "@/components/linkedin-oauth";
 import { GitlabOAuth } from "@/components/gitlab-oauth";
+import { RedditOAuth } from "@/components/reddit-oauth";
 
 const components = {
   "sign-in": () => <SignIn />,
@@ -82,6 +83,11 @@ const components = {
   "gitlab-oauth": () => (
     <div className="w-[200px] flex justify-center items-center">
       <GitlabOAuth isLoading={false} onClick={() => {}} />
+    </div>
+  ),
+  "reddit-oauth": () => (
+    <div className="w-[200px] flex justify-center items-center">
+      <RedditOAuth isLoading={false} onClick={() => {}} />
     </div>
   ),
 };

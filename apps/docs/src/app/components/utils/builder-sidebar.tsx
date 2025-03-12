@@ -177,6 +177,12 @@ export function BuilderSidebar() {
           defaultValue: true,
           id: "gitlab",
         },
+        {
+          label: "Reddit OAuth",
+          type: "checkbox",
+          defaultValue: true,
+          id: "reddit",
+        },
       ],
     },
   ]);

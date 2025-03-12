@@ -21,7 +21,8 @@
 		"ui:twitter": "bunx --bun shadcn@latest add http://localhost:3001/r/twitter-oauth.json --overwrite",
 		"ui:dropbox": "bunx --bun shadcn@latest add http://localhost:3001/r/dropbox-oauth.json --overwrite",
 		"ui:linkedin": "bunx --bun shadcn@latest add http://localhost:3001/r/linkedin-oauth.json --overwrite",
-		"ui:gitlab": "bunx --bun shadcn@latest add http://localhost:3001/r/gitlab-oauth.json --overwrite"
+		"ui:gitlab": "bunx --bun shadcn@latest add http://localhost:3001/r/gitlab-oauth.json --overwrite",
+		"ui:reddit": "bunx --bun shadcn@latest add http://localhost:3001/r/reddit-oauth.json --overwrite"
 	},
 	"dependencies": {
 		"@better-auth-kit/legal-consent": "workspace:*",

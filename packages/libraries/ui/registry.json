@@ -234,6 +234,19 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "reddit-oauth",
+			"type": "registry:component",
+			"title": "Reddit OAuth",
+			"description": "A Reddit OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/reddit-oauth/reddit-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }

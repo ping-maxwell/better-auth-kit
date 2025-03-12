@@ -25,6 +25,7 @@ export default function Page() {
             dropbox: true,
             linkedin: true,
             gitlab: true,
+            reddit: true,
           },
           form: {
             name: true,

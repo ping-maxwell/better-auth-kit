@@ -17,6 +17,7 @@ import { TwitchOAuth } from "./twitch-oauth";
 import { TwitterOAuth } from "./twitter-oauth";
 import { DropboxOAuth } from "./dropbox-oauth";
 import { LinkedInOAuth } from "./linkedin-oauth";
+import { RedditOAuth } from "./reddit-oauth";
 
 export type OAuthButtonPressEvent = ({
   providerId,
@@ -193,6 +194,13 @@ export function OAuth({
         )}
         {builder.oauth.gitlab && (
           <GitlabOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.reddit && (
+          <RedditOAuth
             onClick={onClick}
             iconOnly={iconOnly}
             isLoading={isLoading}
