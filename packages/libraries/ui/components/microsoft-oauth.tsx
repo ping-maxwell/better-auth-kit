@@ -1,1 +1,1 @@
-export * from "../registry/new-york/microsoft/microsoft-oauth";
+export * from "../registry/new-york/microsoft-oauth/microsoft-oauth";
