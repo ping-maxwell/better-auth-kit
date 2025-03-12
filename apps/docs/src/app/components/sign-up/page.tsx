@@ -12,7 +12,11 @@ export default function Page() {
         defaultValue={{
           oauth: {
             placement: "below",
-            isIconOnly: false
+            isIconOnly: false,
+            facebook: true,
+            apple: true,
+            google: true,
+            discord: true,
           },
           form: {
             name: true,

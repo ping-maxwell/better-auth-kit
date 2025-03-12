@@ -6,6 +6,9 @@ import { useCallback, type Dispatch, type SetStateAction } from "react";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useBuilder } from "@/app/components/utils/builder-provider";
+import { FacebookOAuth } from "@/components/facebook-oauth";
+import { AppleOAuth } from "./apple-oauth";
 
 export type OAuthButtonPressEvent = ({
   providerId,
@@ -50,6 +53,7 @@ export function OAuth({
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }) {
+  const { builder } = useBuilder();
   const onClick = useCallback<OAuthButtonPressEvent>(
     ({ providerId, type }) => {
       setIsLoading(true);
@@ -102,16 +106,34 @@ export function OAuth({
           dividerPlacement === "above" ? "mt-4" : "mb-4"
         )}
       >
-        <GoogleOAuth
-          onClick={onClick}
-          iconOnly={iconOnly}
-          isLoading={isLoading}
-        />
-        <DiscordOAuth
-          onClick={onClick}
-          iconOnly={iconOnly}
-          isLoading={isLoading}
-        />
+        {builder.oauth.google && (
+          <GoogleOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.facebook && (
+          <FacebookOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.apple && (
+          <AppleOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
+        {builder.oauth.discord && (
+          <DiscordOAuth
+            onClick={onClick}
+            iconOnly={iconOnly}
+            isLoading={isLoading}
+          />
+        )}
       </div>
       {dividerPlacement === "below" && <Divider />}
     </div>
