@@ -117,6 +117,19 @@
 					"type": "registry:component"
 				}
 			]
+		},
+		{
+			"name": "facebook-oauth",
+			"type": "registry:component",
+			"title": "Facebook OAuth",
+			"description": "A Facebook OAuth button component for Better Auth.",
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "registry/new-york/facebook-oauth/facebook-oauth.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }
