@@ -25,7 +25,7 @@ export function RoadmapTimeline() {
 			inProgress: true,
 			details: [
 				"~~add: Reverify plugin~~",
-				"add: Reverify plugin docs",
+				"~~add: Reverify plugin docs~~",
 				"add: Reverify plugin tests",
 				"chore: Documentation",
 			],
