@@ -1,8 +1,8 @@
 # Better Auth Kit
 
-<img src="./assets/banner/1600x600.png" />
+<img src="./assets/banner/2000x746.png" />
 
-Better Auth kit is a collection of plugins, tools, guides, adapters, and examples for [Better Auth](https://github.com/better-auth/better-auth) built by [ping-maxwell](https://github.com/ping-maxwell), and free to use for the open source community!
+[Better Auth Kit](https://better-auth-kit.com/) is a collection of plugins, tools, guides, adapters, and examples for [Better Auth](https://github.com/better-auth/better-auth) built by [ping-maxwell](https://github.com/ping-maxwell), and free to use for the open source community!
 
 ## Getting Started
 
