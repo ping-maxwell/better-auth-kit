@@ -16,11 +16,11 @@
     <a href="https://better-auth-kit.com"><strong>Learn more »</strong></a>
     <br />
     <br />
-    <a href="https://discord.com/invite/GYC3W7tZzb">Discord</a>
+    <a href="https://discord.gg/v5w4CTCnaf">Discord</a>
     ·
-    <a href="https://better-auth.com">Website</a>
+    <a href="https://better-auth-kit.com">Website</a>
     ·
-    <a href="https://github.com/better-auth/better-auth/issues">Issues</a>
+    <a href="https://github.com/ping-maxwell/better-auth-kit/issues">Issues</a>
   </p>
 
 ## Getting Started
