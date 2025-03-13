@@ -27,7 +27,7 @@ export const Navbar = () => {
 			<NavbarSearch />
 			<NavbarComponents />
 			<NavbarGithub />
-			{/* <NavbarThemeServer /> */}
+			<NavbarThemeServer />
 		</header>
 	);
 };

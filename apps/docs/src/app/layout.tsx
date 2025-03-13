@@ -14,6 +14,21 @@ const inter = Inter({
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+          dangerouslySetInnerHTML={{
+            __html: `
+                    try {
+                      if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                        document.querySelector('meta[name="theme-color"]').setAttribute('content')
+                      }
+                    } catch (_) {}
+                  `,
+          }}
+        />
+      </head>
       <body className="flex flex-col min-h-screen overflow-hidden">
         <ThemeProvider
           attribute="class"
@@ -24,7 +39,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <RootProvider
             theme={{
               enabled: true,
-			  defaultTheme: "dark"
+              defaultTheme: "dark",
             }}
           >
             <MobileSidebarController>
