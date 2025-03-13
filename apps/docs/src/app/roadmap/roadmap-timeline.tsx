@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 interface RoadmapStep {
   title: string;
   isCurrent?: boolean;
+  isCompleted?: boolean;
   description: string;
   details: string[];
 }
@@ -28,7 +29,7 @@ export function RoadmapTimeline() {
         "~~chore: update docs~~",
         "fix: any issues or bugs with the library",
         "add: `count` method to the database adapter",
-        "chore: add tests for `count` method"
+        "chore: add tests for `count` method",
       ],
     },
     {
@@ -113,9 +114,17 @@ export function RoadmapTimeline() {
   return (
     <div className="space-y-8">
       {roadmapSteps.map((step, index) => (
-        <div key={step.title + index} className="flex gap-4">
+        <div
+          key={step.title + index}
+          className={cn("flex gap-4", step.isCompleted && "opacity-80")}
+        >
           <div className="flex flex-col items-center gap-2">
-            <div className="flex !size-10 min-h-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
+            <div
+              className={cn(
+                "flex !size-10 min-h-10 items-center justify-center rounded-full bg-primary text-primary-foreground",
+                step.isCompleted && "bg-primary/50"
+              )}
+            >
               {index + 1}
             </div>
             {index < roadmapSteps.length - 1 && (
@@ -127,12 +136,15 @@ export function RoadmapTimeline() {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                {step.title}
+                <span className={cn(step.isCompleted && "line-through")}>
+                  {step.title}
+                </span>
                 {step.isCurrent && (
                   <>
                     <span className="mx-1">─</span> Current Stage
                   </>
                 )}
+                {step.isCompleted && "✔"}
               </CardTitle>
               <CardDescription>{step.description}</CardDescription>
             </CardHeader>
