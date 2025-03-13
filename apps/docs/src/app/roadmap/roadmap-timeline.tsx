@@ -99,6 +99,7 @@ export function RoadmapTimeline() {
       description: "Develop a library for creating admin dashboards",
       details: [
         "~~add: Initial Admin Dashboard API~~",
+        "add: move the current admin-dashboard repo into this monorepo",
         "refactor: Refine user page",
         "add: Organization page",
         "add: API-Key page",
