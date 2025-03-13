@@ -1,5 +1,6 @@
 import {
 	BookCheck,
+	Box,
 	Database,
 	Drill,
 	EthernetPort,
@@ -89,7 +90,13 @@ export const contents: Content[] = [
 	{
 		Icon: () => <Drill size={16} />,
 		title: "Tools",
-		list: [],
+		list: [
+			{
+				href: "/docs/tools/ui-components",
+				title: "UI Components",
+				icon: () => <Box size={16} />,
+			},
+		],
 	},
 	{
 		Icon: () => <BookCheck size={16} />,
