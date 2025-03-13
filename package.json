@@ -21,7 +21,8 @@
 		"apps/*",
 		"packages/plugins/*",
 		"packages/libraries/*",
-		"packages/tools/*"
+		"packages/tools/*",
+		"packages/adapters/*"
 	],
 	"dependencies": {
 		"@daveyplate/better-auth-ui": "^1.2.19"
