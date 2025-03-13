@@ -281,7 +281,7 @@ const contents: Content[] = [
 			},
 			{
 				title: "Roblox",
-				href: "/components/robloix-oauth",
+				href: "/components/roblox-oauth",
 				icon: () => (
 					<svg
 						version="1.1"
