@@ -25,6 +25,7 @@ export function RoadmapTimeline() {
       details: [
         "~~add: convex-better-auth to this monorepo~~",
         "~~chore: update dependencies~~",
+        "~~chore: update docs~~",
         "fix: any issues or bugs with the library",
         "add: `count` method to the database adapter",
         "chore: add tests for `count` method"
