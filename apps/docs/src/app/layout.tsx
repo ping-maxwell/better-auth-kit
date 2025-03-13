@@ -45,13 +45,14 @@ export default function Layout({ children }: { children: ReactNode }) {
       <body className="flex flex-col min-h-screen overflow-hidden bg-background">
         <RootProvider
           theme={{
+			enabled: true,
             attribute: "class",
           }}
         >
-          <MobileSidebarController>
-            {children}
+          {/* <MobileSidebarController> */}
+            {/* {children} */}
             <Toaster />
-          </MobileSidebarController>
+          {/* </MobileSidebarController> */}
           <Analytics />
         </RootProvider>
       </body>
