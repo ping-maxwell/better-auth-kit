@@ -19,14 +19,16 @@
 	},
 	"scripts": {
 		"dev": "bun build --entrypoints ./src/index.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
-		"build": "bun build.ts"
+		"build": "bun build.ts",
+		"test": "vitest"
 	},
 	"keywords": ["better-auth", "reverify", "password", "plugin"],
 	"author": "ping-maxwell",
 	"license": "MIT",
 	"devDependencies": {
 		"@types/bun": "1.2.4",
-		"bun-plugin-dts": "^0.3.0"
+		"bun-plugin-dts": "^0.3.0",
+		"vitest": "^3.0.8"
 	},
 	"peerDependencies": {
 		"better-auth": "^1.1.21"

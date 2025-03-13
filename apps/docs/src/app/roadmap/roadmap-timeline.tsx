@@ -19,7 +19,17 @@ interface RoadmapStep {
 export function RoadmapTimeline() {
 	const roadmapSteps: RoadmapStep[] = [
 		{
-			title: "Reverify plugin",
+			title: "Better-Auth-Kit/tests library",
+			inProgress: true,
+			description:
+				"A collection of utilities to help you test your Better-Auth plugins.",
+			details: [
+				"add: `getTestInstance` function",
+				"chore: Documentation",
+			],
+		},
+		{
+			title: "Reverify Password plugin",
 			description:
 				"Prompt the user to reverify their identity by providing a password.",
 			inProgress: true,
