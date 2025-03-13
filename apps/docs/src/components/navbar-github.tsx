@@ -5,6 +5,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "./ui/tooltip";
+import Link from "next/link";
 
 export const NavbarGithub = () => {
 	return (
@@ -12,14 +13,14 @@ export const NavbarGithub = () => {
 			<TooltipProvider delayDuration={100}>
 				<Tooltip>
 					<TooltipTrigger asChild>
-						<a
+						<Link
 							href="https://github.com/ping-maxwell/better-auth-kit"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-color duration-150 ease-in-out"
 						>
 							<Github />
-						</a>
+						</Link>
 					</TooltipTrigger>
 					<TooltipContent className="mt-2">
 						<p>Give us a star! ⭐</p>

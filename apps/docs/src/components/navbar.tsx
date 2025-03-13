@@ -4,6 +4,7 @@ import { NavbarSearch } from "./navbar-search";
 import { NavbarGithub } from "./navbar-github";
 import { NavbarThemeServer } from "./navbar-theme-server";
 import { NavbarMobileSidebarToggle } from "./navbar-mobile-sidebar-toggle";
+import { NavbarComponents } from "./navbar-components";
 
 export const Navbar = () => {
 	return (
@@ -24,6 +25,7 @@ export const Navbar = () => {
 			</div>
 			<div className="w-full"></div>
 			<NavbarSearch />
+			<NavbarComponents />
 			<NavbarGithub />
 			<NavbarThemeServer />
 		</header>
