@@ -1,0 +1,50 @@
+{
+	"name": "convex-better-auth",
+	"version": "1.1.1",
+	"description": "Convex Database Adapter for Better-Auth.",
+	"main": "src/index.ts",
+	"scripts": {
+		"dev:convex": "npx convex dev",
+		"test": "vitest",
+		"build": "biome format --write && tsc",
+		"format": "biome format --write"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Multinite/convex-better-auth.git"
+	},
+	"keywords": [
+		"convex",
+		"database",
+		"adapter",
+		"betterauth",
+		"better-auth",
+		"auth"
+	],
+	"exports": {
+		".": {
+			"types": "./dist/src/index.d.ts",
+			"default": "./dist/src/index.js"
+		}
+	},
+	"author": "Multinite <multinite.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@changesets/cli": "^2.27.11",
+		"@types/node": "^22.10.5",
+		"better-auth": "^1.2.3",
+		"convex": "^1.17.4",
+		"dotenv": "^16.4.7",
+		"typescript": "^5.7.2",
+		"vitest": "^2.1.8"
+	},
+	"peerDependencies": {
+		"better-auth": "^1.1.14",
+		"convex": "^1.17.4",
+		"typescript": "^5.7.2"
+	},
+	"dependencies": {
+		"prettier": "^3.4.2"
+	}
+}
