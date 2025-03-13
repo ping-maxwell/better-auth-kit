@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 interface RoadmapStep {
   title: string;
-  isCurrent?: boolean;
+  inProgress?: boolean;
   isCompleted?: boolean;
   description: string;
   details: string[];
@@ -19,7 +19,19 @@ interface RoadmapStep {
 export function RoadmapTimeline() {
   const roadmapSteps: RoadmapStep[] = [
     {
+      title: "Reverify plugin",
+      description: "Prompt the user to reverify their identity by providing a password.",
+      inProgress: true,
+      details: [
+        "add: Reverify plugin",
+        "add: Reverify plugin docs",
+        "add: Reverify plugin tests",
+        "chore: Documentation",
+      ],
+    },
+    {
       title: "Move convex-better-auth to this monorepo",
+      inProgress: true,
       description:
         "This will allow us to iterate on the library faster, and make it easier to maintain.",
       details: [
@@ -33,7 +45,7 @@ export function RoadmapTimeline() {
     },
     {
       title: "Better-Auth-Kit UI",
-      isCurrent: true,
+      inProgress: true,
       description:
         "ShadCN registry based UI components specific to Better-Auth.",
       details: [
@@ -150,16 +162,16 @@ export function RoadmapTimeline() {
             )}
           </div>
           <Card
-            className={`flex-1 ${step.isCurrent ? "drop-shadow-lg shadow-primary" : ""}`}
+            className={`flex-1 ${step.inProgress ? "drop-shadow-lg shadow-primary" : ""}`}
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <span className={cn(step.isCompleted && "line-through")}>
                   {step.title}
                 </span>
-                {step.isCurrent && (
+                {step.inProgress && (
                   <>
-                    <span className="mx-1">─</span> Current Stage
+                    <span className="mx-1">─</span> Currently in progress
                   </>
                 )}
                 {step.isCompleted && "✔"}
