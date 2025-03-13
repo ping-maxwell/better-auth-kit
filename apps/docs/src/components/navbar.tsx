@@ -1,3 +1,4 @@
+"use client"
 import logo from "../../public/logo/500x500.png";
 import Image from "next/image";
 import { NavbarSearch } from "./navbar-search";
