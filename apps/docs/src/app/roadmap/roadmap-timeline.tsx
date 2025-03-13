@@ -18,8 +18,20 @@ interface RoadmapStep {
 export function RoadmapTimeline() {
   const roadmapSteps: RoadmapStep[] = [
     {
-      title: "Better-Auth-Kit UI",
+      title: "Move convex-better-auth to this monorepo",
+      description:
+        "This will allow us to iterate on the library faster, and make it easier to maintain.",
       isCurrent: true,
+      details: [
+        "~~add: convex-better-auth to this monorepo~~",
+        "~~chore: update dependencies~~",
+        "fix: any issues or bugs with the library",
+        "add: `count` method to the database adapter",
+        "chore: add tests for `count` method"
+      ],
+    },
+    {
+      title: "Better-Auth-Kit UI",
       description:
         "ShadCN registry based UI components specific to Better-Auth.",
       details: [
@@ -67,14 +79,14 @@ export function RoadmapTimeline() {
       ],
     },
     {
-        title: "Shutdown Plugin",
-        description: "Stop signins or signups at any moment.",
-        details: [
-            "add: Shutdown schema",
-            "add: Shutdown API functionality",
-            "add: Write unit tests",
-            "chore: Documentation",
-        ]
+      title: "Shutdown Plugin",
+      description: "Stop signins or signups at any moment.",
+      details: [
+        "add: Shutdown schema",
+        "add: Shutdown API functionality",
+        "add: Write unit tests",
+        "chore: Documentation",
+      ],
     },
     {
       title: "Admin Dashboard Library",
@@ -86,15 +98,15 @@ export function RoadmapTimeline() {
       ],
     },
     {
-        title: "PocketBase DB support",
-        description: "A database adapter for PocketBase",
-        details: [
-            "add: Pocketbase database adapter",
-            "add: Pocketbase database adapter docs",
-            "add: tests",
-            "chore: Documentation",
-        ]
-    }
+      title: "PocketBase DB support",
+      description: "A database adapter for PocketBase",
+      details: [
+        "add: Pocketbase database adapter",
+        "add: Pocketbase database adapter docs",
+        "add: tests",
+        "chore: Documentation",
+      ],
+    },
   ];
 
   return (
