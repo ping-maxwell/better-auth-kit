@@ -15,6 +15,7 @@ export default function HomePage() {
 
 			<div className="w-full absolute inset-0 h-screen overflow-y-auto">
 				<div className="w-full mt-16 overflow-y-auto h-screen">
+					<BetaWarning />
 					<Hero />
 					<Callout />
 					<ScrollDown />
@@ -55,6 +56,15 @@ function Callout() {
 				Built with ❤️ by{" "}
 				<GithubUser className="underline">ping-maxwell</GithubUser>
 			</div>
+		</div>
+	);
+}
+function BetaWarning() {
+	return (
+		<div className="flex justify-center items-center gap-10 flex-col mt-10 opacity-80">
+			<span className="text-center w-fit rounded-full border border-yellow-500/50 bg-yellow-500/20 px-5 py-1 text-sm flex gap-2 items-center justify-center transition-all duration-150 ease-in-out hover:scale-110">
+				We're in beta!
+			</span>
 		</div>
 	);
 }
