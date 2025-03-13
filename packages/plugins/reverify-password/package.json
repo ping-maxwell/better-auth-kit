@@ -1,0 +1,37 @@
+{
+	"name": "@better-auth-kit/reverify-password",
+	"version": "0.0.1",
+	"description": "Request the user to re-verify their identity by entering their password for revalidation.",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit"
+	},
+	"exports": {
+		".": {
+			"default": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./client": {
+			"default": "./dist/client.js",
+			"types": "./dist/client.d.ts"
+		}
+	},
+	"scripts": {
+		"dev": "bun build --entrypoints ./src/index.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
+		"build": "bun build.ts"
+	},
+	"keywords": ["better-auth", "reverify", "password", "plugin"],
+	"author": "ping-maxwell",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/bun": "1.2.4",
+		"bun-plugin-dts": "^0.3.0"
+	},
+	"peerDependencies": {
+		"better-auth": "^1.1.21"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
