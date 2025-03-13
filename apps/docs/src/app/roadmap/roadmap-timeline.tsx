@@ -37,6 +37,7 @@ export function RoadmapTimeline() {
       description:
         "ShadCN registry based UI components specific to Better-Auth.",
       details: [
+        "~~add: UI component builder page~~",
         "~~add: Sign up component~~",
         "~~add: Sign in component~~",
         "~~add: Social login support~~",
