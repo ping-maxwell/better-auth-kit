@@ -9,6 +9,12 @@ import {
 	UserPlus,
 	Users,
 } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Components",
+	description: "UI components from Better Auth Kit",
+};
 
 const contents: Content[] = [
 	{
