@@ -11,7 +11,7 @@
   </h2>
 
   <p align="center">
-    A collection of <b>plugins</b> <b>tools</b> <b>libraries</b> <b>examples</b> and <b>more</b> for [Better Auth](https://github.com/better-auth/better-auth) built by [ping-maxwell](https://github.com/ping-maxwell).
+    A collection of <b>plugins</b>, <b>tools</b>, <b>libraries</b>, <b>examples</b>, and <b>more</b> for <a href="https://github.com/better-auth/better-auth">Better Auth</a>.
     <br />
     <a href="https://better-auth-kit.com"><strong>Learn more »</strong></a>
     <br />
@@ -22,7 +22,6 @@
     ·
     <a href="https://github.com/better-auth/better-auth/issues">Issues</a>
   </p>
-
 
 ## Getting Started
 
