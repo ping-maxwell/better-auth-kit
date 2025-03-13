@@ -5,9 +5,11 @@ export function createMetadata(override: Metadata): Metadata {
 		...override,
 		openGraph: {
 			title: override.title ?? undefined,
-			description: override.description ?? undefined,
+			description:
+				override.description ??
+				"A handy collection of plugins, adapters, libraries and more for Better Auth!",
 			url: "https://better-auth-kit.com",
-			// images: "https://better-auth-kit.com/banner.png",
+			images: "https://better-auth-kit.com/misc/meta_img.png",
 			siteName: "Better Auth Kit",
 			...override.openGraph,
 		},
@@ -15,8 +17,10 @@ export function createMetadata(override: Metadata): Metadata {
 			card: "summary_large_image",
 			creator: "@ping-maxwell",
 			title: override.title ?? undefined,
-			description: override.description ?? undefined,
-			// images: "https://better-auth-kit.com/banner.png",
+			description:
+				override.description ??
+				"A handy collection of plugins, adapters, libraries and more for Better Auth!",
+			images: "https://better-auth-kit.com/misc/meta_img.png",
 			...override.twitter,
 		},
 	};
