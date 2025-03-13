@@ -30,7 +30,3 @@ Head over to our [docs](https://better-auth-kit.com/) to see what we offer! 🫡
 ## Contributing
 
 Contributions are always welcome! If you're interested in contributing, check out our [contributing guide](https://github.com/ping-maxwell/better-auth-kit/blob/main/CONTRIBUTING.md) for more information.
-
-## License
-
-[MIT for everything!](LICENSE)
