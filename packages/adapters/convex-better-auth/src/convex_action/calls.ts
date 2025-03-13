@@ -17,6 +17,20 @@ export async function queryDb(
     value: args,
   });
 }
+
+export async function countDb(
+  client: ConvexClient,
+  args: {
+    tableName: string;
+    query?: string;
+  },
+) {
+  return await client.action(anyApi.betterAuth.betterAuth, {
+    action: "count",
+    value: args,
+  });
+}
+
 export async function insertDb(
   client: ConvexClient,
   args: {

@@ -33,14 +33,13 @@
 		"@biomejs/biome": "1.9.4",
 		"@changesets/cli": "^2.27.11",
 		"@types/node": "^22.10.5",
-		"better-auth": "^1.2.3",
 		"convex": "^1.17.4",
 		"dotenv": "^16.4.7",
 		"typescript": "^5.7.2",
 		"vitest": "^2.1.8"
 	},
 	"peerDependencies": {
-		"better-auth": "^1.1.14",
+		"better-auth": "^1.2.3",
 		"convex": "^1.17.4",
 		"typescript": "^5.7.2"
 	},

@@ -295,6 +295,27 @@ export const convexAdapter: ConvexAdapter = (client, config = {}) => {
         ]);
         return res as number;
       },
+      count: async ({ model, where }) => {
+        const res = await db({
+          action: "count",
+          tableName: model,
+          query: queryBuilder((q) => {
+            if (!where) return "";
+            const eqs = where.map((w) =>
+              //@ts-ignore
+              q[w.operator || "eq"](w.field, w.value),
+            );
+            return eqs.reduce((acc, cur, indx) =>
+              q[
+                (where[indx - 1].connector || "AND").toLowerCase() as
+                  | "and"
+                  | "or"
+              ](acc, cur),
+            );
+          }),
+        });
+        return res;
+      },
       createSchema: async (options, file) => {
         const code = await generateSchema(options);
         return {

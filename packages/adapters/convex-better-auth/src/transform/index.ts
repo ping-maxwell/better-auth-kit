@@ -8,6 +8,7 @@ import {
   deleteDb,
   insertDb,
   updateDb,
+  countDb,
 } from "./../convex_action/calls";
 
 export const createTransform = ({
@@ -73,7 +74,13 @@ export const createTransform = ({
     update: Record<string, any>;
   };
 
-  async function db(options: DbInsert | DbQuery | DbDelete | DbUpdate) {
+  type DbCount = {
+    action: "count";
+    tableName: string;
+    query?: string;
+  };
+
+  async function db(options: DbInsert | DbQuery | DbDelete | DbUpdate | DbCount) {
     if (options.action === "query") {
       return await queryDb(client, {
         tableName: options.tableName,
@@ -102,6 +109,12 @@ export const createTransform = ({
         tableName: options.tableName,
         query: options.query,
         update: options.update,
+      });
+    }
+    if (options.action === "count") {
+      return await countDb(client, {
+        tableName: options.tableName,
+        query: options.query,
       });
     }
     return "";
