@@ -22,18 +22,18 @@ export function RoadmapTimeline() {
       title: "Move convex-better-auth to this monorepo",
       description:
         "This will allow us to iterate on the library faster, and make it easier to maintain.",
-      isCurrent: true,
       details: [
         "~~add: convex-better-auth to this monorepo~~",
         "~~chore: update dependencies~~",
         "~~chore: update docs~~",
-        "fix: any issues or bugs with the library",
-        "add: `count` method to the database adapter",
-        "chore: add tests for `count` method",
+        "~~fix: any issues or bugs with the library~~",
+        "~~add: `count` method to the database adapter~~",
+        "chore: add tests for `count` method <- delayed.",
       ],
     },
     {
       title: "Better-Auth-Kit UI",
+      isCurrent: true,
       description:
         "ShadCN registry based UI components specific to Better-Auth.",
       details: [
