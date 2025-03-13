@@ -54,7 +54,7 @@ export function RoadmapTimeline() {
     {
       title: "Better-Auth-Kit CLI",
       description:
-        "A CLI tool to provide a better experience for setting up, and using, Better-Auth.",
+        "A CLI tool to provide a better experience for setting up, and using, Better-Auth",
       details: [
         "add: General structrue for CLI",
         "add: Database seeding",
@@ -86,7 +86,7 @@ export function RoadmapTimeline() {
     },
     {
       title: "Shutdown Plugin",
-      description: "Stop signins or signups at any moment.",
+      description: "Stop signins or signups at any moment",
       details: [
         "add: Shutdown schema",
         "add: Shutdown API functionality",
@@ -98,9 +98,12 @@ export function RoadmapTimeline() {
       title: "Admin Dashboard Library",
       description: "Develop a library for creating admin dashboards",
       details: [
-        "chore: Refine user page",
-        "Add: Organization page",
-        "Add: API-Key page",
+        "~~add: Initial Admin Dashboard API~~",
+        "refactor: Refine user page",
+        "add: Organization page",
+        "add: API-Key page",
+        "add: Analytics on home page",
+        "chore: Documentation",
       ],
     },
     {
@@ -109,6 +112,16 @@ export function RoadmapTimeline() {
       details: [
         "add: Pocketbase database adapter",
         "add: Pocketbase database adapter docs",
+        "add: tests",
+        "chore: Documentation",
+      ],
+    },
+    {
+      title: "Firebase DB support",
+      description: "A database adapter for Firebase",
+      details: [
+        "add: Firebase database adapter",
+        "add: Firebase database adapter docs",
         "add: tests",
         "chore: Documentation",
       ],
