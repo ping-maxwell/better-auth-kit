@@ -6,6 +6,7 @@ import { NavbarGithub } from "./navbar-github";
 import { NavbarThemeServer } from "./navbar-theme-server";
 import { NavbarMobileSidebarToggle } from "./navbar-mobile-sidebar-toggle";
 import { NavbarComponents } from "./navbar-components";
+import { NavbarTheme } from "./navbar-theme";
 
 export const Navbar = () => {
 	return (
@@ -28,7 +29,7 @@ export const Navbar = () => {
 			<NavbarSearch />
 			<NavbarComponents />
 			<NavbarGithub />
-			<NavbarThemeServer />
+			<NavbarTheme />
 		</header>
 	);
 };

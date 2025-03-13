@@ -29,20 +29,21 @@ export default function Layout({ children }: { children: ReactNode }) {
         <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
       </head>
       <body className="flex flex-col min-h-screen overflow-hidden bg-background">
-        <RootProvider
-          theme={{
-            enabled: true,
-            attribute: "class",
-          }}
-        >
-          <Suspense>
-            <MobileSidebarController>
-              {children}
-              <Toaster />
-            </MobileSidebarController>
-            <Analytics />
-          </Suspense>
-        </RootProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <RootProvider
+            theme={{
+              enabled: false,
+            }}
+          >
+            <Suspense>
+              <MobileSidebarController>
+                {children}
+                <Toaster />
+              </MobileSidebarController>
+              <Analytics />
+            </Suspense>
+          </RootProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

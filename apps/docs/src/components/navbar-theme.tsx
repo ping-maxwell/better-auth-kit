@@ -15,11 +15,8 @@ export const NavbarTheme = () => {
 				className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-color duration-150 ease-in-out cursor-pointer"
 				suppressHydrationWarning={true}
 			>
-				{resolvedTheme === "dark" ? (
-					<Moon suppressHydrationWarning={true} />
-				) : (
-					<Sun suppressHydrationWarning={true} />
-				)}
+				<Moon className="hidden dark:block" />
+				<Sun className="block dark:hidden" />
 			</button>
 		</div>
 	);
