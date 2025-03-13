@@ -85,6 +85,11 @@ export const contents: Content[] = [
 				title: "Pocketbase DB",
 				icon: () => <Database size={16} />,
 			},
+			{
+				href: "/docs/adapters/firestore",
+				title: "Firestore DB",
+				icon: () => <Database size={16} />,
+			},
 		],
 	},
 	{
