@@ -6,7 +6,7 @@ const withMDX = createMDX();
 const config = {
 	reactStrictMode: true,
 	devIndicators: {
-		appIsrStatus: true,
+		appIsrStatus: false,
 	},
 };
 

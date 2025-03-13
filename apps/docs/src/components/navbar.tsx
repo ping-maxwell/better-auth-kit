@@ -6,6 +6,7 @@ import { NavbarGithub } from "./navbar-github";
 import { NavbarMobileSidebarToggle } from "./navbar-mobile-sidebar-toggle";
 import { NavbarComponents } from "./navbar-components";
 import { NavbarTheme } from "./navbar-theme";
+import { NavbarRoadmap } from "./navbar-roadmap";
 
 export const Navbar = () => {
 	return (
@@ -27,6 +28,7 @@ export const Navbar = () => {
 			<div className="w-full"></div>
 			<NavbarSearch />
 			<NavbarComponents />
+			<NavbarRoadmap />
 			<NavbarGithub />
 			<NavbarTheme />
 		</header>
