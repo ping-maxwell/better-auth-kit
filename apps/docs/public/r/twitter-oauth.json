@@ -1,17 +1,15 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "twitter-oauth",
-  "type": "registry:component",
-  "title": "Twitter OAuth",
-  "description": "A Twitter OAuth button component for Better Auth.",
-  "registryDependencies": [
-    "button"
-  ],
-  "files": [
-    {
-      "path": "registry/new-york/twitter-oauth/twitter-oauth.tsx",
-      "content": "import { Button } from \"@/components/ui/button\";\nimport type { OAuthButtonPressEvent } from \"@/components/oauth\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Props {\n\tonClick: OAuthButtonPressEvent;\n\ticonOnly?: boolean;\n\tisLoading: boolean;\n}\n\nconst logo = (\n\t<svg viewBox=\"0 0 1200 1227\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n\t\t<path\n\t\t\td=\"M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z\"\n\t\t\tclassName=\"dark:fill-white fill-black\"\n\t\t/>\n\t</svg>\n);\n\nexport function TwitterOAuth(props: Props) {\n\treturn (\n\t\t<Button\n\t\t\tclassName={cn(\n\t\t\t\t\"grow cursor-pointer basis-[calc(33.33%-0.5rem)]\",\n\t\t\t\tprops.iconOnly ? \"min-w-[80px]\" : \"min-w-[110px]\",\n\t\t\t)}\n\t\t\tonClick={() =>\n\t\t\t\tprops.onClick({ providerId: \"twitter\", type: \"supported-provider\" })\n\t\t\t}\n\t\t\tvariant={\"outline\"}\n\t\t\tdisabled={props.isLoading}\n\t\t>\n\t\t\t{logo}{\" \"}\n\t\t\t<span\n\t\t\t\tclassName={cn(\n\t\t\t\t\tprops.iconOnly && \"hidden\",\n\t\t\t\t\t\"text-muted-foreground font-normal\",\n\t\t\t\t)}\n\t\t\t>\n\t\t\t\tX\n\t\t\t</span>\n\t\t</Button>\n\t);\n}\n",
-      "type": "registry:component"
-    }
-  ]
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "twitter-oauth",
+	"type": "registry:component",
+	"title": "Twitter OAuth",
+	"description": "A Twitter OAuth button component for Better Auth.",
+	"registryDependencies": ["button"],
+	"files": [
+		{
+			"path": "registry/new-york/twitter-oauth/twitter-oauth.tsx",
+			"content": "import { Button } from \"@/components/ui/button\";\nimport type { OAuthButtonPressEvent } from \"@/components/oauth\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Props {\n\tonClick: OAuthButtonPressEvent;\n\ticonOnly?: boolean;\n\tisLoading: boolean;\n}\n\nconst logo = (\n\t<svg viewBox=\"0 0 1200 1227\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n\t\t<path\n\t\t\td=\"M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z\"\n\t\t\tclassName=\"dark:fill-white fill-black\"\n\t\t/>\n\t</svg>\n);\n\nexport function TwitterOAuth(props: Props) {\n\treturn (\n\t\t<Button\n\t\t\tclassName={cn(\n\t\t\t\t\"grow cursor-pointer basis-[calc(33.33%-0.5rem)]\",\n\t\t\t\tprops.iconOnly ? \"min-w-[80px]\" : \"min-w-[110px]\",\n\t\t\t)}\n\t\t\tonClick={() =>\n\t\t\t\tprops.onClick({ providerId: \"twitter\", type: \"supported-provider\" })\n\t\t\t}\n\t\t\tvariant={\"outline\"}\n\t\t\tdisabled={props.isLoading}\n\t\t>\n\t\t\t{logo}{\" \"}\n\t\t\t<span\n\t\t\t\tclassName={cn(\n\t\t\t\t\tprops.iconOnly && \"hidden\",\n\t\t\t\t\t\"text-muted-foreground font-normal\",\n\t\t\t\t)}\n\t\t\t>\n\t\t\t\tX\n\t\t\t</span>\n\t\t</Button>\n\t);\n}\n",
+			"type": "registry:component"
+		}
+	]
 }

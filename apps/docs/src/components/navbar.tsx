@@ -1,9 +1,8 @@
-"use client"
+"use client";
 import logo from "../../public/logo/500x500.png";
 import Image from "next/image";
 import { NavbarSearch } from "./navbar-search";
 import { NavbarGithub } from "./navbar-github";
-import { NavbarThemeServer } from "./navbar-theme-server";
 import { NavbarMobileSidebarToggle } from "./navbar-mobile-sidebar-toggle";
 import { NavbarComponents } from "./navbar-components";
 import { NavbarTheme } from "./navbar-theme";
