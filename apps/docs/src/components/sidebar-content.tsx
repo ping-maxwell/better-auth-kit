@@ -6,6 +6,7 @@ import {
 	EthernetPort,
 	Flag,
 	Info,
+	Lock,
 	OctagonMinus,
 	OctagonPause,
 	Package,
@@ -42,6 +43,11 @@ export const contents: Content[] = [
 				href: "/docs/plugins/waitlist",
 				title: "Waitlist",
 				icon: () => <OctagonPause size={16} />,
+			},
+			{
+				href: "/docs/plugins/reverify-password",
+				title: "Reverify Password",
+				icon: () => <Lock size={16} />,
 			},
 			{
 				href: "/docs/plugins/legal-consent",

@@ -24,7 +24,7 @@ export function RoadmapTimeline() {
 				"Prompt the user to reverify their identity by providing a password.",
 			inProgress: true,
 			details: [
-				"add: Reverify plugin",
+				"~~add: Reverify plugin~~",
 				"add: Reverify plugin docs",
 				"add: Reverify plugin tests",
 				"chore: Documentation",
