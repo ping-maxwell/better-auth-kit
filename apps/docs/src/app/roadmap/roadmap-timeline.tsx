@@ -120,8 +120,8 @@ export function RoadmapTimeline() {
       title: "Firestore DB support",
       description: "A database adapter for Firebase - Firestore",
       details: [
-        "add: Firebase database adapter",
-        "add: Firebase database adapter docs",
+        "add: Firestore database adapter",
+        "add: Firestore database adapter docs",
         "add: tests",
         "chore: Documentation",
       ],
