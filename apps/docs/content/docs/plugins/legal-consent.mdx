@@ -21,7 +21,7 @@ Supported compliances include:
 <Steps>
 
 <Step>
-## 1. Installation
+### 1. Installation
 
 ```package-install
 npm install better-auth-legal-consent
@@ -29,9 +29,9 @@ npm install better-auth-legal-consent
 </Step>
 
 <Step>
-## 2. Initialize
+### 2. Initialize
 
-```ts
+```ts title="auth.ts"
 import { legalConsent } from "better-auth-legal-consent";
 
 export const auth = betterAuth({
@@ -49,11 +49,11 @@ export const auth = betterAuth({
 </Step>
 
 <Step>
-## 3. Sign up methods
+### 3. Sign up methods
 
 Add the following methods to your sign up page.
 
-```ts
+```ts title="sign-up.tsx"
 authClient.signUp.email({
   email: "some_email@example.com",
   password: "some_password",
