@@ -78,7 +78,14 @@ export async function generateMetadata(props: {
 	if (!page) notFound();
 
 	return {
-		title: page.data.title,
+		title: `${page.data.title} | Better Auth Kit`,
 		description: page.data.description,
+		url: absoluteUrl(`docs/${params.slug}`),
+
 	};
+}
+
+
+export function absoluteUrl(path: string) {
+	return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
 }
