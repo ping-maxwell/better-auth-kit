@@ -21,7 +21,7 @@ export function NavbarComponents() {
 							href="/components"
 							className={cn(
 								"flex items-center gap-2 text-muted-foreground hover:text-foreground transition-color duration-150 ease-in-out",
-								pathname.startsWith("/components") && "text-foreground"
+								pathname.startsWith("/components") && "text-foreground",
 							)}
 						>
 							<Box />

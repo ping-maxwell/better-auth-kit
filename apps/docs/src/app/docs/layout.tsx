@@ -8,12 +8,12 @@ import { Sidebar } from "./Sidebar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Docs",
-  description: "The documentation for Better Auth Kit",
+	title: "Docs",
+	description: "The documentation for Better Auth Kit",
 };
 
 export default function Layout({ children }: { children: ReactNode }) {
-  return (
+	return (
 		<DocsLayout
 			tree={source.pageTree}
 			{...baseOptions}
