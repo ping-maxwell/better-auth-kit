@@ -1,5 +1,5 @@
 "use client";
-import { BookOpen, Search } from "lucide-react";
+import { BookMarked, Search } from "lucide-react";
 import { useSearchContext } from "fumadocs-ui/provider";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
@@ -13,7 +13,7 @@ export const NavbarSearch = () => {
 	const { setOpenSearch } = useSearchContext();
 	const pathname = usePathname();
 
-	if (pathname.startsWith("/docs") || pathname === "/")
+	if (pathname.startsWith("/docs"))
 		return (
 			<div className="sm:mx-2  h-6 flex justify-center items-center sm:pl-2">
 				<Button
@@ -41,11 +41,11 @@ export const NavbarSearch = () => {
 							href="/docs"
 							className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-color duration-150 ease-in-out"
 						>
-							<BookOpen />
+							<BookMarked />
 						</Link>
 					</TooltipTrigger>
 					<TooltipContent className="mt-2">
-						<p>Read the docs 📚</p>
+						<p>Documentation 📚</p>
 					</TooltipContent>
 				</Tooltip>
 			</TooltipProvider>
