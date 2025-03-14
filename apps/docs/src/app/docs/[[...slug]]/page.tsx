@@ -12,6 +12,9 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 import { Comprehensive } from "@/components/comprehensive";
 import { DatabaseTable } from "@/components/database-table";
 import { Step, Steps } from "fumadocs-ui/components/steps";
+import { Button } from "@/components/ui/button";
+import { GithubButton } from "@/components/github-button";
+import { NpmButton } from "@/components/npm-button";
 
 export default async function Page(props: {
 	params: Promise<{ slug?: string[] }>;
@@ -59,6 +62,9 @@ export default async function Page(props: {
 						DatabaseTable,
 						Step,
 						Steps,
+						Button,
+						GithubButton,
+						NpmButton,
 					}}
 				/>
 			</DocsBody>

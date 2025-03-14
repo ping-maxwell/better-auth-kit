@@ -3,6 +3,9 @@ title: Legal Consent
 description: Legal Consent plugin for Better Auth Kit
 ---
 
+<GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/plugins/legal-consent" />
+<NpmButton url="https://www.npmjs.com/package/@better-auth-kit/legal-consent" />
+
 Require your users to accept the required compliances before they can sign up.
 
 Supported compliances include:
@@ -24,7 +27,7 @@ Supported compliances include:
 ### 1. Installation
 
 ```package-install
-npm install better-auth-legal-consent
+npm install @better-auth-kit/legal-consent
 ```
 </Step>
 
@@ -32,7 +35,7 @@ npm install better-auth-legal-consent
 ### 2. Initialize
 
 ```ts title="auth.ts"
-import { legalConsent } from "better-auth-legal-consent";
+import { legalConsent } from "@better-auth-kit/legal-consent";
 
 export const auth = betterAuth({
   plugins: [
