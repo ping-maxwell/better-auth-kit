@@ -15,6 +15,9 @@ import {
 	Scale,
 	ShieldBan,
 	ShieldUserIcon,
+	TestTube,
+	Terminal,
+	Grid2X2Plus,
 } from "lucide-react";
 import type { Content } from "./sidebar";
 
@@ -75,6 +78,11 @@ export const contents: Content[] = [
 				title: "Admin Dashboard",
 				icon: () => <ShieldUserIcon size={16} />,
 			},
+			{
+				href: "/docs/libraries/tests",	
+				title: "Better-Auth Tests",
+				icon: () => <TestTube size={16} />,
+			},
 		],
 	},
 	{
@@ -106,6 +114,16 @@ export const contents: Content[] = [
 				href: "/docs/tools/ui-components",
 				title: "UI Components",
 				icon: () => <Box size={16} />,
+			},
+			{
+				href: "/docs/tools/cli",
+				title: "CLI",
+				icon: () => <Terminal size={16} />,
+			},
+			{
+				href: "/docs/tools/seeding",
+				title: "Seeding",
+				icon: () => <Grid2X2Plus size={16} />,
 			},
 		],
 	},

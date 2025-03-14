@@ -1,6 +1,6 @@
 @import "tailwindcss";
-@import "fumadocs-ui/css/black.css";
 @import "fumadocs-ui/css/preset.css";
+@import "fumadocs-ui/css/ocean.css";
 
 @source '../../../../node_modules/fumadocs-ui/dist/**/*.js';
 @source '../../../../node_modules/@daveyplate/better-auth-ui/dist/**/*.{js,ts,jsx,tsx,mdx}';
