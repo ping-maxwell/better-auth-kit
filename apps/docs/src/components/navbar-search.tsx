@@ -33,7 +33,7 @@ export const NavbarSearch = () => {
 		);
 
 	return (
-		<div className="w-fit px-5 h-6 sm:flex items-center justify-center  hidden">
+		<div className="w-fit px-5 h-6 items-center justify-center">
 			<TooltipProvider delayDuration={100}>
 				<Tooltip>
 					<TooltipTrigger asChild>
