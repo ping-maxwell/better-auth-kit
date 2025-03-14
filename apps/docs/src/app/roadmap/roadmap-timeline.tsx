@@ -68,6 +68,7 @@ export function RoadmapTimeline() {
 				"add: Plugin UI selection interface in component builder",
 				"fix: Component builder sidebar links",
 				"add: Magic link support",
+				"add: Captcha support",
 				"add: Waitlist component",
 				"add: User component",
 				"add: Forgot password component",
