@@ -27,7 +27,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 			<head>
 				<link rel="icon" href="/favicon/favicon.ico" sizes="any" />
 			</head>
-			<body className="flex flex-col min-h-screen overflow-hidden bg-background">
+			<body className="flex flex-col min-h-screen overflow-hidden bg-background text-foreground antialiased">
 				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
 					<RootProvider
 						theme={{
