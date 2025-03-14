@@ -1,5 +1,10 @@
-import { afterAll } from "vitest";    
-import type { BetterAuthOptions, ClientOptions, Session, User } from "better-auth";
+import { afterAll } from "vitest";
+import type {
+	BetterAuthOptions,
+	ClientOptions,
+	Session,
+	User,
+} from "better-auth";
 import fs from "node:fs/promises";
 import { generateRandomString } from "./utils/generate-random-string";
 import { Kysely, MysqlDialect, PostgresDialect, sql } from "kysely";

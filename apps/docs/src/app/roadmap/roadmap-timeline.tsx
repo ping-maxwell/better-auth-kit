@@ -23,10 +23,7 @@ export function RoadmapTimeline() {
 			inProgress: true,
 			description:
 				"A collection of utilities to help you test your Better-Auth plugins.",
-			details: [
-				"add: `getTestInstance` function",
-				"chore: Documentation",
-			],
+			details: ["add: `getTestInstance` function", "chore: Documentation"],
 		},
 		{
 			title: "Reverify Password plugin",
