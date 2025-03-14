@@ -165,13 +165,13 @@ export function Sidebar({
 								</div>
 							))}
 						</div>
-						{levelOfDetailButton ? (
+						{/* {levelOfDetailButton ? (
 							<LevelofDetailButton
 								levelOfDetail={levelOfDetail}
 								set={set}
 								setIsOpen={setIsOpen}
 							/>
-						) : null}
+						) : null} */}
 					</MotionConfig>
 				</div>
 			</aside>
