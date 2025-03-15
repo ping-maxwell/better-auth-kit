@@ -1,4 +1,3 @@
-import dts from "bun-plugin-dts";
 
 (async () => {
 	const start = Date.now();
@@ -10,7 +9,8 @@ import dts from "bun-plugin-dts";
 		sourcemap: "external",
 		entrypoints: ["./src/index.ts"],
 		packages: "external",
-		plugins: [dts()],
+		plugins: [],
+		
 	});
 	res.logs.forEach((log) => {
 		console.log(log);
