@@ -156,8 +156,17 @@ await client.signIn.email(
 
 #### `customFetchImpl`
 
-Useful for setting the custom fetch implementation for the test instance.
+By default, when using the auth client, we make a fetch request to the better-auth server whenever you call an endpoint.
+However, you can optionally provide the `customFetchImpl` to bypass this and it will skip the fetch request to the better-auth server, and instead directly invoke the endpoint on the server.
 
+```ts
+const client = createAuthClient({
+	baseURL: "http://localhost:3000",
+	fetchOptions: {
+		customFetchImpl,
+	},
+});
+```
 
 #### `sessionSetter`
 
