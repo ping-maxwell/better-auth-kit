@@ -1,7 +1,7 @@
 {
 	"name": "@better-auth-kit/tests",
 	"description": "A collection of utilities to help you test your Better-Auth plugins.",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"license": "MIT",
 	"author": "ping-maxwell",
 	"dependencies": {
@@ -25,5 +25,6 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"keywords": ["better-auth", "better-auth-kit", "tests", "plugin", "test", "helper", "utility"]
 }
