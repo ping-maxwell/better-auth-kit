@@ -1,14 +1,14 @@
 ---
-title: Reverify Password
-description: Request the user to re-verify their identity by entering their password for revalidation.
+title: Reverify
+description: Prompt the user to re-verify their identity by providing a form of authentication for revalidation.
 ---
 
-<GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/plugins/reverify-password" />
-<NpmButton url="https://www.npmjs.com/package/@better-auth-kit/reverify-password" />
+<GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/plugins/reverify" />
+<NpmButton url="https://www.npmjs.com/package/@better-auth-kit/reverify" />
 
-Sometimes you may want to re-verify the user's identity by entering their password. This can be useful for scenarios such as:
+Sometimes you may want to re-verify the user's identity by entering a form of authentication. This can be useful for scenarios such as:
 
-- When the user logs in after a long time
+- When the user's session expires due to inactivity
 - When the user requests a critical action (e.g. deleting their account)
 
 <Steps>
@@ -16,7 +16,7 @@ Sometimes you may want to re-verify the user's identity by entering their passwo
         ### 1. Install the plugin
 
         ```package-install
-        @better-auth-kit/reverify-password
+        @better-auth-kit/reverify
         ```
   </Step>
 
@@ -24,18 +24,18 @@ Sometimes you may want to re-verify the user's identity by entering their passwo
     ### 2. Initialize the plugin
 
     ```ts title="auth.ts"
-    import { reverifyPassword } from "@better-auth-kit/reverify-password";
+    import { reverify } from "@better-auth-kit/reverify";
 
     export const auth = betterAuth({
-      plugins: [reverifyPassword()],
+      plugins: [reverify()],
     });
     ```
 
     ```ts title="auth-client.ts"
-    import { reverifyPasswordClient } from "@better-auth-kit/reverify-password/client";
+    import { reverifyClient } from "@better-auth-kit/reverify/client";
 
     export const authClient = createAuthClient({
-      plugins: [reverifyPasswordClient()],
+      plugins: [reverifyClient()],
     });
     ```
   </Step>

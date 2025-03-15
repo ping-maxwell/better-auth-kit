@@ -9,9 +9,9 @@ export const ERROR_CODES = {
 	NO_SESSION: "No session found.",
 } as const;
 
-export const reverifyPassword = () => {
+export const reverify = () => {
 	return {
-		id: "reverifyPassword",
+		id: "reverify",
 		endpoints: {
 			reverifyPassword: createAuthEndpoint(
 				"/reverifyPassword",

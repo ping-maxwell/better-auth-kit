@@ -42,11 +42,11 @@ export default async function CommunityPage() {
 			docs: "https://better-auth-kit.com/docs/adapters/convex",
 		},
 		{
-			name: "@better-auth-kit/reverify-password",
-			description: "A reverify password plugin for Better Auth",
+			name: "@better-auth-kit/reverify",
+			description: "A plugin to reverify a user's identity.",
 			downloads: 0,
 			version: "0",
-			docs: "https://better-auth-kit.com/docs/plugins/reverify-password",
+			docs: "https://better-auth-kit.com/docs/plugins/reverify",
 		},
 		{
 			name: "better-auth-dashboard",

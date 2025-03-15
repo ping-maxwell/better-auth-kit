@@ -48,8 +48,8 @@ export const contents: Content[] = [
 				icon: () => <OctagonPause size={16} />,
 			},
 			{
-				href: "/docs/plugins/reverify-password",
-				title: "Reverify Password",
+				href: "/docs/plugins/reverify",
+				title: "Reverify",
 				icon: () => <Lock size={16} />,
 			},
 			{

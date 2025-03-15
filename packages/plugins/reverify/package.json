@@ -1,7 +1,7 @@
 {
-	"name": "@better-auth-kit/reverify-password",
+	"name": "@better-auth-kit/reverify",
 	"version": "0.0.1",
-	"description": "Request the user to re-verify their identity by entering their password for revalidation.",
+	"description": "Prompt the user to re-verify their identity by providing a form of authentication for revalidation.",
 	"type": "module",
 	"repository": {
 		"type": "git",
