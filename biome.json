@@ -54,6 +54,16 @@
 		}
 	},
 	"files": {
-		"ignore": [".next", "node_modules", "dist", "build", "out", "coverage"]
+		"ignore": [
+			".next",
+			"node_modules",
+			"dist",
+			"build",
+			"out",
+			"coverage",
+			".db",
+			".turbo",
+			".env"
+		]
 	}
 }
