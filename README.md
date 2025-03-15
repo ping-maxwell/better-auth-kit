@@ -25,7 +25,7 @@
 
 ## Getting Started
 
-Head over to our [docs](https://better-auth-kit.com/) to see what we offer! 🫡
+Head over to our [docs](https://better-auth-kit.com/) to see what we offer! 👀
 
 ## Contributing
 
