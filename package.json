@@ -20,9 +20,9 @@
 	"packageManager": "bun@1.2.4",
 	"workspaces": [
 		"apps/*",
+		"packages/cli",
 		"packages/plugins/*",
 		"packages/libraries/*",
-		"packages/cli/*",
 		"packages/adapters/*"
 	],
 	"dependencies": {
