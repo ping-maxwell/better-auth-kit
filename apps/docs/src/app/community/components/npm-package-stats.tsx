@@ -29,7 +29,11 @@ export function NpmPackageStats({ package: pkg }: NpmPackageStatsProps) {
 			<CardHeader className="pb-2">
 				<div className="flex justify-between items-start">
 					<div>
-						<CardTitle className="font-bold">{pkg.name}</CardTitle>
+						<CardTitle className="font-bold hover:underline">
+							<Link href={pkg.docs}>
+								{pkg.name}
+							</Link>
+						</CardTitle>
 						<CardDescription className="mt-2 text-xs">
 							{pkg.description}
 						</CardDescription>
