@@ -57,3 +57,133 @@ describe("My Plugin", () => {
 </Step>
 </Steps>
 
+<div className="h-10" />
+
+# API
+
+## `getTestInstance`
+
+Optionally takes two arguments, the first is the options for the `betterAuth` instance, the second is the options for the test instance itself.
+
+You can configure the betterAuth client instance inside the second argument.
+
+```ts
+const {
+	auth,
+	db,
+	client,
+	testUser,
+	signInWithTestUser,
+	signInWithUser,
+	cookieSetter,
+	customFetchImpl,
+	sessionSetter,
+}  = await getTestInstance(
+	{
+        // Better-Auth options
+		plugins: [myPlugin()],
+	},
+	{
+		clientOptions: {
+            // Client options
+			plugins: [myClientPlugin()],
+		},
+	},
+);
+```
+
+### Options
+
+- `clientOptions` - The options for the Better-Auth client instance.
+- `port` - The baseURL port for the better-auth instance.
+- `disableTestUser` - Whether to disable the test user.
+- `testUser` - The test user to use for the test instance.
+- `testWith` - The database to use for the test instance. (`sqlite`, `postgres`, `mongodb`, `mysql`)
+
+### Methods
+
+- `auth` - The Better-Auth instance.
+- `client` - The Better-Auth client instance.
+- `testUser` - The premade test user.
+- `signInWithTestUser` - Sign in with the premade test user.
+- `signInWithUser` - Sign in with a custom user.
+- `cookieSetter` - Set the cookie for the test instance.
+- `customFetchImpl` - The custom fetch implementation for the test instance.
+- `sessionSetter` - Set the session for the test instance.
+
+---
+
+#### `auth`
+
+The Better-Auth instance.
+
+#### `client`
+
+The Better-Auth client instance.
+
+#### `testUser`
+
+The premade test user.
+
+#### `signInWithTestUser`
+
+```ts
+const { headers, user } = await signInWithTestUser();
+```
+
+#### `signInWithUser`
+
+```ts
+const { headers, user } = await signInWithUser(email, password);
+```
+
+#### `cookieSetter`
+
+Useful for getting the session of a successful sign in and applying that to a new headers object's cookie.
+
+```ts
+const headers = new Headers();
+await client.signIn.email(
+    {
+        email: testUser.email,
+        password: testUser.password,
+    },
+    {
+        onSuccess: cookieSetter(headers),
+    },
+);
+```
+
+#### `customFetchImpl`
+
+Useful for setting the custom fetch implementation for the test instance.
+
+
+#### `sessionSetter`
+
+Useful for getting the session from the response of a successful sign in and applying that to a new headers object.
+
+```ts
+const headers = new Headers();
+await client.signIn.email(
+    {
+        email: testUser.email,
+        password: testUser.password,
+    },
+    {
+        onSuccess: sessionSetter(headers),
+    },
+);
+
+const response = await client.listSessions({
+    fetchOptions: {
+        headers,
+    },
+});
+```
+
+
+
+
+
+
