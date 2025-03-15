@@ -4,11 +4,17 @@
 	"type": "module",
 	"author": "ping-maxwell",
 	"license": "MIT",
-	"bin": {
-		"better-auth-kit": "./bin/better-auth-kit.js"
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit.git",
+		"directory": "packages/cli"
 	},
 	"scripts": {},
 	"publishConfig": {
-		"access": "public"
-	}
+		"access": "public",
+		"executableFiles": ["./dist/index.js"]
+	},
+	"exports": "./dist/index.js",
+	"bin": "./dist/index.js",
+	"files": ["dist"]
 }
