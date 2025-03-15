@@ -35,7 +35,7 @@ export default async function CommunityPage() {
 			docs: "https://better-auth-kit.com/docs/plugins/legal-consent",
 		},
 		{
-			name: "convex-better-auth",
+			name: "@better-auth-kit/convex",
 			description: "A Convex adapter for Better Auth",
 			downloads: 0,
 			version: "0",
