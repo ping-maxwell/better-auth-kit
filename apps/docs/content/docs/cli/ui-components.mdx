@@ -1,0 +1,43 @@
+---
+title: UI Components
+description: Generate UI components using the ShadCN registry for your project.
+---
+
+<GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/cli" />
+<NpmButton url="https://www.npmjs.com/package/@better-auth-kit/cli" />
+
+<Callout type="warn">
+This feature is not yet available. View our [roadmap](/roadmap) to see what is coming soon.
+</Callout>
+
+## Lore
+
+Given that Better-Auth works around a plugin eco-system, it's important to have a way to extend UI and extend the components that build them.
+
+We intend to provide a large set of UI components that builds off [shadcn/ui](https://ui.shadcn.com/) components, and allow you to generate your auth components using the Better-Auth-Kit CLI. 
+For each major component (such as a sign-in, or sign-up component), we will provide a base component that you can extend.
+Using the example of sign-up, we will provide smaller components which you can then add to your sign-up component, such as our `<OAuth />` component.
+
+This opens the door of opportunity for you to extend the components to your liking, and also develop smaller components for any plugin that may require UI to go along with it.
+For example, with our [legal-consent](/plugins/legal-consent) plugin, we can then provide a component that allows you to collect the user consent.
+
+## Usage
+
+You can add any of our provided components to your project by using the following command:
+
+```package-install
+npx @better-auth-kit/cli@latest ui add <component-name>
+```
+
+## Components
+
+We currently have the following components:
+
+- `SignIn`
+- `SignUp`
+- `OAuth`
+
+## Component Builder
+
+We provide a [Components builder](https://better-auth-kit.com/components) page which allows you to easily view and customize the components,
+allowing you to see what is possible, then run 1 command to add the component and your customizations to your project.

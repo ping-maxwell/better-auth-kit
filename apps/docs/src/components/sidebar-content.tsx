@@ -39,27 +39,6 @@ export const contents: Content[] = [
     ],
   },
   {
-    Icon: () => <Drill size={16} />,
-    title: "Tools",
-    list: [
-      {
-        href: "/docs/tools/ui-components",
-        title: "UI Components",
-        icon: () => <Box size={16} />,
-      },
-      {
-        href: "/docs/tools/cli",
-        title: "CLI",
-        icon: () => <Terminal size={16} />,
-      },
-      {
-        href: "/docs/tools/seeding",
-        title: "Seeding",
-        icon: () => <Grid2X2Plus size={16} />,
-      },
-    ],
-  },
-  {
     Icon: () => <Plug size={16} />,
     title: "Plugins",
     list: [
@@ -106,7 +85,27 @@ export const contents: Content[] = [
       },
     ],
   },
-
+  {
+    Icon: () => <Terminal size={16} />,
+    title: "CLI",
+    list: [
+      {
+        href: "/docs/cli/information",
+        title: "Information",
+        icon: () => <Info size={16} />,
+      },
+      {
+        href: "/docs/cli/ui-components",
+        title: "UI Components",
+        icon: () => <Box size={16} />,
+      },
+      {
+        href: "/docs/cli/seeding",
+        title: "Seeding",
+        icon: () => <Grid2X2Plus size={16} />,
+      },
+    ],
+  },
   {
     Icon: () => <EthernetPort size={16} />,
     title: "Adapters",

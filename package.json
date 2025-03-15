@@ -22,7 +22,7 @@
 		"apps/*",
 		"packages/plugins/*",
 		"packages/libraries/*",
-		"packages/tools/*",
+		"packages/cli/*",
 		"packages/adapters/*"
 	],
 	"dependencies": {
