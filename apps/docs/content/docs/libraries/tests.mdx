@@ -6,11 +6,58 @@ description: A collection of utilities to help you test your Better-Auth plugins
 <GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/libraries/tests" />
 <NpmButton url="https://www.npmjs.com/package/@better-auth-kit/tests" />
 
+If you're developing a custom plugin for Better-Auth, you may need to test it. This library is intended to provide utilities to help you test your plugins.
+
+<Callout type="info">
+This library currently is pulled out from the main Better-Auth package, but is intended to provide more features in the future.
+</Callout>
+
+<Steps>
+
+
+<Step>
+
 ## Installation
 
 ```package-install
 @better-auth-kit/tests
 ```
 
+</Step>
+
+<Step>
+
 ## Usage
 
+```ts title="my-plugin.test.ts"
+import { getTestInstance } from "@better-auth-kit/tests";
+import { describe, expect, it, vi } from "vitest";
+import { myPlugin, myClientPlugin } from "./my-plugin.ts";
+
+const { auth, db, client, testUser, signInWithTestUser } = await getTestInstance(
+	{
+		plugins: [myPlugin()],
+	},
+	{
+		clientOptions: {
+			plugins: [myClientPlugin()],
+		},
+	},
+);
+
+
+// Your test user is already created
+const { headers, user } = await signInWithTestUser();
+
+describe("My Plugin", () => {
+	it("should do something cool", async () => {
+		const result = await client.myPlugin.doSomethingCool();
+        
+		expect(result).toBe(true);
+	});
+});
+```
+</Step>
+
+
+</Steps>
