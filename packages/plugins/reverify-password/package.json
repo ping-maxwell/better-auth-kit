@@ -28,7 +28,8 @@
 	"devDependencies": {
 		"@types/bun": "1.2.4",
 		"bun-plugin-dts": "^0.3.0",
-		"vitest": "^3.0.8"
+		"vitest": "^3.0.8",
+		"@better-auth-kit/tests": "workspace:*"
 	},
 	"peerDependencies": {
 		"better-auth": "^1.1.21"

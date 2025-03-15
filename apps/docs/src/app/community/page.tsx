@@ -57,7 +57,8 @@ export default async function CommunityPage() {
 		},
 		{
 			name: "@better-auth-kit/tests",
-			description: "A collection of utilities to help you test your Better-Auth plugins.",
+			description:
+				"A collection of utilities to help you test your Better-Auth plugins.",
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/libraries/tests",
