@@ -68,7 +68,7 @@ export function RoadmapTimeline() {
 			description:
 				"A CLI tool to provide a better experience for setting up, and using, Better-Auth",
 			details: [
-				"add: General structrue for CLI",
+				"add: General structure for CLI",
 				"add: Database seeding",
 				"add: Database seeding docs",
 				"add: UI component generation",
