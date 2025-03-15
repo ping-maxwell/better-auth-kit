@@ -1,5 +1,5 @@
 export function getCommonAuthLocations(fileNames: string[]) {
-	let possiblePaths  = fileNames;
+	let possiblePaths = fileNames;
 	possiblePaths = [
 		...possiblePaths,
 		...possiblePaths.map((it) => `lib/server/${it}`),

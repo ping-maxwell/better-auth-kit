@@ -63,7 +63,8 @@
 			"coverage",
 			".db",
 			".turbo",
-			".env"
+			".env",
+			"dataset"
 		]
 	}
 }
