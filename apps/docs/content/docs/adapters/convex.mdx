@@ -3,8 +3,8 @@ title: Convex Adapter
 description: Convex Adapter for Better Auth
 ---
 
-<GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/adapters/convex-better-auth" />
-<NpmButton url="https://www.npmjs.com/package/convex-better-auth" />
+<GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/adapters/convex" />
+<NpmButton url="https://www.npmjs.com/package/@better-auth-kit/convex" />
 
 <Callout type="warn">
 This adapter is currently in beta.
@@ -22,7 +22,7 @@ Here are the key limitations to consider:
 ## Installation
 
 ```bash
-npm install convex-better-auth
+npm install @better-auth-kit/convex
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ Head over to your Better Auth server instance, and under `database`, add the `co
 
 ```ts
 import { betterAuth } from "better-auth";
-import { convexAdapter } from "convex-better-auth";
+import { convexAdapter } from "@better-auth-kit/convex";
 
 const convexClient = new ConvexClient(process.env.CONVEX_URL);
 

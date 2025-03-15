@@ -9,7 +9,7 @@ import {
 	insertDb,
 	updateDb,
 	countDb,
-} from "./../convex_action/calls";
+} from "../convex_action/calls";
 
 export const createTransform = ({
 	config,

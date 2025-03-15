@@ -16,7 +16,7 @@ export type ConvexAdapter = (
 export const convexAdapter: ConvexAdapter = (client, config = {}) => {
 	function debugLog(message: any[]) {
 		if (config.enable_debug_logs) {
-			console.log(`[convex-better-auth]`, ...message);
+			console.log(`[convex-adapter]`, ...message);
 		}
 	}
 

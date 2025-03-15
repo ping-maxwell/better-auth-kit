@@ -1,9 +1,9 @@
 {
-	"name": "convex-better-auth",
-	"version": "1.1.1",
+	"name": "@better-auth-kit/convex",
+	"version": "1.0.0",
 	"description": "Convex Database Adapter for Better-Auth.",
-	"main": "src/index.ts",
 	"author": "ping-maxwell",
+	"type": "module",
 	"scripts": {
 		"dev:convex": "npx convex dev",
 		"test": "vitest",
@@ -12,7 +12,8 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Multinite/convex-better-auth.git"
+		"url": "https://github.com/ping-maxwell/better-auth-kit.git",
+		"directory": "packages/adapters/convex"
 	},
 	"keywords": [
 		"convex",
@@ -45,5 +46,8 @@
 	},
 	"dependencies": {
 		"prettier": "^3.4.2"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }
