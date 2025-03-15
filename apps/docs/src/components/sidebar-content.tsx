@@ -18,6 +18,7 @@ import {
   Terminal,
   Grid2X2Plus,
   Gift,
+  Gauge,
 } from "lucide-react";
 import type { Content } from "./sidebar";
 
@@ -95,6 +96,12 @@ export const contents: Content[] = [
         icon: () => <Info size={16} />,
       },
       {
+        group: true,
+        title: "Features",
+        href: "/docs/cli/features",
+        icon: () => <Box size={16} />,
+      },
+      {
         href: "/docs/cli/ui-components",
         title: "UI Components",
         icon: () => <Box size={16} />,
@@ -103,6 +110,11 @@ export const contents: Content[] = [
         href: "/docs/cli/seeding",
         title: "Seeding",
         icon: () => <Grid2X2Plus size={16} />,
+      },
+      {
+        href: "/docs/cli/dashboard",
+        title: "Dashboard",
+        icon: () => <Gauge size={16} />,
       },
     ],
   },
