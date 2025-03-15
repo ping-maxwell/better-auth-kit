@@ -48,6 +48,7 @@ Sometimes you may want to re-verify the user's identity by entering a form of au
         const { data } = await client.reverify.password({
           password: "some-password",
         });
+        
         const isValid = data?.valid;
         ```
       </Tab>
