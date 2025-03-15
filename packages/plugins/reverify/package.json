@@ -1,6 +1,6 @@
 {
 	"name": "@better-auth-kit/reverify",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Prompt the user to re-verify their identity by providing a form of authentication for revalidation.",
 	"type": "module",
 	"repository": {
