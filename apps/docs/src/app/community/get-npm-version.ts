@@ -14,7 +14,10 @@ export const getNpmPackageLatestVersion = cache(
 		);
 
 		if (!res.ok) {
-			throw new Error(`Failed to fetch ${packageName} version`);
+			console.error(`Failed to fetch ${packageName} version`);
+			return {
+				version: "0",
+			};
 		}
 
 		const data: { latest: string } = await res.json();
