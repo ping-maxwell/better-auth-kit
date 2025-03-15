@@ -80,7 +80,7 @@ export const contents: Content[] = [
 			},
 			{
 				href: "/docs/libraries/tests",
-				title: "@better-auth-kit/tests",
+				title: "Better Auth tests",
 				icon: () => <TestTube size={16} />,
 			},
 		],
