@@ -29,20 +29,6 @@ export function RoadmapTimeline() {
 			],
 		},
 		{
-			title: "Reverify plugin",
-			description:
-				"Prompt the user to reverify their identity by providing a form of authentication for revalidation.",
-			inProgress: true,
-			details: [
-				"~~add: Reverify plugin~~",
-				"~~add: Reverify plugin docs~~",
-				"add: Reverify plugin tests",
-				"chore: Documentation",
-				"add: Other auth methods (OTP, Magic link, etc) support",
-				"add: session freshness check - if session is fresh, skip re-verification. And configurable in plugin options",
-			],
-		},
-		{
 			title: "Move convex-better-auth to this monorepo",
 			inProgress: true,
 			description:
@@ -98,6 +84,19 @@ export function RoadmapTimeline() {
 				"add: Write unit tests",
 				"add: waitlist + better-auth-harmony",
 				"chore: Documentation",
+			],
+		},
+		{
+			title: "Reverify plugin",
+			description:
+				"Prompt the user to reverify their identity by providing a form of authentication for revalidation.",
+			details: [
+				"~~add: Reverify plugin~~",
+				"~~add: Reverify plugin docs~~",
+				"~~add: Reverify plugin tests~~",
+				"~~chore: Documentation~~",
+				"add: Other auth methods (OTP, Magic link, etc) support",
+				"add: session freshness check - if session is fresh, skip re-verification. And configurable in plugin options",
 			],
 		},
 		{
