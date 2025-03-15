@@ -11,7 +11,7 @@
   </h2>
 
   <p align="center">
-    A collection of <b>plugins</b>,<b>libraries</b>, <b>examples</b>, and <b>more</b> for <a href="https://github.com/better-auth/better-auth">Better Auth</a>.
+    A collection of <b>plugins</b>, <b>adapters</b>, <b>libraries</b>, and <b>more</b> for <a href="https://github.com/better-auth/better-auth">Better Auth</a>.
     <br />
     <a href="https://better-auth-kit.com"><strong>Learn more »</strong></a>
     <br />
