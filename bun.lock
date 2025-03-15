@@ -111,7 +111,7 @@
     },
     "packages/libraries/tests": {
       "name": "@better-auth-kit/tests",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "dependencies": {
         "@types/pg": "^8.11.11",
         "better-auth": "^1.2.4",
@@ -165,9 +165,9 @@
         "better-auth": "^1.1.21",
       },
     },
-    "packages/plugins/reverify-password": {
-      "name": "@better-auth-kit/reverify-password",
-      "version": "0.0.1",
+    "packages/plugins/reverify": {
+      "name": "@better-auth-kit/reverify",
+      "version": "0.1.0",
       "devDependencies": {
         "@better-auth-kit/tests": "workspace:*",
         "@types/bun": "1.2.4",
@@ -252,7 +252,7 @@
 
     "@better-auth-kit/legal-consent": ["@better-auth-kit/legal-consent@workspace:packages/plugins/legal-consent"],
 
-    "@better-auth-kit/reverify-password": ["@better-auth-kit/reverify-password@workspace:packages/plugins/reverify-password"],
+    "@better-auth-kit/reverify": ["@better-auth-kit/reverify@workspace:packages/plugins/reverify"],
 
     "@better-auth-kit/tests": ["@better-auth-kit/tests@workspace:packages/libraries/tests"],
 

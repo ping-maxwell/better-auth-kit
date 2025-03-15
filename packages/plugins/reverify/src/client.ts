@@ -7,24 +7,8 @@ export const reverifyClientPlugin = () => {
 	return {
 		id: "reverify",
 		$InferServerPlugin: {} as ReturnType<ReverifyPlugin>,
-		getActions: ($fetch) => ({
-			reverifyPassword: async (password: string) => {
-				const { data, error } = await $fetch<{ valid: boolean }>(
-					`/reverifyPassword`,
-					{
-						method: "POST",
-						body: {
-							password,
-						},
-					},
-				);
-
-				if (error) {
-					return false;
-				}
-
-				return data.valid;
-			},
-		}),
+		pathMethods: {
+			"/reverify/password": "POST",
+		},
 	} satisfies BetterAuthClientPlugin;
 };

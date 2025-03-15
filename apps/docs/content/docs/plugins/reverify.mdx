@@ -45,12 +45,22 @@ Sometimes you may want to re-verify the user's identity by entering a form of au
     <Tabs items={["client", "server"]}>
       <Tab value="client">
         ```ts
-        const isValid = await authClient.reverifyPassword("some-password");
+        const { data } = await client.reverify.password({
+          password: "some-password",
+        });
+        const isValid = data?.valid;
         ```
       </Tab>
       <Tab value="server">
         ```ts
-        const isValid = await auth.api.reverifyPassword("some-password");
+        const data = await auth.api.reverifyPassword({
+          body: {
+            password: "some-password",
+          },
+          headers,
+        });
+
+        const isValid = data?.valid;
         ```
       </Tab>
     </Tabs>
