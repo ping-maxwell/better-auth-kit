@@ -1,4 +1,3 @@
-
 (async () => {
 	const start = Date.now();
 	const res = await Bun.build({
@@ -10,7 +9,6 @@
 		entrypoints: ["./src/index.ts"],
 		packages: "external",
 		plugins: [],
-		
 	});
 	res.logs.forEach((log) => {
 		console.log(log);

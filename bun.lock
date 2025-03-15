@@ -111,7 +111,7 @@
     },
     "packages/libraries/tests": {
       "name": "@better-auth-kit/tests",
-      "version": "0.0.1",
+      "version": "0.1.1",
       "dependencies": {
         "@types/pg": "^8.11.11",
         "better-auth": "^1.2.4",
@@ -169,6 +169,7 @@
       "name": "@better-auth-kit/reverify-password",
       "version": "0.0.1",
       "devDependencies": {
+        "@better-auth-kit/tests": "workspace:*",
         "@types/bun": "1.2.4",
         "bun-plugin-dts": "^0.3.0",
         "vitest": "^3.0.8",

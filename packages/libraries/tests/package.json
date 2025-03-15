@@ -4,6 +4,13 @@
 	"version": "0.1.1",
 	"license": "MIT",
 	"author": "ping-maxwell",
+	"type": "module",
+	"exports": {
+		".": {
+			"default": "./dist/index.js",
+			"types": "./src/index.ts"
+		}
+	},
 	"dependencies": {
 		"@types/pg": "^8.11.11",
 		"better-auth": "^1.2.4",
@@ -26,5 +33,13 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"keywords": ["better-auth", "better-auth-kit", "tests", "plugin", "test", "helper", "utility"]
+	"keywords": [
+		"better-auth",
+		"better-auth-kit",
+		"tests",
+		"plugin",
+		"test",
+		"helper",
+		"utility"
+	]
 }
