@@ -191,8 +191,17 @@ const response = await client.listSessions({
 });
 ```
 
+#### `db`
 
+The database adapter.
 
-
+```ts title="example"
+await db.create({
+	model: "sometable",
+	data: {
+		hello: "world"
+	},
+});
+```
 
 
