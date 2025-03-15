@@ -44,14 +44,25 @@ export function RoadmapTimeline() {
     },
     {
       title: "Better-Auth-Kit CLI",
-	  inProgress: true,
+      inProgress: true,
       description:
         "A CLI tool to provide a better experience for setting up, and using, Better-Auth",
-      details: ["add: General structure for CLI"],
+      details: [
+        "~~add: General structure for CLI~~",
+        "complete the seeding CLI stages",
+        "complete the UI components CLI stages",
+        "complete the dashboard CLI stages",
+      ],
     },
     {
-      title: "Better-Auth-Kit UI",
+      title: "Seeding CLI",
       inProgress: true,
+      description:
+        "Seed your database with fake data that relate to Better-Auth.",
+      details: ["add: Seeding CLI", "add: Seeding docs"],
+    },
+    {
+      title: "UI components & CLI",
       description:
         "ShadCN registry based UI components specific to Better-Auth.",
       details: [
@@ -71,7 +82,7 @@ export function RoadmapTimeline() {
       ],
     },
     {
-      title: "Better-Auth Dashboard",
+      title: "Better-Auth Dashboard CLI",
       description:
         "A Clerk-like dashboard for your Better-Auth project. This will be a Next.js project that is styled with shadcn/ui.",
       details: [
