@@ -1,12 +1,12 @@
 import type { BetterAuthClientPlugin } from "better-auth";
-import type { reverifyPassword } from "./index";
+import type { reverify } from "./index";
 
-type ReverifyPasswordPlugin = typeof reverifyPassword;
+type ReverifyPlugin = typeof reverify;
 
 export const reverifyClientPlugin = () => {
 	return {
-		id: "reverifyPassword",
-		$InferServerPlugin: {} as ReturnType<ReverifyPasswordPlugin>,
+		id: "reverify",
+		$InferServerPlugin: {} as ReturnType<ReverifyPlugin>,
 		getActions: ($fetch) => ({
 			reverifyPassword: async (password: string) => {
 				const { data, error } = await $fetch<{ valid: boolean }>(
