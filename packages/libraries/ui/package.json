@@ -9,7 +9,7 @@
 		"url": "https://github.com/ping-maxwell/better-auth-kit"
 	},
 	"scripts": {
-		"build": "shadcn build --output ../../../apps/docs/public/r"
+		"build": "shadcn build --output ../../../apps/docs/public/r && cd ../../../ && bun run format"
 	},
 	"keywords": [
 		"better-auth",
