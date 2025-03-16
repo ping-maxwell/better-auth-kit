@@ -14,14 +14,15 @@ export default seed(
 			},
 			{ count: 100 },
 		),
-		session: table<Session>({
-			id: funcs.uuid(),
-			userId: funcs.forignKey({ model: "user", field: "id", unique: true }),
-			createdAt: funcs.date(),
-			updatedAt: funcs.date(),
-			expiresAt: funcs.date(),
-			token: funcs.uuid(),
-			ipAddress: funcs.string(() => "127.0.0.1"),
+		session: table<Session>(
+			{
+				id: funcs.uuid(),
+				userId: funcs.forignKey({ model: "user", field: "id", unique: true }),
+				createdAt: funcs.date(),
+				updatedAt: funcs.date(),
+				expiresAt: funcs.date(),
+				token: funcs.uuid(),
+				ipAddress: funcs.string(() => "127.0.0.1"),
 				userAgent: funcs.string(() => "my-user-agent"),
 			},
 			{ count: 100 },
