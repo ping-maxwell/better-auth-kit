@@ -1,5 +1,5 @@
 import type { Session, User } from "./auth";
-import { seed, funcs, table } from "./seed-lib";
+import { seed, funcs, table } from "@better-auth-kit/seed";
 
 export default seed(
 	{

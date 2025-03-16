@@ -1,7 +1,7 @@
 {
-	"name": "@better-auth-kit/tests",
-	"description": "A collection of utilities to help you test your Better-Auth plugins.",
-	"version": "0.1.2",
+	"name": "@better-auth-kit/seed",
+	"description": "Seed your Better-Auth database with deterministic, yet realistic, fake data.",
+	"version": "0.0.1",
 	"license": "MIT",
 	"author": "ping-maxwell",
 	"type": "module",
@@ -12,18 +12,14 @@
 		}
 	},
 	"dependencies": {
-		"@types/pg": "^8.11.11",
 		"better-auth": "^1.2.4",
-		"better-sqlite3": "^11.9.0",
-		"kysely": "^0.27.6",
-		"mongodb": "^6.14.2",
-		"mysql2": "^3.13.0",
-		"pg": "^8.14.0",
-		"vitest": "^3.0.8"
+		"chalk": "^5.4.1",
+		"log-update": "^6.1.0",
+		"prompts": "^2.4.2"
 	},
 	"devDependencies": {
-		"@types/better-sqlite3": "^7.6.12",
-		"@types/bun": "1.2.4"
+		"@types/bun": "1.2.4",
+		"bun-plugin-dts": "^0.3.0"
 	},
 	"scripts": {
 		"dev": "bun build --entrypoints ./src/index.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
@@ -35,10 +31,10 @@
 	"keywords": [
 		"better-auth",
 		"better-auth-kit",
-		"tests",
+		"seeding",
 		"plugin",
-		"test",
-		"helper",
-		"utility"
+		"cli",
+		"seed",
+		"database"
 	]
 }

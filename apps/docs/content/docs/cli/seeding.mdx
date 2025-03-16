@@ -1,19 +1,73 @@
 ---
 title: Seeding
-description: Create fake users or other data in the database that relate to Better-Auth.
+description: Seed your Better-Auth database with deterministic, yet realistic, fake data to populate your database.
 ---
 
 <GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/cli" />
 <NpmButton url="https://www.npmjs.com/package/@better-auth-kit/cli" />
 
-<Callout type="warn">
-This feature is not yet available. View our [roadmap](/roadmap) to see what is coming soon.
-</Callout>
-
-If you want to create fake users or other data in the database that relate to Better-Auth, then our seeding tool is for you.
+Our seeding tool allows you to generate realistic sample data, such as users, for your Better Auth database. Inspired by [Drizzle Seed](https://orm.drizzle.team/docs/seed-overview).
 
 ## Usage
+
+<Steps>
+
+<Step>
+## Install
+
+```package-install
+npm install @better-auth-kit/seed
+```
+
+</Step>
+
+<Step>
+##  Create
+
+Create a `seed.ts` file next to your `auth.ts` file
+
+```ts title="seed.ts"
+import { seed, userTable, sessionTable } from "@better-auth-kit/seed";
+
+export default seed({
+    user: userTable(),
+    session: sessionTable(),
+});
+```
+
+</Step>
+
+<Step>
+## Run 
 
 ```package-install
 npx @better-auth-kit/cli@latest seed
 ```
+
+And that's it! 🔥
+</Step>
+</Steps>
+
+
+## Datasets
+
+### Adjectives
+
+### Emails
+
+### First Names
+
+### Last Names
+
+### Job Titles
+
+### Cities
+
+
+
+
+
+
+## Credit
+
+This project was heavily inspired by [Drizzle Seed](https://orm.drizzle.team/docs/seed-overview), and the datasets used in this project are from Drizzle Seed as well. Big thanks to the Drizzle team for the awesome work! 💖

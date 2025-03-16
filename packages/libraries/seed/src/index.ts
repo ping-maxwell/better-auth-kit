@@ -5,23 +5,28 @@ import firstNames from "./dataset/first-names";
 import lastNames from "./dataset/last-names";
 import emailDomains from "./dataset/email-domains";
 import prompts from "prompts";
+import type {
+	ConvertToSeedGenerator,
+	SeedGenerator,
+	SeedPrimitiveValue,
+} from "./types";
+export * from "./types";
 
-/**
- * A primitive value that can be used as a value in your database.
- */
-export type SeedPrimitiveValue = string | number | boolean | null | Date;
-
-/**
- * A function which would be called everytime a row is generated
- *
- * Must return a value of type SeedPrimitiveValue
- */
-export type SeedGenerator<T extends SeedPrimitiveValue = SeedPrimitiveValue> =
-	(helpers: { adapter: Adapter }) => Promise<T> | T;
-
-export function seed<Schema extends Record<string, ReturnType<typeof table>>>(
-	schema: Schema,
+export function seed(
+	schema: Record<string, ReturnType<typeof table>>,
 	options: {
+		/**
+		 * Rows per table it should generate.
+		 *
+		 * Note: if a given table has been provided with a row count to generate, this will be ignored.
+		 *
+		 * @default 100
+		 */
+		rows?: number;
+		/**
+		 * Delete rows before seeding.
+		 * @default false
+		 */
 		deleteRowsBeforeSeeding?:
 			| false
 			| {
@@ -108,10 +113,6 @@ export function seed<Schema extends Record<string, ReturnType<typeof table>>>(
 		},
 	};
 }
-
-type ConvertToSeedGenerator<T extends Record<string, SeedPrimitiveValue>> = {
-	[K in keyof T]: SeedGenerator<T[K]>;
-};
 
 export function table<
 	TableSchema extends Record<string, SeedPrimitiveValue> = {},

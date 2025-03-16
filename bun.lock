@@ -128,7 +128,22 @@
         "zod": "^3.24.2",
       },
       "devDependencies": {
+        "@better-auth-kit/seed": "workspace:*",
         "@types/prompts": "^2.4.9",
+      },
+    },
+    "packages/libraries/seed": {
+      "name": "@better-auth-kit/seed",
+      "version": "0.0.1",
+      "dependencies": {
+        "better-auth": "^1.2.4",
+        "chalk": "^5.4.1",
+        "log-update": "^6.1.0",
+        "prompts": "^2.4.2",
+      },
+      "devDependencies": {
+        "@types/bun": "1.2.4",
+        "bun-plugin-dts": "^0.3.0",
       },
     },
     "packages/libraries/tests": {
@@ -147,7 +162,6 @@
       "devDependencies": {
         "@types/better-sqlite3": "^7.6.12",
         "@types/bun": "1.2.4",
-        "bun-plugin-dts": "^0.3.0",
       },
     },
     "packages/libraries/ui": {
@@ -295,6 +309,8 @@
     "@better-auth-kit/legal-consent": ["@better-auth-kit/legal-consent@workspace:packages/plugins/legal-consent"],
 
     "@better-auth-kit/reverify": ["@better-auth-kit/reverify@workspace:packages/plugins/reverify"],
+
+    "@better-auth-kit/seed": ["@better-auth-kit/seed@workspace:packages/libraries/seed"],
 
     "@better-auth-kit/tests": ["@better-auth-kit/tests@workspace:packages/libraries/tests"],
 
