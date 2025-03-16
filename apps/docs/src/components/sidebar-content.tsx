@@ -107,8 +107,8 @@ export const contents: Content[] = [
 				icon: () => <Box size={16} />,
 			},
 			{
-				href: "/docs/cli/seeding",
-				title: "Seeding",
+				href: "/docs/cli/seed",
+				title: "Seed",
 				icon: () => <Grid2X2Plus size={16} />,
 			},
 			{
