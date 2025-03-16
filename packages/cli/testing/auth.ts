@@ -6,6 +6,29 @@ export const auth = betterAuth({
 	emailAndPassword: {
 		enabled: true,
 	},
+	plugins: [
+		{
+			id: "adding-more-tables-to-db",
+			schema: {
+				test: {
+					fields: {
+						testStr: {
+							type: "string",
+						},
+						testInt: {
+							type: "number",
+						},
+						testBool: {
+							type: "boolean",
+						},
+						testDate: {
+							type: "date",
+						},
+					},
+				},
+			},
+		},
+	],
 });
 
 export type User = typeof auth.$Infer.Session.user;
