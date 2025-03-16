@@ -27,7 +27,11 @@ npm install @better-auth-kit/convex
 
 ## Usage
 
-### 1. Initiate the Convex Database Adapter
+<Steps>
+
+<Step>
+
+### Initiate the Convex Database Adapter
 
 Head over to your Better Auth server instance, and under `database`, add the `convexAdapter` function.
 
@@ -43,8 +47,11 @@ export const auth = betterAuth({
   //... other options
 });
 ```
+</Step>
 
-### 2. Create the Convex Handler
+<Step>
+
+### Create the Convex Handler
 
 This allows our adapter to communicate with your Convex DB.
 
@@ -66,3 +73,9 @@ const { betterAuth, query, insert, update, delete_ } = ConvexHandler({
 
 export { betterAuth, query, insert, update, delete_ };
 ```
+
+</Step>
+
+</Steps>
+
+That's it! You're all set up! 🔥
