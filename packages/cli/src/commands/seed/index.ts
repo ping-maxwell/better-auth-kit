@@ -65,9 +65,10 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 		jitiOptions: jitiOptions(opts.cwd),
 	});
 
-	// spinner.success("Seed file executed successfully");
+	spinner.success("Seed file executed successfully");
 	const adapter = (await auth.$context).adapter;
 	await config.fn(adapter);
+	process.exit(0);
 };
 export const seedCommand = new Command("seed")
 	.option("-c, --cwd <cwd>", "The working directory.", process.cwd())

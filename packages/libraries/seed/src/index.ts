@@ -82,15 +82,21 @@ export function seed(
 				`Seeding ${chalk.greenBright(Object.keys(schema).length)} tables...`,
 			);
 			console.log();
-			for await (const [key, tableFn] of Object.entries(schema)) {
+			for (const [key, tableFn] of Object.entries(schema)) {
+				logupdate.done();
+				logupdate(
+					`✋ Preparing to seed the next table...\n${chalk.gray(
+						`(If you're using foreign keys, this may take a while.)`,
+					)}`,
+				);
 				const { rows, modelName } = await tableFn({ adapter });
 				const model = modelName ?? key;
+				let index = 0;
 				logupdate(
 					`Seeding ${chalk.cyanBright(model)} with ${chalk.greenBright(
 						rows.length,
 					)} rows...`,
 				);
-				let index = 0;
 				for (const row of rows) {
 					index++;
 					await adapter.create({
@@ -108,7 +114,6 @@ export function seed(
 						model,
 					)} with ${chalk.bold(rows.length)} rows.`,
 				);
-				logupdate.done();
 			}
 		},
 	};

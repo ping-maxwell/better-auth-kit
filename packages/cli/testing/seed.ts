@@ -12,7 +12,7 @@ export default seed(
 				createdAt: funcs.date(),
 				updatedAt: funcs.date(),
 			},
-			{ count: 10000 },
+			{ count: 100 },
 		),
 		session: table<Session>({
 			id: funcs.uuid(),
@@ -22,8 +22,10 @@ export default seed(
 			expiresAt: funcs.date(),
 			token: funcs.uuid(),
 			ipAddress: funcs.string(() => "127.0.0.1"),
-			userAgent: funcs.string(() => "my-user-agent"),
-		}),
+				userAgent: funcs.string(() => "my-user-agent"),
+			},
+			{ count: 100 },
+		),
 	},
 	{
 		deleteRowsBeforeSeeding: {

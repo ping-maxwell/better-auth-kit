@@ -63,6 +63,13 @@ export default async function CommunityPage() {
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/libraries/tests",
 		},
+		{
+			name: "@better-auth-kit/seed",
+			description: "A seeding tool for Better Auth",
+			downloads: 0,
+			version: "0",
+			docs: "https://better-auth-kit.com/docs/cli/seed",
+		},
 	];
 
 	for (const pkg of packages) {
