@@ -49,17 +49,17 @@ export function RoadmapTimeline() {
 				"A CLI tool to provide a better experience for setting up, and using, Better-Auth",
 			details: [
 				"~~add: General structure for CLI~~",
-				"complete the seeding CLI stages",
+				"complete the seed CLI stages",
 				"complete the UI components CLI stages",
 				"complete the dashboard CLI stages",
 			],
 		},
 		{
-			title: "Seeding CLI",
+			title: "Seed CLI",
 			inProgress: true,
 			description:
 				"Seed your database with fake data that relate to Better-Auth.",
-			details: ["add: Seeding CLI", "add: Seeding docs"],
+			details: ["add: Seed CLI", "add: Seed docs"],
 		},
 		{
 			title: "UI components & CLI",
