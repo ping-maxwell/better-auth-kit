@@ -1,6 +1,6 @@
 {
 	"name": "@better-auth-kit/cli",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"type": "module",
 	"author": "ping-maxwell",
 	"license": "MIT",
