@@ -1,49 +1,31 @@
 import chalk from "chalk";
-import type { Adapter } from "better-auth";
+import type { Adapter, AuthContext } from "better-auth";
 import logupdate from "log-update";
 import prompts from "prompts";
 import type { ConvertToSeedGenerator, SeedPrimitiveValue } from "./types";
+import type { SeedConfig } from "./config";
 export * from "./types";
+export { dataset as $ } from "./dataset";
+export * from "./config";
+export * from "./helpers";
 
-export function seed(
-	schema: Record<string, ReturnType<typeof table>>,
-	options: {
-		/**
-		 * Rows per table it should generate.
-		 *
-		 * Note: if a given table has been provided with a row count to generate, this will be ignored.
-		 *
-		 * @default 100
-		 */
-		rows?: number;
-		/**
-		 * Delete rows before seeding.
-		 * @default false
-		 */
-		deleteRowsBeforeSeeding?:
-			| false
-			| {
-					enabled: boolean;
-					/**
-					 * The rows to delete before seeding.
-					 *
-					 * Note: If certain tables can't be deleted due to foreign key constraints,
-					 * the seeding will fail. Make sure to delete rows in the correct order.
-					 */
-					rows: string[];
-			  };
-	} = {},
-) {
-	const { deleteRowsBeforeSeeding = false } = options;
+export type Table = ReturnType<typeof table>;
+
+let config: SeedConfig = {};
+export function Seed(schema: Record<string, Table>) {
 	return {
-		fn: async (adapter: Adapter) => {
+		setConfig: (seedConfig: SeedConfig) => {
+			config = seedConfig;
+		},
+		execute: async (adapter: Adapter, context: AuthContext) => {
+			const { deleteRowsBeforeSeeding = false } = config;
 			if (deleteRowsBeforeSeeding && deleteRowsBeforeSeeding.enabled) {
 				console.log();
 				const { confirm } = await prompts({
 					type: "confirm",
 					name: "confirm",
 					message: `Are you sure you want to delete all rows from tables: ${chalk.greenBright(
-						deleteRowsBeforeSeeding.rows.join(", "),
+						deleteRowsBeforeSeeding.models.join(", "),
 					)}?`,
 				});
 				if (!confirm) {
@@ -52,11 +34,11 @@ export function seed(
 				}
 				console.log(
 					`Deleting all rows from tables: ${chalk.greenBright(
-						deleteRowsBeforeSeeding.rows.join(", "),
+						deleteRowsBeforeSeeding.models.join(", "),
 					)}`,
 				);
 				console.log();
-				for (const model of deleteRowsBeforeSeeding.rows) {
+				for (const model of deleteRowsBeforeSeeding.models) {
 					logupdate(`Deleting all rows from ${chalk.cyanBright(model)}...`);
 					await adapter.deleteMany({
 						model,
@@ -82,7 +64,7 @@ export function seed(
 						`(If you're using foreign keys, this may take a while.)`,
 					)}`,
 				);
-				const { rows, modelName } = await tableFn({ adapter });
+				const { rows, modelName } = await tableFn({ adapter, context });
 				const model = modelName ?? key;
 				let index = 0;
 				logupdate(
@@ -117,11 +99,17 @@ export function table<
 >(
 	table: ConvertToSeedGenerator<TableSchema>,
 	options?: { modelName?: string; count?: number },
-): ({ adapter }: { adapter: Adapter }) => Promise<{
+): ({
+	adapter,
+	context,
+}: { adapter: Adapter; context: AuthContext }) => Promise<{
 	modelName?: string;
 	rows: Record<string, SeedPrimitiveValue>[];
 }> {
-	return async ({ adapter }: { adapter: Adapter }) => {
+	return async ({
+		adapter,
+		context,
+	}: { adapter: Adapter; context: AuthContext }) => {
 		const { modelName, count = 100 } = options ?? {};
 
 		const rows: Record<string, SeedPrimitiveValue>[] = [];
@@ -131,7 +119,7 @@ export function table<
 			for (const key in table) {
 				const value = table[key];
 				if (typeof value === "function") {
-					cols[key] = await value({ adapter });
+					cols[key] = await value({ adapter, context });
 				}
 			}
 			rows.push(cols);

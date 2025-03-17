@@ -7,6 +7,8 @@ import { getCommonAuthLocations } from "../../utils/get-common-auth-locations";
 import { existsSync } from "node:fs";
 import { loadConfig } from "c12";
 import type { Adapter } from "better-auth";
+import type { SeedConfig } from "@better-auth-kit/seed";
+import chalk from "chalk";
 
 const optionSchema = z.object({
 	cwd: z.string(),
@@ -38,7 +40,7 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 		return;
 	}
 
-	spinner.success("Config loaded");
+	spinner.success("Auth config loaded");
 
 	const seedFilePaths = getCommonAuthLocations(["seed.ts", "seed.js"]);
 
@@ -51,23 +53,35 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 	}
 
 	if (!hasSeedFile) {
-		spinner.error(
+		console.error(
 			"No seed file found. Please create a `seed.ts` or `seed.js` file next to your `auth.ts` file.",
 		);
 		return;
 	}
 
 	const { config } = await loadConfig<{
-		fn: (adapter: Adapter) => Promise<void>;
+		seed?: {
+			execute: (adapter: Adapter) => Promise<void>;
+			setConfig: (config: SeedConfig) => void;
+		};
+		config?: SeedConfig;
 	}>({
 		configFile: hasSeedFile,
 		dotenv: true,
 		jitiOptions: jitiOptions(opts.cwd),
+		cwd: opts.cwd,
 	});
 
-	spinner.success("Seed file executed successfully");
 	const adapter = (await auth.$context).adapter;
-	await config.fn(adapter);
+	if (!config.seed) {
+		console.error(
+			chalk.redBright("Error: ") +
+				"Missing `seed` export function in your seed file.",
+		);
+		return;
+	}
+	if (config.config) config.seed.setConfig(config.config);
+	await config.seed.execute(adapter);
 	process.exit(0);
 };
 export const seedCommand = new Command("seed")

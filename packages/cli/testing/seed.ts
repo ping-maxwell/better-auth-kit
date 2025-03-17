@@ -1,31 +1,67 @@
+import { Seed, $, table, type SeedConfig, users } from "@better-auth-kit/seed";
 import type { Session, User } from "./auth";
-import { seed, funcs, table } from "@better-auth-kit/seed";
+import type { Account } from "better-auth/types";
 
-export default seed(
-	{
-		user: table<User>({
-			id: funcs.uuid(),
-			name: funcs.first_and_lastname(),
-			email: funcs.email(),
-			emailVerified: funcs.boolean({ probability: 0.5 }),
-			createdAt: funcs.date(),
-			updatedAt: funcs.date(),
-		}),
-		session: table<Session>({
-			id: funcs.uuid(),
-			userId: funcs.forignKey({ model: "user", field: "id", unique: true }),
-			createdAt: funcs.date(),
-			updatedAt: funcs.date(),
-			expiresAt: funcs.date(),
-			token: funcs.uuid(),
-			ipAddress: funcs.string(() => "127.0.0.1"),
-			userAgent: funcs.string(() => "my-user-agent"),
-		}),
+// export const seed = Seed({
+// 	user: table<User>(
+// 		{
+// 			id: $.uuid(),
+// 			name: $.first_and_lastname(),
+// 			email: $.email({ unique: true }),
+// 			emailVerified: $.boolean({ probability: 0.5 }),
+// 			createdAt: $.randomDate(),
+// 			updatedAt: $.randomDate(),
+// 			banned: $.boolean({ probability: 0.5 }),
+// 			banReason: $.string(() => ""),
+// 			banExpires: $.randomDate(),
+// 			role: $.randomChoice(
+// 				$.string(() => "admin"),
+// 				$.string(() => "user"),
+// 			),
+// 		},
+// 		{ count: 10000 },
+// 	),
+// 	session: table<Session>(
+// 		{
+// 			id: $.uuid(),
+// 			userId: $.foreignKey({ model: "user", field: "id", unique: true }),
+// 			createdAt: $.randomDate(),
+// 			updatedAt: $.randomDate(),
+// 			expiresAt: $.randomDate(),
+// 			token: $.uuid(),
+// 			ipAddress: $.string(() => "127.0.0.1"),
+// 			userAgent: $.string(() => "my-user-agent"),
+// 		},
+// 		{ count: 10000 },
+// 	),
+// });
+
+export const config: SeedConfig = {
+	deleteRowsBeforeSeeding: {
+		enabled: true,
+		models: ["session", "account", "user"],
 	},
-	{
-		deleteRowsBeforeSeeding: {
-			enabled: true,
-			rows: ["session", "user"],
+};
+
+export const seed = Seed({
+	...users<{
+		user: User;
+		account: Account;
+		session: Session;
+	}>(
+		{
+			user: {
+				banned: $.boolean({ probability: 0.5 }),
+				banReason: $.string(() => ""),
+				banExpires: $.randomDate(),
+				role: $.randomChoice(
+					$.string(() => "admin"),
+					$.string(() => "user"),
+				),
+			},
 		},
-	},
-);
+		{
+			count: 10000,
+		},
+	),
+});
