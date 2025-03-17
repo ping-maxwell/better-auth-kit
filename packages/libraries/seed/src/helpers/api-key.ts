@@ -25,14 +25,14 @@ export function apiKey<
 	return table<TableType>(
 		//@ts-expect-error
 		{
-			enabled: $.boolean(),
+			enabled: $.randomBoolean(),
 			createdAt: $.randomDate("past"),
 			updatedAt: $.randomDate("future"),
 			expiresAt: $.randomDate("future"),
 			requestCount: $.randomNumber(),
 			remaining: $.randomNumber(),
 			lastRequest: $.randomDate("future"),
-			rateLimitEnabled: $.boolean(),
+			rateLimitEnabled: $.randomBoolean(),
 			rateLimitTimeWindow: $.nullValue(),
 			rateLimitMax: $.randomNumber(),
 			permissions: $.nullValue(),

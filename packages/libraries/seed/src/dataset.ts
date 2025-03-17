@@ -2,7 +2,6 @@ import type { SeedGenerator, SeedPrimitiveValue } from "./types";
 import firstNames from "./dataset/first-names";
 import lastNames from "./dataset/last-names";
 import emailDomains from "./dataset/email-domains";
-import adjectives from "./dataset/adjectives";
 import company_name_suffixes from "./dataset/company-name-suffixes";
 import countries_list from "./dataset/countries";
 import job_titles from "./dataset/job-titles";
@@ -57,10 +56,11 @@ const uuid = (): SeedGenerator<string> => {
 
 const email = ({
 	unique = true,
-}: { unique?: boolean } = {}): SeedGenerator<string> => {
+	domain = rng(emailDomains),
+}: { unique?: boolean; domain?: string } = {}): SeedGenerator<string> => {
 	const usedEmails: string[] = [];
 	return async ({ adapter, context }) => {
-		let email = `${await first_and_lastname()({ adapter, context })}@${rng(emailDomains)}`;
+		let email = `${await first_and_lastname()({ adapter, context })}@${domain}`;
 		if (unique) {
 			if (usedEmails.includes(email)) {
 				const generateUniqueEmail = async () => {
@@ -82,13 +82,6 @@ const password = (cb?: () => string): SeedGenerator<string> => {
 	return () => (cb ? cb() : randomPassword()) as string;
 };
 
-const boolean = (
-	options: { probability?: number } = {},
-): SeedGenerator<boolean> => {
-	const { probability = 0.5 } = options;
-	return () => Math.random() < probability;
-};
-
 const randomNumber = (
 	options: { min?: number; max?: number } = {},
 ): SeedGenerator<number> => {
@@ -102,10 +95,6 @@ const image = (dimensions?: {
 }): SeedGenerator<string> => {
 	return () =>
 		`https://picsum.photos/${dimensions?.width ?? 500}/${dimensions?.height ?? 500}`;
-};
-
-const adjective = (): SeedGenerator<string> => {
-	return () => rng(adjectives) as string;
 };
 
 const randomDate = (
@@ -128,18 +117,6 @@ const randomDate = (
 				? future
 				: randomDate;
 	};
-};
-
-const string = (cb: () => string): SeedGenerator<string> => {
-	return () => cb();
-};
-
-const number = (cb: () => number): SeedGenerator<number> => {
-	return () => cb();
-};
-
-const date = (cb: () => Date): SeedGenerator<Date> => {
-	return () => cb();
 };
 
 const companyNameSuffixes = (): SeedGenerator<string> => {
@@ -223,7 +200,7 @@ const cityNames = (): SeedGenerator<string> => {
 	return () => rng(city_names) as string;
 };
 
-const any = (cb: () => any): SeedGenerator<any> => {
+const custom = (cb: () => any): SeedGenerator<any> => {
 	return () => cb();
 };
 
@@ -256,36 +233,42 @@ const randomCharacters = (length: number): SeedGenerator<string> => {
 	};
 };
 
+const randomBoolean = (opts?: {
+	/**
+	 * @default 0.5
+	 */
+	probability?: number;
+}): SeedGenerator<boolean> => {
+	const { probability = 0.5 } = opts ?? {};
+	return () => Math.random() < probability;
+};
+
 export const dataset = {
-	firstname,
-	lastname,
-	first_and_lastname,
-	uuid,
-	email,
-	boolean,
-	date,
-	string,
-	number,
-	randomDate,
-	password,
-	foreignKey,
-	image,
-	adjective,
-	companyNameSuffixes,
-	countries,
-	jobTitles,
-	loremIpsum,
+	firstname, 
+	lastname, 
+	first_and_lastname, 
+	uuid, 
+	email, 
+	randomBoolean, 
+	custom, 
+	randomDate, 
+	password, 
+	foreignKey, 
+	image, 
+	companyNameSuffixes, 
+	countries, 
+	jobTitles, 
+	loremIpsum, 
 	phoneNumbers,
 	states,
 	streetSuffixes,
 	cityNames,
-	any,
 	ip,
 	userAgent,
 	randomNumber,
 	nullValue,
 	randomChoice,
-	randomCharacters,
+	randomCharacters, 
 } satisfies Record<string, (...args: any[]) => SeedGenerator>;
 
 function rng(items: any[]) {

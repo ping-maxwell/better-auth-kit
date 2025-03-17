@@ -60,7 +60,7 @@ export function users<
 				},
 				name: $.first_and_lastname(),
 				email: $.email(),
-				emailVerified: $.boolean({ probability: 0.5 }),
+				emailVerified: $.randomBoolean({ probability: 0.5 }),
 				createdAt: $.randomDate(),
 				updatedAt: $.randomDate(),
 				...fields?.user,
@@ -99,7 +99,7 @@ export function users<
 					createdUsers[createdUsers.indexOf(user)].accountUsed = true;
 					return user.id;
 				},
-				providerId: $.string(() => "credentials"),
+				providerId: $.custom(() => "credentials"),
 				refreshToken: $.nullValue(),
 				accessToken: $.nullValue(),
 				accessTokenExpiresAt: $.nullValue(),

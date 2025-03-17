@@ -26,17 +26,43 @@ npm install @better-auth-kit/seed
 
 Create a `seed.ts` file next to your `auth.ts` file
 
-```ts title="seed.ts"
-import { seed, userTable, sessionTable } from "@better-auth-kit/seed";
+<Tabs items={[ "Adding users", "Custom Table" ]}>
+<Tab value="Adding users">
+Learn more about adding users [here](#adding-users).
 
-export default seed({
-    user: userTable(),
-    session: sessionTable(),
+```ts title="seed.ts"
+import { Seed, users } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    // Adds 100 users (including sessions and accounts)
+    ...users(),
 });
 ```
+</Tab>
+<Tab value="Custom Table">
+Learn more about adding a custom table [here](#adding-a-custom-table).
 
+```ts title="seed.ts"
+import { Seed, table, $ } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    // Adds 100 rows to the `myTable` table
+    myTable: table({
+        id: $.uuid(),
+        user: $.foreignKey({ model: "user", field: "id" }),
+        name: $.first_name(),
+    }),
+    myOtherTable: table({
+        id: $.uuid(),
+        user: $.foreignKey({ model: "myTable", field: "name" }),
+        state: $.states(),
+        country: $.countries(),
+    }),
+});
+```
+</Tab>
+</Tabs>
 </Step>
-
 <Step>
 ## Run 
 
@@ -48,25 +74,621 @@ And that's it! 🔥
 </Step>
 </Steps>
 
+---
 
-## Datasets
+## Configuration
 
-### Adjectives
+You can export a `config` object to configure the seeding process.
+
+```ts title="seed.ts"
+import { Seed, type SeedConfig } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    // Your seeding tables...
+});
+
+export const config: SeedConfig = {
+    deleteRowsBeforeSeeding: false
+};
+```
+
+### `deleteRowsBeforeSeeding`
+
+Delete all rows in the tables before seeding.
+
+Default is `false`.
+
+<Callout type="warn">
+The table rows will be deleted in the order of the `models` array.
+</Callout>
+
+```ts
+import { type SeedConfig } from "@better-auth-kit/seed";
+
+export const config: SeedConfig = {
+    deleteRowsBeforeSeeding: {
+        enabled: true,
+        // Make sure to delete the tables in order of foreign key dependencies
+        models: ["user", "session", "account"],
+    },
+};
+```
+
+---
+
+## Helpers
+
+### Adding Users
+
+Handles the creation of `user`, `session`, and `account` tables.
+
+```ts
+import { users, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...users()
+});
+```
+
+You can modify or append new fields to the `user`, `session`, or `account` tables:
+
+```ts
+import { users, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...users({
+        user: {
+            role: $.randomChoice(
+                $.string(() => "admin"),
+                $.string(() => "user"),
+                $.string(() => "super-admin"),
+            ),
+            banned: $.boolean({ probability: 0.5 }),
+            banReason: $.string(() => "Some hard-coded ban reason"),
+            banExpires: $.randomDate(),
+        },
+        session: {
+            ipAddress: $.ip(),
+            userAgent: $.userAgent(),
+        },
+        account: {
+            password: $.password(),
+        }
+    })
+});
+```
+
+#### Additional Options
+
+<Accordions>
+<Accordion title="User Count">
+
+By default, we will generate 100 users. You can change this by passing the `count` option.
+
+```ts
+import { users, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...users({}, { count: 500 })
+});
+```
+</Accordion>
+<Accordion title="Custom Model Names">
+
+You can change the model names by passing the `modelName` option.
+
+```ts
+import { users, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...users({}, { 
+        modelName: {
+            user: "users",
+            session: "sessions",
+            account: "accounts",
+        }
+    }),
+});
+```
+</Accordion>
+</Accordions>
+
+### Adding Organizations
+
+Handles the creation of organizations, and the relationships between users and organizations.
+
+<Callout type="warn">
+This is not yet implemented.
+</Callout>
+
+### Adding API keys
+
+Handles the creation of API keys.
+
+<Callout type="warn">
+This is not yet implemented.
+</Callout>
+
+---
+
+## $ Functions
+
+We have a number of functions that you can use to generate random data.
+
+### Custom
+
+This is a special function that allows you to hard code a value, and isn't used to generate random data.
+
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        greeting: $.custom(() => "Hello, world! This can be any value!"), // [!code highlight]
+    }),
+});
+```
+
+### Foreign Key
+
+Generates a foreign key.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        foreignKey: $.foreignKey({ model: "myOtherTable", field: "id" }), // [!code highlight]
+    }),
+});
+```
+
+<Accordions>
+<Accordion title="Unique">
+
+You can pass a unique option to the `unique` option.
+
+```ts
+$.foreignKey({ model: "myOtherTable", field: "id", unique: true })
+```
+
+By default, the foreign key will not be unique.
+
+</Accordion>
+</Accordions>
+
 
 ### Emails
 
+Generates a random email address.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        email: $.email(), // [!code highlight]
+    }),
+});
+```
+
+<Accordions>
+<Accordion title="Unique">
+
+By default, we will generate a unique email address. You can change this by passing the `unique` option.
+
+```ts
+$.email({ unique: false })
+```
+
+</Accordion>
+<Accordion title="Domain">
+
+By default, we will generate an email address with a random domain. You can change this by passing the `domain` option.
+
+```ts
+$.email({ domain: "example.com" })
+```
+
+</Accordion>
+</Accordions>
+
 ### First Names
+
+Generates a random first name.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        firstName: $.first_name(), // [!code highlight]
+    }),
+});
+```
+
+<Accordions>
+<Accordion title="Modifier">
+
+You can pass a modifier function to the `modifier` option.
+
+```ts
+$.first_name({ modifier: (name) => `${name} 🔥` })
+```
+
+</Accordion>
+</Accordions>
 
 ### Last Names
 
+Generates a random last name.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        lastName: $.last_name(), // [!code highlight]
+    }),
+});
+```
+
+<Accordions>
+<Accordion title="Modifier">
+
+You can pass a modifier function to the `modifier` option.
+
+```ts
+$.last_name({ modifier: (name) => `${name} 🔥` })
+```
+
+</Accordion>
+</Accordions>
+
+### Full Name
+
+Generates a random full name.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        fullName: $.first_and_lastname(), // [!code highlight]
+    }),
+});
+```
+
+<Accordions>
+<Accordion title="Modifier">
+
+You can pass a modifier function to the `modifier` option.
+
+```ts
+$.first_and_lastname({ modifier: (firstname, lastname) => `${firstname} ${lastname} 🔥` })
+```
+
+</Accordion>
+</Accordions>
+
+### UUID
+
+Generates a random UUID.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        id: $.uuid(), // [!code highlight]  
+    }),
+});
+```
+
+### Random Boolean
+
+Generates a random boolean.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        isActive: $.randomBoolean(), // [!code highlight]
+    }),
+});
+```
+
+<Accordions>
+<Accordion title="Probability">
+
+You can pass a probability to the `probability` option.
+
+```ts
+$.randomBoolean({ probability: 0.5 })
+```
+
+</Accordion>
+</Accordions>
+
+### Random Date
+
+Generates a random date.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        createdAt: $.randomDate(), // [!code highlight]
+    }),
+});
+```
+
+<Accordions>
+<Accordion title="Timeline">
+
+You can pass a timeline to the `timeline` option.
+
+Options are:
+- `past`
+- `future`
+- `any`
+
+```ts
+$.randomDate({ timeline: "past" })
+```
+
+By default, the date will be `any`.
+
+</Accordion>
+</Accordions>
+
+### Random Characters
+
+Generates a random string of characters.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        randomCharacters: $.randomCharacters(10), // 10 characters // [!code highlight]
+    }),
+});
+```
+
+### Random Numbers
+
+Generates a random number between 0 and 100. (configurable)
+
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        randomNumber: $.randomNumber(), // [!code highlight]
+    }),
+});
+```
+
+<Accordions>
+<Accordion title="Min and Max">
+
+You can pass a min and max to the `min` and `max` options.
+
+```ts
+$.randomNumber({ min: 0, max: 100 })
+```
+
+By default, the min is 0 and the max is 100.
+
+</Accordion>
+</Accordions>
+
+### Random Choice
+
+Generates a random choice from an array of values.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        randomChoice: $.randomChoice(
+            $.custom(() => "option1"),
+            $.custom(() => "option2"),
+            $.custom(() => "option3"),
+            $.randomNumber({ min: 0, max: 100 }),
+        ), // [!code highlight]
+    }),
+});
+```
+
+### Password
+
+Generates a random password.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        password: $.password(), // [!code highlight]
+    }),
+});
+```
+
+<Accordions>
+<Accordion title="Custom">
+
+You can pass a custom callback to the `custom` option.
+
+```ts
+$.password(() => "custom-password" )
+```
+
+</Accordion>
+</Accordions>
+
+### Random Image URL
+
+Generates a random image URL.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        image: $.image(), // [!code highlight]
+    }),
+});
+```
+
+<Accordions>
+<Accordion title="Dimensions">
+
+You can pass dimensions to the `dimensions` option.
+
+```ts
+$.image({ width: 100, height: 100 })
+```
+
+By default, the image will be 500x500.
+
+</Accordion>
+</Accordions>
+
+### Company Name Suffixes
+
+Generates a random company name suffix.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        companySuffix: $.companyNameSuffixes(), // [!code highlight]
+    }),
+});
+```
+
+### Countries
+
+Generates a random country.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        country: $.countries(), // [!code highlight]
+    }),
+});
+```
+
 ### Job Titles
+
+Generates a random job title.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        jobTitle: $.jobTitles(), // [!code highlight]
+    }),
+});
+```
+
+### Lorem Ipsum Sentence
+
+Generates a random lorem ipsum sentence.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        random_sentence: $.loremIpsum(), // [!code highlight]
+    }),
+});
+```
+
+### Phone Numbers
+
+Generates a random phone number.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        phoneNumber: $.phoneNumbers(), // [!code highlight]
+    }),
+});
+```
+
+### States
+
+Generates a random state.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        state: $.states(), // [!code highlight]
+    }),
+});
+```
+
+### Street Suffixes
+
+Generates a random street suffix.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        streetSuffix: $.streetSuffixes(), // [!code highlight]
+    }),
+});
+```
 
 ### Cities
 
+Generates a random city.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
 
+export const seed = Seed({
+    myTable: table({
+        city: $.cityNames(), // [!code highlight]
+    }),
+});
+```
 
+### IP Address
 
+Generates a random IP address.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
 
+export const seed = Seed({
+    myTable: table({
+        ipAddress: $.ip(), // [!code highlight]
+    }),
+});
+```
+
+### User Agent
+
+Generates a random user agent.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        userAgent: $.userAgent(), // [!code highlight]
+    }),
+});
+```
+
+### Null Value
+
+Generates a null value.
+```ts
+import { table, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    myTable: table({
+        nullValue: $.nullValue(), // [!code highlight]
+    }),
+});
+```
 
 ## Credit
 
