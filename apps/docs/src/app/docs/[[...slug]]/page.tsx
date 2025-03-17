@@ -15,8 +15,7 @@ import { Step, Steps } from "fumadocs-ui/components/steps";
 import { Button } from "@/components/ui/button";
 import { GithubButton } from "@/components/github-button";
 import { NpmButton } from "@/components/npm-button";
-import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
-
+import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 
 export default async function Page(props: {
 	params: Promise<{ slug?: string[] }>;

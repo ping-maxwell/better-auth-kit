@@ -51,12 +51,12 @@ export const seed = Seed({
 	}>(
 		{
 			user: {
-				banned: $.boolean({ probability: 0.5 }),
-				banReason: $.string(() => ""),
+				banned: $.randomBoolean(),
+				banReason: $.custom(() => ""),
 				banExpires: $.randomDate(),
 				role: $.randomChoice(
-					$.string(() => "admin"),
-					$.string(() => "user"),
+					$.custom(() => "admin"),
+					$.custom(() => "user"),
 				),
 			},
 		},
