@@ -18,7 +18,8 @@ export function Seed(schema: Record<string, Table>) {
 			config = seedConfig;
 		},
 		execute: async (adapter: Adapter, context: AuthContext) => {
-			const { deleteRowsBeforeSeeding = false } = config;
+			const { deleteRowsBeforeSeeding = false, rows: defaultRowsCount = 100 } =
+				config;
 			if (deleteRowsBeforeSeeding && deleteRowsBeforeSeeding.enabled) {
 				console.log();
 				const { confirm } = await prompts({
@@ -64,7 +65,11 @@ export function Seed(schema: Record<string, Table>) {
 						`(If you're using foreign keys, this may take a while.)`,
 					)}`,
 				);
-				const { rows, modelName } = await tableFn({ adapter, context });
+				const { rows, modelName } = await tableFn({
+					adapter,
+					context,
+					defaultRowsCount,
+				});
 				const model = modelName ?? key;
 				let index = 0;
 				logupdate(
@@ -99,18 +104,13 @@ export function table<
 >(
 	table: ConvertToSeedGenerator<TableSchema>,
 	options?: { modelName?: string; count?: number },
-): ({
-	adapter,
-	context,
-}: { adapter: Adapter; context: AuthContext }) => Promise<{
-	modelName?: string;
-	rows: Record<string, SeedPrimitiveValue>[];
-}> {
+) {
 	return async ({
 		adapter,
 		context,
-	}: { adapter: Adapter; context: AuthContext }) => {
-		const { modelName, count = 100 } = options ?? {};
+		defaultRowsCount,
+	}: { adapter: Adapter; context: AuthContext; defaultRowsCount: number }) => {
+		const { modelName, count = defaultRowsCount } = options ?? {};
 
 		const rows: Record<string, SeedPrimitiveValue>[] = [];
 

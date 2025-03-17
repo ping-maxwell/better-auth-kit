@@ -89,7 +89,8 @@ export const seed = Seed({
 });
 
 export const config: SeedConfig = {
-    deleteRowsBeforeSeeding: false
+    deleteRowsBeforeSeeding: false,
+    rows: 100,
 };
 ```
 
@@ -112,6 +113,24 @@ export const config: SeedConfig = {
         // Make sure to delete the tables in order of foreign key dependencies
         models: ["user", "session", "account"],
     },
+};
+```
+
+### `rows`
+
+The default number of rows to seed.
+
+Default is `100`.
+
+<Callout>
+If a given table has a `count` option, that will take precedence over this.
+</Callout>
+
+```ts
+import { Seed, type SeedConfig } from "@better-auth-kit/seed";
+
+export const config: SeedConfig = {
+    rows: 1000,
 };
 ```
 
