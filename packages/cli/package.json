@@ -1,6 +1,6 @@
 {
 	"name": "@better-auth-kit/cli",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"type": "module",
 	"author": "ping-maxwell",
 	"license": "MIT",
@@ -29,6 +29,7 @@
 		"better-sqlite3": "^11.9.0",
 		"c12": "^3.0.2",
 		"chalk": "^5.4.1",
+		"commander": "^13.1.0",
 		"fs-extra": "^11.3.0",
 		"log-update": "^6.1.0",
 		"prompts": "^2.4.2",
