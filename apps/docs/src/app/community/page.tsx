@@ -43,7 +43,7 @@ export default async function CommunityPage() {
 		},
 		{
 			name: "@better-auth-kit/reverify",
-			description: "A plugin to reverify a user's identity.",
+			description: "A plugin to reverify a user's identity",
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/plugins/reverify",
@@ -58,7 +58,7 @@ export default async function CommunityPage() {
 		{
 			name: "@better-auth-kit/tests",
 			description:
-				"A collection of utilities to help you test your Better-Auth plugins.",
+				"A collection of utilities to help you test your Better-Auth plugins",
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/libraries/tests",
@@ -69,6 +69,13 @@ export default async function CommunityPage() {
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/cli/seed",
+		},
+		{
+			name: "@better-auth-kit/cli",
+			description: "The CLI for Better Auth Kit",
+			downloads: 0,
+			version: "0",
+			docs: "https://better-auth-kit.com/docs/cli/introduction",
 		},
 	];
 
