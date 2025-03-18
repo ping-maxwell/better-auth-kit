@@ -159,12 +159,12 @@ export const seed = Seed({
     ...users({
         user: {
             role: $.randomChoice(
-                $.string(() => "admin"),
-                $.string(() => "user"),
-                $.string(() => "super-admin"),
+                $.custom(() => "admin"),
+                $.custom(() => "user"),
+                $.custom(() => "super-admin"),
             ),
             banned: $.boolean({ probability: 0.5 }),
-            banReason: $.string(() => "Some hard-coded ban reason"),
+            banReason: $.custom(() => "Some hard-coded ban reason"),
             banExpires: $.randomDate(),
         },
         session: {
