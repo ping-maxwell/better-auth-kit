@@ -211,6 +211,31 @@ export const seed = Seed({
 });
 ```
 </Accordion>
+<Accordion title="Disable Sessions">
+
+You can disable the creation of sessions by passing the `createSessions` option.
+
+```ts
+import { users, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...users({}, { createSessions: false })
+});
+``` 
+
+</Accordion>
+<Accordion title="Disable Accounts">
+
+You can disable the creation of accounts by passing the `createAccounts` option.
+
+```ts
+import { users, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...users({}, { createAccounts: false })
+});
+```
+</Accordion>
 </Accordions>
 
 ### Adding Organizations
@@ -218,7 +243,7 @@ export const seed = Seed({
 Handles the creation of organizations, and the relationships between users and organizations.
 
 <Callout type="warn">
-This is not yet implemented.
+This is not yet implemented. However, you can still build each table manually.
 </Callout>
 
 ### Adding API keys
@@ -226,7 +251,7 @@ This is not yet implemented.
 Handles the creation of API keys.
 
 <Callout type="warn">
-This is not yet implemented.
+This is not yet implemented. However, you can still build each table manually.
 </Callout>
 
 ---
