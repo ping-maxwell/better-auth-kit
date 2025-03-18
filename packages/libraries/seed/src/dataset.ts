@@ -11,6 +11,7 @@ import states_list from "./dataset/states";
 import street_suffixes from "./dataset/street-suffixes";
 import city_names from "./dataset/city-names";
 import user_agents from "./dataset/user-agents";
+import { rng } from "./utils";
 
 const tableCache: {
 	model: string;
@@ -270,10 +271,6 @@ export const dataset = {
 	randomChoice,
 	randomCharacters,
 } satisfies Record<string, (...args: any[]) => SeedGenerator>;
-
-function rng(items: any[]) {
-	return items[Math.floor(Math.random() * items.length)];
-}
 
 function randomPassword() {
 	return Math.random().toString(36).substring(2, 15);
