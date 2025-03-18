@@ -51,7 +51,7 @@ export const seed = Seed({
     myTable: table({
         id: $.uuid(),
         user: $.foreignKey({ model: "user", field: "id" }),
-        name: $.first_name(),
+        name: $.firstname(),
     }),
     myOtherTable: table({
         id: $.uuid(),
@@ -319,7 +319,7 @@ import { table, $, Seed } from "@better-auth-kit/seed";
 
 export const seed = Seed({
     myTable: table({
-        firstName: $.first_name(), // [!code highlight]
+        firstName: $.firstname(), // [!code highlight]
     }),
 });
 ```
@@ -330,7 +330,7 @@ export const seed = Seed({
 You can pass a modifier function to the `modifier` option.
 
 ```ts
-$.first_name({ modifier: (name) => `${name} 🔥` })
+$.firstname({ modifier: (name) => `${name} 🔥` })
 ```
 
 </Accordion>
@@ -344,7 +344,7 @@ import { table, $, Seed } from "@better-auth-kit/seed";
 
 export const seed = Seed({
     myTable: table({
-        lastName: $.last_name(), // [!code highlight]
+        lastName: $.lastname(), // [!code highlight]
     }),
 });
 ```
@@ -355,7 +355,7 @@ export const seed = Seed({
 You can pass a modifier function to the `modifier` option.
 
 ```ts
-$.last_name({ modifier: (name) => `${name} 🔥` })
+$.lastname({ modifier: (name) => `${name} 🔥` })
 ```
 
 </Accordion>
