@@ -198,10 +198,10 @@ export function organizations<
 							status: $.custom(() =>
 								rng(["pending", "accepted", "rejected", "canceled"]),
 							),
-							// teamId: $.foreignKey({
-							// 	model: "team",
-							// 	field: "id",
-							// }),
+							teamId: $.foreignKey({
+								model: "team",
+								field: "id",
+							}),
 						},
 						{ count, modelName: invitationModel },
 					),
