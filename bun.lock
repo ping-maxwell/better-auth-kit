@@ -111,7 +111,7 @@
     },
     "packages/cli": {
       "name": "@better-auth-kit/cli",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "bin": "./dist/index.js",
       "dependencies": {
         "@babel/preset-react": "^7.26.3",
@@ -135,7 +135,7 @@
     },
     "packages/libraries/seed": {
       "name": "@better-auth-kit/seed",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "dependencies": {
         "better-auth": "^1.2.4",
         "chalk": "^5.4.1",

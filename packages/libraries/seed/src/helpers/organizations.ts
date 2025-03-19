@@ -1,14 +1,40 @@
 import { table, type ConvertToSeedGenerator } from "../index";
 import { dataset as $ } from "../dataset";
-import { createAuthClient } from "better-auth/client";
-import { organizationClient } from "better-auth/client/plugins";
 import { rng } from "../utils";
 
-const client = createAuthClient({ plugins: [organizationClient()] });
-export type Organization = typeof client.$Infer.Organization;
-export type Member = typeof client.$Infer.Member;
-export type Invitation = typeof client.$Infer.Invitation;
-export type Team = typeof client.$Infer.Team;
+export type Organization = {
+	id: string;
+	name: string;
+	createdAt: Date;
+	slug: string;
+	metadata?: any;
+	logo?: string | null | undefined;
+};
+export type Member = {
+	id: string;
+	userId: string;
+	organizationId: string;
+	role: "member" | "admin" | "owner";
+	createdAt: Date;
+};
+
+export type Invitation = {
+	id: string;
+	organizationId: string;
+	email: string;
+	role: "member" | "admin" | "owner";
+	status: "pending" | "accepted" | "rejected" | "canceled";
+	inviterId: string;
+	expiresAt: Date;
+	teamId?: string;
+};
+export type Team = {
+	id: string;
+	name: string;
+	createdAt: Date;
+	organizationId: string;
+	updatedAt?: Date | undefined;
+};
 
 export function organizations<
 	TableTypes extends {
@@ -106,7 +132,6 @@ export function organizations<
 					return `${name} ${companySuffix}`;
 				},
 				createdAt: $.randomDate(),
-				updatedAt: $.randomDate(),
 				slug: $.randomCharacters(10),
 				logo: $.image(),
 				...fields?.organization,
@@ -135,6 +160,24 @@ export function organizations<
 					),
 				}
 			: {}),
+		...(createTeams
+			? {
+					[teamModel]: table<TableTypes["Team"]>(
+						//@ts-ignore
+						{
+							id: $.uuid(),
+							name: $.firstname((name) => `${name}'s Team`),
+							organizationId: () => {
+								const org = rng(createdOrgs);
+								return org.id;
+							},
+							updatedAt: $.randomChoice($.randomDate(), $.nullValue()),
+							createdAt: $.randomDate(),
+						},
+						{ count, modelName: teamModel },
+					),
+				}
+			: {}),
 		...(createInvitations
 			? {
 					[invitationModel]: table<TableTypes["Invitation"]>(
@@ -155,30 +198,12 @@ export function organizations<
 							status: $.custom(() =>
 								rng(["pending", "accepted", "rejected", "canceled"]),
 							),
-							teamId: $.foreignKey({
-								model: "team",
-								field: "id",
-							}),
+							// teamId: $.foreignKey({
+							// 	model: "team",
+							// 	field: "id",
+							// }),
 						},
 						{ count, modelName: invitationModel },
-					),
-				}
-			: {}),
-		...(createTeams
-			? {
-					[teamModel]: table<TableTypes["Team"]>(
-						//@ts-ignore
-						{
-							id: $.uuid(),
-							name: $.firstname((name) => `${name}'s Team`),
-							organizationId: () => {
-								const org = rng(createdOrgs);
-								return org.id;
-							},
-							updatedAt: $.randomChoice($.randomDate(), $.nullValue()),
-							createdAt: $.randomDate(),
-						},
-						{ count, modelName: teamModel },
 					),
 				}
 			: {}),

@@ -12,6 +12,7 @@ import street_suffixes from "./dataset/street-suffixes";
 import city_names from "./dataset/city-names";
 import user_agents from "./dataset/user-agents";
 import { rng } from "./utils";
+import chalk from "chalk";
 
 const tableCache: {
 	model: string;
@@ -168,6 +169,11 @@ const foreignKey = <FieldType extends SeedPrimitiveValue = any>({
 				limit: 500,
 				offset: cache.offset,
 			});
+			if (values.length === 0) {
+				throw new Error(
+					`No values found for model ${chalk.cyanBright(model)} while assigning foreign key ${chalk.greenBright(field)}`,
+				);
+			}
 			row = rng(values);
 			if (unique) {
 				values = values.splice(values.indexOf(row), 1);

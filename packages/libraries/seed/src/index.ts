@@ -41,10 +41,32 @@ export function Seed(schema: Record<string, Table>) {
 				console.log();
 				for (const model of deleteRowsBeforeSeeding.models) {
 					logupdate(`Deleting all rows from ${chalk.cyanBright(model)}...`);
-					await adapter.deleteMany({
-						model,
-						where: [],
-					});
+					try {
+						await adapter.deleteMany({
+							model,
+							where: [],
+						});
+					} catch (error: any) {
+						if (
+							error?.message ===
+							"Cannot read properties of undefined (reading 'modelName')"
+						) {
+							logupdate(
+								`${chalk.yellowBright("✓")} Missing model ${chalk.cyanBright(
+									model,
+								)}, skipped.`,
+							);
+							logupdate.done();
+							continue;
+						}
+						console.log(
+							chalk.redBright(
+								`Error deleting all rows from model ${chalk.cyanBright(model)}:`,
+							),
+						);
+						console.error(error);
+						process.exit(1);
+					}
 					logupdate(
 						`${chalk.greenBright("✓")} Deleted all rows from ${chalk.cyanBright(
 							model,
@@ -65,6 +87,7 @@ export function Seed(schema: Record<string, Table>) {
 						`(If you're using foreign keys, this may take a while.)`,
 					)}`,
 				);
+
 				const { rows, modelName } = await tableFn({
 					adapter,
 					context,
@@ -77,23 +100,55 @@ export function Seed(schema: Record<string, Table>) {
 						rows.length,
 					)} rows...`,
 				);
+				let skipped = false;
 				for (const row of rows) {
+					if (skipped) {
+						continue;
+					}
 					index++;
-					await adapter.create({
-						model,
-						data: row,
-					});
+					try {
+						await adapter.create({
+							model,
+							data: row,
+						});
+					} catch (error: any) {
+						if (
+							error?.message ===
+							"Cannot read properties of undefined (reading 'fields')"
+						) {
+							logupdate(
+								`${chalk.yellowBright("✓")} Missing model ${chalk.cyanBright(
+									model,
+								)}, skipped. ${chalk.gray(
+									`(Make sure your DB has this table)`,
+								)}`,
+							);
+							skipped = true;
+							continue;
+						}
+						console.log(
+							chalk.redBright(
+								`Error seeding "${chalk.yellowBright(key)}" in model ${chalk.cyanBright(
+									modelName,
+								)}:`,
+							),
+						);
+						console.error(error);
+						process.exit(1);
+					}
 					logupdate(
 						`Seeded ${chalk.cyanBright(
 							model,
 						)}, rows ${chalk.bold(index)} of ${chalk.bold(rows.length)}`,
 					);
 				}
-				logupdate(
-					`${chalk.greenBright("✓")} Finished seeding ${chalk.cyanBright(
-						model,
-					)} with ${chalk.bold(rows.length)} rows.`,
-				);
+				if (!skipped) {
+					logupdate(
+						`${chalk.greenBright("✓")} Finished seeding ${chalk.cyanBright(
+							model,
+						)} with ${chalk.bold(rows.length)} rows.`,
+					);
+				}
 			}
 		},
 	};
@@ -119,7 +174,20 @@ export function table<
 			for (const key in table) {
 				const value = table[key];
 				if (typeof value === "function") {
-					cols[key] = await value({ adapter, context });
+					try {
+						cols[key] = await value({ adapter, context });
+					} catch (error: any) {
+						console.log();
+						console.log(
+							chalk.redBright(
+								`Error seeding "${chalk.yellowBright(key)}" in model ${chalk.cyanBright(
+									modelName,
+								)}:`,
+							),
+						);
+						console.log(error?.message);
+						process.exit(1);
+					}
 				}
 			}
 			rows.push(cols);
