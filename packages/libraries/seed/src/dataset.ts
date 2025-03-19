@@ -237,7 +237,7 @@ const nullValue = (): SeedGenerator<null> => {
 };
 
 const randomChoice = (...choices: SeedGenerator<any>[]): SeedGenerator<any> => {
-	return rng(choices)();
+	return rng<any>(choices)();
 };
 
 const randomCharacters = (length: number): SeedGenerator<string> => {

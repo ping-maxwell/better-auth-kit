@@ -12,6 +12,6 @@ export type PrettifyDeep<T> = {
 
 export type Prettify<T> = Omit<T, never>;
 
-export function rng(items: any[]) {
+export function rng<T>(items: T[]): T | undefined {
 	return items[Math.floor(Math.random() * items.length)];
 }
