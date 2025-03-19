@@ -61,7 +61,10 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 
 	const { config } = await loadConfig<{
 		seed?: {
-			execute: (ops: { adapter: Adapter; context: AuthContext }) => Promise<void>;
+			execute: (ops: {
+				adapter: Adapter;
+				context: AuthContext;
+			}) => Promise<void>;
 			setConfig: (config: SeedConfig) => void;
 		};
 		config?: SeedConfig;
@@ -81,7 +84,7 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 		return;
 	}
 	if (config.config) config.seed.setConfig(config.config);
-	await config.seed.execute({adapter, context: await auth.$context});
+	await config.seed.execute({ adapter, context: await auth.$context });
 	process.exit(0);
 };
 export const seedCommand = new Command("seed")
