@@ -77,68 +77,7 @@ And that's it! 🔥
 
 ---
 
-## Configuration
-
-You can export a `config` object to configure the seeding process.
-
-```ts title="seed.ts"
-import { Seed, type SeedConfig } from "@better-auth-kit/seed";
-
-export const seed = Seed({
-    // Your seeding tables...
-});
-
-export const config: SeedConfig = {
-    deleteRowsBeforeSeeding: false,
-    rows: 100,
-};
-```
-
-### `deleteRowsBeforeSeeding`
-
-Delete all rows in the tables before seeding.
-
-Default is `false`.
-
-<Callout type="warn">
-The table rows will be deleted in the order of the `models` array.
-</Callout>
-
-```ts
-import { type SeedConfig } from "@better-auth-kit/seed";
-
-export const config: SeedConfig = {
-    deleteRowsBeforeSeeding: {
-        enabled: true,
-        // Make sure to delete the tables in order of foreign key dependencies
-        models: ["user", "session", "account"],
-    },
-};
-```
-
-### `rows`
-
-The default number of rows to seed.
-
-Default is `100`.
-
-<Callout>
-If a given table has a `count` option, that will take precedence over this.
-</Callout>
-
-```ts
-import { Seed, type SeedConfig } from "@better-auth-kit/seed";
-
-export const config: SeedConfig = {
-    rows: 1000,
-};
-```
-
----
-
-## Helpers
-
-### Adding Users
+## Adding Users
 
 Handles the creation of `user`, `session`, and `account` tables.
 
@@ -150,13 +89,18 @@ export const seed = Seed({
 });
 ```
 
-You can modify or append new fields to the `user`, `session`, or `account` tables:
+You can modify or append new fields to the `user`, `session`, or `account` tables, as well as add custom types.
 
 ```ts
 import { users, $, Seed } from "@better-auth-kit/seed";
 
 export const seed = Seed({
-    ...users({
+    // Optional: pass in custom types for the tables
+    ...users<{
+        user: MyCustomUser,
+        session: MyCustomSession,
+        account: MyCustomAccount
+    }>({
         user: { // [!code highlight]
             role: $.randomChoice( // [!code highlight]
                 $.custom(() => "admin"), // [!code highlight]
@@ -178,7 +122,7 @@ export const seed = Seed({
 });
 ```
 
-#### Additional Options
+### Additional Options
 
 <Accordions>
 <Accordion title="User Count">
@@ -238,7 +182,7 @@ export const seed = Seed({
 </Accordion>
 </Accordions>
 
-### Adding Organizations
+## Adding Organizations
 
 Handles the creation of the `organization`, `member`, `invitation` (if enabled), and `team` (if enabled) tables.
 
@@ -251,13 +195,19 @@ export const seed = Seed({
 });
 ```
 
-You can modify or append new fields to the `organizations`, `members`, `invitations`, and `teams` tables:
+You can modify or append new fields to the `organizations`, `members`, `invitations`, and `teams` tables, as well as add custom types.
 
 ```ts
 import { organizations, $, Seed } from "@better-auth-kit/seed";
 
 export const seed = Seed({
-    ...organizations({
+     // Optional: pass in custom types for the tables
+    ...organizations<{
+        organization: MyCustomOrganization,
+        member: MyCustomMember,
+        invitation: MyCustomInvitation,
+        team: MyCustomTeam
+    }>({
         organization: { // [!code highlight]
             name: $.firstname(), // [!code highlight]
         }, // [!code highlight]
@@ -269,7 +219,7 @@ export const seed = Seed({
 });
 ```
 
-#### Additional Options
+### Additional Options
 
 <Accordions>
 <Accordion title="Count">
@@ -342,13 +292,63 @@ export const seed = Seed({
 </Accordion>
 </Accordions>
 
-### Adding API keys
+## Adding API keys
 
-Handles the creation of API keys.
+Handles the creation of API keys on the `apikey` table.
 
-<Callout type="warn">
-This is not yet implemented. However, you can still build each table manually.
-</Callout>
+```ts
+import { users, apiKeys, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...users(), // Require at least 100 users in your DB to create 100 api keys. // [!code highlight]
+    ...apiKeys() // [!code highlight]
+});
+```
+
+You can modify or append new fields to the `apikey` table, as well as add custom types.
+
+```ts
+import { apiKeys, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...apiKeys<MyCustomApiKey>({
+        name: $.custom(() => "My API Key"), // [!code highlight]
+    })
+});
+```
+
+
+### Additional Options
+
+<Accordions>
+<Accordion title="Count">
+
+By default, we will generate 100 api keys. You can change this by passing the `count` option.
+
+```ts
+import { apiKeys, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...apiKeys({}, { count: 500 }) // [!code highlight]
+});
+```
+</Accordion>
+<Accordion title="Custom Model Names">
+
+You can change the model names by passing the `modelName` option.
+
+The default model name is `apikey`
+
+```ts
+import { apiKeys, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...apiKeys({}, { modelName: { apiKey: "apikeys" } }) // [!code highlight]
+});
+```
+
+</Accordion>
+</Accordions>
 
 ---
 
@@ -830,6 +830,67 @@ export const seed = Seed({
     }),
 });
 ```
+
+---
+
+## Configuration
+
+You can export a `config` object to configure the seeding process.
+
+```ts title="seed.ts"
+import { Seed, type SeedConfig } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    // Your seeding tables...
+});
+
+export const config: SeedConfig = {
+    deleteRowsBeforeSeeding: false,
+    rows: 100,
+};
+```
+
+### `deleteRowsBeforeSeeding`
+
+Delete all rows in the tables before seeding.
+
+Default is `false`.
+
+<Callout type="warn">
+The table rows will be deleted in the order of the `models` array.
+</Callout>
+
+```ts
+import { type SeedConfig } from "@better-auth-kit/seed";
+
+export const config: SeedConfig = {
+    deleteRowsBeforeSeeding: {
+        enabled: true,
+        // Make sure to delete the tables in order of foreign key dependencies
+        models: ["user", "session", "account"],
+    },
+};
+```
+
+### `rows`
+
+The default number of rows to seed.
+
+Default is `100`.
+
+<Callout>
+If a given table has a `count` option, that will take precedence over this.
+</Callout>
+
+```ts
+import { Seed, type SeedConfig } from "@better-auth-kit/seed";
+
+export const config: SeedConfig = {
+    rows: 1000,
+};
+```
+
+---
 
 ## Credit
 
