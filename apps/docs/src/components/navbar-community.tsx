@@ -14,7 +14,7 @@ export function NavbarCommunity() {
 	const pathname = usePathname();
 
 	return (
-		<div className="w-fit px-5 h-6 sm:flex items-center justify-center border-l border-muted hidden">
+		<div className="w-fit px-5 h-6 sm:flex items-center justify-center  hidden">
 			<TooltipProvider delayDuration={100}>
 				<Tooltip>
 					<TooltipTrigger asChild>

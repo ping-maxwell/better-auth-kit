@@ -4,10 +4,7 @@ import Image from "next/image";
 import { NavbarSearch } from "./navbar-search";
 import { NavbarGithub } from "./navbar-github";
 import { NavbarMobileSidebarToggle } from "./navbar-mobile-sidebar-toggle";
-import { NavbarComponents } from "./navbar-components";
-import { NavbarTheme } from "./navbar-theme";
-import { NavbarRoadmap } from "./navbar-roadmap";
-import { NavbarCommunity } from "./navbar-community";
+import { NavbarDropdown } from "./navbar-dropdown";
 
 export const Navbar = () => {
 	return (
@@ -17,7 +14,7 @@ export const Navbar = () => {
 			dir="ltr"
 		>
 			<NavbarMobileSidebarToggle />
-			<div className="h-12 w-full px-5">
+			<div className="h-12 px-5 mr-5">
 				<a
 					href="/"
 					className="flex justify-start items-center gap-2 h-full w-full text-nowrap"
@@ -28,11 +25,8 @@ export const Navbar = () => {
 			</div>
 			<div className="w-full"></div>
 			<NavbarSearch />
-			<NavbarCommunity />
-			<NavbarComponents />
-			<NavbarRoadmap />
 			<NavbarGithub />
-			<NavbarTheme />
+			<NavbarDropdown />
 		</header>
 	);
 };

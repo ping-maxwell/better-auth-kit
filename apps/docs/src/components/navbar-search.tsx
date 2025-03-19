@@ -1,12 +1,8 @@
 "use client";
-import { BookMarked, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useSearchContext } from "fumadocs-ui/provider";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
-import { TooltipContent } from "./ui/tooltip";
-import { TooltipTrigger } from "./ui/tooltip";
-import { Tooltip } from "./ui/tooltip";
-import { TooltipProvider } from "./ui/tooltip";
 import Link from "next/link";
 
 export const NavbarSearch = () => {
@@ -15,7 +11,7 @@ export const NavbarSearch = () => {
 
 	if (pathname.startsWith("/docs"))
 		return (
-			<div className="sm:mx-2  h-6 flex justify-center items-center sm:pl-2">
+			<div className="sm:mx-2  h-6 flex justify-center items-center pl-2">
 				<Button
 					variant={"outline"}
 					className="relative flex gap-3 border-none! font-normal text-muted-foreground w-fit cursor-text shadow-none bg-transparent!"
@@ -34,21 +30,12 @@ export const NavbarSearch = () => {
 
 	return (
 		<div className="w-fit px-5 h-6 items-center justify-center">
-			<TooltipProvider delayDuration={100}>
-				<Tooltip>
-					<TooltipTrigger asChild>
-						<Link
-							href="/docs"
-							className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-color duration-150 ease-in-out"
-						>
-							<BookMarked />
-						</Link>
-					</TooltipTrigger>
-					<TooltipContent className="mt-2">
-						<p>Documentation 📚</p>
-					</TooltipContent>
-				</Tooltip>
-			</TooltipProvider>
+			<Link
+				href="/docs"
+				className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-color duration-150 ease-in-out"
+			>
+				Docs
+			</Link>
 		</div>
 	);
 };
