@@ -151,8 +151,11 @@ export function organizations<
 								field: "id",
 							}),
 							organizationId: () => {
-								const org = rng<{id: string}>(createdOrgs);
-								if(typeof org === "undefined") throw new Error(`No organizations found while seeding model ${chalk.cyanBright(memberModel)}`);
+								const org = rng<{ id: string }>(createdOrgs);
+								if (typeof org === "undefined")
+									throw new Error(
+										`No organizations found while seeding model ${chalk.cyanBright(memberModel)}`,
+									);
 								return org.id;
 							},
 							role: $.custom(() => rng(["admin", "member", "owner"])),
@@ -170,8 +173,11 @@ export function organizations<
 							id: $.uuid(),
 							name: $.firstname((name) => `${name}'s Team`),
 							organizationId: () => {
-								const org = rng<{id: string}>(createdOrgs);
-								if(typeof org === "undefined") throw new Error(`No organizations found while seeding model ${chalk.cyanBright(teamModel)}`);
+								const org = rng<{ id: string }>(createdOrgs);
+								if (typeof org === "undefined")
+									throw new Error(
+										`No organizations found while seeding model ${chalk.cyanBright(teamModel)}`,
+									);
 								return org.id;
 							},
 							updatedAt: $.randomChoice($.randomDate(), $.nullValue()),
@@ -194,8 +200,11 @@ export function organizations<
 								field: "id",
 							}),
 							organizationId: () => {
-								const org = rng<{id: string}>(createdOrgs);
-								if(typeof org === "undefined") throw new Error(`No organizations found while seeding model ${chalk.cyanBright(invitationModel)}`);
+								const org = rng<{ id: string }>(createdOrgs);
+								if (typeof org === "undefined")
+									throw new Error(
+										`No organizations found while seeding model ${chalk.cyanBright(invitationModel)}`,
+									);
 								return org.id;
 							},
 							role: $.custom(() => rng(["admin", "member"])),
