@@ -2,6 +2,7 @@ import {
 	Seed,
 	users,
 	organizations,
+	apiKeys,
 	type SeedConfig,
 } from "@better-auth-kit/seed";
 
@@ -14,6 +15,7 @@ export const config: SeedConfig = {
 			"member",
 			"invitation",
 			"team",
+			"apikey",
 			"user",
 			"organization",
 		],
@@ -21,12 +23,7 @@ export const config: SeedConfig = {
 };
 
 export const seed = Seed({
-	...users({}),
-	...organizations(
-		{},
-		{
-			createTeams: true,
-			createInvitations: true,
-		},
-	),
+	...users(),
+	...organizations(),
+	...apiKeys(),
 });
