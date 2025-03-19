@@ -58,15 +58,16 @@ const uuid = (): SeedGenerator<string> => {
 
 const email = ({
 	unique = true,
-	domain = rng(emailDomains),
+	domain,
 }: { unique?: boolean; domain?: string } = {}): SeedGenerator<string> => {
 	const usedEmails: string[] = [];
 	return async ({ adapter, context }) => {
-		let email = `${await first_and_lastname()({ adapter, context })}@${domain}`;
+		const domain_ = domain ?? rng(emailDomains);
+		let email = `${await first_and_lastname((fn, ln) => `${fn.toLowerCase()}_${ln.toLowerCase()}`)({ adapter, context })}@${domain_}`;
 		if (unique) {
 			if (usedEmails.includes(email)) {
 				const generateUniqueEmail = async () => {
-					let newEmail = `${await first_and_lastname((fn, ln) => `${fn.toLowerCase()}_${ln.toLowerCase()}` )({ adapter, context })}_${await randomCharacters(5)({ adapter, context })}@${rng(emailDomains)}`;
+					let newEmail = `${await first_and_lastname((fn, ln) => `${fn.toLowerCase()}_${ln.toLowerCase()}`)({ adapter, context })}_${await randomCharacters(5)({ adapter, context })}@${domain_}`;
 					if (usedEmails.includes(newEmail)) {
 						newEmail = await generateUniqueEmail();
 					}
