@@ -81,7 +81,8 @@ const email = ({
 };
 
 const password = (cb?: () => string): SeedGenerator<string> => {
-	return () => (cb ? cb() : randomPassword()) as string;
+	return async ({ context }) =>
+		await context.password.hash(cb ? cb() : randomPassword());
 };
 
 const randomNumber = (
