@@ -124,7 +124,7 @@ export function users<
 								createdUsers[createdUsers.indexOf(user)].accountUsed = true;
 								return user.id;
 							},
-							providerId: $.custom(() => "credentials"),
+							providerId: $.custom(() => "credential"),
 							refreshToken: $.nullValue(),
 							accessToken: $.nullValue(),
 							accessTokenExpiresAt: $.nullValue(),
