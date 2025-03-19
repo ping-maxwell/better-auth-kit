@@ -66,7 +66,7 @@ const email = ({
 		if (unique) {
 			if (usedEmails.includes(email)) {
 				const generateUniqueEmail = async () => {
-					let newEmail = `${await first_and_lastname()({ adapter, context })}_${await randomCharacters(5)({ adapter, context })}@${rng(emailDomains)}`;
+					let newEmail = `${await first_and_lastname((fn, ln) => `${fn.toLowerCase()}_${ln.toLowerCase()}` )({ adapter, context })}_${await randomCharacters(5)({ adapter, context })}@${rng(emailDomains)}`;
 					if (usedEmails.includes(newEmail)) {
 						newEmail = await generateUniqueEmail();
 					}
