@@ -11,6 +11,8 @@ import states_list from "./dataset/states";
 import street_suffixes from "./dataset/street-suffixes";
 import city_names from "./dataset/city-names";
 import user_agents from "./dataset/user-agents";
+import { rng } from "./utils";
+import chalk from "chalk";
 
 const tableCache: {
 	model: string;
@@ -161,12 +163,30 @@ const foreignKey = <FieldType extends SeedPrimitiveValue = any>({
 		}
 		let row = rng(cache.values);
 		if (!row) {
-			let values = await adapter.findMany({
-				model,
-				where: [],
-				limit: 500,
-				offset: cache.offset,
-			});
+			let values: unknown[] = [];
+			try {
+				values = await adapter.findMany({
+					model,
+					where: [],
+					limit: 500,
+					offset: cache.offset,
+				});
+			} catch (error: any) {
+				if (
+					error?.message ===
+					"Cannot read properties of undefined (reading 'modelName')"
+				) {
+					throw new Error(
+						`Missing model ${chalk.cyanBright(model)} while assigning foreign key to the current model.`,
+					);
+				}
+				throw error;
+			}
+			if (values.length === 0) {
+				throw new Error(
+					`No values found for model ${chalk.cyanBright(model)} while assigning foreign key ${chalk.greenBright(field)}`,
+				);
+			}
 			row = rng(values);
 			if (unique) {
 				values = values.splice(values.indexOf(row), 1);
@@ -217,7 +237,7 @@ const nullValue = (): SeedGenerator<null> => {
 };
 
 const randomChoice = (...choices: SeedGenerator<any>[]): SeedGenerator<any> => {
-	return rng(choices)();
+	return rng<any>(choices)();
 };
 
 const randomCharacters = (length: number): SeedGenerator<string> => {
@@ -270,10 +290,6 @@ export const dataset = {
 	randomChoice,
 	randomCharacters,
 } satisfies Record<string, (...args: any[]) => SeedGenerator>;
-
-function rng(items: any[]) {
-	return items[Math.floor(Math.random() * items.length)];
-}
 
 function randomPassword() {
 	return Math.random().toString(36).substring(2, 15);
