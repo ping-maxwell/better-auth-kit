@@ -4,6 +4,7 @@ import {
 	organizations,
 	apiKeys,
 	type SeedConfig,
+	$,
 } from "@better-auth-kit/seed";
 
 export const config: SeedConfig = {
