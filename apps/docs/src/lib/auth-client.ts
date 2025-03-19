@@ -1,11 +1,14 @@
 import { createAuthClient } from "better-auth/react";
-import { apiKeyClient, usernameClient } from "better-auth/client/plugins";
+import { apiKeyClient, emailOTPClient, usernameClient } from "better-auth/client/plugins";
 import { waitlistClient } from "@better-auth-kit/waitlist";
+import { nextCookies } from "better-auth/next-js";
 
 export const authClient = createAuthClient({
 	plugins: [
-		// waitlistClient(),
+		waitlistClient(),
 		apiKeyClient(),
 		usernameClient(),
+		emailOTPClient(),
+		nextCookies(),
 	],
 });
