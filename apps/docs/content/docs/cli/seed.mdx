@@ -146,7 +146,7 @@ Handles the creation of `user`, `session`, and `account` tables.
 import { users, Seed } from "@better-auth-kit/seed";
 
 export const seed = Seed({
-    ...users()
+    ...users() // [!code highlight]
 });
 ```
 
@@ -157,23 +157,23 @@ import { users, $, Seed } from "@better-auth-kit/seed";
 
 export const seed = Seed({
     ...users({
-        user: {
-            role: $.randomChoice(
-                $.custom(() => "admin"),
-                $.custom(() => "user"),
-                $.custom(() => "super-admin"),
-            ),
-            banned: $.boolean({ probability: 0.5 }),
-            banReason: $.custom(() => "Some hard-coded ban reason"),
-            banExpires: $.randomDate(),
-        },
-        session: {
-            ipAddress: $.ip(),
-            userAgent: $.userAgent(),
-        },
-        account: {
-            password: $.password(),
-        }
+        user: { // [!code highlight]
+            role: $.randomChoice( // [!code highlight]
+                $.custom(() => "admin"), // [!code highlight]
+                $.custom(() => "user"), // [!code highlight]
+                $.custom(() => "super-admin"), // [!code highlight]
+            ), // [!code highlight]
+            banned: $.boolean({ probability: 0.5 }), // [!code highlight]
+            banReason: $.custom(() => "Some hard-coded ban reason"), // [!code highlight]
+            banExpires: $.randomDate(), // [!code highlight]
+        }, // [!code highlight]
+        session: { // [!code highlight]
+            ipAddress: $.ip(), // [!code highlight]
+            userAgent: $.userAgent(), // [!code highlight]
+        }, // [!code highlight]
+        account: { // [!code highlight]
+            password: $.password(), // [!code highlight]
+        } // [!code highlight]
     })
 });
 ```
@@ -189,7 +189,7 @@ By default, we will generate 100 users. You can change this by passing the `coun
 import { users, Seed } from "@better-auth-kit/seed";
 
 export const seed = Seed({
-    ...users({}, { count: 500 })
+    ...users({}, { count: 500 }) // [!code highlight]
 });
 ```
 </Accordion>
@@ -202,11 +202,11 @@ import { users, Seed } from "@better-auth-kit/seed";
 
 export const seed = Seed({
     ...users({}, { 
-        modelName: {
-            user: "users",
-            session: "sessions",
-            account: "accounts",
-        }
+        modelName: { // [!code highlight]
+            user: "users", // [!code highlight]
+            session: "sessions", // [!code highlight]
+            account: "accounts", // [!code highlight]
+        } // [!code highlight]
     }),
 });
 ```
@@ -219,7 +219,7 @@ You can disable the creation of sessions by passing the `createSessions` option.
 import { users, Seed } from "@better-auth-kit/seed";
 
 export const seed = Seed({
-    ...users({}, { createSessions: false })
+    ...users({}, { createSessions: false }) // [!code highlight]
 });
 ``` 
 
@@ -232,7 +232,7 @@ You can disable the creation of accounts by passing the `createAccounts` option.
 import { users, Seed } from "@better-auth-kit/seed";
 
 export const seed = Seed({
-    ...users({}, { createAccounts: false })
+    ...users({}, { createAccounts: false }) // [!code highlight]
 });
 ```
 </Accordion>
@@ -240,11 +240,107 @@ export const seed = Seed({
 
 ### Adding Organizations
 
-Handles the creation of organizations, and the relationships between users and organizations.
+Handles the creation of the `organization`, `member`, `invitation` (if enabled), and `team` (if enabled) tables.
 
-<Callout type="warn">
-This is not yet implemented. However, you can still build each table manually.
-</Callout>
+```ts
+import { users, organizations, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...users(), // Require at least 100 users in your DB to create 100 organizations.  // [!code highlight]
+    ...organizations() // [!code highlight]
+});
+```
+
+You can modify or append new fields to the `organizations`, `members`, `invitations`, and `teams` tables:
+
+```ts
+import { organizations, $, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...organizations({
+        organization: { // [!code highlight]
+            name: $.firstname(), // [!code highlight]
+        }, // [!code highlight]
+        member: { // [!code highlight]
+            role: $.randomChoice($.custom(() => "admin"), $.custom(() => "member")), // [!code highlight]
+        } // [!code highlight]
+        //... // [!code highlight]
+    })
+});
+```
+
+#### Additional Options
+
+<Accordions>
+<Accordion title="Count">
+
+By default, we will generate 100 orgs, members, invitations (if enabled), and teams (if enabled). You can change this by passing the `count` option.
+
+```ts
+import { organizations, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...organizations({}, { count: 500 }) // [!code highlight]
+});
+```
+</Accordion>
+<Accordion title="Custom Model Names">
+
+You can change the model names by passing the `modelName` option.
+
+```ts
+import { organizations, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...organizations({}, { 
+        modelName: { // [!code highlight]
+           organization: "organizations", // [!code highlight]
+           member: "members", // [!code highlight]
+           invitation: "invitations", // [!code highlight]
+           team: "teams", // [!code highlight]
+        } // [!code highlight]
+    }),
+});
+```
+</Accordion>
+<Accordion title="Enable Invitations">
+
+You can enable the creation of invitations by passing the `createInvitations` option.
+
+```ts
+import { organizations, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...organizations({}, { createInvitations: true }) // [!code highlight]
+});
+``` 
+
+</Accordion>
+<Accordion title="Enable Teams">
+
+You can enable the creation of teams by passing the `createTeams` option.
+
+```ts
+import { organizations, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...organizations({}, { createTeams: true }) // [!code highlight]
+});
+```
+</Accordion>
+<Accordion title="Disable Members">
+
+You can disable the creation of members by passing the `createMembers` option.
+
+```ts
+import { organizations, Seed } from "@better-auth-kit/seed";
+
+export const seed = Seed({
+    ...organizations({}, { createMembers: false }) // [!code highlight]
+});
+```
+</Accordion>
+</Accordions>
 
 ### Adding API keys
 

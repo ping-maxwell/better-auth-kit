@@ -28,7 +28,11 @@ export const auth = betterAuth({
 				},
 			},
 		},
-		organization(),
+		organization({
+			teams: {
+				enabled: true,
+			},
+		}),
 		admin(),
 		apiKey(),
 	],
