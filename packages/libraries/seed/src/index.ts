@@ -17,7 +17,10 @@ export function Seed(schema: Record<string, Table>) {
 		setConfig: (seedConfig: SeedConfig) => {
 			config = seedConfig;
 		},
-		execute: async (adapter: Adapter, context: AuthContext) => {
+		execute: async ({
+			adapter,
+			context,
+		}: { adapter: Adapter; context: AuthContext }) => {
 			const { deleteRowsBeforeSeeding = false, rows: defaultRowsCount = 100 } =
 				config;
 			if (deleteRowsBeforeSeeding && deleteRowsBeforeSeeding.enabled) {

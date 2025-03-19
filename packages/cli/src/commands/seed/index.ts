@@ -6,7 +6,7 @@ import path from "node:path";
 import { getCommonAuthLocations } from "../../utils/get-common-auth-locations";
 import { existsSync } from "node:fs";
 import { loadConfig } from "c12";
-import type { Adapter } from "better-auth";
+import type { Adapter, AuthContext } from "better-auth";
 import type { SeedConfig } from "@better-auth-kit/seed";
 import chalk from "chalk";
 
@@ -61,7 +61,7 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 
 	const { config } = await loadConfig<{
 		seed?: {
-			execute: (adapter: Adapter) => Promise<void>;
+			execute: (ops: { adapter: Adapter; context: AuthContext }) => Promise<void>;
 			setConfig: (config: SeedConfig) => void;
 		};
 		config?: SeedConfig;
@@ -81,7 +81,7 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 		return;
 	}
 	if (config.config) config.seed.setConfig(config.config);
-	await config.seed.execute(adapter);
+	await config.seed.execute({adapter, context: await auth.$context});
 	process.exit(0);
 };
 export const seedCommand = new Command("seed")
