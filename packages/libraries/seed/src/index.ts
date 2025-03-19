@@ -83,7 +83,7 @@ export function Seed(schema: Record<string, Table>) {
 			for (const [key, tableFn] of Object.entries(schema)) {
 				logupdate.done();
 				logupdate(
-					`✋ Preparing to seed the next table...\n${chalk.gray(
+					`✋ Preparing to seed the next table... ${chalk.gray(
 						`(If you're using foreign keys, this may take a while.)`,
 					)}`,
 				);

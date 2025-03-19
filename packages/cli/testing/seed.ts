@@ -81,12 +81,13 @@ export const config: SeedConfig = {
 // });
 
 export const seed = Seed({
-	...users(),
+	...users({}, { count: 10000 }),
 	...organizations(
 		{},
 		{
-			createInvitations: true,
-			createTeams: true,
+			// createInvitations: true,
+			// createTeams: true,
+			count: 10000,
 		},
 	),
 });
