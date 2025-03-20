@@ -1,0 +1,22 @@
+{
+	"name": "@better-auth-kit/internal-utils",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": {
+			"default": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"author": "ping-maxwell",
+	"license": "MIT",
+	"scripts": {
+		"dev": "bun build --entrypoints ./src/index.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
+		"build": "bun build.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "1.2.4",
+		"bun-plugin-dts": "^0.3.0"
+	}
+}
