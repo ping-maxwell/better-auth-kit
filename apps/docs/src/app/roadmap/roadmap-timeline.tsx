@@ -30,7 +30,6 @@ export function RoadmapTimeline() {
 		},
 		{
 			title: "Move convex-better-auth to this monorepo",
-			inProgress: true,
 			description:
 				"This will allow us to iterate on the library faster, and make it easier to maintain.",
 			details: [
@@ -44,7 +43,6 @@ export function RoadmapTimeline() {
 		},
 		{
 			title: "Better-Auth-Kit CLI",
-			inProgress: true,
 			description:
 				"A CLI tool to provide a better experience for setting up, and using, Better-Auth",
 			details: [
@@ -69,6 +67,7 @@ export function RoadmapTimeline() {
 		},
 		{
 			title: "Reverify plugin",
+			inProgress: true,
 			description:
 				"Prompt the user to reverify their identity by providing a form of authentication for revalidation.",
 			details: [
