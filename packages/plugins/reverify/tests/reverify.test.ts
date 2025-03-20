@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { getTestInstance } from "@better-auth-kit/tests";
 import { reverify } from "../src/index";
-import { reverifyClientPlugin } from "../src/client";
+import { reverifyClient } from "../src/client";
 
 describe("reverify plugin", async () => {
 	const { auth, client, testUser, signInWithTestUser } = await getTestInstance(
@@ -10,7 +10,7 @@ describe("reverify plugin", async () => {
 		},
 		{
 			clientOptions: {
-				plugins: [reverifyClientPlugin()],
+				plugins: [reverifyClient()],
 			},
 		},
 	);

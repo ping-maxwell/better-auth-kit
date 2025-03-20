@@ -16,6 +16,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@better-auth-kit/legal-consent": "workspace:*",
+        "@better-auth-kit/reverify": "workspace:*",
         "@better-auth-kit/waitlist": "workspace:*",
         "@faker-js/faker": "^9.5.1",
         "@hookform/resolvers": "^4.1.3",
@@ -133,9 +134,19 @@
         "@types/prompts": "^2.4.9",
       },
     },
+    "packages/internal/utils": {
+      "name": "@better-auth-kit/internal-utils",
+      "version": "0.0.1",
+      "dependencies": {
+        "bun-plugin-dts": "^0.3.0",
+      },
+      "devDependencies": {
+        "@types/bun": "1.2.4",
+      },
+    },
     "packages/libraries/seed": {
       "name": "@better-auth-kit/seed",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "dependencies": {
         "better-auth": "^1.2.4",
         "chalk": "^5.4.1",
@@ -306,6 +317,8 @@
     "@better-auth-kit/cli": ["@better-auth-kit/cli@workspace:packages/cli"],
 
     "@better-auth-kit/convex": ["@better-auth-kit/convex@workspace:packages/adapters/convex"],
+
+    "@better-auth-kit/internal-utils": ["@better-auth-kit/internal-utils@workspace:packages/internal/utils"],
 
     "@better-auth-kit/legal-consent": ["@better-auth-kit/legal-consent@workspace:packages/plugins/legal-consent"],
 

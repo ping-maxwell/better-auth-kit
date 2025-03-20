@@ -5,7 +5,7 @@ import {
 	usernameClient,
 } from "better-auth/client/plugins";
 import { waitlistClient } from "@better-auth-kit/waitlist";
-import { nextCookies } from "better-auth/next-js";
+import { reverifyClient } from "@better-auth-kit/reverify/client";
 
 export const authClient = createAuthClient({
 	plugins: [
@@ -13,5 +13,6 @@ export const authClient = createAuthClient({
 		apiKeyClient(),
 		usernameClient(),
 		emailOTPClient(),
+		reverifyClient(),
 	],
 });

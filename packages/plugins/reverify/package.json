@@ -18,7 +18,7 @@
 		}
 	},
 	"scripts": {
-		"dev": "bun build --entrypoints ./src/index.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
+		"dev": "bun build --entrypoints ./src/index.ts ./src/client.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
 		"build": "bun build.ts",
 		"test": "vitest"
 	},
