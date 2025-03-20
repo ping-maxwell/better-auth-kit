@@ -42,6 +42,15 @@ export function RoadmapTimeline() {
 			],
 		},
 		{
+			title: "Instant DB adapter",
+			description: "InstantDB Better-Auth adapter.",
+			details: [
+				"add: Instant DB adapter",
+				"add: Unit tests",
+				"add: Instant DB adapter docs",
+			],
+		},
+		{
 			title: "Reverify plugin",
 			inProgress: true,
 			description:
@@ -53,15 +62,6 @@ export function RoadmapTimeline() {
 				"~~chore: Documentation~~",
 				"add: Other auth methods (OTP, Magic link, etc) support",
 				"add: session freshness check - if session is fresh, skip re-verification. And configurable in plugin options",
-			],
-		},
-		{
-			title: "Instant DB adapter",
-			description: "InstantDB Better-Auth adapter.",
-			details: [
-				"add: Instant DB adapter",
-				"add: Unit tests",
-				"add: Instant DB adapter docs",
 			],
 		},
 		{
