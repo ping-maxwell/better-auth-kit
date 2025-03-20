@@ -6,10 +6,12 @@ description: Prompt the user to re-verify their identity by providing a form of 
 <GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/plugins/reverify" />
 <NpmButton url="https://www.npmjs.com/package/@better-auth-kit/reverify" />
 
-Sometimes you may want to re-verify the user's identity by entering a form of authentication. This can be useful for scenarios such as:
 
-- When the user's session expires due to inactivity
-- When the user requests a critical action (e.g. deleting their account)
+If a user's session is not fresh, critical actions (e.g. deleting their account) will not be allowed.
+You would have to terminate their session, force them to sign-in again, and then be able to perform the action.
+Depending on your application, this may not be the best user experience. In some cases, routes can be protected and only accessible to active sessions. By terminating a session and making them sign-in, they're redirected to the login page and may not even know what happened.
+
+Using Reverify, you can prompt the user to re-verify their identity without logging them out or terminating their current session.
 
 <Steps>
   <Step>
@@ -70,8 +72,11 @@ Sometimes you may want to re-verify the user's identity by entering a form of au
 
 <div className="h-10" />
 
+<Callout>
 There are future plans to add more forms of authentication to reverify, such as:
 
-- Email verification
 - Phone number verification
-- Magic link verification
+- Magic link & Email OTP verification
+- 2FA verification
+- Passkey verification
+</Callout>
