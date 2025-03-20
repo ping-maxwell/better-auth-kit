@@ -81,6 +81,15 @@ export function RoadmapTimeline() {
 			],
 		},
 		{
+			title: "Instant DB adapter",
+			description: "InstantDB Better-Auth adapter.",
+			details: [
+				"add: Instant DB adapter",
+				"add: Unit tests",
+				"add: Instant DB adapter docs",
+			],
+		},
+		{
 			title: "UI components & CLI",
 			description:
 				"ShadCN registry based UI components specific to Better-Auth.",
