@@ -1,56 +1,32 @@
 import type { BetterAuthPlugin } from "better-auth";
-import {
-	APIError,
-	createAuthEndpoint,
-	sessionMiddleware,
-} from "better-auth/api";
-import { z } from "zod";
+import { reverifyPassword } from "./routes/password";
+import { reverifyEmail } from "./routes/email";
+import { isVerified } from "./routes/isVerified";
+import { emailreverification } from "./schema";
+import { mergeSchema } from "better-auth/db";
+import type { ReverifyOptions } from "./types";
+export * from "./types";
 
 export const ERROR_CODES = {
 	NO_SESSION: "No session found.",
 } as const;
 
-export const reverify = () => {
+export const reverify = <EmailEnabled extends boolean = false>(
+	options: ReverifyOptions<EmailEnabled> = {},
+) => {
+	const { email } = options;
+
 	return {
 		id: "reverify",
 		endpoints: {
-			reverifyPassword: createAuthEndpoint(
-				"/reverify/password",
-				{
-					method: "POST",
-					use: [sessionMiddleware],
-					body: z.object({
-						password: z.string(),
-					}),
-				},
-				async (ctx) => {
-					const session = ctx.context.session;
-
-					if (!session) {
-						throw new APIError("UNAUTHORIZED", {
-							message: ERROR_CODES.NO_SESSION,
-						});
-					}
-					let validPassword = false;
-					try {
-						validPassword = await ctx.context.password.checkPassword(
-							session.user.id,
-							ctx,
-						);
-					} catch (error: unknown) {
-						console.error(error);
-						if (
-							error instanceof APIError &&
-							error?.body?.code === "INVALID_PASSWORD"
-						) {
-							return ctx.json({ valid: false });
-						}
-						throw error;
-					}
-
-					return ctx.json({ valid: validPassword });
-				},
-			),
+			reverifyPassword,
+			isVerified,
+			...reverifyEmail<EmailEnabled>({ email }),
+		},
+		schema: {
+			...(email?.enabled
+				? mergeSchema(emailreverification, options?.email?.schema)
+				: {}),
 		},
 	} satisfies BetterAuthPlugin;
 };

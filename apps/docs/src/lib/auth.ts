@@ -3,9 +3,11 @@ import { apiKey, openAPI, organization, username } from "better-auth/plugins";
 import { nextCookies } from "better-auth/next-js";
 import Database from "better-sqlite3";
 import { legalConsent } from "@better-auth-kit/legal-consent";
+import { reverify } from "@better-auth-kit/reverify";
 
 export const auth = betterAuth({
 	database: new Database("./test.db"),
+	trustedOrigins: ["http://localhost:3000"],
 	emailAndPassword: {
 		enabled: true,
 	},
@@ -25,27 +27,46 @@ export const auth = betterAuth({
 		//     },
 		//   },
 		// }),
+		reverify({
+			email: {
+				enabled: true,
+				sendReverificationEmail(params, ctx) {
+					if (params.type === "link") {
+						console.log(
+							`Send reverification link to ${params.user.email} with url ${params.url}`,
+						);
+					} else if (params.type === "otp") {
+						console.log(
+							`Send reverification otp to ${params.user.email} with code ${params.code}`,
+						);
+					}
+				},
+			},
+		}),
 		organization(),
 		openAPI(),
 		apiKey(),
 		username(),
 		nextCookies(),
 	],
+	emailVerification: {
+		sendVerificationEmail: async ({ user, url, token }, request) => {
+			console.log(
+				`Send verification email to ${user.email} with url ${url} and token ${token}`,
+			);
+		},
+	},
 	databaseHooks: {
 		user: {
 			create: {
 				after: async (user, ctx) => {
-					//@ts-ignore - erroring because `getActiveOrganization` is not defined
-					const organization = await getActiveOrganization(user.id);
-					if (!organization) {
-						auth.api.createOrganization({
-							body: {
-								name: "My Organization",
-								slug: "my-organization",
-								userId: user.id,
-							},
-						});
-					}
+					// auth.api.createOrganization({
+					// 	body: {
+					// 		name: "My Organization",
+					// 		slug: "my-organization",
+					// 		userId: user.id,
+					// 	},
+					// });
 				},
 			},
 		},
