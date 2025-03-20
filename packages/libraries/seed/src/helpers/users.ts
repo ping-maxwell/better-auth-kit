@@ -68,6 +68,8 @@ export function users<
 		accountUsed: boolean;
 	}[] = [];
 
+	const user_names: string[] = [];
+
 	return {
 		[userModel]: table<TableTypes["user"]>(
 			//@ts-expect-error
@@ -77,8 +79,17 @@ export function users<
 					createdUsers.push({ accountUsed: false, id, sessionUsed: false });
 					return id;
 				},
-				name: $.first_and_lastname(),
-				email: $.email(),
+				name: $.first_and_lastname((fn, ln) => {
+					const name = `${fn} ${ln}`;
+					user_names.push(name);
+					return name;
+				}),
+				email: $.email({
+					fullname: () => {
+						const [fn, ln] = user_names.shift()!.split(" ");
+						return () => `${fn} ${ln}`;
+					},
+				}),
 				emailVerified: $.randomBoolean({ probability: 0.5 }),
 				createdAt: $.randomDate(),
 				updatedAt: $.randomDate(),
