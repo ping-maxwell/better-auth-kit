@@ -4,15 +4,17 @@ import { z } from "zod";
 import yoctoSpinner from "yocto-spinner";
 import path from "node:path";
 import { getCommonAuthLocations } from "../../utils/get-common-auth-locations";
-import { existsSync } from "node:fs";
+import { existsSync, lstatSync, readdirSync } from "node:fs";
 import { loadConfig } from "c12";
-import type { Adapter, AuthContext } from "better-auth";
+import type { AuthContext } from "better-auth";
 import type { SeedConfig } from "@better-auth-kit/seed";
 import chalk from "chalk";
+import prompt from "prompts";
 
 const optionSchema = z.object({
 	cwd: z.string(),
 	configPath: z.string().optional(),
+	runAll: z.boolean().optional(),
 });
 
 const seedAction = async (options: z.infer<typeof optionSchema>) => {
@@ -43,49 +45,57 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 	spinner.success("Auth config loaded");
 
 	const seedFilePaths = getCommonAuthLocations(["seed.ts", "seed.js"]);
+	const seedFolderPaths = getCommonAuthLocations(["seed"]);
 
 	let hasSeedFile: string | false = false;
+	let hasSeedFolder: string | false = false;
 
+	for (const seedFolderPath of seedFolderPaths) {
+		if (existsSync(seedFolderPath) && lstatSync(seedFolderPath).isDirectory()) {
+			hasSeedFolder = seedFolderPath;
+		}
+	}
 	for (const seedFilePath of seedFilePaths) {
 		if (existsSync(seedFilePath)) {
 			hasSeedFile = path.join(opts.cwd, seedFilePath);
 		}
 	}
 
-	if (!hasSeedFile) {
+	if (!hasSeedFile && !hasSeedFolder) {
 		console.error(
 			"No seed file found. Please create a `seed.ts` or `seed.js` file next to your `auth.ts` file.",
 		);
 		return;
 	}
+	const context = await auth.$context;
 
-	const { config } = await loadConfig<{
-		seed?: {
-			execute: (ops: {
-				adapter: Adapter;
-				context: AuthContext;
-			}) => Promise<void>;
-			setConfig: (config: SeedConfig) => void;
-		};
-		config?: SeedConfig;
-	}>({
-		configFile: hasSeedFile,
-		dotenv: true,
-		jitiOptions: jitiOptions(opts.cwd),
-		cwd: opts.cwd,
-	});
-
-	const adapter = (await auth.$context).adapter;
-	if (!config.seed) {
-		console.error(
-			chalk.redBright("Error: ") +
-				"Missing `seed` export function in your seed file.",
-		);
-		return;
+	if (hasSeedFolder) {
+		const seedFiles = readdirSync(hasSeedFolder, "utf-8");
+		let res: { seedFiles: string[] } = { seedFiles };
+		if (!opts.runAll) {
+			res = await prompt({
+				type: "multiselect",
+				name: "seedFiles",
+				message: "Select the seed files you want to execute",
+				choices: seedFiles.map((file) => ({
+					title: file,
+					value: file,
+				})),
+				instructions: false,
+			});
+		}
+		for (const seedFile of res.seedFiles) {
+			console.log(`Executing seed file: ${chalk.cyanBright(seedFile)}`);
+			await executeSeedFile(
+				path.join(opts.cwd, hasSeedFolder, seedFile),
+				opts,
+				context,
+			);
+			console.log();
+		}
+	} else if (hasSeedFile) {
+		await executeSeedFile(hasSeedFile, opts, context);
 	}
-	if (config.config) config.seed.setConfig(config.config);
-	await config.seed.execute({ adapter, context: await auth.$context });
-	process.exit(0);
 };
 export const seedCommand = new Command("seed")
 	.option("-c, --cwd <cwd>", "The working directory.", process.cwd())
@@ -93,4 +103,36 @@ export const seedCommand = new Command("seed")
 		"--config <config>",
 		"The path to the auth configuration file. defaults to the first `auth.ts` file found.",
 	)
+	.option(`--run-all`, "Run all seed files in the seed folder.")
 	.action(seedAction);
+
+async function executeSeedFile(
+	seedFilePath: string,
+	opts: z.infer<typeof optionSchema>,
+	context: AuthContext,
+) {
+	const { config } = await loadConfig<{
+		seed?: {
+			execute: (ops: {
+				context: AuthContext;
+			}) => Promise<void>;
+			setConfig: (config: SeedConfig | undefined) => void;
+		};
+		config?: SeedConfig;
+	}>({
+		configFile: seedFilePath,
+		dotenv: true,
+		jitiOptions: jitiOptions(opts.cwd),
+		cwd: opts.cwd,
+	});
+
+	if (!config.seed) {
+		console.error(
+			chalk.redBright("Error: ") +
+				"Missing `seed` export function in your seed file.",
+		);
+		return;
+	}
+	config.seed.setConfig(config.config);
+	await config.seed.execute({ context });
+}

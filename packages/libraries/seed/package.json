@@ -1,7 +1,7 @@
 {
 	"name": "@better-auth-kit/seed",
 	"description": "Seed your Better-Auth database with deterministic, yet realistic, fake data.",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"license": "MIT",
 	"author": "ping-maxwell",
 	"type": "module",

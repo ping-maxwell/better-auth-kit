@@ -14,13 +14,11 @@ export type Table = ReturnType<typeof table>;
 let config: SeedConfig = {};
 export function Seed(schema: Record<string, Table>) {
 	return {
-		setConfig: (seedConfig: SeedConfig) => {
-			config = seedConfig;
+		setConfig: (seedConfig: SeedConfig | undefined) => {
+			config = seedConfig ?? {};
 		},
-		execute: async ({
-			adapter,
-			context,
-		}: { adapter: Adapter; context: AuthContext }) => {
+		execute: async ({ context }: { context: AuthContext }) => {
+			const adapter = context.adapter;
 			const { deleteRowsBeforeSeeding = false, rows: defaultRowsCount = 100 } =
 				config;
 			if (deleteRowsBeforeSeeding && deleteRowsBeforeSeeding.enabled) {
