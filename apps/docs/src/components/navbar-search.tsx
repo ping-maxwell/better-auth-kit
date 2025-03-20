@@ -33,6 +33,7 @@ export const NavbarSearch = () => {
 			<Link
 				href="/docs"
 				className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-color duration-150 ease-in-out"
+				prefetch={true}
 			>
 				Docs
 			</Link>

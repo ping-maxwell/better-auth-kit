@@ -36,6 +36,7 @@ export const NavbarDropdown = () => {
 							"flex items-center gap-2 text-muted-foreground hover:text-foreground transition-color duration-150 ease-in-out relative min-w-[180px]",
 							pathname.startsWith("/community") && "text-foreground",
 						)}
+						prefetch={true}
 					>
 						<Users className="size-4" />
 						Community
@@ -50,6 +51,7 @@ export const NavbarDropdown = () => {
 							"flex items-center gap-2 text-muted-foreground hover:text-foreground transition-color duration-150 ease-in-out relative",
 							pathname.startsWith("/components") && "text-foreground",
 						)}
+						prefetch={true}
 					>
 						<Box className="size-4" />
 						Components
@@ -64,6 +66,7 @@ export const NavbarDropdown = () => {
 							"flex items-center gap-2 text-muted-foreground hover:text-foreground transition-color duration-150 ease-in-out relative",
 							pathname.startsWith("/roadmap") && "text-foreground",
 						)}
+						prefetch={true}
 					>
 						<MapIcon className="size-4" />
 						Roadmap

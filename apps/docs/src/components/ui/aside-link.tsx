@@ -35,6 +35,7 @@ export const AsideLink = ({
 				"w-full transition-colors flex items-center gap-x-2.5 hover:bg-primary/10 px-5 py-1",
 				className,
 			)}
+			prefetch={true}
 			{...props}
 		>
 			{children}
