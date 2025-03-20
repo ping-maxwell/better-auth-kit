@@ -63,7 +63,7 @@ Create a new file in `convex/betterAuth.ts` and add the following code:
 ```ts
 import { action, internalQuery, internalMutation } from "./_generated/server";
 import { internal } from "./_generated/api";
-import { ConvexHandler, type ConvexReturnType } from "@better-auth-kit/convex";
+import { ConvexHandler, type ConvexReturnType } from "@better-auth-kit/convex/handler";
 
 const { betterAuth, query, insert, update, delete_, count } = ConvexHandler({
   action,

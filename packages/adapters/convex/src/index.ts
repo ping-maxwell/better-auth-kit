@@ -3,10 +3,8 @@ import type { Adapter, AdapterInstance, BetterAuthOptions } from "better-auth";
 import type { ConvexAdapterOptions } from "./types";
 import { generateSchema } from "./generate-schema";
 import { createTransform } from "./transform";
-import { queryBuilder } from "./convex_action/index";
+import { queryBuilder } from "./handler/index";
 import type { PaginationResult } from "convex/server";
-
-export * from "./convex_action/index";
 
 export type ConvexAdapter = (
 	convexClient: ConvexClient,
