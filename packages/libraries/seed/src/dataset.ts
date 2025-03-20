@@ -69,19 +69,26 @@ const email = ({
 	return async ({ adapter, context }) => {
 		const domain_ = domain ?? rng(emailDomains);
 		let fn_ = (await firstname()({ adapter, context })).toLowerCase();
-		let ln_ = (await lastname()({ adapter, context })).toLowerCase();
+		let ln_: string | null = (
+			await lastname()({ adapter, context })
+		).toLowerCase();
 
-		if(fullname){
+		if (fullname) {
 			const fn = await fullname()({ adapter, context });
-			fn_ = fn.split(" ")[0].toLowerCase();
-			ln_ = fn.split(" ")[1].toLowerCase();
+			if (fn.includes(" ")) {
+				fn_ = fn.split(" ")[0].toLowerCase();
+				ln_ = fn.split(" ")[1].toLowerCase();
+			} else {
+				fn_ = fn.toLowerCase();
+				ln_ = null;
+			}
 		}
 
-		let email = `${fn_}_${ln_}@${domain_}`;
+		let email = `${fn_}${ln_ ? `_${ln_}` : ""}@${domain_}`;
 		if (unique) {
 			if (usedEmails.includes(email)) {
 				const generateUniqueEmail = async () => {
-					let newEmail = `${fn_}_${ln_}_${await randomCharacters(5)({ adapter, context })}@${domain_}`;
+					let newEmail = `${fn_}${ln_ ? `_${ln_}` : ""}_${await randomCharacters(5)({ adapter, context })}@${domain_}`;
 					if (usedEmails.includes(newEmail)) {
 						newEmail = await generateUniqueEmail();
 					}
