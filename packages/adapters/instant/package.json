@@ -1,0 +1,48 @@
+{
+	"name": "@better-auth-kit/instant",
+	"version": "1.0.0",
+	"description": "InstantDB Database Adapter for Better-Auth.",
+	"author": "ping-maxwell",
+	"type": "module",
+	"scripts": {
+		"test": "vitest",
+		"dev": "bun build --entrypoints ./src/index.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
+		"build": "bun build.ts"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit.git",
+		"directory": "packages/adapters/instant"
+	},
+	"keywords": [
+		"instant",
+		"instantdb",
+		"database",
+		"adapter",
+		"betterauth",
+		"better-auth",
+		"auth",
+		"better-auth-kit",
+		"auth-kit"
+	],
+	"exports": {
+		".": {
+			"types": "./dist/src/index.d.ts",
+			"default": "./dist/src/index.js"
+		}
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"@instantdb/core": "^0.17.32",
+		"@types/bun": "1.2.4",
+		"bun-plugin-dts": "^0.3.0",
+		"dotenv": "^16.4.7",
+		"vitest": "^2.1.8"
+	},
+	"peerDependencies": {
+		"better-auth": "^1.2.3"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
