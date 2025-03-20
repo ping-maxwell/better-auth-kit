@@ -352,6 +352,34 @@ export const seed = Seed({
 
 ---
 
+## Multiple Seed Files
+
+You can execute multiple seed files by creating a `seed` folder next to your `auth.ts` file.
+
+
+<Files>
+  <File name="auth.ts" />
+  <Folder name="seed" defaultOpen>
+    <File name="1-users.ts" />
+    <File name="2-organizations.ts" />
+    <File name="3-api-keys.ts" />
+  </Folder>
+</Files>
+Within the `seed` folder, you can create any number of files, with any name you want, and they will be executed in alphabetical order.
+
+
+```bash title="Terminal"
+npx @better-auth-kit/cli@latest seed
+```
+
+By default, the CLI will prompt you to select which seed files to execute. However, you can pass the `--run-all` flag to execute all seed files.
+
+```bash title="Terminal"
+npx @better-auth-kit/cli@latest seed --run-all
+```
+
+---
+
 ## $ Functions
 
 We have a number of functions that you can use to generate random data.
@@ -427,6 +455,15 @@ By default, we will generate an email address with a random domain. You can chan
 
 ```ts
 $.email({ domain: "example.com" })
+```
+
+</Accordion>
+<Accordion title="Fullname">
+
+You can pass a fullname function to the `fullname` option to customize the email address. 
+
+```ts
+$.email({ fullname: () => $.first_and_lastname() })
 ```
 
 </Accordion>
