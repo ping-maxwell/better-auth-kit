@@ -1,33 +1,19 @@
-import type {
-	EntitiesWithLinks,
-	RoomsDef,
-	InstantCoreDatabase,
-	InstantSchemaDef,
-	DataAttrDef,
-	LinksDef,
-	EntityDef,
-} from "@instantdb/core";
+import type { InstantUnknownSchema } from "@instantdb/core";
+import type { InstantAdminDatabase, DataAttrDef } from "@instantdb/admin";
 import type { AdapterInstance } from "better-auth";
 
-export type InstantClient = InstantCoreDatabase<
-	InstantSchemaDef<
-		EntitiesWithLinks<
-			{
-				// todos: EntityDef<
-				// 	{
-				// 		text: DataAttrDef<string, true>;
-				// 		done: DataAttrDef<boolean, true>;
-				// 		createdAt: DataAttrDef<string | number, true>;
-				// 	},
-				// 	{},
-				// 	void
-				// >;
-			},
-			LinksDef<any>
-		>,
-		LinksDef<any>,
-		RoomsDef
-	>
->;
+export type InstantDB = InstantAdminDatabase<InstantUnknownSchema>;
 
-export type InstantAdapter = (client: InstantClient) => AdapterInstance;
+export interface InstantAdapterOptions {
+	debug?: boolean;
+	generateId?: () => string;
+}
+
+export type InstantAdapter = (
+	db: InstantDB,
+	options: InstantAdapterOptions,
+) => AdapterInstance;
+
+export type DataToEntity<T> = {
+	[key in keyof T]: DataAttrDef<T[key], true>;
+};

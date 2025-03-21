@@ -6,6 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"test": "vitest",
+		"t": "bun ./test/index.ts",
 		"dev": "bun build --entrypoints ./src/index.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
 		"build": "bun build.ts"
 	},
@@ -33,6 +34,7 @@
 	},
 	"license": "MIT",
 	"devDependencies": {
+		"@instantdb/admin": "^0.17.32",
 		"@instantdb/core": "^0.17.32",
 		"@types/bun": "1.2.4",
 		"bun-plugin-dts": "^0.3.0",

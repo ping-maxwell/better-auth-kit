@@ -113,6 +113,7 @@
       "name": "@better-auth-kit/instant",
       "version": "1.0.0",
       "devDependencies": {
+        "@instantdb/admin": "^0.17.32",
         "@instantdb/core": "^0.17.32",
         "@types/bun": "1.2.4",
         "bun-plugin-dts": "^0.3.0",
@@ -512,6 +513,8 @@
     "@inquirer/figures": ["@inquirer/figures@1.0.11", "", {}, "sha512-eOg92lvrn/aRUqbxRyvpEWnrvRuTYRifixHkYVpJiygTgVSBIHDqLh0SrMQXkafvULg3ck11V7xvR+zcgvpHFw=="],
 
     "@inquirer/type": ["@inquirer/type@3.0.5", "", { "peerDependencies": { "@types/node": ">=18" }, "optionalPeers": ["@types/node"] }, "sha512-ZJpeIYYueOz/i/ONzrfof8g89kNdO2hjGuvULROo3O8rlB2CRtSseE5KeirnyE4t/thAn/EwvS/vuQeJCn+NZg=="],
+
+    "@instantdb/admin": ["@instantdb/admin@0.17.32", "", { "dependencies": { "@instantdb/core": "v0.17.32" } }, "sha512-L8F6bMuGSbi5wYIno7SYy6p92TZDZDXPmFLS2CDoZTvUiT20h/hpAGBKGBWIJIic8XN+uEag+Y8C4BmHveHp2Q=="],
 
     "@instantdb/core": ["@instantdb/core@0.17.32", "", { "dependencies": { "mutative": "^1.0.10", "uuid": "^9.0.0" } }, "sha512-+0EU70BJoTt/xCHnU5FNyetQBBZF5ltzzJeRxo/20W5Yv/mwKtrqRUAlQf8Y8sQO3gou1QkLJqTK3HjwyYb+mQ=="],
 
