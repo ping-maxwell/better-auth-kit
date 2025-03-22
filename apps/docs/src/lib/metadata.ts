@@ -3,6 +3,16 @@ import type { Metadata } from "next/types";
 export function createMetadata(override: Metadata): Metadata {
 	return {
 		...override,
+		keywords: [
+			"better auth",
+			"auth",
+			"authentication",
+			"authorization",
+			"better-auth",
+			"kit",
+			"auth kit",
+			"better auth kit",
+		],
 		openGraph: {
 			title: override.title ?? undefined,
 			description:
