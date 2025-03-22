@@ -39,7 +39,11 @@ export const createTransform = (
 			const fields = schema[model].fields;
 			for (const field in fields) {
 				let value = data[field];
-				if (value === undefined && !fields[field].defaultValue && !fields[field].transform?.input) {
+				if (
+					value === undefined &&
+					!fields[field].defaultValue &&
+					!fields[field].transform?.input
+				) {
 					continue;
 				}
 				if (fields[field].transform?.input) {
