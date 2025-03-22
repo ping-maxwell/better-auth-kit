@@ -1,0 +1,25 @@
+{
+	"name": "@better-auth-kit/internal-build",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": {
+			"default": "./src/index.ts",
+			"types": "./src/index.ts"
+		}
+	},
+	"scripts": {
+		"dev": "echo already built",
+		"build": "echo already built"
+	},
+	"author": "ping-maxwell",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/bun": "1.2.4",
+		"bun-plugin-dts": "^0.3.0"
+	},
+	"dependencies": {
+		"chalk": "^5.4.1"
+	}
+}

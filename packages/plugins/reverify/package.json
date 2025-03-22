@@ -18,7 +18,7 @@
 		}
 	},
 	"scripts": {
-		"dev": "bun build --entrypoints ./src/index.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
+		"dev": "bun build-dev.ts",
 		"build": "bun build.ts",
 		"test": "vitest"
 	},
@@ -26,8 +26,7 @@
 	"author": "ping-maxwell",
 	"license": "MIT",
 	"devDependencies": {
-		"@types/bun": "1.2.4",
-		"bun-plugin-dts": "^0.3.0",
+		"@better-auth-kit/internal-build": "workspace:*",
 		"vitest": "^3.0.8",
 		"@better-auth-kit/tests": "workspace:*"
 	},

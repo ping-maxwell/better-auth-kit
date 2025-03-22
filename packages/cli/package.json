@@ -10,7 +10,7 @@
 		"directory": "packages/cli"
 	},
 	"scripts": {
-		"dev": "bun build --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch --entrypoints ./src/index.ts",
+		"dev": "bun dev-build.ts",
 		"build": "bun build.ts",
 		"start": "cd testing && node ../dist/index.js"
 	},
@@ -38,6 +38,7 @@
 	"devDependencies": {
 		"better-sqlite3": "^11.9.0",
 		"@types/prompts": "^2.4.9",
-		"@better-auth-kit/seed": "workspace:*"
+		"@better-auth-kit/seed": "workspace:*",
+		"@better-auth-kit/internal-build": "workspace:*"
 	}
 }

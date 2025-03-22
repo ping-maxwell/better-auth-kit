@@ -22,11 +22,10 @@
 		"vitest": "^3.0.8"
 	},
 	"devDependencies": {
-		"@types/better-sqlite3": "^7.6.12",
-		"@types/bun": "1.2.4"
+		"@better-auth-kit/internal-build": "workspace:*"
 	},
 	"scripts": {
-		"dev": "bun build --entrypoints ./src/index.ts --outdir ./dist --target node --format esm --sourcemap=external --minify --packages external --watch",
+		"dev": "bun build-dev.ts",
 		"build": "bun build.ts"
 	},
 	"publishConfig": {

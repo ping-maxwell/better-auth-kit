@@ -118,7 +118,6 @@
         "@babel/preset-typescript": "^7.26.0",
         "@types/fs-extra": "^11.0.4",
         "better-auth": "^1.2.4",
-        "better-sqlite3": "^11.9.0",
         "c12": "^3.0.2",
         "chalk": "^5.4.1",
         "commander": "^13.1.0",
@@ -129,8 +128,29 @@
         "zod": "^3.24.2",
       },
       "devDependencies": {
+        "@better-auth-kit/internal-build": "workspace:*",
         "@better-auth-kit/seed": "workspace:*",
         "@types/prompts": "^2.4.9",
+        "better-sqlite3": "^11.9.0",
+      },
+    },
+    "packages/internal/bun-build": {
+      "name": "@better-auth-kit/internal-build",
+      "version": "0.0.1",
+      "dependencies": {
+        "chalk": "^5.4.1",
+      },
+      "devDependencies": {
+        "@types/bun": "1.2.4",
+        "bun-plugin-dts": "^0.3.0",
+      },
+    },
+    "packages/internal/utils": {
+      "name": "@better-auth-kit/internal-utils",
+      "version": "0.0.1",
+      "devDependencies": {
+        "@types/bun": "1.2.4",
+        "bun-plugin-dts": "^0.3.0",
       },
     },
     "packages/libraries/seed": {
@@ -306,6 +326,12 @@
     "@better-auth-kit/cli": ["@better-auth-kit/cli@workspace:packages/cli"],
 
     "@better-auth-kit/convex": ["@better-auth-kit/convex@workspace:packages/adapters/convex"],
+
+    "@better-auth-kit/instant": ["@better-auth-kit/instant@workspace:packages/adapters/instant"],
+
+    "@better-auth-kit/internal-build": ["@better-auth-kit/internal-build@workspace:packages/internal/bun-build"],
+
+    "@better-auth-kit/internal-utils": ["@better-auth-kit/internal-utils@workspace:packages/internal/utils"],
 
     "@better-auth-kit/legal-consent": ["@better-auth-kit/legal-consent@workspace:packages/plugins/legal-consent"],
 

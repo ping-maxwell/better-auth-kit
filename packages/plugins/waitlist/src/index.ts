@@ -14,6 +14,7 @@ import {
 } from "better-auth/db";
 export * from "./types";
 export * from "./client";
+export * from "./schema";
 
 export const ERROR_CODES = {
 	MAX_PARTICIPANTS_REACHED: "Maximum waitlist participants reached",
