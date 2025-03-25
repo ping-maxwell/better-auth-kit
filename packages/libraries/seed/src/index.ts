@@ -91,7 +91,7 @@ export function Seed(
 				}
 			}
 
-			let schema =
+			const schema =
 				typeof schema_ === "function"
 					? await schema_({
 							get: async (fn) => {

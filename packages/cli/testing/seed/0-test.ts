@@ -21,7 +21,6 @@ export const seed = Seed(async ({ get }) => {
 	const first_name = await get($.firstname());
 	const last_name = await get($.lastname());
 
-
 	const isBanned = await get($.randomBoolean({ probability: 0.1 }));
 
 	return {
@@ -32,6 +31,3 @@ export const seed = Seed(async ({ get }) => {
 		}),
 	};
 });
-
-
-
