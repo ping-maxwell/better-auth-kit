@@ -16,14 +16,16 @@ export * from "./helpers";
 export type Table = ReturnType<typeof table>;
 
 export interface SeedHelpers {
-	get: <T extends SeedGenerator<any>>(fn: T) => ReturnType<T>;
+	get: <T extends SeedGenerator<any>>(fn: T) => Promise<ReturnType<T>>;
 }
 
 let config: SeedConfig = {};
 export function Seed(
 	schema_:
 		| Record<string, Table>
-		| ((helpers: SeedHelpers) => Record<string, Table>),
+		| ((
+				helpers: SeedHelpers,
+		  ) => Promise<Record<string, Table>> | Record<string, Table>),
 ) {
 	return {
 		setConfig: (seedConfig: SeedConfig | undefined) => {
@@ -89,11 +91,11 @@ export function Seed(
 				}
 			}
 
-			const schema =
+			let schema =
 				typeof schema_ === "function"
-					? schema_({
-							get(fn) {
-								return fn({ adapter, context });
+					? await schema_({
+							get: async (fn) => {
+								return await fn({ adapter, context });
 							},
 						})
 					: schema_;
@@ -124,9 +126,23 @@ export function Seed(
 					)} rows...`,
 				);
 				let skipped = false;
-				for (const row of rows) {
+				for (let i = 0; i < rows.length; i++) {
+					let row = rows[i];
 					if (skipped) {
 						continue;
+					}
+					if (typeof schema_ === "function") {
+						const this_schema = await schema_({
+							get: async (fn) => {
+								return await fn({ adapter, context });
+							},
+						});
+						const res = await this_schema[key]({
+							adapter,
+							context,
+							defaultRowsCount,
+						});
+						row = res.rows[i];
 					}
 					index++;
 					try {

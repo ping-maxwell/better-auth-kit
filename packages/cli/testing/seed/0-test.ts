@@ -12,13 +12,17 @@ export const config: SeedConfig = {
 			"apikey",
 			"user",
 			"organization",
+			"test",
 		],
 	},
 };
 
-export const seed = Seed(({ get }) => {
-	const first_name = get($.firstname());
-	const last_name = get($.lastname());
+export const seed = Seed(async ({ get }) => {
+	const first_name = await get($.firstname());
+	const last_name = await get($.lastname());
+
+
+	const isBanned = await get($.randomBoolean({ probability: 0.1 }));
 
 	return {
 		test: table({
