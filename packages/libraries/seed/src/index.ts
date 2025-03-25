@@ -2,7 +2,11 @@ import chalk from "chalk";
 import type { Adapter, AuthContext } from "better-auth";
 import logupdate from "log-update";
 import prompts from "prompts";
-import type { ConvertToSeedGenerator, SeedPrimitiveValue } from "./types";
+import type {
+	ConvertToSeedGenerator,
+	SeedGenerator,
+	SeedPrimitiveValue,
+} from "./types";
 import type { SeedConfig } from "./config";
 export * from "./types";
 export { dataset as $ } from "./dataset";
@@ -11,8 +15,16 @@ export * from "./helpers";
 
 export type Table = ReturnType<typeof table>;
 
+export interface SeedHelpers {
+	get: <T extends SeedGenerator<any>>(fn: T) => ReturnType<T>;
+}
+
 let config: SeedConfig = {};
-export function Seed(schema: Record<string, Table>) {
+export function Seed(
+	schema_:
+		| Record<string, Table>
+		| ((helpers: SeedHelpers) => Record<string, Table>),
+) {
 	return {
 		setConfig: (seedConfig: SeedConfig | undefined) => {
 			config = seedConfig ?? {};
@@ -76,6 +88,16 @@ export function Seed(schema: Record<string, Table>) {
 					logupdate.done();
 				}
 			}
+
+			const schema =
+				typeof schema_ === "function"
+					? schema_({
+							get(fn) {
+								return fn({ adapter, context });
+							},
+						})
+					: schema_;
+
 			console.log();
 			console.log(
 				`Seeding ${chalk.greenBright(Object.keys(schema).length)} tables...`,

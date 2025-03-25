@@ -12,17 +12,14 @@ export const auth = betterAuth({
 			schema: {
 				test: {
 					fields: {
-						testStr: {
+						name: {
 							type: "string",
 						},
-						testInt: {
-							type: "number",
+						first_name: {
+							type: "string",
 						},
-						testBool: {
-							type: "boolean",
-						},
-						testDate: {
-							type: "date",
+						last_name: {
+							type: "string",
 						},
 					},
 				},
