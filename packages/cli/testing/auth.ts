@@ -21,6 +21,17 @@ export const auth = betterAuth({
 						last_name: {
 							type: "string",
 						},
+						banned: {
+							type: "boolean",
+						},
+						banReason: {
+							type: "string",
+							required: false,
+						},
+						banExpires: {
+							type: "date",
+							required: false,
+						},
 					},
 				},
 			},

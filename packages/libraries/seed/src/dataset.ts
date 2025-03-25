@@ -127,20 +127,18 @@ const randomDate = (
 ): SeedGenerator<Date> => {
 	return () => {
 		const now = new Date();
-		const randomDate = new Date(
-			now.getTime() + Math.random() * (now.getTime() - now.getTime()),
-		);
-		const past = new Date(
-			now.getTime() - Math.random() * (now.getTime() - now.getTime()),
-		);
-		const future = new Date(
-			now.getTime() + Math.random() * (now.getTime() - now.getTime()),
-		);
-		return timeline === "past"
-			? past
-			: timeline === "future"
-				? future
-				: randomDate;
+		const range = 10 * 365 * 24 * 60 * 60 * 1000; // 10 years in milliseconds
+		let randomTime: number;
+
+		if (timeline === "past") {
+			randomTime = now.getTime() - Math.random() * range;
+		} else if (timeline === "future") {
+			randomTime = now.getTime() + Math.random() * range;
+		} else {
+			randomTime = now.getTime() + (Math.random() * 2 - 1) * range; // +/- 10 years
+		}
+
+		return new Date(randomTime);
 	};
 };
 

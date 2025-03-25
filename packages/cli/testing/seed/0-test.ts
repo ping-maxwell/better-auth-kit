@@ -23,11 +23,16 @@ export const seed = Seed(async ({ get }) => {
 
 	const isBanned = await get($.randomBoolean({ probability: 0.1 }));
 
+
 	return {
 		test: table({
 			name: $.custom(() => `${first_name} ${last_name}`),
 			first_name: $.custom(() => first_name),
 			last_name: $.custom(() => last_name),
+
+			banned: $.custom(() => isBanned),
+			banReason: $.custom(() => isBanned ? "test" : null),
+			banExpires: $.custom(() => isBanned ? get($.randomDate("future")) : null),
 		}),
 	};
 });
