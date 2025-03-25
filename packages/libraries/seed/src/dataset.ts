@@ -260,7 +260,7 @@ const nullValue = (): SeedGenerator<null> => {
 };
 
 const randomChoice = (...choices: SeedGenerator<any>[]): SeedGenerator<any> => {
-	return rng<any>(choices)();
+	return (fns) => rng<SeedGenerator<any>>(choices)?.(fns);
 };
 
 const randomCharacters = (length: number): SeedGenerator<string> => {
