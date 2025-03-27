@@ -6,6 +6,11 @@ description: Prompt the user to re-verify their identity by providing a form of 
 <GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/plugins/reverify" />
 <NpmButton url="https://www.npmjs.com/package/@better-auth-kit/reverify" />
 
+<Callout type="warn">
+  #### This plugin is in Beta
+  This plugin only supports password verification which returns a `valid` boolean, and does not support extending the current session yet.
+  This will be added in a future release.
+</Callout>
 
 If a user's session is not fresh, critical actions (e.g. deleting their account) will not be allowed.
 You would have to terminate their session, force them to sign-in again, and then be able to perform the action.

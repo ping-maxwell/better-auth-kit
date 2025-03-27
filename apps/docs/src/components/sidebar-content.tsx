@@ -134,6 +134,11 @@ export const contents: Content[] = [
 				title: "Firestore DB",
 				icon: () => <Database size={16} />,
 			},
+			{
+				href: "/docs/adapters/instantdb",
+				title: "InstantDB",
+				icon: () => <Database size={16} />,
+			},
 		],
 	},
 ];
