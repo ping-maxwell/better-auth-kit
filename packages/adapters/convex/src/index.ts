@@ -1,7 +1,6 @@
 import type { ConvexClient } from "convex/browser";
 import type { Adapter, AdapterInstance, BetterAuthOptions } from "better-auth";
 import type { ConvexAdapterOptions } from "./types";
-import { generateSchema } from "./generate-schema";
 import { createTransform } from "./transform";
 import { queryBuilder } from "./handler/index";
 import type { PaginationResult } from "convex/server";
@@ -313,15 +312,6 @@ export const convexAdapter: ConvexAdapter = (client, config = {}) => {
 					}),
 				});
 				return res;
-			},
-			createSchema: async (options, file) => {
-				const code = await generateSchema(options);
-				return {
-					code,
-					path: "/convex/schema.ts",
-					append: false,
-					overwrite: true,
-				};
 			},
 		};
 	};

@@ -3,8 +3,7 @@ import { convexAdapter } from "./../src";
 import { fullApi } from "../convex/_generated/api";
 
 export const auth = betterAuth({
-	database: convexAdapter(),
+	// database: convexAdapter(),
 	plugins: [],
 	//... other options
 });
-fullApi;
