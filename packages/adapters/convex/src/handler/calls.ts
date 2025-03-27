@@ -1,8 +1,8 @@
-import type { ConvexClient } from "convex/browser";
+import type { ConvexHttpClient } from "convex/browser";
 import { anyApi } from "convex/server";
 
 export async function queryDb(
-	client: ConvexClient,
+	client: ConvexHttpClient,
 	args: {
 		tableName: string;
 		query?: string;
@@ -19,7 +19,7 @@ export async function queryDb(
 }
 
 export async function countDb(
-	client: ConvexClient,
+	client: ConvexHttpClient,
 	args: {
 		tableName: string;
 		query?: string;
@@ -32,7 +32,7 @@ export async function countDb(
 }
 
 export async function insertDb(
-	client: ConvexClient,
+	client: ConvexHttpClient,
 	args: {
 		tableName: string;
 		values: Record<string, any>;
@@ -45,7 +45,7 @@ export async function insertDb(
 	return call;
 }
 export async function updateDb(
-	client: ConvexClient,
+	client: ConvexHttpClient,
 	args: {
 		tableName: string;
 		query: string;
@@ -59,7 +59,7 @@ export async function updateDb(
 	return call;
 }
 export async function deleteDb(
-	client: ConvexClient,
+	client: ConvexHttpClient,
 	args: {
 		tableName: string;
 		query: string;

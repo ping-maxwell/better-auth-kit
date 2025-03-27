@@ -1,4 +1,4 @@
-import type { ConvexClient } from "convex/browser";
+import type { ConvexHttpClient } from "convex/browser";
 import type { Adapter, AdapterInstance, BetterAuthOptions } from "better-auth";
 import type { ConvexAdapterOptions } from "./types";
 import { createTransform } from "./transform";
@@ -6,7 +6,7 @@ import { queryBuilder } from "./handler/index";
 import type { PaginationResult } from "convex/server";
 
 export type ConvexAdapter = (
-	convexClient: ConvexClient,
+	convexClient: ConvexHttpClient,
 	config?: ConvexAdapterOptions,
 ) => AdapterInstance;
 

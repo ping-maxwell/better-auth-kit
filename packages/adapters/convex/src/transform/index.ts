@@ -2,7 +2,7 @@ import { generateId } from "better-auth";
 import { getAuthTables, type FieldAttribute } from "better-auth/db";
 import type { ConvexAdapterOptions } from "../types";
 import type { BetterAuthOptions, Where } from "better-auth";
-import type { ConvexClient } from "convex/browser";
+import type { ConvexHttpClient } from "convex/browser";
 import {
 	queryDb,
 	deleteDb,
@@ -18,7 +18,7 @@ export const createTransform = ({
 }: {
 	config: ConvexAdapterOptions;
 	options: BetterAuthOptions;
-	client: ConvexClient;
+	client: ConvexHttpClient;
 }) => {
 	const schema = getAuthTables(options);
 

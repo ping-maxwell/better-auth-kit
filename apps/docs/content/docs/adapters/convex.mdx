@@ -38,9 +38,9 @@ Head over to your Better Auth server instance, and under `database`, add the `co
 ```ts
 import { betterAuth } from "better-auth";
 import { convexAdapter } from "@better-auth-kit/convex";
-import { ConvexClient } from "convex/browser";
+import { ConvexHttpClient } from "convex/browser";
 
-const convexClient = new ConvexClient(process.env.CONVEX_URL);
+const convexClient = new ConvexHttpClient(process.env.CONVEX_URL);
 
 export const auth = betterAuth({
   database: convexAdapter(convexClient),
