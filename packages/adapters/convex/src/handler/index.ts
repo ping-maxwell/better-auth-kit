@@ -111,6 +111,13 @@ export type ConvexReturnType = {
 		},
 		Promise<void>
 	>;
+	getSession: RegisteredQuery<
+		"internal",
+		{
+			sessionToken: string;
+		},
+		Promise<any>
+	>;
 };
 
 export function ConvexHandler<
@@ -120,25 +127,38 @@ export function ConvexHandler<
 		{},
 		"internal"
 	>,
->({
-	action,
-	internalQuery,
-	internalMutation,
-	internal,
-}: {
-	action: Action;
-	internalQuery: Query;
-	internalMutation: Mutation;
-	internal: {
-		betterAuth: {
-			query: any;
-			insert: any;
-			update: any;
-			delete_: any;
-			count: any;
-		};
-	} & Record<string, any>;
-}): ConvexReturnType {
+>(
+	{
+		action,
+		internalQuery,
+		internalMutation,
+		internal,
+	}: {
+		action: Action;
+		internalQuery: Query;
+		internalMutation: Mutation;
+		internal: {
+			betterAuth: {
+				query: any;
+				insert: any;
+				update: any;
+				delete_: any;
+				count: any;
+				getSession: any;
+			};
+		} & Record<string, any>;
+	},
+	options?: {
+		/**
+		 * If you have a custom session model, you can pass the name here.
+		 *
+		 * This is only useful for the `getSession` query.
+		 *
+		 * @default "session"
+		 */
+		sessionModelName?: string;
+	},
+): ConvexReturnType {
 	const betterAuth = action({
 		args: { action: v.string(), value: v.any() },
 		handler: async (ctx, args) => {
@@ -325,5 +345,21 @@ export function ConvexHandler<
 		},
 	});
 
-	return { betterAuth, query, insert, update, delete_, count };
+	const getSession = internalQuery({
+		args: {
+			sessionToken: v.string(),
+		},
+		handler: async (ctx, args) => {
+			return (
+				ctx.db
+					//@ts-ignore
+					.query(options?.sessionModelName || "session")
+					//@ts-ignore
+					.filter((q) => q.eq(q.field("token"), args.sessionToken))
+					.first()
+			);
+		},
+	});
+
+	return { betterAuth, query, insert, update, delete_, count, getSession };
 }

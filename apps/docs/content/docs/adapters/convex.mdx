@@ -65,14 +65,14 @@ import { action, internalQuery, internalMutation } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { ConvexHandler, type ConvexReturnType } from "@better-auth-kit/convex/handler";
 
-const { betterAuth, query, insert, update, delete_, count } = ConvexHandler({
+const { betterAuth, query, insert, update, delete_, count, getSession } = ConvexHandler({
   action,
   internalQuery,
   internalMutation,
   internal,
 }) as ConvexReturnType;
 
-export { betterAuth, query, insert, update, delete_, count };
+export { betterAuth, query, insert, update, delete_, count, getSession };
 ```
 
 <Callout type="info">
@@ -84,3 +84,38 @@ export { betterAuth, query, insert, update, delete_, count };
 </Steps>
 
 That's it! You're all set up! 🔥
+
+## Verifying a user's session in a Convex function
+
+You can verify a user's session in a Convex function by using the `getSession` query.
+
+It requires that you pass the `sessionToken` to the query, which you can get from the user's session data.
+
+```ts
+const session = await ctx.runQuery(api.betterAuth.getSession, {
+    sessionToken: "the user's session token",
+});
+```
+
+```ts title="Example"
+export const deleteMessage = mutation({
+	args: { messageId: v.id("chat"), sessionToken: v.string() },
+	handler: async (ctx, args) => {
+		const session = await ctx.runQuery(api.betterAuth.getSession, { // [!code highlight]
+			sessionToken: args.sessionToken, // [!code highlight]
+		}); // [!code highlight]
+
+		if (!session) {
+			throw new Error("Unauthorized");
+		}
+
+		const message = await ctx.db.get(args.messageId);
+		if (!message) {
+			throw new Error("Message not found");
+		}
+
+		await ctx.db.delete(args.messageId);
+	},
+});
+```
+
