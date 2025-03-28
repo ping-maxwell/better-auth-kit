@@ -2,11 +2,11 @@
 	"compilerOptions": {
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"target": "es2022",
+		"target": "ESNext",
 		"allowJs": true,
 		"resolveJsonModule": true,
-		"module": "Preserve",
-		"moduleResolution": "Bundler",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
 		"moduleDetection": "force",
 		"isolatedModules": true,
 		"verbatimModuleSyntax": true,
@@ -18,7 +18,7 @@
 		"rootDir": ".",
 		"downlevelIteration": true,
 		"baseUrl": ".",
-		"outDir": "dist",
+		"outDir": "old_dist",
 		"declaration": true
 	},
 	"exclude": ["**/dist", "node_modules"],
