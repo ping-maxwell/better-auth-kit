@@ -92,7 +92,7 @@ You can verify a user's session in a Convex function by using the `getSession` q
 It requires that you pass the `sessionToken` to the query, which you can get from the user's session data.
 
 ```ts
-const session = await ctx.runQuery(api.betterAuth.getSession, {
+const session = await ctx.runQuery(internal.betterAuth.getSession, {
     sessionToken: "the user's session token",
 });
 ```
@@ -101,7 +101,7 @@ const session = await ctx.runQuery(api.betterAuth.getSession, {
 export const deleteMessage = mutation({
 	args: { messageId: v.id("chat"), sessionToken: v.string() },
 	handler: async (ctx, args) => {
-		const session = await ctx.runQuery(api.betterAuth.getSession, { // [!code highlight]
+		const session = await ctx.runQuery(internal.betterAuth.getSession, { // [!code highlight]
 			sessionToken: args.sessionToken, // [!code highlight]
 		}); // [!code highlight]
 
