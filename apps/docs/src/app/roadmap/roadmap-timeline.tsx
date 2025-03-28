@@ -172,6 +172,7 @@ export function RoadmapTimeline() {
 				"~~fix: any issues or bugs with the library~~",
 				"~~add: `count` method to the database adapter~~",
 				"chore: add tests for `count` method <- delayed.",
+				"add: Custom CLI tool to generate schema"
 			],
 		},
 	];
