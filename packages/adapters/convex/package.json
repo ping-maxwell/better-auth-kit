@@ -1,6 +1,6 @@
 {
 	"name": "@better-auth-kit/convex",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"description": "Convex Database Adapter for Better-Auth.",
 	"author": "ping-maxwell",
 	"type": "module",
@@ -26,12 +26,12 @@
 	],
 	"exports": {
 		".": {
-			"types": "./dist/src/index.d.ts",
-			"default": "./dist/src/index.js"
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
 		},
 		"./handler": {
-			"types": "./dist/src/handler/index.d.ts",
-			"default": "./dist/src/handler/index.js"
+			"types": "./dist/handler/index.d.ts",
+			"default": "./dist/handler/index.js"
 		}
 	},
 	"license": "MIT",
