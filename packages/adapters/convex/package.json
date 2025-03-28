@@ -1,6 +1,6 @@
 {
 	"name": "@better-auth-kit/convex",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "Convex Database Adapter for Better-Auth.",
 	"author": "ping-maxwell",
 	"type": "module",
