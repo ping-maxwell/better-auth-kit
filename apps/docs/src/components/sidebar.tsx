@@ -149,7 +149,8 @@ export function Sidebar({
 																		title={listItem.title}
 																		className={cn(
 																			"break-words sm:w-[var(--fd-sidebar-width)] w-screen",
-																			listItem.isNotReady && "opacity-30 line-through",
+																			listItem.isNotReady &&
+																				"opacity-30 line-through",
 																		)}
 																		onClick={() => {
 																			setIsOpen(false);

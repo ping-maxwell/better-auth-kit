@@ -9,9 +9,9 @@
  */
 
 import type {
-  ApiFromModules,
-  FilterApi,
-  FunctionReference,
+	ApiFromModules,
+	FilterApi,
+	FunctionReference,
 } from "convex/server";
 import type * as betterAuth from "../betterAuth.js";
 import type * as tests from "../tests.js";
@@ -25,14 +25,14 @@ import type * as tests from "../tests.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  betterAuth: typeof betterAuth;
-  tests: typeof tests;
+	betterAuth: typeof betterAuth;
+	tests: typeof tests;
 }>;
 export declare const api: FilterApi<
-  typeof fullApi,
-  FunctionReference<any, "public">
+	typeof fullApi,
+	FunctionReference<any, "public">
 >;
 export declare const internal: FilterApi<
-  typeof fullApi,
-  FunctionReference<any, "internal">
+	typeof fullApi,
+	FunctionReference<any, "internal">
 >;
