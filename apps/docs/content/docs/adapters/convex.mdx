@@ -1,10 +1,14 @@
 ---
 title: Convex Adapter
-description: Convex Adapter for Better Auth
+description: Convex Adapter for Better Auth.
 ---
 
 <GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/adapters/convex" />
 <NpmButton url="https://www.npmjs.com/package/@better-auth-kit/convex" />
+
+A Convex adapter for Better Auth which allows your Better Auth instance to communicate with your Convex DB.
+
+**Note:** This isn't full Convex integration, meaning hosting your Better Auth endpoints on Convex is not possible with this library.
 
 <Callout type="warn">
 #### Limitations
@@ -106,7 +110,7 @@ Unexpected errors may occur, as Better Auth isn't designed to be used in Convex 
 2. If you have mutations or queries which require session verification, check out the [Verifying a user's session in a Convex function](#verifying-a-users-session-in-a-convex-function) section.
 
 3. Better Auth doesn't have Convex integration, meaning you can't host your Better Auth endpoints on Convex.
-You'll have to use a supported integration from Better Auth to host your endpoints, and to Better Auth, Convex would just be your database.
+You'll have to use a supported integration from Better Auth to host your endpoints. To Better Auth, Convex would just be your database.
 
 ---
 
@@ -233,3 +237,16 @@ await adapter.findMany({
 	}]
 })
 ```
+
+## Schema generation
+
+Traditionally, you'd use the `@better-auth/cli` to generate the schema for your database.
+However, in some cases, you may import your `auth` instance into your Convex files, which includes this Convex adapter.
+And for us to allow schema generation from the Better Auth CLI, we'd need to use our schema generation code apart of our adpater,
+which includes the utilization of the node `fs` module. 
+
+Convex doesn't support the usage of the `fs` module in it's native enviroment, so this will cause build errors.
+
+To get around this, we intend to build a custom CLI specifically for schema generation, which will be available in the `@better-auth-kit/cli` package.
+
+Keep an eye out for this in our [roadmap](/roadmap).
