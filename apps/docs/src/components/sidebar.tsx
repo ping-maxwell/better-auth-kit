@@ -31,6 +31,7 @@ export interface Content {
 		href: string;
 		icon: ((props?: SVGProps<any>) => ReactNode) | LucideIcon;
 		group?: boolean;
+		isNotReady?: boolean;
 	}[];
 }
 
@@ -146,7 +147,10 @@ export function Sidebar({
 																		href={listItem.href}
 																		startWith="/docs"
 																		title={listItem.title}
-																		className="break-words sm:w-[var(--fd-sidebar-width)] w-screen"
+																		className={cn(
+																			"break-words sm:w-[var(--fd-sidebar-width)] w-screen",
+																			listItem.isNotReady && "opacity-30 line-through",
+																		)}
 																		onClick={() => {
 																			setIsOpen(false);
 																		}}

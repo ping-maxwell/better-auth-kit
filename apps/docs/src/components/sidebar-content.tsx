@@ -50,6 +50,7 @@ export const contents: Content[] = [
 				href: "/docs/plugins/waitlist",
 				title: "Waitlist",
 				icon: () => <OctagonPause size={16} />,
+				isNotReady: true,
 			},
 			{
 				href: "/docs/plugins/reverify",
@@ -65,11 +66,13 @@ export const contents: Content[] = [
 				href: "/docs/plugins/blockade",
 				title: "Blockade",
 				icon: () => <ShieldBan size={16} />,
+				isNotReady: true,
 			},
 			{
 				href: "/docs/plugins/shutdown",
 				title: "Shutdown",
 				icon: () => <OctagonMinus size={16} />,
+				isNotReady: true,
 			},
 			{
 				title: "Libraries",
@@ -81,6 +84,7 @@ export const contents: Content[] = [
 				href: "/docs/libraries/admin-dashboard",
 				title: "Admin Dashboard",
 				icon: () => <ShieldUserIcon size={16} />,
+				isNotReady: true,
 			},
 			{
 				href: "/docs/libraries/tests",
@@ -102,6 +106,7 @@ export const contents: Content[] = [
 				href: "/docs/cli/ui-components",
 				title: "UI Components",
 				icon: () => <Box size={16} />,
+				isNotReady: true,
 			},
 			{
 				href: "/docs/cli/seed",
@@ -112,6 +117,7 @@ export const contents: Content[] = [
 				href: "/docs/cli/dashboard",
 				title: "Dashboard",
 				icon: () => <Gauge size={16} />,
+				isNotReady: true,
 			},
 			{
 				title: "Adapters",
@@ -128,16 +134,19 @@ export const contents: Content[] = [
 				href: "/docs/adapters/pocketbase",
 				title: "Pocketbase DB",
 				icon: () => <Database size={16} />,
+				isNotReady: true,
 			},
 			{
 				href: "/docs/adapters/firestore",
 				title: "Firestore DB",
 				icon: () => <Database size={16} />,
+				isNotReady: true,
 			},
 			{
 				href: "/docs/adapters/instantdb",
 				title: "InstantDB",
 				icon: () => <Database size={16} />,
+				isNotReady: true,
 			},
 		],
 	},
