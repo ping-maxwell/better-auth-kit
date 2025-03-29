@@ -7,7 +7,7 @@ description: Convex Adapter for Better Auth
 <NpmButton url="https://www.npmjs.com/package/@better-auth-kit/convex" />
 
 <Callout type="warn">
-This adapter is currently in beta.
+#### Limitations
 If you encounter any issues, please report them in the [Issues](https://github.com/ping-maxwell/better-auth-kit/issues) section.
 
 Please note that Convex DB is not inherently designed for this purpose. I have implemented workarounds to facilitate dynamic queries and mutations within Convex, which is typically not supported. Additionally, there are several limitations that may affect the functionality of BetterAuth in certain scenarios. Some plugins may not operate as expected.
@@ -16,7 +16,17 @@ Here are the key limitations to consider:
 - **Performance Issues**: Due to the inability to perform dynamic queries/mutations, we send a request to Convex Actions, which then calls the mutate/query function. This results in at least two calls, not including subsequent database queries or mutation calls.
 - **Lack of `sortBy` Support**: BetterAuth requires sorting at the individual field level, while Convex only supports sorting at the table level.
 - **Degraded Performance for Pagination Queries**: Convex's support for pagination is limited, which may lead to performance issues when working outside its intended scope.
-- **No Support for Certain Operators**: Operators such as `starts_with`, `ends_with`, or `contains` are not supported. This limitation primarily affects the admin plugin.
+- **No Support for Certain Operators**: Operators such as `starts_with`, `ends_with`, or `contains` are not supported. This limitation primarily affects the admin plugin. (As far as I'm aware.)
+
+</Callout>
+
+<Callout>
+#### Benefits
+
+* If you don't mind the extra requests to make a DB query/mutation and the other limitations, then this adapter is for you!
+* Convex doesn't support dynamic queries/mutations, however we've built a workaround to allow Better Auth to use dynamic queries/mutations on Convex DB. 
+This also means that you can leverage the power of our dynamic queries/mutations in your codebase if you wanted to as well! Read more [here](#utilizing-the-better-auth-adapter).
+* And lastly, if you love Convex, and you really want to use Better Auth, then this adapter is currently the best bet.
 </Callout>
 
 ## Installation
@@ -85,6 +95,21 @@ export { betterAuth, query, insert, update, delete_, count, getSession };
 
 That's it! You're all set up! 🔥
 
+---
+
+## Important Notes
+
+
+1. When using Better Auth with Convex, we recommend not using your `auth` instance in any Convex files.
+Unexpected errors may occur, as Better Auth isn't designed to be used in Convex enviroments.
+
+2. If you have mutations or queries which require session verification, check out the [Verifying a user's session in a Convex function](#verifying-a-users-session-in-a-convex-function) section.
+
+3. Better Auth doesn't have Convex integration, meaning you can't host your Better Auth endpoints on Convex.
+You'll have to use a supported integration from Better Auth to host your endpoints, and to Better Auth, Convex would just be your database.
+
+---
+
 ## Verifying a user's session in a Convex function
 
 You can verify a user's session in a Convex function by using the `getSession` query.
@@ -119,3 +144,92 @@ export const deleteMessage = mutation({
 });
 ```
 
+## Utilizing the Better Auth adapter
+
+Because of the way this adapter works, you actually get a really cool benefit of being able to use Convex DB dynamically.
+Unlike traditionally, where you must predefine Convex functions to either do queries or mutations, you can now do so dynamically at runtime.
+
+```ts title="Example"
+import { auth } from "./auth.ts";
+
+const adapter = (await auth.$context).adapter;
+
+// Create a row
+await adapter.create({
+	model: "user",
+	data: {
+		name: "some-user",
+		email: "some-user@example.com",
+		password: "password",
+	},
+});
+
+// Update a row
+await adapter.update({
+	model: "user",
+	where: [{
+		field: "name",
+		value: "some-user"	
+	}],
+	update: {
+		name: "some-other-name",
+	}
+})
+
+// Update multiple rows
+await adapter.updateMany({
+	model: "user",
+	where: [{
+		field: "name",
+		value: "some-user"
+	}],
+	update: {
+		name: "some-other-name",
+	}
+})
+
+// Delete a row
+await adapter.delete({
+	model: "user",
+	where: [{
+		field: "name",
+		value: "some-user"
+	}]
+})
+
+// Delete multiple rows
+await adapter.deleteMany({
+	model: "user",
+	where: [{
+		field: "name",
+		value: "some-user"
+	}]
+})
+
+// Count number of rows
+await adapter.count({
+	model: "user",
+	where: [{
+		field: "name",
+		value: "some-user"
+	}]
+})
+
+// Get a row
+await adapter.findOne({
+	model: "user",
+	where: [{
+		field: "name",
+		value: "some-user"
+	}]
+})
+
+// Get multiple rows
+await adapter.findMany({
+	model: "user",
+	where: [{
+		field: "name",
+		value: "some-user"
+	}]
+})
+```
