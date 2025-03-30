@@ -1,4 +1,4 @@
-import { type Adapter, type BetterAuthPlugin } from "better-auth";
+import type { Adapter, BetterAuthPlugin } from "better-auth";
 import {
 	APIError,
 	createAuthEndpoint,
@@ -52,22 +52,19 @@ export const shutdown = ({
 	cache,
 }: ShutdownOptions) => {
 	const rules: Rule[] = [];
-	let freshRules = false;
+	let latest = false;
 
 	cache?.requireRevalidation(() => {
-		freshRules = false;
+		latest = false;
 	});
 
 	const sync = async () => {
-		if (cache) {
-			cache.onRulesChanged();
-		} else {
-			freshRules = false;
-		}
+		cache?.onRulesChanged();
+		latest = false;
 	};
 
 	const getRules = async (adapter: Adapter) => {
-		if (!freshRules) {
+		if (!latest) {
 			const results = await adapter.findMany<Rule & { roles: string }>({
 				model: "shutdown-rules",
 				where: [],
@@ -79,7 +76,7 @@ export const shutdown = ({
 					roles: r.roles.split(",").filter(Boolean),
 				})),
 			);
-			freshRules = true;
+			latest = true;
 		}
 		return rules;
 	};

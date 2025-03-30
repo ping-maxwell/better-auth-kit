@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { getTestInstance } from "@better-auth-kit/tests";
-import { ERROR_CODES, RevalidationOptions, shutdown } from "../src/index";
-import { EventEmitter } from "events";
+import { ERROR_CODES, type RevalidationOptions, shutdown } from "../src/index";
+import { EventEmitter } from "node:events";
 
 describe("shutdown plugin (rules management)", async () => {
 	const { auth, signInWithAdminUser } = await getTestInstance({
