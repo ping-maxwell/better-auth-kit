@@ -40,7 +40,7 @@ export function PasswordField({
 				)}
 			/>
 			<Button
-				className="right-2 absolute top-7 size-6 z-10"
+				className="right-2 absolute bottom-1.5 size-6 z-10"
 				size={"sm"}
 				variant={"ghost"}
 				role="button"
