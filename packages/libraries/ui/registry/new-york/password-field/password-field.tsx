@@ -18,7 +18,7 @@ export function PasswordField({
 	form: UseFormReturn<any>;
 	isLoading: boolean;
 }) {
-	const [hide, setHide] = useState(true);
+	const [show, setShow] = useState(true);
 	return (
 		<div className="relative">
 			<FormField
@@ -29,7 +29,7 @@ export function PasswordField({
 						<FormLabel>Password</FormLabel>
 						<FormControl>
 							<Input
-								type={hide ? "text" : "password"}
+								type={show ? "text" : "password"}
 								placeholder="Enter your password"
 								disabled={isLoading}
 								{...field}
@@ -45,9 +45,9 @@ export function PasswordField({
 				variant={"ghost"}
 				role="button"
 				type="button"
-				onClick={() => setHide(!hide)}
+				onClick={() => setShow(!show)}
 			>
-				{hide ? <Eye /> : <EyeClosed />}
+				{show ? <Eye /> : <EyeClosed />}
 			</Button>
 		</div>
 	);
