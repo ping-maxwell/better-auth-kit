@@ -85,7 +85,7 @@ export function SignIn(props?: SignInProps) {
 					<RootError form={form} />
 					<SubmitButton isLoading={isLoading} />
 				</form>
-				<OAuth isLoading={isLoading} setIsLoading={setIsLoading}  />
+				<OAuth isLoading={isLoading} setIsLoading={setIsLoading} />
 				<DontHaveAccount />
 			</Form>
 		</div>

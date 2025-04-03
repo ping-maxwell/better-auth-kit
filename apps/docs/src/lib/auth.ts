@@ -1,5 +1,15 @@
 import { betterAuth } from "better-auth";
-import { apiKey, createAuthMiddleware, openAPI, organization, username } from "better-auth/plugins";
+<<<<<<< Updated upstream
+import { apiKey, openAPI, organization, username } from "better-auth/plugins";
+=======
+import {
+	apiKey,
+	createAuthMiddleware,
+	openAPI,
+	organization,
+	username,
+} from "better-auth/plugins";
+>>>>>>> Stashed changes
 import { nextCookies } from "better-auth/next-js";
 import Database from "better-sqlite3";
 import { legalConsent } from "@better-auth-kit/legal-consent";

@@ -37,8 +37,6 @@ const reproAction = async (options: z.infer<typeof optionSchema>) => {
 		);
 		process.exit(0);
 	}
-
-
 };
 
 export const reproCommand = new Command("repro")
