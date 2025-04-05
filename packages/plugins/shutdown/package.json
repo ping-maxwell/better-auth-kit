@@ -1,0 +1,42 @@
+{
+	"name": "@better-auth-kit/shutdown",
+	"version": "0.0.1",
+	"description": "A plugin for better-auth that allows you to stop signins or signups at any moment.",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit"
+	},
+	"exports": {
+		".": {
+			"default": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"scripts": {
+		"dev": "bun build-dev.ts",
+		"build": "bun build.ts",
+		"test": "vitest"
+	},
+	"keywords": ["better-auth", "shutdown", "plugin"],
+	"author": "ping-maxwell",
+	"contributors": [
+		{
+			"name": "Francesco Saverio Cannizzaro",
+			"url": "https://github.com/fcannizzaro"
+		}
+	],
+	"license": "MIT",
+	"devDependencies": {
+		"@better-auth-kit/internal-build": "workspace:*"
+	},
+	"peerDependencies": {
+		"better-auth": "^1.2.1"
+	},
+	"dependencies": {
+		"zod": "^3.24.2"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

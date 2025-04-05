@@ -90,11 +90,12 @@
     },
     "packages/adapters/convex": {
       "name": "@better-auth-kit/convex",
-      "version": "1.1.0",
+      "version": "1.2.2",
       "dependencies": {
         "prettier": "^3.4.2",
       },
       "devDependencies": {
+        "@better-auth-kit/internal-build": "workspace:*",
         "@biomejs/biome": "1.9.4",
         "@changesets/cli": "^2.27.11",
         "@types/node": "^22.10.5",
@@ -154,7 +155,7 @@
     },
     "packages/libraries/seed": {
       "name": "@better-auth-kit/seed",
-      "version": "1.0.6",
+      "version": "1.0.10",
       "dependencies": {
         "better-auth": "^1.2.4",
         "chalk": "^5.4.1",
@@ -228,6 +229,19 @@
       },
       "peerDependencies": {
         "better-auth": "^1.1.21",
+      },
+    },
+    "packages/plugins/shutdown": {
+      "name": "@better-auth-kit/shutdown",
+      "version": "0.0.1",
+      "dependencies": {
+        "zod": "^3.24.2",
+      },
+      "devDependencies": {
+        "@better-auth-kit/internal-build": "workspace:*",
+      },
+      "peerDependencies": {
+        "better-auth": "^1.2.1",
       },
     },
     "packages/plugins/waitlist": {
@@ -330,6 +344,8 @@
     "@better-auth-kit/reverify": ["@better-auth-kit/reverify@workspace:packages/plugins/reverify"],
 
     "@better-auth-kit/seed": ["@better-auth-kit/seed@workspace:packages/libraries/seed"],
+
+    "@better-auth-kit/shutdown": ["@better-auth-kit/shutdown@workspace:packages/plugins/shutdown"],
 
     "@better-auth-kit/tests": ["@better-auth-kit/tests@workspace:packages/libraries/tests"],
 

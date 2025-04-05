@@ -14,7 +14,7 @@ import { MongoClient } from "mongodb";
 import { betterAuth } from "better-auth";
 import { bearer } from "better-auth/plugins/bearer";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import Database from "better-sqlite3";
+import BetterDatabase, { type Database } from "better-sqlite3";
 import { createAuthClient, type SuccessContext } from "better-auth/react";
 import { getBaseURL } from "./utils/url";
 import { getMigrations, getAdapter } from "better-auth/db";
@@ -30,6 +30,7 @@ export async function getTestInstance<
 		port?: number;
 		disableTestUser?: boolean;
 		testUser?: Partial<User>;
+		adminUser?: Partial<User>;
 		testWith?: "sqlite" | "postgres" | "mongodb" | "mysql";
 	},
 ) {
@@ -85,7 +86,7 @@ export async function getTestInstance<
 					? mongodbAdapter(await mongodbClient())
 					: testWith === "mysql"
 						? { db: mysql, type: "mysql" }
-						: new Database(dbName),
+						: new BetterDatabase(dbName),
 		emailAndPassword: {
 			enabled: true,
 		},
@@ -94,6 +95,16 @@ export async function getTestInstance<
 		},
 		advanced: {
 			cookies: {},
+		},
+		user: {
+			additionalFields: {
+				role: {
+					type: "string",
+					input: false,
+					required: false,
+					defaultValue: "user",
+				},
+			},
 		},
 	} satisfies BetterAuthOptions;
 
@@ -114,14 +125,38 @@ export async function getTestInstance<
 		name: "test user",
 		...config?.testUser,
 	};
-	async function createTestUser() {
+
+	const adminUser = {
+		email: "admin@admin.com",
+		password: "admin123456",
+		name: "admin user",
+		...config?.adminUser,
+	};
+
+	async function createTestUser(user: Partial<User>, role?: string) {
 		if (config?.disableTestUser) {
 			return;
 		}
 		//@ts-expect-error
 		const res = await auth.api.signUpEmail({
-			body: testUser,
+			body: user,
 		});
+
+		if (res.user && role) {
+			await (await auth.$context).adapter.update({
+				model: "user",
+				update: {
+					role,
+				},
+				where: [
+					{
+						field: "id",
+						operator: "eq",
+						value: res.user.id,
+					},
+				],
+			});
+		}
 	}
 
 	if (testWith !== "mongodb") {
@@ -132,7 +167,8 @@ export async function getTestInstance<
 		await runMigrations();
 	}
 
-	await createTestUser();
+	await createTestUser(testUser);
+	await createTestUser(adminUser, "admin");
 
 	afterAll(async () => {
 		if (testWith === "mongodb") {
@@ -159,13 +195,17 @@ export async function getTestInstance<
 			return;
 		}
 
+		// Fix resource-locking issue on Windows
+		(opts?.database as Database).close();
+
 		await fs.unlink(dbName);
 	});
 
-	async function signInWithTestUser() {
+	async function signInWithTestUser(role: "user" | "admin" = "user") {
 		if (config?.disableTestUser) {
 			throw new Error("Test user is disabled");
 		}
+		const user = role === "admin" ? adminUser : testUser;
 		const headers = new Headers();
 		const setCookie = (name: string, value: string) => {
 			const current = headers.get("cookie");
@@ -173,8 +213,8 @@ export async function getTestInstance<
 		};
 		//@ts-expect-error
 		const { data, error } = await client.signIn.email({
-			email: testUser.email,
-			password: testUser.password,
+			email: user.email,
+			password: user.password,
 			fetchOptions: {
 				//@ts-expect-error
 				onSuccess(context) {
@@ -225,6 +265,22 @@ export async function getTestInstance<
 		return auth.handler(req);
 	};
 
+	const changeUserRole = async (id: string, role: string) => {
+		await (await auth.$context).adapter.update({
+			model: "user",
+			update: {
+				role,
+			},
+			where: [
+				{
+					field: "id",
+					operator: "eq",
+					value: id,
+				},
+			],
+		});
+	};
+
 	function sessionSetter(headers: Headers) {
 		return (context: SuccessContext) => {
 			const header = context.response.headers.get("set-cookie");
@@ -246,12 +302,16 @@ export async function getTestInstance<
 			customFetchImpl,
 		},
 	});
+
 	return {
 		auth,
 		client,
 		testUser,
+		adminUser,
 		signInWithTestUser,
+		signInWithAdminUser: () => signInWithTestUser("admin"),
 		signInWithUser,
+		changeUserRole,
 		cookieSetter: setCookieToHeader,
 		customFetchImpl,
 		sessionSetter,
