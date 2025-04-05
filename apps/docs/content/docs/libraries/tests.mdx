@@ -12,6 +12,7 @@ If you're developing a custom plugin for Better-Auth, you may need to test it. T
 This library currently is pulled out from the main Better-Auth package, but is intended to provide more features in the future.
 </Callout>
 
+
 <Steps>
 <Step>
 
@@ -55,6 +56,57 @@ describe("My Plugin", () => {
 });
 ```
 </Step>
+
+<Step>
+
+## Initialize a postgres instance
+
+<Callout>
+If you've selected the `mysql` database option, you will have to initialize a mysql instance instead.
+</Callout>
+
+Copy the following docker compose file into your test directory.
+
+```yml title="docker-compose.yml"
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: better_auth
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data: 
+```
+
+Then run this command to start the postgres instance.
+
+```bash
+docker compose up
+```
+
+</Step>
+
+<Step>
+
+## Begin testing!
+
+Make sure that your test database instance is running, and then you can begin testing!
+
+```bash
+vitest foobar
+```
+
+</Step>
+
 </Steps>
 
 <div className="h-10" />
