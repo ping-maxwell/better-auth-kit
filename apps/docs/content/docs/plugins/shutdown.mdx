@@ -6,7 +6,213 @@ description: Stop signins or signups at any moment.
 <GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/plugins/shutdown" />
 <NpmButton url="https://www.npmjs.com/package/@better-auth-kit/shutdown" />
 
-<Callout type="warn">
-#### This plugin is not yet available.
-View our [roadmap](/roadmap) to see what is coming soon.
-</Callout>
+<Steps>
+  <Step>
+        ### 1. Install the plugin
+
+        ```package-install
+        @better-auth-kit/shutdown
+        ```
+
+  </Step>
+
+  <Step>
+    ### 2. Initialize the plugin
+
+ <Tabs items={["Single Instance/Serverless", "Multiple Instances"]}>
+
+       <Tab value="single-instance/serverless">
+        ```ts title="auth.ts"
+        import { shutdown } from "@better-auth-kit/shutdown";
+
+        export const auth = betterAuth({
+          plugins: [shutdown({
+            /*
+            * Roles allowed to add shutdown rules
+            * @default: ["admin"]
+            */
+            allowedRoles: ["admin"],
+          })]
+        });
+        ```
+    </Tab>
+       <Tab value="multiple-instances">
+
+        When there are multiple instances of the application, the plugin needs to be initialized with a cache that can be revalidated when rules changes. Below there is an example using **Redis**.
+
+        ```ts title="auth.ts"
+        import { shutdown } from "@better-auth-kit/shutdown";
+        import Redis from "ioredis";
+
+        const redis = new Redis();
+
+        const cache = {
+          requireRevalidation: (cb) => {
+            // subscribe only to the shutdown-rules channel
+            redis.subscribe("shutdown-rules");
+            // trigger the callback when a message is received
+            redis.on("message", (channel, message) => cb());
+          }
+          onRulesChanged: () => {
+            redis.publish("shutdown-rules", "sync")
+          }
+        };
+
+        export const auth = betterAuth({
+          plugins: [shutdown({
+            /*
+            * Roles allowed to add shutdown rules
+            * @default: ["admin"]
+            */
+            allowedRoles: ["admin"],
+          })]
+        });
+        ```
+    </Tab>
+    </Tabs>
+
+  </Step>
+  <Step>
+    ### 3. Rules Management
+
+    These methods can be called only by the users with `allowedRoles`.
+
+    <Tabs items={["List", "Create", "Remove"]} updateAnchor>
+
+       <Tab id="list-rules" value="list">
+        ```ts
+        const data = await auth.api.listShutdownRules({
+          headers,
+        });
+
+        /*
+          [
+          {
+              id: "XGH61HHHL0s3d3cug7IH2wrIqic1fJ7r",
+              roles: ["user"],
+              signUp: true,
+              signIn: true,
+              from: new Date(),
+              to: new Date(),
+            },
+          ]
+        */
+        console.log(data)
+        ```
+      </Tab>
+
+      <Tab id="create-rule" value="create">
+        ```ts
+        const data = await auth.api.createShutdownRule({
+          body: {
+            /*
+            * Disallow sign-up for the given roles
+            * @default: true
+            */
+            signUp: true,
+            /*
+            * Disallow sign-in for the given roles
+            * @default: true
+            */
+            signIn: true,
+            /*
+            * The roles to apply the shutdown rule to
+            * @default: []
+            */
+            roles: ["user"],
+            /*
+            * The date to start the shutdown rule
+            * @default: null
+            */
+            from: new Date(),
+            /*
+            * The date to end the shutdown rule
+            * @default: null
+            */
+            to: new Date()
+          },
+          headers,
+        });
+
+        const isAdded = data?.success;
+        const ruleId = data?.ruleId;
+        ```
+      </Tab>
+
+      <Tab id="remove-rule" value="remove">
+        ```ts
+        const data = await auth.api.removeShutdownRule({
+          body: {
+            /*
+            * The rule id to remove
+            */
+            id: "$ruleId",
+          },
+          headers,
+        });
+
+        const isRemoved = data?.success;
+        ```
+      </Tab>
+
+    </Tabs>
+
+  </Step>
+
+  <Step>
+    ### 4. Check if sign-in / sign-up is allowed
+
+    You can also check if sign-up is allowed. E.g. hide a signup page or show an alert.
+
+    #### Sign In
+    ```ts
+    const { allowed } = await auth.api.isSignInAllowed();
+    ```
+
+    #### Sign Up
+
+    ```ts
+    const { allowed } = await auth.api.isSignUpAllowed();
+    ```
+
+  </Step>
+  
+</Steps>
+
+<div className="h-10" />
+
+## Schema
+
+Table: `shutdown-rules`
+
+<DatabaseTable
+  fields={[
+    {
+      name: "roles",
+      type: "string",
+      description: "Roles to apply the shutdown rule to.",
+    },
+    {
+      name: "signin",
+      type: "boolean",
+      description:
+        "Wether to disable sign in for the given roles or by the time range",
+    },
+    {
+      name: "signUp",
+      type: "boolean",
+      description:
+        "Wether to disable sign-up in for the given roles or by the time range",
+    },
+    {
+      name: "from",
+      type: "date",
+      description: "The date to start the shutdown rule.",
+    },
+    {
+      name: "to",
+      type: "date",
+      description: "The date to end the shutdown rule.",
+    },
+  ]}
+/>

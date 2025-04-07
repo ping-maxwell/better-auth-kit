@@ -72,7 +72,6 @@ export const contents: Content[] = [
 				href: "/docs/plugins/shutdown",
 				title: "Shutdown",
 				icon: () => <OctagonMinus size={16} />,
-				isNotReady: true,
 			},
 			{
 				title: "Libraries",
