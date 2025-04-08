@@ -33,13 +33,13 @@ Initiate a better-auth instance, and then create a test instance.
 import { betterAuth } from "better-auth";
 import { bearer } from "better-auth/plugins/bearer";
 import { getTestInstance } from "@better-auth-kit/tests";
-import { myPlugin, myClientPlugin } from "./my-plugin.ts";
+import { myPlugin, myClientPlugin } from "./my-plugin.ts";// [!code highlight]
 
 // Create a better-auth instance
 const auth = betterAuth({
+	database: new Database(), // Your database adapter // [!code highlight]
+	plugins: [bearer(), myPlugin()], // [!code highlight]
 	secret: "better-auth.secret",
-	database: new Database(), // Your database adapter
-	plugins: [bearer(), myPlugin()],
 	emailAndPassword: {
 		enabled: true,
 	},
@@ -52,14 +52,14 @@ const auth = betterAuth({
 	},
 })
 
-const { auth, db, client, testUser, signInWithTestUser } = await getTestInstance(
-	auth,
-	{
-		clientOptions: {
-			plugins: [myClientPlugin()],
-		},
-	},
-);
+const { auth, db, client, testUser, signInWithTestUser } = await getTestInstance(// [!code highlight]
+	auth,// [!code highlight]
+	{// [!code highlight]
+		clientOptions: {// [!code highlight]
+			plugins: [myClientPlugin()],// [!code highlight]
+		},// [!code highlight]
+	},// [!code highlight]
+);// [!code highlight]
 ```
 </Step>
 <Step>
