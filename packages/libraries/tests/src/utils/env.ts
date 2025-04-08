@@ -6,7 +6,9 @@ export type EnvObject = Record<string, string | undefined>;
 
 const _getEnv = (useShim?: boolean) =>
 	globalThis.process?.env ||
+	//@ts-ignore
 	globalThis.Deno?.env.toObject() ||
+	//@ts-ignore
 	globalThis.__env__ ||
 	(useShim ? _envShim : globalThis);
 

@@ -11,7 +11,7 @@
 		// Bundler mode
 		"moduleResolution": "bundler",
 		"verbatimModuleSyntax": true,
-		"declaration": false,
+		"declaration": true,
 
 		// Best practices
 		"strict": true,

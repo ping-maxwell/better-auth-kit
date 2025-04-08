@@ -27,23 +27,48 @@ This library currently is pulled out from the main Better-Auth package, but is i
 
 ## Usage
 
+Initiate a better-auth instance, and then create a test instance.
+
 ```ts title="my-plugin.test.ts"
+import { betterAuth } from "better-auth";
+import { bearer } from "better-auth/plugins/bearer";
 import { getTestInstance } from "@better-auth-kit/tests";
-import { describe, expect, it, vi } from "vitest";
 import { myPlugin, myClientPlugin } from "./my-plugin.ts";
 
-const { auth, db, client, testUser, signInWithTestUser } = await getTestInstance(
-	{
-		plugins: [myPlugin()],
+// Create a better-auth instance
+const auth = betterAuth({
+	secret: "better-auth.secret",
+	database: new Database(), // Your database adapter
+	plugins: [bearer(), myPlugin()],
+	emailAndPassword: {
+		enabled: true,
 	},
+	rateLimit: {
+		enabled: false,
+	},
+	advanced: {
+		disableCSRFCheck: true,
+		cookies: {},
+	},
+})
+
+const { auth, db, client, testUser, signInWithTestUser } = await getTestInstance(
+	auth,
 	{
 		clientOptions: {
 			plugins: [myClientPlugin()],
 		},
 	},
 );
+```
+</Step>
+<Step>
 
+## Begin testing!
 
+You can now use the test APIs to test your plugin:
+
+```ts title="my-plugin.test.ts"
 // Your test user is already created
 const { headers, user } = await signInWithTestUser();
 
@@ -55,51 +80,8 @@ describe("My Plugin", () => {
 	});
 });
 ```
-</Step>
 
-<Step>
-
-## Initialize a postgres instance
-
-<Callout>
-If you've selected the `mysql` database option, you will have to initialize a mysql instance instead.
-</Callout>
-
-Copy the following docker compose file into your test directory.
-
-```yml title="docker-compose.yml"
-version: '3.8'
-
-services:
-  postgres:
-    image: postgres:latest
-    container_name: postgres_db
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: better_auth
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data: 
-```
-
-Then run this command to start the postgres instance.
-
-```bash
-docker compose up
-```
-
-</Step>
-
-<Step>
-
-## Begin testing!
-
-Make sure that your test database instance is running, and then you can begin testing!
+Then, start Vitest!
 
 ```bash
 vitest foobar
@@ -131,10 +113,7 @@ const {
 	customFetchImpl,
 	sessionSetter,
 }  = await getTestInstance(
-	{
-        // Better-Auth options
-		plugins: [myPlugin()],
-	},
+	auth, // Your better-auth instance
 	{
 		clientOptions: {
             // Client options
@@ -154,7 +133,6 @@ const {
 
 ### Methods
 
-- `auth` - The Better-Auth instance.
 - `client` - The Better-Auth client instance.
 - `testUser` - The premade test user.
 - `signInWithTestUser` - Sign in with the premade test user.
@@ -164,10 +142,6 @@ const {
 - `sessionSetter` - Set the session for the test instance.
 
 ---
-
-#### `auth`
-
-The Better-Auth instance.
 
 #### `client`
 

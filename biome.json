@@ -7,7 +7,8 @@
 				"noConsoleLog": "off",
 				"noArrayIndexKey": "off",
 				"noExplicitAny": "off",
-				"noAsyncPromiseExecutor": "off"
+				"noAsyncPromiseExecutor": "off",
+				"noConfusingVoidType": "off"
 			},
 			"style": {
 				"noShoutyConstants": "warn",
