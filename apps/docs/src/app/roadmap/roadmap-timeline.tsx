@@ -42,16 +42,6 @@ export function RoadmapTimeline() {
 			],
 		},
 		{
-			title: "Instant DB adapter",
-			description: "InstantDB Better-Auth adapter.",
-			inProgress: true,
-			details: [
-				"add: Instant DB adapter",
-				"add: Unit tests",
-				"add: Instant DB adapter docs",
-			],
-		},
-		{
 			title: "Reverify plugin",
 			description:
 				"Prompt the user to reverify their identity by providing a form of authentication for revalidation.",
