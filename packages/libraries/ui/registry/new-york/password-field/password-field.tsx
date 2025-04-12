@@ -18,7 +18,7 @@ export function PasswordField({
 	form: UseFormReturn<any>;
 	isLoading: boolean;
 }) {
-	const [show, setShow] = useState(true);
+	const [show, setShow] = useState(false);
 	return (
 		<div className="relative">
 			<FormField
