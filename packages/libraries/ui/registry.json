@@ -30,6 +30,10 @@
 				{
 					"path": "registry/new-york/root-error/root-error.tsx",
 					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/oauth/oauth.tsx",
+					"type": "registry:component"
 				}
 			]
 		},
@@ -55,6 +59,10 @@
 				},
 				{
 					"path": "registry/new-york/root-error/root-error.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/oauth/oauth.tsx",
 					"type": "registry:component"
 				}
 			]

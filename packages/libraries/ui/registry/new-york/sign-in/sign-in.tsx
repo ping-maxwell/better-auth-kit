@@ -14,6 +14,7 @@ import type { ErrorContext, SuccessContext } from "better-auth/react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
+import { OAuth } from "../oauth/oauth";
 
 const formSchema = z.object({
 	email: z.string().email(),
@@ -84,6 +85,11 @@ export function SignIn(props?: SignInProps) {
 					<RootError form={form} />
 					<SubmitButton isLoading={isLoading} />
 				</form>
+				<OAuth
+					isLoading={isLoading}
+					setIsLoading={setIsLoading}
+					callbackURL={props?.callbackURL}
+				/>
 				<DontHaveAccount />
 			</Form>
 		</div>
