@@ -68,6 +68,48 @@
 			]
 		},
 		{
+			"name": "forgot-password",
+			"type": "registry:component",
+			"title": "Forgot Password",
+			"description": "A forgot password component for Better Auth.",
+			"registryDependencies": ["form", "input", "button"],
+			"files": [
+				{
+					"path": "registry/new-york/forgot-password/forgot-password.tsx",
+					"type": "registry:block"
+				},
+				{
+					"path": "registry/new-york/email-field/email-field.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/root-error/root-error.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "reset-password",
+			"type": "registry:component",
+			"title": "Reset Password",
+			"description": "A reset password component for Better Auth.",
+			"registryDependencies": ["form", "input", "button"],
+			"files": [
+				{
+					"path": "registry/new-york/reset-password/reset-password.tsx",
+					"type": "registry:block"
+				},
+				{
+					"path": "registry/new-york/password-field/password-field.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "registry/new-york/root-error/root-error.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
 			"name": "oauth",
 			"type": "registry:component",
 			"title": "OAuth",

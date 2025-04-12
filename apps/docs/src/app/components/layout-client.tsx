@@ -36,6 +36,11 @@ const contents: Content[] = [
 				href: "/components/forgot-password",
 				icon: () => <LockKeyhole className="size-4" />,
 			},
+			{
+				title: "reset-password",
+				href: "/components/reset-password",
+				icon: () => <LockKeyhole className="size-4" />,
+			},
 		],
 	},
 	{

@@ -19,6 +19,8 @@ import { RedditOAuth } from "@/components/reddit-oauth";
 import { RobloxOAuth } from "@/components/roblox-oauth";
 import { SpotifyOAuth } from "@/components/spotify-oauth";
 import { VkOAuth } from "@/components/vk-oauth";
+import { ForgotPassword } from "@/components/forgot-password";
+import { ResetPassword } from "@/components/reset-password";
 
 const components = {
 	"sign-in": () => <SignIn />,
@@ -108,6 +110,8 @@ const components = {
 			<VkOAuth isLoading={false} onClick={() => {}} />
 		</div>
 	),
+	"forgot-password": () => <ForgotPassword />,
+	"reset-password": () => <ResetPassword />,
 };
 
 export default function Page({
