@@ -1,0 +1,43 @@
+{
+	"name": "@better-auth-kit/socket",
+	"version": "0.0.1",
+	"description": "Socket validation plugin for BetterAuth",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit"
+	},
+	"exports": {
+		".": {
+			"default": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./client": {
+			"default": "./dist/client.js",
+			"types": "./dist/client.d.ts"
+		}
+	},
+	"scripts": {
+		"dev": "bun build-dev.ts",
+		"build": "bun build.ts",
+		"test": "vitest"
+	},
+	"keywords": ["better-auth", "socket", "auth", "kit", "better-auth-kit", "plugin"],
+	"author": "ping-maxwell",
+	"license": "MIT",
+	"devDependencies": {
+		"@better-auth-kit/internal-build": "workspace:*",
+		"@better-auth-kit/tests": "workspace:*",
+		"socket.io": "^4.8.1",
+		"vitest": "^3.0.8"
+	},
+	"peerDependencies": {
+		"better-auth": "^1.1.21"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"dependencies": {
+		"zod": "^3.24.2"
+	}
+}
