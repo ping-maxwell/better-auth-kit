@@ -29,6 +29,7 @@
 		"@better-auth-kit/internal-build": "workspace:*",
 		"@better-auth-kit/tests": "workspace:*",
 		"socket.io": "^4.8.1",
+		"socket.io-client": "^4.8.1",
 		"vitest": "^3.0.8"
 	},
 	"peerDependencies": {
