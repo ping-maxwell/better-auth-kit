@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth";
 import Database from "better-sqlite3";
 import { organization, admin, apiKey } from "better-auth/plugins";
+
 export const auth = betterAuth({
 	database: new Database("test.db"),
 	emailAndPassword: {
@@ -40,6 +41,11 @@ export const auth = betterAuth({
 			teams: {
 				enabled: true,
 			},
+			schema: {
+				organization: {
+					modelName: "changed_org"
+				}
+			}
 		}),
 		admin(),
 		apiKey(),
