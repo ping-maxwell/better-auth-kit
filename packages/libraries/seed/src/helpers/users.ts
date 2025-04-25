@@ -25,14 +25,6 @@ export function users<
 	},
 	options?: {
 		/**
-		 * Custom model names for the user, session and account tables
-		 */
-		modelNames?: {
-			user: UserModel;
-			session: SessionModel;
-			account: AccountModel;
-		};
-		/**
 		 * The number of users to create
 		 *
 		 * @default 100
@@ -53,14 +45,13 @@ export function users<
 	},
 ) {
 	const {
-		modelNames,
 		count = 100,
 		createSessions = true,
 		createAccounts = true,
 	} = options ?? {};
-	const userModel = modelNames?.user ?? "user";
-	const sessionModel = modelNames?.session ?? "session";
-	const accountModel = modelNames?.account ?? "account";
+	const userModel = "user";
+	const sessionModel = "session";
+	const accountModel = "account";
 
 	const createdUsers: {
 		id: string;
@@ -70,6 +61,7 @@ export function users<
 
 	const user_names: string[] = [];
 
+	//@ts-ignore
 	return {
 		[userModel]: table<TableTypes["user"]>(
 			//@ts-expect-error

@@ -138,22 +138,7 @@ export const seed = Seed({
 ```
 </Accordion>
 <Accordion title="Custom Model Names">
-
-You can change the model names by passing the `modelName` option.
-
-```ts
-import { users, Seed } from "@better-auth-kit/seed";
-
-export const seed = Seed({
-    ...users({}, { 
-        modelName: { // [!code highlight]
-            user: "users", // [!code highlight]
-            session: "sessions", // [!code highlight]
-            account: "accounts", // [!code highlight]
-        } // [!code highlight]
-    }),
-});
-```
+You can change the model names directly in your auth config, and we will automatically pick up on that.
 </Accordion>
 <Accordion title="Disable Sessions">
 
