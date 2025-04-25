@@ -6,7 +6,7 @@ export function getCommonAuthLocations(fileNames: string[]) {
 		...possiblePaths.map((it) => `server/${it}`),
 		...possiblePaths.map((it) => `lib/${it}`),
 		...possiblePaths.map((it) => `lib/auth/${it}`),
-		...possiblePaths.map((it) => `/auth/${it}`),
+		...possiblePaths.map((it) => `auth/${it}`),
 		...possiblePaths.map((it) => `utils/${it}`),
 	];
 	possiblePaths = [

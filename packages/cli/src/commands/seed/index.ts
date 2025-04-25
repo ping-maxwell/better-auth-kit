@@ -13,7 +13,7 @@ import prompt from "prompts";
 
 const optionSchema = z.object({
 	cwd: z.string(),
-	configPath: z.string().optional(),
+	config: z.string().optional(),
 	runAll: z.boolean().optional(),
 });
 
@@ -23,10 +23,9 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 	const spinner = yoctoSpinner({
 		text: "Loading config...",
 	}).start();
-
 	const auth = await getConfig({
 		cwd: opts.cwd,
-		configPath: opts.configPath,
+		configPath: opts.config,
 		shouldThrowOnError: true,
 		shouldReturnFullAuthInstance: true,
 	});
@@ -36,8 +35,8 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 			"No config found. Please run this command in the root of your project. Otherwise, provide a --cwd flag to specificy the current working directory, or --config flag to specify the path to the config file.",
 		);
 		console.log(
-			{ cwd: opts.cwd, configPath: opts.configPath },
-			path.join(opts.cwd, opts.configPath ?? "auth.ts"),
+			{ cwd: opts.cwd, configPath: opts.config },
+			path.join(opts.cwd, opts.config ?? "auth.ts"),
 		);
 		return;
 	}
@@ -50,14 +49,18 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 	let hasSeedFile: string | false = false;
 	let hasSeedFolder: string | false = false;
 
+	const basePath = opts.config ? path.dirname(path.join(opts.cwd, opts.config)) : opts.cwd;
 	for (const seedFolderPath of seedFolderPaths) {
-		if (existsSync(seedFolderPath) && lstatSync(seedFolderPath).isDirectory()) {
-			hasSeedFolder = seedFolderPath;
+		if (
+			existsSync(path.join(basePath, seedFolderPath)) &&
+			lstatSync(path.join(basePath, seedFolderPath)).isDirectory()
+		) {
+			hasSeedFolder = path.join(basePath, seedFolderPath);
 		}
 	}
 	for (const seedFilePath of seedFilePaths) {
-		if (existsSync(seedFilePath)) {
-			hasSeedFile = path.join(opts.cwd, seedFilePath);
+		if (existsSync(path.join(basePath, seedFilePath))) {
+			hasSeedFile = path.join(basePath, seedFilePath);
 		}
 	}
 
@@ -87,7 +90,7 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 		for (const seedFile of res.seedFiles) {
 			console.log(`Executing seed file: ${chalk.cyanBright(seedFile)}`);
 			await executeSeedFile(
-				path.join(opts.cwd, hasSeedFolder, seedFile),
+				path.join(hasSeedFolder, seedFile),
 				opts,
 				context,
 			);
@@ -111,6 +114,7 @@ async function executeSeedFile(
 	opts: z.infer<typeof optionSchema>,
 	context: AuthContext,
 ) {
+	console.log(seedFilePath)
 	const { config } = await loadConfig<{
 		seed?: {
 			execute: (ops: {
