@@ -64,7 +64,7 @@ export const feedback = (options?: FeedbackOptions) => {
 					body: convertAdditionalFieldsToZodSchema({
 						...opts.additionalFields,
 						text: { type: "string", required: true },
-						userId: { type: "string", required: !opts.requireAuth },
+						userId: { type: "string", required: opts.requireAuth },
 					}) as never as z.ZodType<Omit<FeedbackEntry, "id" | "createdAt">>,
 				},
 				async (ctx) => {
