@@ -11,6 +11,7 @@
 	"scripts": {
 		"build": "bun build.ts",
 		"build:dev": "bun build-dev.ts",
+		"test": "vitest",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
