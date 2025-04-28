@@ -33,7 +33,8 @@ export const feedback = (options?: FeedbackOptions) => {
 	} satisfies FeedbackOptions;
 
 	// Start with a fresh copy of the schema
-	const baseSchema = JSON.parse(JSON.stringify(schema));
+	// preserve Date objects & other non-JSON types
+	const baseSchema = structuredClone(schema);
 
 	// If authentication is not required, mark the userId field as not required
 	if (!opts.requireAuth && baseSchema.feedback.fields.userId) {
