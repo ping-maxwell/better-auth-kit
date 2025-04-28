@@ -136,7 +136,19 @@ export const feedback = (options?: FeedbackOptions) => {
 							}
 						}
 					} else if (userId) {
-						finalUserId = userId;
+						// Validate the userId
+						user = await ctx.context.adapter.findOne<User>({
+							model: "user",
+							where: [{ field: "id", value: userId, operator: "eq" }],
+						});
+
+						if (!user) {
+							throw ctx.error("BAD_REQUEST", {
+								message: ERROR_CODES.USER_NOT_FOUND,
+							});
+						}
+
+						finalUserId = user.id;
 					}
 
 					const res = await ctx.context.adapter.create<FeedbackEntryModified>({
