@@ -32,7 +32,7 @@ The Feedback plugin allows users to submit feedback about your application. By d
           maxLength: 500,          // Maximum feedback text length
           feedbackLimit: 5,        // Optional: limit user to 5 feedbacks
           requireAuth: true,       // Optional: require authentication (default)
-          canSubmitFeedback: (user) => user.role === 'customer', // Optional: control who can submit
+          canSubmitFeedback: (user) => user.role === 'owner', // Optional: control who can submit
           // Optional: customize schema and add additional fields
         }),
       ],
@@ -106,7 +106,7 @@ feedback({
   requireAuth: true, // Whether authentication is required (default: true)
   canSubmitFeedback: (user) => {
     // Function to control who can submit feedback
-    return user.role === "customer";
+    return user.role === "owner";
   },
 
   // Customize schema field names
