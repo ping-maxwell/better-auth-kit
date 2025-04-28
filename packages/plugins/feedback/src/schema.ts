@@ -17,7 +17,7 @@ export const schema = {
 				type: "date",
 				required: true,
 				input: false,
-				defaultValue: new Date(),
+				defaultValue: () => new Date(),
 			},
 		},
 	},
