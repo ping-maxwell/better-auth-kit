@@ -32,13 +32,23 @@ export const feedback = (options?: FeedbackOptions) => {
 		additionalFields: options?.additionalFields ?? {},
 	} satisfies FeedbackOptions;
 
-	// Start with a fresh copy of the schema
-	// preserve Date objects & other non-JSON types
-	const baseSchema = structuredClone(schema);
+	// Start with a deep copy of the schema
+	// Use manual deep copy to handle functions that structuredClone can't handle
+	const baseSchema = {
+		feedback: {
+			...schema.feedback,
+			fields: {
+				...schema.feedback.fields,
+			},
+		},
+	};
 
 	// If authentication is not required, mark the userId field as not required
 	if (!opts.requireAuth && baseSchema.feedback.fields.userId) {
-		baseSchema.feedback.fields.userId.required = false;
+		baseSchema.feedback.fields.userId = {
+			...baseSchema.feedback.fields.userId,
+			required: false,
+		};
 	}
 
 	// Now merge with user-provided schema
@@ -51,7 +61,7 @@ export const feedback = (options?: FeedbackOptions) => {
 	type FeedbackEntryModified = FeedbackEntry &
 		InferFieldsInput<typeof opts.additionalFields>;
 
-	const model = Object.keys(merged_schema)[0] as string;
+	const model = Object.keys(merged_schema)[0];
 
 	return {
 		id: "feedback",
