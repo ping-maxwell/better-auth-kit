@@ -22,6 +22,7 @@ The Feedback plugin allows users to submit feedback about your application. By d
     ### 2. Initialize the plugin
 
     ```ts title="auth.ts"
+    import { betterAuth } from "better-auth";
     import { feedback } from "@better-auth-kit/feedback";
 
     export const auth = betterAuth({
@@ -39,6 +40,7 @@ The Feedback plugin allows users to submit feedback about your application. By d
     ```
 
     ```ts title="auth-client.ts"
+    import { createAuthClient } from "better-auth";
     import { feedbackClient } from "@better-auth-kit/feedback/client";
 
     export const authClient = createAuthClient({
