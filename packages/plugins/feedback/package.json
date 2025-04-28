@@ -1,0 +1,35 @@
+{
+	"name": "@better-auth-kit/feedback",
+	"version": "0.0.1",
+	"description": "Feedback plugin for Better Auth Kit",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"keywords": ["better-auth", "auth", "plugin", "feedback"],
+	"license": "MIT",
+	"author": "better-auth-kit",
+	"files": ["./dist/**/*"],
+	"scripts": {
+		"build": "bun build.ts",
+		"build:dev": "bun build-dev.ts",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"better-auth": "workspace:*",
+		"zod": "^3.22.2"
+	},
+	"devDependencies": {
+		"esbuild": "^0.19.4",
+		"tsx": "^3.14.0",
+		"typescript": "^5.2.2"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./client": {
+			"types": "./dist/client.d.ts",
+			"default": "./dist/client.js"
+		}
+	}
+}
