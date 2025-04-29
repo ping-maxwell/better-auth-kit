@@ -15,13 +15,15 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"better-auth": "workspace:*",
-		"zod": "^3.22.2"
+		"zod": "^3.24.2"
+	},
+	"peerDependencies": {
+		"better-auth": "^1.1.21"
 	},
 	"devDependencies": {
-		"esbuild": "^0.19.4",
-		"tsx": "^3.14.0",
-		"typescript": "^5.2.2"
+		"@better-auth-kit/internal-build": "workspace:*",
+		"vitest": "^3.0.8",
+		"@better-auth-kit/tests": "workspace:*"
 	},
 	"exports": {
 		".": {
