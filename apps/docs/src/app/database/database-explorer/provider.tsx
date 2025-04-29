@@ -2,15 +2,27 @@
 import type { BetterAuthDbSchema } from "better-auth/db";
 import type { AuthClient, DatabaseStore } from "./types";
 import { createAuthClient } from "better-auth/react";
-import { createContext, type RefObject, useContext, useRef } from "react";
+import {
+	createContext,
+	type RefObject,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { Store, useStore } from "@tanstack/react-store";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { dbExplorerClientPlugin } from "@/lib/database-explorer-plugin";
 import { DBSidebar } from "./sidebar";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+	QueryClient,
+	QueryClientProvider,
+	useQuery,
+} from "@tanstack/react-query";
 import { DBExplorer } from "./database";
 import { cn } from "@/lib/utils";
 import { SchemaExplorer } from "./schema";
+import { APIError } from "better-auth";
 
 export const DatabaseExplorerContext = createContext<{
 	authClient: RefObject<AuthClient>;
@@ -18,12 +30,37 @@ export const DatabaseExplorerContext = createContext<{
 	//@ts-ignore
 }>(null);
 
+export const useSchema = ({ authClient }: { authClient: AuthClient }) => {
+	const [schema, setSchema] = useState<BetterAuthDbSchema | null>({});
+	const [isPending, setIsPending] = useState(true);
+	const [error, setError] = useState<{
+		code?: string | undefined;
+		message?: string | undefined;
+		status: number;
+		statusText: string;
+	} | null>(null);
+
+	const ran = useRef(false);
+	useEffect(() => {
+		if (ran.current) return;
+		ran.current = true;
+		(async () => {
+			const { data: schema, error } = await authClient.adapter.getSchema();
+			setSchema(schema);
+			setIsPending(false);
+			if (error) {
+				setError(error);
+			}
+		})();
+	}, [authClient.adapter.getSchema]);
+
+	return { schema, isPending, error };
+};
+
 export const DatabaseExplorerProvider = ({
 	baseURL,
-	schema,
 }: {
 	baseURL: string;
-	schema: BetterAuthDbSchema;
 }) => {
 	const authClient = useRef(
 		createAuthClient({
@@ -31,18 +68,57 @@ export const DatabaseExplorerProvider = ({
 			plugins: [dbExplorerClientPlugin],
 		}),
 	);
+	const { schema, isPending, error } = useSchema({
+		authClient: authClient.current,
+	});
+	console.log({ schema, isPending, error });
+
 	const databaseStore = useRef(
 		new Store<DatabaseStore>({
 			database: {
-				primary: schema,
+				primary: schema || {},
 				secondary: {},
 			},
 			selectedTab: "database",
 			selectedDatabase: "primary",
-			selectedModel: Object.keys(schema)[0],
+			selectedModel: Object.keys(schema || {})?.[0] || "",
 		}),
 	);
-	console.log("DatabaseExplorerProvider");
+
+	const isApplied = useRef(false);
+	if (schema && !isPending && !error && !isApplied.current) {
+		isApplied.current = true;
+		databaseStore.current.setState((x) => ({
+			...x,
+			database: { primary: schema },
+			selectedModel: Object.keys(schema)[0],
+		}));
+	}
+
+	if (isPending) {
+		return (
+			<div className="flex h-full w-full items-center justify-center flex-col gap-4">
+				<h1 className="text-2xl font-bold">Loading schema</h1>
+				<p className="text-muted-foreground">
+					Please wait while we fetch the schema...
+				</p>
+			</div>
+		);
+	}
+
+	if (!schema || error) {
+		return (
+			<div className="flex h-full w-full items-center justify-center flex-col gap-4">
+				<h1 className="text-2xl font-bold">Error fetching schema</h1>
+				<p className="text-muted-foreground">
+					Something went wrong while fetching the schema. Please try again
+					later.
+					<br />
+					{error?.message}
+				</p>
+			</div>
+		);
+	}
 
 	return (
 		<DatabaseExplorerContext.Provider
