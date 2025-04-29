@@ -16,6 +16,7 @@ import {
 	Grid2X2Plus,
 	Gift,
 	Gauge,
+	MessageCircle,
 } from "lucide-react";
 import type { Content } from "./sidebar";
 
@@ -67,6 +68,11 @@ export const contents: Content[] = [
 				title: "Blockade",
 				icon: () => <ShieldBan size={16} />,
 				isNotReady: true,
+			},
+			{
+				href: "/docs/plugins/feedback",
+				title: "Feedback",
+				icon: () => <MessageCircle size={16} />,
 			},
 			{
 				href: "/docs/plugins/shutdown",
