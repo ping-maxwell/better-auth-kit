@@ -49,12 +49,12 @@ export function ResetPassword(props?: ResetPasswordProps) {
 				{
 					onSuccess(context) {
 						setIsLoading(false);
-						toast.success(`Check your email for a reset link!`);
+						toast.success(`Password successfully reset!`);
 						return props?.onSuccess?.(context);
 					},
 					onError(context) {
 						setIsLoading(false);
-						toast.error(`There was an issue sending a reset password link.`, {
+						toast.error(`There was an issue resetting your password.`, {
 							description: <>{context.error.message}</>,
 						});
 						form.setError("root", { message: context.error.message });
