@@ -1,0 +1,162 @@
+---
+title: Feedback
+description: Allow users to submit feedback about your application
+---
+
+<GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/plugins/feedback" />
+<NpmButton url="https://www.npmjs.com/package/@better-auth-kit/feedback" />
+
+The Feedback plugin allows users to submit feedback about your application. By default, only authenticated users can submit feedback, but this can be configured.
+
+<Steps>
+  <Step>
+        ### 1. Install the plugin
+
+        ```package-install
+        @better-auth-kit/feedback
+        ```
+
+  </Step>
+
+  <Step>
+    ### 2. Initialize the plugin
+
+    ```ts title="auth.ts"
+    import { betterAuth } from "better-auth";
+    import { feedback } from "@better-auth-kit/feedback";
+
+    export const auth = betterAuth({
+      plugins: [
+        feedback({
+          minLength: 10,           // Minimum feedback text length
+          maxLength: 500,          // Maximum feedback text length
+          feedbackLimit: 5,        // Optional: limit user to 5 feedbacks
+          requireAuth: true,       // Optional: require authentication (default)
+          canSubmitFeedback: (user) => user.role === 'owner', // Optional: control who can submit
+          // Optional: customize schema and add additional fields
+        }),
+      ],
+    });
+    ```
+
+    ```ts title="auth-client.ts"
+    import { createAuthClient } from "better-auth";
+    import { feedbackClient } from "@better-auth-kit/feedback/client";
+
+    export const authClient = createAuthClient({
+      plugins: [feedbackClient()],
+    });
+    ```
+
+  </Step>
+  <Step>
+    ### 3. Use the plugin
+
+    <Tabs items={["client", "server"]}>
+      <Tab value="client">
+        ```ts
+        // Submit feedback (requires logged-in user by default)
+        await authClient.feedback.submitFeedback({
+          userId: user.id,
+          text: "This is my feedback about the application"
+        });
+        ```
+      </Tab>
+      <Tab value="server">
+        ```ts
+        // Submit feedback
+        await auth.api.submitFeedback({
+          body: {
+            userId: user.id,
+            text: "This is my feedback about the application"
+          }
+        });
+        ```
+      </Tab>
+    </Tabs>
+
+  </Step>
+</Steps>
+
+<div className="h-10" />
+
+<Comprehensive>
+## What does it do?
+
+The Feedback plugin provides a way for users to submit feedback about your application. It stores:
+
+- The feedback text (with configurable min/max length)
+- The ID of the user who submitted the feedback (optional if requireAuth is false)
+- The timestamp when the feedback was submitted
+
+This allows you to collect user feedback directly within your application, without requiring external tools or services.
+
+## Configuration Options
+
+You can customize the Feedback plugin with the following options:
+
+```ts
+feedback({
+  // Text length constraints
+  minLength: 10, // Minimum text length (default: 10)
+  maxLength: 500, // Maximum text length (default: 500)
+
+  // User submission control
+  feedbackLimit: 5, // Limit number of feedbacks per user (optional)
+  requireAuth: true, // Whether authentication is required (default: true)
+  canSubmitFeedback: (user) => {
+    // Function to control who can submit feedback
+    return user.role === "owner";
+  },
+
+  // Customize schema field names
+  schema: {
+    feedback: {
+      modelName: "feedbackEntries", // Rename the model
+      fields: {
+        userId: "authorId", // Rename fields
+        text: "message",
+        createdAt: "submittedAt",
+      },
+    },
+  },
+
+  // Add additional fields to the schema
+  additionalFields: {
+    category: { type: "string", required: true },
+    rating: { type: "number", required: true },
+  },
+});
+```
+
+</Comprehensive>
+
+## Schema
+
+Table: `feedback`
+
+<DatabaseTable
+  fields={[
+    {
+      name: "id",
+      type: "string",
+      description: "Unique identifier for the feedback entry",
+    },
+    {
+      name: "userId",
+      type: "string",
+      description:
+        "ID of the user who submitted the feedback (optional if requireAuth is false)",
+    },
+    {
+      name: "text",
+      type: "string",
+      description: "The feedback content (controlled by minLength/maxLength)",
+    },
+    {
+      name: "createdAt",
+      type: "date",
+      description: "Timestamp when the feedback was submitted",
+    },
+  ]}
+/>
