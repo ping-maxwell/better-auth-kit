@@ -44,6 +44,7 @@ export function ResetPassword(props?: ResetPasswordProps) {
 			authClient.resetPassword(
 				{
 					newPassword: values.password,
+					token: new URLSearchParams(window.location.search).get("token") ?? "",
 				},
 				{
 					onSuccess(context) {
