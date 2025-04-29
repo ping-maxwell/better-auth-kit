@@ -1,5 +1,5 @@
 import { generateId, type BetterAuthPlugin, type User } from "better-auth";
-import { createAuthEndpoint } from "better-auth/api";
+import { createAuthEndpoint, sessionMiddleware } from "better-auth/api";
 import {
 	mergeSchema,
 	type FieldAttribute,
@@ -75,13 +75,14 @@ export const feedback = (options?: FeedbackOptions) => {
 					body: convertAdditionalFieldsToZodSchema({
 						...opts.additionalFields,
 						text: { type: "string", required: true },
-						userId: { type: "string", required: opts.requireAuth },
-					}) as never as z.ZodType<Omit<FeedbackEntry, "id" | "createdAt">>,
+					}) as never as z.ZodType<
+						Omit<FeedbackEntry, "id" | "createdAt" | "userId">
+					>,
+					use: [sessionMiddleware],
 				},
 				async (ctx) => {
-					const { text, userId, ...everythingElse } = ctx.body as {
+					const { text, ...everythingElse } = ctx.body as {
 						text: string;
-						userId?: string;
 					} & Record<string, any>;
 
 					// Validate feedback text length
@@ -100,24 +101,13 @@ export const feedback = (options?: FeedbackOptions) => {
 
 					// Handle authentication requirement
 					if (opts.requireAuth) {
-						if (!userId) {
+						if (!ctx.context.session?.user) {
 							throw ctx.error("BAD_REQUEST", {
 								message: ERROR_CODES.USER_NOT_LOGGED_IN,
 							});
 						}
 
-						// Validate the userId
-						user = await ctx.context.adapter.findOne<User>({
-							model: "user",
-							where: [{ field: "id", value: userId, operator: "eq" }],
-						});
-
-						if (!user) {
-							throw ctx.error("BAD_REQUEST", {
-								message: ERROR_CODES.USER_NOT_FOUND,
-							});
-						}
-
+						user = ctx.context.session.user;
 						finalUserId = user.id;
 
 						// Check if user is allowed to submit feedback
@@ -136,7 +126,9 @@ export const feedback = (options?: FeedbackOptions) => {
 						if (opts.feedbackLimit) {
 							const feedbackCount = await ctx.context.adapter.count({
 								model,
-								where: [{ field: "userId", value: userId, operator: "eq" }],
+								where: [
+									{ field: "userId", value: finalUserId, operator: "eq" },
+								],
 							});
 
 							if (feedbackCount >= opts.feedbackLimit) {
@@ -145,19 +137,8 @@ export const feedback = (options?: FeedbackOptions) => {
 								});
 							}
 						}
-					} else if (userId) {
-						// Validate the userId
-						user = await ctx.context.adapter.findOne<User>({
-							model: "user",
-							where: [{ field: "id", value: userId, operator: "eq" }],
-						});
-
-						if (!user) {
-							throw ctx.error("BAD_REQUEST", {
-								message: ERROR_CODES.USER_NOT_FOUND,
-							});
-						}
-
+					} else if (ctx.context.session?.user) {
+						user = ctx.context.session.user;
 						finalUserId = user.id;
 					}
 

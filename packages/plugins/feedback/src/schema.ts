@@ -6,7 +6,7 @@ export const schema = {
 			userId: {
 				type: "string",
 				required: true as boolean,
-				input: true,
+				input: false,
 			},
 			text: {
 				type: "string",
