@@ -43,9 +43,9 @@ export const auth = betterAuth({
 			},
 			schema: {
 				organization: {
-					modelName: "changed_org"
-				}
-			}
+					modelName: "changed_org",
+				},
+			},
 		}),
 		admin(),
 		apiKey(),

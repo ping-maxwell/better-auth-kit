@@ -49,7 +49,9 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 	let hasSeedFile: string | false = false;
 	let hasSeedFolder: string | false = false;
 
-	const basePath = opts.config ? path.dirname(path.join(opts.cwd, opts.config)) : opts.cwd;
+	const basePath = opts.config
+		? path.dirname(path.join(opts.cwd, opts.config))
+		: opts.cwd;
 	for (const seedFolderPath of seedFolderPaths) {
 		if (
 			existsSync(path.join(basePath, seedFolderPath)) &&
@@ -89,11 +91,7 @@ const seedAction = async (options: z.infer<typeof optionSchema>) => {
 		}
 		for (const seedFile of res.seedFiles) {
 			console.log(`Executing seed file: ${chalk.cyanBright(seedFile)}`);
-			await executeSeedFile(
-				path.join(hasSeedFolder, seedFile),
-				opts,
-				context,
-			);
+			await executeSeedFile(path.join(hasSeedFolder, seedFile), opts, context);
 			console.log();
 		}
 	} else if (hasSeedFile) {
@@ -114,7 +112,7 @@ async function executeSeedFile(
 	opts: z.infer<typeof optionSchema>,
 	context: AuthContext,
 ) {
-	console.log(seedFilePath)
+	console.log(seedFilePath);
 	const { config } = await loadConfig<{
 		seed?: {
 			execute: (ops: {
