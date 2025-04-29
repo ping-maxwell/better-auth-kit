@@ -57,7 +57,6 @@ The Feedback plugin allows users to submit feedback about your application. By d
         ```ts
         // Submit feedback (requires logged-in user by default)
         await authClient.feedback.submitFeedback({
-          userId: user.id,
           text: "This is my feedback about the application"
         });
         ```
@@ -67,7 +66,6 @@ The Feedback plugin allows users to submit feedback about your application. By d
         // Submit feedback
         await auth.api.submitFeedback({
           body: {
-            userId: user.id,
             text: "This is my feedback about the application"
           }
         });
