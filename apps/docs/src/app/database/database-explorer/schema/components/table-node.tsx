@@ -3,7 +3,7 @@ import { Fingerprint, Hash, Key, Table2 } from "lucide-react";
 import { Handle, useReactFlow, type NodeProps } from "@xyflow/react";
 import { useStore } from "@tanstack/react-store";
 import { useDatabaseStore } from "../../provider";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 // ReactFlow is scaling everything by the factor of 2
 const TABLE_NODE_WIDTH = 420; // before: 320
@@ -41,9 +41,14 @@ const TableNode = ({
 	const dbStore = useDatabaseStore();
 	const reactFlowInstance = useReactFlow();
 	const selectedModel = useStore(dbStore, (st) => st.selectedModel);
+	const mountedAt = useRef(Date.now());
 
 	useEffect(() => {
-		if (selectedModel === data.name) {
+		if (
+			selectedModel === data.name &&
+			// Prevent it from fitting the view when the node is first mounted
+			Date.now() - mountedAt.current > 1000
+		) {
 			reactFlowInstance.fitView({
 				nodes: [{ id: data.name, data: data_ }],
 			});
@@ -53,7 +58,10 @@ const TableNode = ({
 	return (
 		<>
 			{data.isForeign ? (
-				<header className="text-[0.55rem] px-2 py-1 border-[0.5px] bg-card text-default flex gap-1 items-center">
+				<header
+					className="text-[0.55rem] px-2 py-1 border-[0.5px] bg-card text-default flex gap-1 items-center"
+					id={`${data.name}-foreign-key`}
+				>
 					{data.name}
 					{targetPosition && (
 						<Handle
@@ -71,6 +79,7 @@ const TableNode = ({
 						selectedModel === data.name && "border-primary/40",
 					)}
 					style={{ width: TABLE_NODE_WIDTH / 2 }}
+					id={`${data.name}-table-node`}
 				>
 					<header
 						className={cn(

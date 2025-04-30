@@ -23,6 +23,7 @@ import { DBExplorer } from "./database";
 import { cn } from "@/lib/utils";
 import { SchemaExplorer } from "./schema";
 import { APIError } from "better-auth";
+import { useQueryState } from "nuqs";
 
 export const DatabaseExplorerContext = createContext<{
 	authClient: RefObject<AuthClient>;
@@ -79,7 +80,6 @@ export const DatabaseExplorerProvider = ({
 				primary: schema || {},
 				secondary: {},
 			},
-			selectedTab: "database",
 			selectedDatabase: "primary",
 			selectedModel: Object.keys(schema || {})?.[0] || "",
 		}),
@@ -152,7 +152,9 @@ export const queryClient = new QueryClient();
 
 function DBExplorerUI() {
 	const dbStore = useDatabaseStore();
-	const selectedTab = useStore(dbStore, (st) => st.selectedTab);
+	const [selectedTab, setSelectedTab] = useQueryState("tab", {
+		defaultValue: "database",
+	});
 
 	return (
 		<QueryClientProvider client={queryClient}>

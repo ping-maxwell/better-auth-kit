@@ -58,6 +58,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useQueryState } from "nuqs";
 
 function SidebarButton({
 	icon,
@@ -110,7 +111,9 @@ export const DBSidebar = () => {
 	const dbStore = useDatabaseStore();
 	const selectedModel = useStore(dbStore, (st) => st.selectedModel);
 	const { setTheme } = useTheme();
-	const selectedTab = useStore(dbStore, (st) => st.selectedTab);
+	const [selectedTab, setSelectedTab] = useQueryState("tab", {
+		defaultValue: "database",
+	});
 
 	return (
 		<Sidebar className="pl-[64px]">
@@ -119,25 +122,19 @@ export const DBSidebar = () => {
 					<SidebarButton
 						icon={<Database />}
 						tooltip="Database"
-						onClick={() =>
-							dbStore.setState((st) => ({ ...st, selectedTab: "database" }))
-						}
+						onClick={() => setSelectedTab("database")}
 						isActive={selectedTab === "database"}
 					/>
 					<SidebarButton
 						icon={<Layers2 />}
 						tooltip="Schema"
-						onClick={() =>
-							dbStore.setState((st) => ({ ...st, selectedTab: "schema" }))
-						}
+						onClick={() => setSelectedTab("schema")}
 						isActive={selectedTab === "schema"}
 					/>
 					<SidebarButton
 						icon={<Scroll />}
 						tooltip="Transactions"
-						onClick={() =>
-							dbStore.setState((st) => ({ ...st, selectedTab: "transactions" }))
-						}
+						onClick={() => setSelectedTab("transactions")}
 						isActive={selectedTab === "transactions"}
 					/>
 				</div>

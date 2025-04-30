@@ -25,7 +25,7 @@ import { type TableNodeData, TableNode } from "./components/table-node";
 import { ZoomSlider } from "@/components/zoom-slider";
 
 export const TABLE_NODE_WIDTH = 640;
-export const TABLE_NODE_ROW_HEIGHT = 200;
+export const TABLE_NODE_ROW_HEIGHT = 100;
 
 interface SchemaFlowProps {
 	nodes: Node[];
@@ -46,10 +46,12 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
 
 	edges.forEach((edge) => g.setEdge(edge.source, edge.target));
 	nodes.forEach((node) => {
+		const rowHeight = 28;
+		const theoreticalHeight = rowHeight * ((node.data.columns as any[]).length + 1);
 		g.setNode(node.id, {
 			...node,
 			width: TABLE_NODE_WIDTH,
-			height: TABLE_NODE_ROW_HEIGHT,
+			height: theoreticalHeight ,
 		});
 	});
 

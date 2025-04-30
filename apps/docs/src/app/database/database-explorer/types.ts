@@ -27,7 +27,6 @@ export interface DatabaseStore {
 	database: Record<string, BetterAuthDbSchema>;
 	selectedDatabase: string;
 	selectedModel: string;
-	selectedTab: "database" | "schema" | "transactions";
 }
 
 const x = createAuthClient({
