@@ -141,7 +141,14 @@ const TableNode = ({
 									!column.isPrimary && <div className=" size-4" />}
 							</div>
 							<div className="flex w-full justify-between">
-								<div className="whitespace-nowrap flex justify-center">
+								<div className="whitespace-nowrap flex justify-center relative">
+									{column.isNullable ? (
+										""
+									) : (
+										<span className="text-muted-foreground absolute left-[-6px] top-[1px]">
+											*
+										</span>
+									)}{" "}
 									<div className="max-w-[100px] w-fit text-ellipsis overflow-hidden">
 										{column.name}
 									</div>
