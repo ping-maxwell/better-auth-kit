@@ -4,6 +4,9 @@ import { Handle, useReactFlow, type NodeProps } from "@xyflow/react";
 import { useStore } from "@tanstack/react-store";
 import { useDatabaseStore } from "../../provider";
 import { useEffect, useRef } from "react";
+import { TooltipContent } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 // ReactFlow is scaling everything by the factor of 2
 const TABLE_NODE_WIDTH = 420; // before: 320
@@ -111,23 +114,43 @@ const TableNode = ({
 								)}
 							>
 								{column.isPrimary && (
-									<Key
-										size={8}
-										strokeWidth={1}
-										className={cn(
-											// 'sb-grid-column-header__inner__primary-key'
-											"flex-shrink-0",
-											"text-light mr-2",
-										)}
-									/>
+									<TooltipProvider delayDuration={10}>
+										<Tooltip>
+											<TooltipTrigger asChild>
+												<Key
+													size={8}
+													strokeWidth={1}
+													className={cn("flex-shrink-0", "text-light mr-2")}
+												/>
+											</TooltipTrigger>
+											<TooltipContent
+												className="scale-70 pointer-events-none"
+												sideOffset={0}
+											>
+												<p>primary key</p>
+											</TooltipContent>
+										</Tooltip>
+									</TooltipProvider>
 								)}
 
 								{column.isUnique && (
-									<Fingerprint
-										size={8}
-										strokeWidth={1}
-										className="flex-shrink-0 text-light mr-2"
-									/>
+									<TooltipProvider delayDuration={10}>
+										<Tooltip>
+											<TooltipTrigger asChild>
+												<Fingerprint
+													size={8}
+													strokeWidth={1}
+													className="flex-shrink-0 text-light mr-2"
+												/>
+											</TooltipTrigger>
+											<TooltipContent
+												className="scale-70 pointer-events-none"
+												sideOffset={0}
+											>
+												<p>unique</p>
+											</TooltipContent>
+										</Tooltip>
+									</TooltipProvider>
 								)}
 								{column.isIdentity && (
 									<Hash
@@ -145,9 +168,21 @@ const TableNode = ({
 									{column.isNullable ? (
 										""
 									) : (
-										<span className="text-muted-foreground absolute left-[-6px] top-[1px]">
-											*
-										</span>
+										<TooltipProvider delayDuration={10}>
+											<Tooltip>
+												<TooltipTrigger asChild>
+													<span className="text-muted-foreground absolute left-[-6px] top-[1px]">
+														*
+													</span>
+												</TooltipTrigger>
+												<TooltipContent
+													className="scale-70 pointer-events-none"
+													sideOffset={-5}
+												>
+													<p>required</p>
+												</TooltipContent>
+											</Tooltip>
+										</TooltipProvider>
 									)}{" "}
 									<div className="max-w-[100px] w-fit text-ellipsis overflow-hidden">
 										{column.name}
