@@ -115,6 +115,9 @@ export const DatabaseExplorerProvider = ({
 					later.
 					<br />
 					{error?.message}
+					<br />
+					Have you tried disabling your ad blocker, or any other browser
+					extensions that might be blocking the request?
 				</p>
 			</div>
 		);

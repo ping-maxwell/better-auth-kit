@@ -41,11 +41,6 @@ export const auth = betterAuth({
 			teams: {
 				enabled: true,
 			},
-			schema: {
-				organization: {
-					modelName: "changed_org",
-				},
-			},
 		}),
 		admin(),
 		apiKey(),

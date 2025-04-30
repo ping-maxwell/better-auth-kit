@@ -64,7 +64,7 @@ async function dbAction(options: z.infer<typeof optionSchema>) {
 				if (allowedOrigins.indexOf(requestOrigin || "") !== -1) {
 					callback(null, true);
 				} else {
-					callback(new Error("Not allowed by CORS"));
+					callback(new Error(`Not allowed by CORS domain: "${requestOrigin}"`));
 				}
 			},
 			methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
