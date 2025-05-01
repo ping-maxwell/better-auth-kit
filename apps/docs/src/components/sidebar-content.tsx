@@ -47,16 +47,16 @@ export const contents: Content[] = [
 				group: true,
 				icon: () => <Plug size={16} />,
 			},
-			{
-				href: "/docs/plugins/waitlist",
-				title: "Waitlist",
-				icon: () => <OctagonPause size={16} />,
-				isNotReady: true,
-			},
+			
 			{
 				href: "/docs/plugins/reverify",
 				title: "Reverify",
 				icon: () => <Lock size={16} />,
+			},
+			{
+				href: "/docs/plugins/feedback",
+				title: "Feedback",
+				icon: () => <MessageCircle size={16} />,
 			},
 			{
 				href: "/docs/plugins/legal-consent",
@@ -70,9 +70,10 @@ export const contents: Content[] = [
 				isNotReady: true,
 			},
 			{
-				href: "/docs/plugins/feedback",
-				title: "Feedback",
-				icon: () => <MessageCircle size={16} />,
+				href: "/docs/plugins/waitlist",
+				title: "Waitlist",
+				icon: () => <OctagonPause size={16} />,
+				isNotReady: true,
 			},
 			{
 				href: "/docs/plugins/shutdown",
@@ -87,15 +88,15 @@ export const contents: Content[] = [
 				icon: () => <Package size={16} />,
 			},
 			{
+				href: "/docs/libraries/tests",
+				title: "Better Auth tests",
+				icon: () => <TestTube size={16} />,
+			},
+			{
 				href: "/docs/libraries/admin-dashboard",
 				title: "Admin Dashboard",
 				icon: () => <ShieldUserIcon size={16} />,
 				isNotReady: true,
-			},
-			{
-				href: "/docs/libraries/tests",
-				title: "Better Auth tests",
-				icon: () => <TestTube size={16} />,
 			},
 			{
 				title: "CLI",
@@ -109,15 +110,20 @@ export const contents: Content[] = [
 				icon: () => <Info size={16} />,
 			},
 			{
-				href: "/docs/cli/ui-components",
-				title: "UI Components",
-				icon: () => <Box size={16} />,
-				isNotReady: true,
+				href: "/docs/cli/database-explorer",
+				title: "Database Explorer",
+				icon: () => <Database size={16} />,
 			},
 			{
 				href: "/docs/cli/seed",
 				title: "Seed",
 				icon: () => <Grid2X2Plus size={16} />,
+			},
+			{
+				href: "/docs/cli/ui-components",
+				title: "UI Components",
+				icon: () => <Box size={16} />,
+				isNotReady: true,
 			},
 			{
 				href: "/docs/cli/dashboard",
