@@ -1,0 +1,72 @@
+---
+title: Database Explorer
+description: A Better-Auth powered database explorer and schema visualizer.
+---
+
+<GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/cli" />
+<NpmButton url="https://www.npmjs.com/package/@better-auth-kit/cli" />
+
+<Callout type="warn">
+  #### This feature is not yet available
+  View our [roadmap](/roadmap) to see what is coming soon.
+</Callout>
+
+The database explorer is a powerful tool that provides visibility into your Better-Auth connected database.
+It features an intuitive schema visualizer that helps you understand table relationships and
+track which fields originate from specific plugins, making database management and troubleshooting more efficient.
+
+## Database Explorer
+<img src="/docs/db-explorer-database.png" alt="Database Explorer" className='dark:block hidden border border-border' />
+<img src="/docs/db-explorer-database-light.png" alt="Database Explorer" className='dark:hidden drop-shadow-lg' />
+
+## Schema Visualizer
+<img src="/docs/db-explorer-schema.png" alt="Database Explorer Schema" className='dark:block hidden border border-border' />
+<img src="/docs/db-explorer-schema-light.png" alt="Database Explorer Schema" className='dark:hidden drop-shadow-lg' />
+
+<Steps>
+  <Step>
+    ## Go to your Auth directory
+    `cd` to your directory containing `auth.ts`
+
+    ```bash
+    cd path/to/your/project
+    ```
+  </Step>
+  <Step>
+    ## Run the CLI
+    ```package-install
+    npx @better-auth-kit/cli db
+    ```
+  </Step>
+  <Step>
+    ## That's it!
+    You can now view your database and schema visualizer by running the above command.
+    
+    <Callout>
+    If you're running into any issues with the database explorer not being able to get your schema, make sure that you have any extensions such 
+    as ad-blockers or others that could be blocking any requests disabled.
+    </Callout>
+  </Step>
+</Steps>
+
+## FAQ
+
+### Does it work for all databases?
+
+The database explorer works for any database that is supported by Better-Auth. If your DB adapter works for Better-Auth, the database explorer will work.
+
+### How does it work?
+
+The database explorer works by reading your better-auth configurations, and appends a custom plugin, as well as special configurations
+to your auth instance. It then uses an express server hosting that auth instance with CORS rules specific to authorizing `https://better-auth-kit.com` to 
+fetch the data.
+
+### Why doesn't it have every table or field in my database?
+
+We only know what tables and fields are available in your database by utilizing Better-Auth's schema system based on your auth instance.
+This means that if you have any custom tables or fields, the database explorer will not be able to show them, unless specified in the auth config.
+
+### Why does it say that my table row count is only 100?
+
+It's possible that it's a limitation of your database adapter. Some databases may not have support for counting rows, which can be the cause of this.
+If you believe that this is not the case, please open an issue where the database adapter comes from.
