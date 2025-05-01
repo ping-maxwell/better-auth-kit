@@ -51,13 +51,6 @@ await authClient.feedback.submitFeedback({
 });
 ```
 
-## Getting All Feedback
-
-```typescript
-// Admin-only endpoint
-const { data } = await authClient.feedback.getFeedback();
-```
-
 ## Configuration Options
 
 ### Authentication Settings
