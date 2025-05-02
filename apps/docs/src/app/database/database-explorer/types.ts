@@ -30,7 +30,6 @@ export interface DatabaseStore {
 }
 
 const x = createAuthClient({
-	baseURL: "http://localhost:3000",
 	plugins: [dbExplorerClientPlugin],
 });
 

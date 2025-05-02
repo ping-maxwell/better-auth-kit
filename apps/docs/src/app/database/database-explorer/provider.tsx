@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { SchemaExplorer } from "./schema";
 import { APIError } from "better-auth";
 import { useQueryState } from "nuqs";
+import Link from "next/link";
 
 export const DatabaseExplorerContext = createContext<{
 	authClient: RefObject<AuthClient>;
@@ -110,15 +111,23 @@ export const DatabaseExplorerProvider = ({
 		return (
 			<div className="flex h-full w-full items-center justify-center flex-col gap-4">
 				<h1 className="text-2xl font-bold">Error fetching schema</h1>
-				<p className="text-muted-foreground">
-					Something went wrong while fetching the schema. Please try again
-					later.
-					<br />
-					{error?.message}
-					<br />
-					Have you tried disabling your ad blocker, or any other browser
-					extensions that might be blocking the request?
-				</p>
+				<span className="text-muted-foreground text-center flex justify-center items-center flex-col gap-3">
+					Something went wrong while fetching the schema.
+					<pre className="text-left">{JSON.stringify(error, null, 2)}</pre>
+					<span className="text-muted-foreground/80">
+						Have you tried disabling your ad blocker, or any other browser
+						extensions that might be blocking the request? 
+						<br />
+						Join our{" "}
+						<Link
+							className="text-foreground underline"
+							href="https://discord.gg/v5w4CTCnaf"
+						>
+							Discord server
+						</Link>{" "}
+						if your still need help.
+					</span>
+				</span>
 			</div>
 		);
 	}

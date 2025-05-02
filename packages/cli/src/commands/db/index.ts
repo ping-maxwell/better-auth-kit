@@ -13,10 +13,15 @@ export const dbCommand = new Command("db")
 		"--config <config>",
 		"The path to the auth configuration file. defaults to the first `auth.ts` file found.",
 	)
+	.option(
+		"--dev",
+		"Adds localhost:3001 to allowed origins for development mode.",
+	)
 	.action(dbAction);
 
 const optionSchema = z.object({
 	config: z.string().optional(),
+	dev: z.boolean().optional(),
 });
 
 async function dbAction(options: z.infer<typeof optionSchema>) {
@@ -50,8 +55,8 @@ async function dbAction(options: z.infer<typeof optionSchema>) {
 		"https://better-auth-kit.com",
 		"https://better-auth-kit.vercel.app",
 		// Only enable this if you want to allow local testing of the Better-Auth-Kit DB explorer.
-		// 'http://localhost:3001'
-	];
+		...(opts.dev ? ["http://localhost:3001"] : []),
+	].filter(Boolean);
 
 	const auth = betterAuth({
 		...usersAuth.options,
@@ -76,7 +81,9 @@ async function dbAction(options: z.infer<typeof optionSchema>) {
 	app.use(express.json());
 
 	app.listen(port, () => {
-		const url = `https://www.better-auth-kit.com/database`;
+		const url = opts.dev
+			? `http://localhost:3001/database`
+			: `https://www.better-auth-kit.com/database`;
 		console.log(`Visit the database explorer at ${url}`);
 		open(url);
 	});

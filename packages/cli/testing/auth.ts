@@ -8,35 +8,35 @@ export const auth = betterAuth({
 		enabled: true,
 	},
 	plugins: [
-		{
-			id: "adding-more-tables-to-db",
-			schema: {
-				test: {
-					fields: {
-						name: {
-							type: "string",
-						},
-						first_name: {
-							type: "string",
-						},
-						last_name: {
-							type: "string",
-						},
-						banned: {
-							type: "boolean",
-						},
-						banReason: {
-							type: "string",
-							required: false,
-						},
-						banExpires: {
-							type: "date",
-							required: false,
-						},
-					},
-				},
-			},
-		},
+		// {
+		// 	id: "adding-more-tables-to-db",
+		// 	schema: {
+		// 		test: {
+		// 			fields: {
+		// 				name: {
+		// 					type: "string",
+		// 				},
+		// 				first_name: {
+		// 					type: "string",
+		// 				},
+		// 				last_name: {
+		// 					type: "string",
+		// 				},
+		// 				banned: {
+		// 					type: "boolean",
+		// 				},
+		// 				banReason: {
+		// 					type: "string",
+		// 					required: false,
+		// 				},
+		// 				banExpires: {
+		// 					type: "date",
+		// 					required: false,
+		// 				},
+		// 			},
+		// 		},
+		// 	},
+		// },
 		organization({
 			teams: {
 				enabled: true,

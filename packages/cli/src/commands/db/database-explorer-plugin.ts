@@ -182,7 +182,6 @@ export const dbExplorerPlugin = {
 			},
 			async (ctx) => {
 				const { model, where } = ctx.body;
-				console.log("COUNT", ctx.body);
 				return await ctx.context.adapter.count({ model, where });
 			},
 		),
