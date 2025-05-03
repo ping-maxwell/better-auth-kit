@@ -185,7 +185,7 @@ export const DBExplorer = React.memo(() => {
 		fields.push({
 			accessorKey: "id",
 			header: ({ column }) => (
-				<div className="flex items-center gap-2">
+				<div className="flex items-center gap-2 text-foreground">
 					<FieldIcon label="Primary Key">
 						<Key className="size-3 text-primary" />
 					</FieldIcon>
@@ -211,7 +211,7 @@ export const DBExplorer = React.memo(() => {
 						label = `Foreign Key: ${model.fields[field].references.model}.${model.fields[field].references.field}`;
 					}
 					return (
-						<div className="">
+						<div className="text-foreground">
 							<FieldIcon label={label}>{icon}</FieldIcon>
 							{column.id}
 							<span className="text-xs text-muted-foreground ml-1.5 mr-3">
