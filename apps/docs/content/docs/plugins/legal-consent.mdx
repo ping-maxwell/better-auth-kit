@@ -6,20 +6,22 @@ description: Legal Consent plugin for Better Auth Kit
 <GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/plugins/legal-consent" />
 <NpmButton url="https://www.npmjs.com/package/@better-auth-kit/legal-consent" />
 
-Require your users to accept the required compliances before they can sign up.
+In some cases, you may need to require your users to accept certain compliances before they can sign up.
+The purpose of this plugin is to provide a way to keep record, or evidence, of the user's consent to the compliances.
 
-Supported compliances include:
+Supported compliances include: **Terms of Service**, **Privacy Policy**, 
+**Age Verification**, **Marketing Consent**, and **Cookie Consent**.
 
-- Terms of Service
-- Privacy Policy
-- Age Verification
-- Marketing Consent
-- Cookie Consent
+Currently, we provide the most basic form of record keeping, which is a boolean field in the user model indicating 
+if the user has accepted the compliance. In the future, we plan to expend this by providing the option to enable more detailed
+record keeping, such as timestamps, IP addresses, device information, and more, saved in a separate table.
+This makes to be better evidence of the user's consent to the compliances.
 
-<Callout type="warn">
+
+{/* <Callout type="warn">
     This plugin does not come with UI, this is purely functionality.
     We recommend checking out our [UI components](/docs/tools/ui-components) registry to implement shadcn styled components.
-</Callout>
+</Callout> */}
 
 <Steps>
 
@@ -52,11 +54,46 @@ export const auth = betterAuth({
 </Step>
 
 <Step>
-### 3. Sign up methods
+### 3. Migrations
+
+Make sure to run migrations after configuring the plugin.
+
+```package-install
+npx @better-auth/cli migrate
+```
+
+or
+
+```package-install
+bunx @better-auth/cli generate
+```
+
+</Step>
+<Step>
+### 4. Sign up methods
 
 Add the following methods to your sign up page.
 
-```ts title="sign-up.tsx"
+<Tabs items={["server", "client"]}>
+
+<Tab value="server">
+```ts
+auth.api.signUpEmail({
+ body: {
+   email: "some_email@example.com",
+    password: "some_password",
+    tosAccepted: true,
+    privacyPolicyAccepted: true,
+    ageVerified: true,
+    marketingConsentAccepted: true,
+    cookieConsentAccepted: true,
+ }
+});
+```
+</Tab>
+
+<Tab value="client">
+```ts
 authClient.signUp.email({
   email: "some_email@example.com",
   password: "some_password",
@@ -67,6 +104,16 @@ authClient.signUp.email({
   cookieConsentAccepted: true,
 });
 ```
+</Tab>
+
+</Tabs>
+
+<Callout type="warn">
+    The types may not appear in your IDE for the signUp method, this is a limitation of Better Auth. 
+    Once you enable a given legal consent, you should be fine to pass that value into the sign up method and safely ignore the type error.
+
+    Note: You do not need to pass all the legal consent values, only the ones you enabled.
+</Callout>
 </Step>
 
 </Steps>
