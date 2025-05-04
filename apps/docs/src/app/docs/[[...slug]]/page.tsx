@@ -97,13 +97,13 @@ export async function generateMetadata(props: {
 		description: page.data.description,
 		openGraph: {
 			url: absoluteUrl(`docs/${params.slug}`),
-			title: `${page.data.title} | Better Auth Kit`,
+			title: page.data.title,
 			description: page.data.description,
 		},
 		twitter: {
 			card: "summary_large_image",
 			creator: "@ping-maxwell",
-			title: `${page.data.title} | Better Auth Kit`,
+			title: page.data.title,
 			description: page.data.description,
 		},
 	});
