@@ -77,6 +77,13 @@ export default async function CommunityPage() {
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/cli/introduction",
 		},
+		{
+			name: "@better-auth-kit/feedback",
+			description: "A feedback plugin for Better Auth",
+			downloads: 0,
+			version: "0",
+			docs: "https://better-auth-kit.com/docs/plugins/feedback",
+		},
 	];
 
 	for (const pkg of packages) {
