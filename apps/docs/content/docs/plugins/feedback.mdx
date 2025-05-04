@@ -49,7 +49,7 @@ The Feedback plugin allows users to submit feedback about your application. By d
       <Tab value="client">
         ```ts
         // Submit feedback (requires logged-in user by default)
-        await authClient.feedback.submitFeedback({
+        await authClient.feedback.submit({
           text: "This is my feedback about the application"
         });
         ```
