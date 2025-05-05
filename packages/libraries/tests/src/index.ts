@@ -18,7 +18,7 @@ interface ClientOptions {
 }
 
 export async function getTestInstance<C extends ClientOptions>(
-	auth: ReturnType<typeof betterAuth>,
+	auth_: { api: any; options: any } & Record<string, any>,
 	config?: {
 		clientOptions?: C;
 		port?: number;
@@ -27,6 +27,7 @@ export async function getTestInstance<C extends ClientOptions>(
 		shouldRunMigrations?: boolean;
 	},
 ) {
+	const auth = auth_ as ReturnType<typeof betterAuth>;
 	const opts = auth.options;
 
 	const testUser = {
@@ -43,6 +44,7 @@ export async function getTestInstance<C extends ClientOptions>(
 		const res = await auth.api.signUpEmail({
 			body: testUser,
 		});
+		return res.user;
 	}
 
 	if (config?.shouldRunMigrations) {
@@ -141,8 +143,7 @@ export async function getTestInstance<C extends ClientOptions>(
 	});
 
 	return {
-		auth: auth as unknown as ReturnType<typeof betterAuth>,
-		client: client as unknown as ReturnType<typeof createAuthClient>,
+		client: client as unknown as ReturnType<typeof createAuthClient<C>>,
 		testUser,
 		signInWithTestUser,
 		signInWithUser,

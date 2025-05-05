@@ -147,7 +147,6 @@ export const feedback = (options?: FeedbackOptions) => {
 					const res = await ctx.context.adapter.create<FeedbackEntryModified>({
 						model: model,
 						data: {
-							id: generateId(),
 							userId: finalUserId,
 							text,
 							createdAt: new Date(),
