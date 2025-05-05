@@ -21,7 +21,7 @@ import "./theme.css";
 import "@xyflow/react/dist/style.css";
 
 import { useTheme } from "next-themes";
-import { type TableNodeData, TableNode } from "./components/table-node";
+import { TableNode } from "./components/table-node";
 import { ZoomSlider } from "@/components/zoom-slider";
 
 export const TABLE_NODE_WIDTH = 640;
@@ -32,10 +32,18 @@ interface SchemaFlowProps {
 	edges: Edge[];
 }
 
-const NODE_SEP = 25;
-const RANK_SEP = 50;
-
-const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
+export const getLayoutedElements = (
+	nodes: Node[],
+	edges: Edge[],
+	options?: {
+		/**
+		 * Wether the schema visualizer is being rendered in the docs
+		 */
+		isDocs: boolean;
+	},
+) => {
+	const NODE_SEP = 25;
+	const RANK_SEP = options?.isDocs ? -300 : -200;
 	const g = new Dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 	g.setGraph({
 		rankdir: "LR",

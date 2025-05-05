@@ -153,33 +153,36 @@ feedback({
 
 ## Schema
 
-Table: `feedback`
+<SchemaDemo plugin="feedback" includeDefaultUser schema={{
+  feedback: {
+    fields: {
+      userId: {
+        type: "string",
+        required: true,
+        references: {
+          model: "user",
+          field: "id",
+        }
+      },
+      text: {
+        type: "string",
+        required: true,
+      },
+      createdAt: {
+        type: "date",
+        required: true,
+      },
+    }
+  }
+}} />
 
-<DatabaseTable
-  fields={[
-    {
-      name: "id",
-      type: "string",
-      description: "Unique identifier for the feedback entry",
-    },
-    {
-      name: "userId",
-      type: "string",
-      description:
-        "ID of the user who submitted the feedback (optional if requireAuth is false)",
-    },
-    {
-      name: "text",
-      type: "string",
-      description: "The feedback content (controlled by minLength/maxLength)",
-    },
-    {
-      name: "createdAt",
-      type: "date",
-      description: "Timestamp when the feedback was submitted",
-    },
-  ]}
-/>
+Fields:
+
+- `id`: Unique identifier for the feedback entry
+- `userId`: ID of the user who submitted the feedback (optional if `requireAuth` is `false`)
+- `text`: The feedback content (controlled by minLength/maxLength)
+- `createdAt`: Timestamp when the feedback was submitted
+
 
 ## Shoutout
 

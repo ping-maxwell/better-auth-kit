@@ -19,6 +19,7 @@ import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 import { File, Folder, Files } from "fumadocs-ui/components/files";
 import { createMetadata } from "@/lib/metadata";
 import { StatsBadge } from "@/components/stats-badge";
+import { SchemaDemo } from "@/components/schema-demo";
 
 export default async function Page(props: {
 	params: Promise<{ slug?: string[] }>;
@@ -75,6 +76,7 @@ export default async function Page(props: {
 						Folder,
 						Files,
 						StatsBadge,
+						SchemaDemo,
 					}}
 				/>
 			</DocsBody>
