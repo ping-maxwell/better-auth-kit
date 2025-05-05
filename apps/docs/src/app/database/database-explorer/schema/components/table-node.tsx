@@ -6,6 +6,7 @@ import { useDatabaseStore } from "../../provider";
 import { useEffect, useRef } from "react";
 import { TooltipContent } from "@/components/ui/tooltip";
 import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
+import Dagre from "@dagrejs/dagre";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 // ReactFlow is scaling everything by the factor of 2
@@ -62,7 +63,7 @@ const TableNode = ({
 		<>
 			{data.isForeign ? (
 				<header
-					className="text-[0.55rem] px-2 py-1 border-[0.5px] bg-card text-default flex gap-1 items-center"
+					className="text-[0.55rem] px-2 py-1 border-[0.5px] bg-secondary/40 text-default flex gap-1 items-center"
 					id={`${data.name}-foreign-key`}
 				>
 					{data.name}

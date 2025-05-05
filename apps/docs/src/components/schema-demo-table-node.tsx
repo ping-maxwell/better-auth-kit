@@ -79,7 +79,7 @@ const TableNode = ({
 						<div
 							className={cn(
 								"text-[8px] leading-5 relative flex flex-row justify-items-start",
-								"bg-card",
+								"bg-[var(--color-fd-background)]",
 								"border-t",
 								"border-t-[0.5px]",
 								"hover:bg-scale-500 transition cursor-default",
