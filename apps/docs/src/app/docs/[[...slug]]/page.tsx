@@ -17,8 +17,8 @@ import { GithubButton } from "@/components/github-button";
 import { NpmButton } from "@/components/npm-button";
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 import { File, Folder, Files } from "fumadocs-ui/components/files";
-import { Metadata } from "next";
 import { createMetadata } from "@/lib/metadata";
+import { StatsBadge } from "@/components/stats-badge";
 
 export default async function Page(props: {
 	params: Promise<{ slug?: string[] }>;
@@ -74,6 +74,7 @@ export default async function Page(props: {
 						File,
 						Folder,
 						Files,
+						StatsBadge,
 					}}
 				/>
 			</DocsBody>
