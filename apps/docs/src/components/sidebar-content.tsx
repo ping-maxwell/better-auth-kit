@@ -93,12 +93,6 @@ export const contents: Content[] = [
 				icon: () => <TestTube size={16} />,
 			},
 			{
-				href: "/docs/libraries/admin-dashboard",
-				title: "Admin Dashboard",
-				icon: () => <ShieldUserIcon size={16} />,
-				isNotReady: true,
-			},
-			{
 				title: "CLI",
 				href: "/docs/libraries/cli",
 				group: true,

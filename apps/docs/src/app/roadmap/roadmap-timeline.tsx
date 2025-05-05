@@ -55,6 +55,12 @@ export function RoadmapTimeline() {
 			],
 		},
 		{
+			title: "Legal Consent Plugin",
+			description:
+				"Ensure legal compliance by requiring users to accept terms of service, privacy policy, age verification, and other consent requirements during sign-up.",
+			details: ["add: More advanced record/evidence management"],
+		},
+		{
 			title: "UI components & CLI",
 			description:
 				"ShadCN registry based UI components specific to Better-Auth.",
@@ -63,6 +69,7 @@ export function RoadmapTimeline() {
 				"~~add: Sign up component~~",
 				"~~add: Sign in component~~",
 				"~~add: Social login support~~",
+				"~~add: Forgot password component~~",
 				"add: Export feature in component builder",
 				"add: Plugin UI selection interface in component builder",
 				"fix: Component builder sidebar links",
@@ -70,7 +77,6 @@ export function RoadmapTimeline() {
 				"add: Captcha support",
 				"add: Waitlist component",
 				"add: User component",
-				"add: Forgot password component",
 				"chore: Documentation",
 			],
 		},
@@ -117,19 +123,6 @@ export function RoadmapTimeline() {
 				"add: Session management",
 				"add: API-Key management",
 				"add: Organization management",
-			],
-		},
-		{
-			title: "Admin Dashboard Library",
-			description: "Develop a library for creating admin dashboards",
-			details: [
-				"~~add: Initial Admin Dashboard API~~",
-				"add: move the current admin-dashboard repo into this monorepo",
-				"refactor: Refine user page",
-				"add: Organization page",
-				"add: API-Key page",
-				"add: Analytics on home page",
-				"chore: Documentation",
 			],
 		},
 		{
