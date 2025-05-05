@@ -25,6 +25,7 @@ import "./schema-demo-styles.css";
 import type { FieldAttribute } from "better-auth/db";
 import { getDetailedAuthTables } from "@/lib/database-explorer-plugin";
 import { ZoomSlider } from "./zoom-slider";
+import { CornerLeftUp, CornerRightUp } from "lucide-react";
 
 type BetterAuthDbSchema = {
 	[key: string]: {
@@ -152,6 +153,9 @@ export const SchemaDemo = ({
 					focusedTable={focus || nodes.find((x) => x.id === plugin)?.id || null}
 				/>
 			</div>
+			<span className="text-sm text-muted-foreground flex gap-2 mt-2 justify-end items-center pr-1">
+				Pan and zoom to explore the schema. <CornerRightUp className="w-4 h-4" /> 
+			</span>
 		</ReactFlowProvider>
 	);
 };
@@ -213,7 +217,7 @@ const SchemaFlow = ({
 	);
 
 	return (
-		<div className="absolute inset-0">
+		<div className="absolute inset-0 rounded-lg overflow-hidden border">
 			<ReactFlow
 				nodes={nodes}
 				edges={edges}
@@ -243,10 +247,10 @@ const SchemaFlow = ({
 					variant={BackgroundVariant.Dots}
 					color={"inherit"}
 				/>
-				<ZoomSlider
+				{/* <ZoomSlider
 					className="scale-75 !-right-10 opacity-30 hover:opacity-100 transition-opacity duration-150 ease-in-out"
 					position="bottom-right"
-				/>
+				/> */}
 			</ReactFlow>
 		</div>
 	);

@@ -206,33 +206,39 @@ Table: `user`
 Note: Not all keys will be in the table as it depends on if you enabled each compliance, as well as if you changed the name of a given schema field.
 </Callout>
 
-<DatabaseTable
-  fields={[
-    {
-      name: "tosAccepted",
-      type: "boolean",
-      description: "Wether the user accepted the TOS.",
-    },
-    {
-      name: "requirePrivacyPolicy",
-      type: "boolean",
-      description:
-        "Wether the user accepted the privacy policy.",
-    },
-    {
-      name: "requireAgeVerification",
-      type: "boolean",
-      description: "Wether the user accepted the age verification.",
-    },
-    {
-      name: "requireMarketingConsent",
-      type: "boolean",
-      description: "Wether the user accepted the marketing consent.",
-    },
-    {
-      name: "requireCookieConsent",
-      type: "boolean",
-      description: "Wether the user accepted the cookie consent.",
-    },
-  ]}
-/>
+
+<SchemaDemo plugin="legal-consent" includeDefaultUser focus="user" schema={{
+  user: {
+    fields: {
+      tosAccepted: {
+        type: "string",
+        required: true,
+      },
+      privacyPolicyAccepted: {
+        type: "string",
+        required: true,
+      },
+      ageVerified: {
+        type: "string",
+        required: true,
+      },
+      marketingConsentAccepted: {
+        type: "string",
+        required: true,
+      },
+      cookieConsentAccepted: {
+        type: "string",
+        required: true,
+      },
+    }
+  }
+}} />
+
+Fields:
+
+- `tosAccepted`: Wether the user accepted the TOS.
+- `privacyPolicyAccepted`: Wether the user accepted the privacy policy.
+- `ageVerified`: Wether the user verified their age.
+- `marketingConsentAccepted`: Wether the user accepted the marketing consent.
+- `cookieConsentAccepted`: Wether the user accepted the cookie consent.
+
