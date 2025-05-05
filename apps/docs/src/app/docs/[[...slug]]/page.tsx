@@ -17,6 +17,8 @@ import { GithubButton } from "@/components/github-button";
 import { NpmButton } from "@/components/npm-button";
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 import { File, Folder, Files } from "fumadocs-ui/components/files";
+import { Metadata } from "next";
+import { createMetadata } from "@/lib/metadata";
 
 export default async function Page(props: {
 	params: Promise<{ slug?: string[] }>;
@@ -90,11 +92,21 @@ export async function generateMetadata(props: {
 	const page = source.getPage(params.slug);
 	if (!page) notFound();
 
-	return {
+	return createMetadata({
 		title: `${page.data.title} | Better Auth Kit`,
 		description: page.data.description,
-		url: absoluteUrl(`docs/${params.slug}`),
-	};
+		openGraph: {
+			url: absoluteUrl(`docs/${params.slug}`),
+			title: page.data.title,
+			description: page.data.description,
+		},
+		twitter: {
+			card: "summary_large_image",
+			creator: "@ping-maxwell",
+			title: page.data.title,
+			description: page.data.description,
+		},
+	});
 }
 
 function absoluteUrl(path: string) {

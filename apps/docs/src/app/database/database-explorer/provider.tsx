@@ -116,7 +116,7 @@ export const DatabaseExplorerProvider = ({
 					<pre className="text-left">{JSON.stringify(error, null, 2)}</pre>
 					<span className="text-muted-foreground/80">
 						Have you tried disabling your ad blocker, or any other browser
-						extensions that might be blocking the request? 
+						extensions that might be blocking the request?
 						<br />
 						Join our{" "}
 						<Link

@@ -21,6 +21,7 @@ export function createMetadata(override: Metadata): Metadata {
 			url: "https://better-auth-kit.com",
 			images: "https://better-auth-kit.com/misc/meta_img.png",
 			siteName: "Better Auth Kit",
+			type: "website",
 			...override.openGraph,
 		},
 		twitter: {

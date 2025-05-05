@@ -91,7 +91,8 @@ export const feedback = (options?: FeedbackOptions) => {
 						throw ctx.error("BAD_REQUEST", {
 							message: ERROR_CODES.FEEDBACK_TOO_SHORT,
 						});
-					} else if (text.length > opts.maxLength) {
+					}
+					if (text.length > opts.maxLength) {
 						throw ctx.error("BAD_REQUEST", {
 							message: ERROR_CODES.FEEDBACK_TOO_LONG,
 						});

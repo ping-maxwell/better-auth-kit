@@ -34,5 +34,8 @@
 			"types": "./dist/client.d.ts",
 			"default": "./dist/client.js"
 		}
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

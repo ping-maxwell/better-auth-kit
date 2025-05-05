@@ -47,7 +47,7 @@ export const contents: Content[] = [
 				group: true,
 				icon: () => <Plug size={16} />,
 			},
-			
+
 			{
 				href: "/docs/plugins/reverify",
 				title: "Reverify",
