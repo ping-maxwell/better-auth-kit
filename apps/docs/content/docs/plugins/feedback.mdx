@@ -1,6 +1,6 @@
 ---
 title: Feedback
-description: Allow users to submit feedback about your application
+description: Allow users to submit feedback about your application.
 ---
 
 <GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/plugins/feedback" />
@@ -43,7 +43,28 @@ The Feedback plugin allows users to submit feedback about your application. By d
 
   </Step>
   <Step>
-    ### 3. Use the plugin
+  ### 3. Migrations
+
+  Make sure to run migrations after configuring the plugin.
+
+<Tabs items={["migrate", "generate"]}>
+<Tab value="migrate">
+```package-install
+npx @better-auth/cli migrate
+```
+</Tab>
+
+<Tab value="generate">
+```package-install
+npx @better-auth/cli generate
+```
+</Tab>
+</Tabs>
+<span className='text-sm text-muted-foreground'>Learn more about the migrate/generate commands [here](https://www.better-auth.com/docs/concepts/cli#generate).</span>
+
+  </Step>
+  <Step>
+    ### 4. Use the plugin
 
     <Tabs items={["client", "server"]}>
       <Tab value="client">
@@ -114,14 +135,7 @@ feedback({
       `Feedback submitted by ${user?.email ?? "USER UNKNOWN"}: ${feedback}`
     );
 
-    /* Send ourselves an email */
-    if (!process.env.RESEND_API_KEY) {
-      console.error(
-        "WARNING: No RESEND_API_KEY set, skipping email notification"
-      );
-      return;
-    }
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    // Example: Send ourselves an email using Resend
     await resend.emails.send({
       from: "noreply@yourapp.com",
       to: "owner@yourapp.com",
