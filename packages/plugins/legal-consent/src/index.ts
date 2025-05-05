@@ -8,21 +8,46 @@ export interface LegalConsentOptions {
 	 */
 	requireTOS?: boolean;
 	/**
+	 * The version of the terms of service.
+	 * If not provided, we will save the boolean value. Otherwise, we will save the version string.
+	 */
+	TosVersion?: string;
+	/**
 	 * Wether the user must accept the privacy policy.
 	 */
 	requirePrivacyPolicy?: boolean;
+	/**
+	 * The version of the privacy policy.
+	 * If not provided, we will save the boolean value. Otherwise, we will save the version string.
+	 */
+	PrivacyPolicyVersion?: string;
 	/**
 	 * Wether the user must be above a certain age.
 	 */
 	requireAgeVerification?: boolean;
 	/**
+	 * The version of the age verification.
+	 * If not provided, we will save the boolean value. Otherwise, we will save the version string.
+	 */
+	AgeVerificationVersion?: string;
+	/**
 	 * Wether the user must accept the marketing consent.
 	 */
 	requireMarketingConsent?: boolean;
 	/**
+	 * The version of the marketing consent.
+	 * If not provided, we will save the boolean value. Otherwise, we will save the version string.
+	 */
+	MarketingConsentVersion?: string;
+	/**
 	 * Wether the user must accept the cookie consent.
 	 */
 	requireCookieConsent?: boolean;
+	/**
+	 * The version of the cookie consent.
+	 * If not provided, we will save the boolean value. Otherwise, we will save the version string.
+	 */
+	CookieConsentVersion?: string;
 	/**
 	 * Adjust the default schema configuration values.
 	 */
@@ -84,13 +109,18 @@ export const legalConsent = (options?: LegalConsentOptions) => {
 			cookieConsentAccepted:
 				options?.schema?.cookieConsentAccepted ?? "cookieConsentAccepted",
 		},
+		TosVersion: options?.TosVersion,
+		PrivacyPolicyVersion: options?.PrivacyPolicyVersion,
+		AgeVerificationVersion: options?.AgeVerificationVersion,
+		MarketingConsentVersion: options?.MarketingConsentVersion,
+		CookieConsentVersion: options?.CookieConsentVersion,
 	} satisfies LegalConsentOptions;
 
 	const schemaFields: Record<string, FieldAttribute<FieldType>> = {};
 
 	if (opts.requireTOS) {
 		schemaFields.tosAccepted = {
-			type: "boolean",
+			type: opts.TosVersion ? "string" : "boolean",
 			input: true,
 			required: true,
 			fieldName: opts.schema.tosAccepted,
@@ -99,7 +129,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
 	}
 	if (opts.requirePrivacyPolicy) {
 		schemaFields.privacyPolicyAccepted = {
-			type: "boolean",
+			type: opts.PrivacyPolicyVersion ? "string" : "boolean",
 			input: true,
 			required: true,
 			fieldName: opts.schema.privacyPolicyAccepted,
@@ -108,7 +138,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
 	}
 	if (opts.requireAgeVerification) {
 		schemaFields.ageVerified = {
-			type: "boolean",
+			type: opts.AgeVerificationVersion ? "string" : "boolean",
 			input: true,
 			required: true,
 			fieldName: opts.schema.ageVerified,
@@ -117,7 +147,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
 	}
 	if (opts.requireMarketingConsent) {
 		schemaFields.marketingConsentAccepted = {
-			type: "boolean",
+			type: opts.MarketingConsentVersion ? "string" : "boolean",
 			input: true,
 			required: true,
 			fieldName: opts.schema.marketingConsentAccepted,
@@ -126,7 +156,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
 	}
 	if (opts.requireCookieConsent) {
 		schemaFields.cookieConsentAccepted = {
-			type: "boolean",
+			type: opts.CookieConsentVersion ? "string" : "boolean",
 			input: true,
 			required: true,
 			fieldName: opts.schema.cookieConsentAccepted,
@@ -142,53 +172,62 @@ export const legalConsent = (options?: LegalConsentOptions) => {
 					matcher: (context) => context.path.startsWith("/sign-up/email"),
 					handler: createAuthMiddleware(async (ctx) => {
 						const body = ctx.body;
-						if (
-							opts.requireTOS &&
-							body[opts.schema.tosAccepted] === undefined
-						) {
-							throw new APIError("BAD_REQUEST", {
-								message: ERROR_CODES.TOS_NOT_ACCEPTED,
-							});
+						const newBody = { ...body };
+
+						if (opts.requireTOS) {
+							if (body[opts.schema.tosAccepted] === undefined)
+								throw new APIError("BAD_REQUEST", {
+									message: ERROR_CODES.TOS_NOT_ACCEPTED,
+								});
+
+							newBody[opts.schema.tosAccepted] = opts.TosVersion ?? true;
 						}
 
-						if (
-							opts.requirePrivacyPolicy &&
-							body[opts.schema.privacyPolicyAccepted] === undefined
-						) {
-							throw new APIError("BAD_REQUEST", {
-								message: ERROR_CODES.PRIVACY_NOT_ACCEPTED,
-							});
+						if (opts.requirePrivacyPolicy) {
+							if (body[opts.schema.privacyPolicyAccepted] === undefined)
+								throw new APIError("BAD_REQUEST", {
+									message: ERROR_CODES.PRIVACY_NOT_ACCEPTED,
+								});
+
+							newBody[opts.schema.privacyPolicyAccepted] =
+								opts.PrivacyPolicyVersion ?? true;
 						}
 
-						if (
-							opts.requireAgeVerification &&
-							body[opts.schema.ageVerified] === undefined
-						) {
-							throw new APIError("BAD_REQUEST", {
-								message: ERROR_CODES.AGE_NOT_ACCEPTED,
-							});
+						if (opts.requireAgeVerification) {
+							if (body[opts.schema.ageVerified] === undefined)
+								throw new APIError("BAD_REQUEST", {
+									message: ERROR_CODES.AGE_NOT_ACCEPTED,
+								});
+
+							newBody[opts.schema.ageVerified] =
+								opts.AgeVerificationVersion ?? true;
 						}
 
-						if (
-							opts.requireMarketingConsent &&
-							body[opts.schema.marketingConsentAccepted] === undefined
-						) {
-							throw new APIError("BAD_REQUEST", {
-								message: ERROR_CODES.MARKETING_NOT_ACCEPTED,
-							});
+						if (opts.requireMarketingConsent) {
+							if (body[opts.schema.marketingConsentAccepted] === undefined)
+								throw new APIError("BAD_REQUEST", {
+									message: ERROR_CODES.MARKETING_NOT_ACCEPTED,
+								});
+
+							newBody[opts.schema.marketingConsentAccepted] =
+								opts.MarketingConsentVersion ?? true;
 						}
 
-						if (
-							opts.requireCookieConsent &&
-							body[opts.schema.cookieConsentAccepted] === undefined
-						) {
-							throw new APIError("BAD_REQUEST", {
-								message: ERROR_CODES.COOKIE_NOT_ACCEPTED,
-							});
+						if (opts.requireCookieConsent) {
+							if (body[opts.schema.cookieConsentAccepted] === undefined)
+								throw new APIError("BAD_REQUEST", {
+									message: ERROR_CODES.COOKIE_NOT_ACCEPTED,
+								});
+
+							newBody[opts.schema.cookieConsentAccepted] =
+								opts.CookieConsentVersion ?? true;
 						}
 
 						return {
-							context: ctx,
+							context: {
+								...ctx,
+								body: newBody,
+							} as typeof ctx,
 						};
 					}),
 				},

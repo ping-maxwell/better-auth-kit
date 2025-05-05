@@ -12,8 +12,8 @@ The purpose of this plugin is to provide a way to keep record, or evidence, of t
 Supported compliances include: **Terms of Service**, **Privacy Policy**, 
 **Age Verification**, **Marketing Consent**, and **Cookie Consent**.
 
-Currently, we provide the most basic form of record keeping, which is a boolean field in the user model indicating 
-if the user has accepted the compliance. In the future, we plan to expend this by providing the option to enable more detailed
+Currently, we provide both a basic form of record keeping, which is a boolean field in the user model indicating 
+if the user has accepted the compliance, and optionally the ability to save the version of the consent form which the user agreed to. In the future, we plan to expand this by providing the option to enable more detailed
 record keeping, such as timestamps, IP addresses, device information, and more, saved in a separate table.
 This makes to be better evidence of the user's consent to the compliances.
 
@@ -44,7 +44,6 @@ export const auth = betterAuth({
     legalConsent({
       requireTOS: true,
       requirePrivacyPolicy: true,
-      requireAgeVerification: true,
       requireMarketingConsent: true,
       requireCookieConsent: true,
     }),
@@ -58,15 +57,21 @@ export const auth = betterAuth({
 
 Make sure to run migrations after configuring the plugin.
 
+<Tabs items={["migrate", "generate"]}>
+<Tab value="migrate">
 ```package-install
 npx @better-auth/cli migrate
 ```
+</Tab>
 
-or
-
+<Tab value="generate">
 ```package-install
-bunx @better-auth/cli generate
+npx @better-auth/cli generate
 ```
+</Tab>
+</Tabs>
+<span className='text-sm text-muted-foreground'>Learn more about the migrate/generate commands [here](https://www.better-auth.com/docs/concepts/cli#generate).</span>
+
 
 </Step>
 <Step>
@@ -80,7 +85,7 @@ Add the following methods to your sign up page.
 ```ts
 auth.api.signUpEmail({
  body: {
-   email: "some_email@example.com",
+    email: "some_email@example.com",
     password: "some_password",
     tosAccepted: true,
     privacyPolicyAccepted: true,
@@ -151,6 +156,27 @@ legalConsent({
   cookieConsentAccepted: true
 });
 ```
+
+You can also choose to save the version of the legal consent agreement.
+
+```ts
+legalConsent({
+  tosVersion: "1.0",
+  privacyPolicyVersion: "1.0",
+  ageVerificationVersion: "1.0",
+  marketingConsentVersion: "1.0",
+  cookieConsentVersion: "1.0",
+});
+```
+
+If the version is provided, it will save the version of the legal consent agreement in the user model. 
+Otherwise, it will save the agreement as a boolean.
+
+<Callout>
+If you had updated the plugin to include versions, make sure to run migrations again! 
+By default, the plugin will save the boolean value. By adding the version, it will save the version string.
+</Callout>
+
 
 ### Configuring the schema
 
