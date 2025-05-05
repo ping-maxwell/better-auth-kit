@@ -1,5 +1,6 @@
 import type { User } from "better-auth";
 import type { FieldAttribute } from "better-auth/db";
+import type { FeedbackEntry } from "./schema";
 
 export interface FeedbackOptions {
 	/**
@@ -46,4 +47,13 @@ export interface FeedbackOptions {
 	 * Additional fields to add to the feedback schema
 	 */
 	additionalFields?: Record<string, FieldAttribute>;
+
+	/**
+	 * Callback function that gets executed server-side when feedback is submitted
+	 * @param params Object containing feedback entry and user
+	 */
+	onFeedback?: (params: {
+		feedback: FeedbackEntry;
+		user: User | null;
+	}) => void | Promise<void>;
 }

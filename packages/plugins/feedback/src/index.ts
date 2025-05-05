@@ -30,6 +30,7 @@ export const feedback = (options?: FeedbackOptions) => {
 		requireAuth: options?.requireAuth ?? true,
 		schema: options?.schema,
 		additionalFields: options?.additionalFields ?? {},
+		onFeedback: options?.onFeedback,
 	} satisfies FeedbackOptions;
 
 	// Start with a deep copy of the schema
@@ -153,6 +154,11 @@ export const feedback = (options?: FeedbackOptions) => {
 							...everythingElse,
 						} as FeedbackEntryModified,
 					});
+
+					// Call onFeedback handler if provided
+					if (opts.onFeedback) {
+						await Promise.resolve(opts.onFeedback({ feedback: res, user }));
+					}
 
 					return ctx.json(res);
 				},

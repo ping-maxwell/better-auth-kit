@@ -71,36 +71,26 @@ The Feedback plugin allows users to submit feedback about your application. By d
 
 <div className="h-10" />
 
-<Comprehensive>
-## What does it do?
-
-The Feedback plugin provides a way for users to submit feedback about your application. It stores:
-
-- The feedback text (with configurable min/max length)
-- The ID of the user who submitted the feedback (optional if requireAuth is false)
-- The timestamp when the feedback was submitted
-
-This allows you to collect user feedback directly within your application, without requiring external tools or services.
-
-## Configuration Options
+## Advanced Configuration Options
 
 You can customize the Feedback plugin with the following options:
 
 ```ts
 feedback({
-  // Text length constraints
+  /* Text length constraints */
   minLength: 10, // Minimum text length (default: 10)
   maxLength: 500, // Maximum text length (default: 500)
 
-  // User submission control
+  /* User submission controls */
   feedbackLimit: 5, // Limit number of feedbacks per user (optional)
   requireAuth: true, // Whether authentication is required (default: true)
   canSubmitFeedback: (user) => {
-    // Function to control who can submit feedback
+    // To add to control who can submit feedback
+    // Ex: only allow organization owners
     return user.role === "owner";
   },
 
-  // Customize schema field names
+  /* To customize schema field names */
   schema: {
     feedback: {
       modelName: "feedbackEntries", // Rename the model
@@ -112,15 +102,38 @@ feedback({
     },
   },
 
-  // Add additional fields to the schema
+  /* To add additional fields to the schema */
   additionalFields: {
-    category: { type: "string", required: true },
-    rating: { type: "number", required: true },
+    category: { type: "string", required: true, default: "General" },
+    rating: { type: "number", required: true, default: -1 },
+  },
+
+  /* To add callback function that gets executed server-side when feedback is submitted */
+  onFeedback: async ({ feedback, user }) => {
+    console.log(
+      `Feedback submitted by ${user?.email ?? "USER UNKNOWN"}: ${feedback}`
+    );
+
+    /* Send ourselves an email */
+    if (!process.env.RESEND_API_KEY) {
+      console.error(
+        "WARNING: No RESEND_API_KEY set, skipping email notification"
+      );
+      return;
+    }
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    await resend.emails.send({
+      from: "noreply@yourapp.com",
+      to: "owner@yourapp.com",
+      cc: user?.email ? [user.email] : undefined, // You can even include the user
+      subject: user?.email
+        ? `Feedback submitted by ${user.email}`
+        : "Anonymous feedback submitted",
+      html: `<h1>Feedback submitted by ${user?.email ?? "Anonymous"}:</h1><p>${feedback.text}</p>`,
+    });
   },
 });
 ```
-
-</Comprehensive>
 
 ## Schema
 
@@ -151,7 +164,6 @@ Table: `feedback`
     },
   ]}
 />
-
 
 ## Shoutout
 
