@@ -1,4 +1,6 @@
+import { createMetadata } from "@/lib/metadata";
 import { DatabaseExplorer } from "./database-explorer";
+import type { Metadata } from "next";
 
 export default function Home() {
 	return (
@@ -7,3 +9,8 @@ export default function Home() {
 		</div>
 	);
 }
+
+export const metadata: Metadata = createMetadata({
+	title: "Database Explorer",
+	description: "A Better-Auth powered database explorer and schema visualizer.",
+});

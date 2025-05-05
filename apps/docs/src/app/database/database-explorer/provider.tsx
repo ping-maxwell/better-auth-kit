@@ -125,7 +125,14 @@ export const DatabaseExplorerProvider = ({
 						>
 							Discord server
 						</Link>{" "}
-						if your still need help.
+						if your still need help, or read our{" "}
+						<Link
+							className="text-foreground underline"
+							href="/docs/cli/database-explorer"
+						>
+							Docs
+						</Link>
+						.
 					</span>
 				</span>
 			</div>
