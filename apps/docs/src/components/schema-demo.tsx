@@ -17,6 +17,7 @@ import {
 	Position,
 	useReactFlow,
 	ReactFlowProvider,
+	Panel,
 } from "@xyflow/react";
 import { useTheme } from "next-themes";
 import { useEffect, useMemo, useCallback } from "react";
@@ -25,7 +26,13 @@ import "./schema-demo-styles.css";
 import type { FieldAttribute } from "better-auth/db";
 import { getDetailedAuthTables } from "@/lib/database-explorer-plugin";
 import { ZoomSlider } from "./zoom-slider";
-import { CornerLeftUp, CornerRightUp } from "lucide-react";
+import { CircleDot, CornerLeftUp, CornerRightUp } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
+import { TooltipContent } from "./ui/tooltip";
+import { TooltipProvider } from "./ui/tooltip";
+import { TooltipTrigger } from "./ui/tooltip";
+import { Tooltip } from "@radix-ui/react-tooltip";
 
 type BetterAuthDbSchema = {
 	[key: string]: {
@@ -154,7 +161,8 @@ export const SchemaDemo = ({
 				/>
 			</div>
 			<span className="text-sm text-muted-foreground flex gap-2 mt-2 justify-end items-center pr-1">
-				Pan and zoom to explore the schema. <CornerRightUp className="w-4 h-4" /> 
+				Pan and zoom to explore the schema.{" "}
+				<CornerRightUp className="w-4 h-4" />
 			</span>
 		</ReactFlowProvider>
 	);
@@ -248,9 +256,41 @@ const SchemaFlow = ({
 					color={"inherit"}
 				/>
 				{/* <ZoomSlider
-					className="scale-75 !-right-10 opacity-30 hover:opacity-100 transition-opacity duration-150 ease-in-out"
-					position="bottom-right"
 				/> */}
+				<Panel
+					className={cn(
+						"flex gap-1 rounded-md  p-1 text-foreground drop-shadow-md",
+						" opacity-50 hover:opacity-100 transition-opacity duration-150 ease-in-out",
+					)}
+					position="bottom-right"
+				>
+					<TooltipProvider delayDuration={10}>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Button
+									variant="ghost"
+									size="icon"
+									className="cursor-pointer"
+									onClick={() => {
+										if (focusedTable && focusedTable !== "all") {
+											reactFlowInstance.fitView({
+												nodes: [nodes.find((x) => x.id === focusedTable)!],
+												duration: 300,
+											});
+										} else {
+											reactFlowInstance.fitView({
+												duration: 300,
+											});
+										}
+									}}
+								>
+									<CircleDot className="h-4 w-4" />
+								</Button>
+							</TooltipTrigger>
+							<TooltipContent>Focus</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+				</Panel>
 			</ReactFlow>
 		</div>
 	);
