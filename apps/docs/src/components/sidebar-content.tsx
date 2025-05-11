@@ -17,6 +17,9 @@ import {
 	Gift,
 	Gauge,
 	MessageCircle,
+	PopcornIcon,
+	Brain,
+	Book,
 } from "lucide-react";
 import type { Content } from "./sidebar";
 
@@ -153,6 +156,23 @@ export const contents: Content[] = [
 				title: "InstantDB",
 				icon: () => <Database size={16} />,
 				isNotReady: true,
+			},
+		],
+	},
+	{
+		title: "Random Other Stuff",
+		Icon: () => <PopcornIcon size={16} />,
+		list: [
+			{
+				title: "Guides / Blogs",
+				href: "/docs/random-other-stuff/guide",
+				icon: () => <Book size={16} />,
+				group: true
+			},
+			{
+				title: "How to think about Better Auth",
+				href: "/docs/random-other-stuff/how-to-think-about-better-auth",
+				icon: () => <Brain size={16} />,
 			},
 		],
 	},

@@ -1,0 +1,43 @@
+---
+title: How to think about Better Auth
+description: A short guide to help you understand how to think about Better Auth
+---
+
+
+## 1. Better Auth lives on the server, but also the client?
+
+Better Auth comes with two instances. Your server auth instance (`auth`), and a client auth instance (`authClient`). Your server auth instance is where Better Auth primarily lives, it provides the auth endpoints for the client auth instance to call.
+
+Using the `authClient` would make a request to an endpoint provided by Better Auth, however if you use the server `auth` instance, it would directly call the function for that endpoint, instead of making a request.
+
+This means that if you’re on the front-end, you should use the `authClient` instance, otherwise you should use server `auth` instance.
+
+## 1. Better Auth is basically a router
+
+Better Auth at it’s core is a bunch of endpoints connected to any framework you use. These endpoints are considered your auth endpoints, and can do things such as creating a user, getting a user sessions, or anything else capable in Better Auth. When you add a plugin, you’re essentially adding more endpoints.
+
+## 2. Endpoints are methods
+
+All endpoints gathered from Better Auth itself or plugins, are all accessible through your auth instance. For example, the sign up endpoint (`/api/auth/sign-up-email`) is just a method you can call in your `authClient` - `authClient.signUp.email` , or similarly on your `auth` instance - `auth.api.signUpEmail` 
+
+## 3. Better Auth handles your database, but you should too.
+
+Every database call from Better Auth runs through schemas which are customisable to your liking. By default we provide schemas for models such as `user`, `session`, `account`, and potentially others. Whenever you add a plugin, it can optionally include additional schemas which can alter your current schema. All of the plugin schemas and the default schema by Better Auth are combined into one, and this combined schema tells us how your database tables and fields are defined.
+
+Endpoints could add, update, delete or do anything with you database. Often times, a plugin which is supposedly in control of specific models (eg `organization` plugin handles `organization` table, `member` table, etc) would provide most of the interactions you can do to the database that may relate to that table. However there can be cases where there isn’t a provided endpoint, in which case you can freely use your ORM to directly call your database to do said action. It’s important to remember that your database tables is just as accessible to Better Auth as it is to you.
+
+## 4. Plugins
+
+At it’s core, plugins essentially adds additional endpoints, as well as potentially modifying your Better Auth schema. Additionally, they can also have hooks or middleware’s to intercept auth endpoint requests to run authorization checks, modify data, or anything else as needed.
+
+Plugins are quite simple, and when put together, allows the end-developer (That’s you!) to run one function and sit back and relax. For example, the `api-key` plugin has an endpoint to create an API key:
+
+<img src="/docs/example-plugin-flow.png" alt="API Key Plugin" />
+
+Pretty simple, right?
+
+## That's about it.
+
+Of course there are a lot of things that Better Auth can do, including hooks, DB hooks, and other stuff, however the gist is here.
+Better Auth is designed to be extremely flexible and extendable, and that's the main idea to take away from this. I highly recommend 
+reading through the [Better Auth docs](https://better-auth.com/docs) to get a more in-depth understanding of what you can do with Better Auth.
