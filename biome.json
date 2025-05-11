@@ -65,7 +65,8 @@
 			".db",
 			".turbo",
 			".env",
-			"dataset"
+			"dataset",
+			".source"
 		]
 	}
 }
