@@ -82,13 +82,6 @@ export const profileImage = (options?: ProfileImageOptions) => {
 					use: [sessionMiddleware],
 				},
 				async (ctx) => {
-					// Check for authentication
-					if (!ctx.context.session?.user.id) {
-						throw ctx.error("UNAUTHORIZED", {
-							message: ERROR_CODES.USER_NOT_LOGGED_IN,
-						});
-					}
-
 					const user = ctx.context.session.user;
 
 					// Check if user is allowed to upload an image
@@ -209,13 +202,6 @@ export const profileImage = (options?: ProfileImageOptions) => {
 				},
 				async (ctx) => {
 					const { id } = ctx.params;
-
-					// Check for authentication
-					if (!ctx.context.session?.user) {
-						throw ctx.error("UNAUTHORIZED", {
-							message: ERROR_CODES.USER_NOT_LOGGED_IN,
-						});
-					}
 
 					const user = ctx.context.session.user;
 
