@@ -15,13 +15,19 @@
 	},
 	"scripts": {
 		"dev": "bun build-dev.ts",
-		"build": "bun build.ts"
+		"build": "bun build.ts",
+		"test": "cd test && bunx vitest",
+		"test:db": "cd test && bunx @better-auth-kit/cli@latest db",
+		"test:migrate": "cd test && bunx @better-auth/cli@latest migrate -y"
 	},
 	"keywords": ["better-auth", "legal-consent", "plugin"],
 	"author": "ping-maxwell",
 	"license": "MIT",
 	"devDependencies": {
-		"@better-auth-kit/internal-build": "workspace:*"
+		"@better-auth-kit/internal-build": "workspace:*",
+		"@better-auth-kit/tests": "workspace:*",
+		"better-sqlite3": "^11.10.0",
+		"vitest": "^3.1.3"
 	},
 	"peerDependencies": {
 		"better-auth": "^1.2.7"

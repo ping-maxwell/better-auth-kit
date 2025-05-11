@@ -84,17 +84,12 @@ export const contents: Content[] = [
 				icon: () => <OctagonMinus size={16} />,
 				isNotReady: true,
 			},
-			{
-				title: "Libraries",
-				href: "/docs/offer/libraries",
-				group: true,
-				icon: () => <Package size={16} />,
-			},
-			{
-				href: "/docs/libraries/tests",
-				title: "Better Auth tests",
-				icon: () => <TestTube size={16} />,
-			},
+			// {
+			// 	title: "Libraries",
+			// 	href: "/docs/offer/libraries",
+			// 	group: true,
+			// 	icon: () => <Package size={16} />,
+			// },
 			{
 				title: "CLI",
 				href: "/docs/libraries/cli",
@@ -167,7 +162,7 @@ export const contents: Content[] = [
 				title: "Guides / Blogs",
 				href: "/docs/random-other-stuff/guide",
 				icon: () => <Book size={16} />,
-				group: true
+				group: true,
 			},
 			{
 				title: "How to think about Better Auth",

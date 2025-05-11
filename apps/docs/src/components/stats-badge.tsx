@@ -5,7 +5,7 @@ export const StatsBadge = ({
 }) => {
 	const imgClass = `!-mt-22 !mb-0 mr-3 inline-block`;
 
-    const badgeStyle = `&labelColor=161f37&color=2a3d6b`
+	const badgeStyle = `&labelColor=161f37&color=2a3d6b`;
 
 	return (
 		<>
@@ -31,7 +31,6 @@ export const StatsBadge = ({
 				/>
 			</a>
 			<br />
-
 		</>
 	);
 };

@@ -1,4 +1,9 @@
-import type { BetterAuthClientPlugin, Session, User } from "better-auth";
+import type {
+	BetterAuthClientPlugin,
+	Session,
+	User,
+	APIError,
+} from "better-auth";
 import type { betterAuth } from "better-auth";
 import {
 	createAuthClient,
@@ -6,7 +11,7 @@ import {
 	type SuccessContext,
 } from "better-auth/react";
 import { getBaseURL } from "./utils/url";
-import { getMigrations, getAdapter } from "better-auth/db";
+import { getMigrations, getAdapter, getSchema } from "better-auth/db";
 import { parseSetCookieHeader, setCookieToHeader } from "better-auth/cookies";
 
 interface ClientOptions {
@@ -37,16 +42,6 @@ export async function getTestInstance<C extends ClientOptions>(
 		...config?.testUser,
 	};
 
-	async function createTestUser() {
-		if (config?.disableTestUser) {
-			return;
-		}
-		const res = await auth.api.signUpEmail({
-			body: testUser,
-		});
-		return res.user;
-	}
-
 	if (config?.shouldRunMigrations) {
 		const { runMigrations } = await getMigrations({
 			...auth.options,
@@ -54,8 +49,6 @@ export async function getTestInstance<C extends ClientOptions>(
 		});
 		await runMigrations();
 	}
-
-	await createTestUser();
 
 	async function signInWithTestUser() {
 		if (config?.disableTestUser) {
@@ -142,6 +135,26 @@ export async function getTestInstance<C extends ClientOptions>(
 		},
 	});
 
+	async function resetDatabase(
+		tables: string[] = ["session", "account", "verification", "user"],
+	) {
+		const ctx = await auth.$context;
+		const adapter = ctx.adapter;
+		for (const modelName of tables) {
+			const allRows = await adapter.findMany<{ id: string }>({
+				model: modelName,
+				limit: 1000,
+			});
+			for (const row of allRows) {
+				await adapter.delete({
+					model: modelName,
+					where: [{ field: "id", value: row.id }],
+				});
+			}
+		}
+		console.log("Database successfully reset.");
+	}
+
 	return {
 		client: client as unknown as ReturnType<typeof createAuthClient<C>>,
 		testUser,
@@ -151,5 +164,29 @@ export async function getTestInstance<C extends ClientOptions>(
 		customFetchImpl,
 		sessionSetter,
 		db: await getAdapter(auth.options),
+		resetDatabase,
 	};
+}
+
+export type Success<T> = {
+	data: T;
+	error: null;
+};
+
+export type Failure<E> = {
+	data: null;
+	error: E;
+};
+
+export type Result<T, E = APIError> = Success<T> | Failure<E>;
+
+export async function tryCatch<T, E = APIError>(
+	promise: Promise<T>,
+): Promise<Result<T, E>> {
+	try {
+		const data = await promise;
+		return { data, error: null };
+	} catch (error) {
+		return { data: null, error: error as E };
+	}
 }
