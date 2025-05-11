@@ -206,16 +206,11 @@ export const profileImage = (options?: ProfileImageOptions) => {
 					const user = ctx.context.session.user;
 
 					// Find the profile image entry
-					const profileImages =
-						await ctx.context.adapter.findMany<ProfileImageEntryModified>({
+					const profileImage =
+						await ctx.context.adapter.findOne<ProfileImageEntryModified>({
 							model,
 							where: [{ field: "id", value: id, operator: "eq" }],
-							limit: 1,
 						});
-
-					const profileImage =
-						profileImages.length > 0 ? profileImages[0] : null;
-
 					if (!profileImage) {
 						return ctx.json({ success: true });
 					}
@@ -258,21 +253,19 @@ export const profileImage = (options?: ProfileImageOptions) => {
 					const { userId } = ctx.params;
 
 					// Find the latest profile image for user
-					const profileImages =
-						await ctx.context.adapter.findMany<ProfileImageEntryModified>({
+					const profileImage =
+						await ctx.context.adapter.findOne<ProfileImageEntryModified>({
 							model,
 							where: [{ field: "userId", value: userId, operator: "eq" }],
-							sortBy: { field: "createdAt", direction: "desc" },
-							limit: 1,
 						});
 
-					if (profileImages.length === 0) {
+					if (!profileImage) {
 						return ctx.error("NOT_FOUND", {
 							message: ERROR_CODES.PROFILE_IMAGE_NOT_FOUND,
 						});
 					}
 
-					return ctx.json(profileImages[0]);
+					return ctx.json(profileImage);
 				},
 			),
 		},
