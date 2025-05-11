@@ -145,7 +145,7 @@ export const profileImage = (options?: ProfileImageOptions) => {
 						url = res.url;
 						key = res.key;
 					} catch (error) {
-						console.error(
+						ctx.context.logger.error(
 							"#BETTER_AUTH_KIT: Failed to upload image with Storage Provider:",
 							error,
 						);
