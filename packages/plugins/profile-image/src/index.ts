@@ -204,7 +204,7 @@ export const profileImage = (options?: ProfileImageOptions) => {
 			deleteProfileImage: createAuthEndpoint(
 				"/profile-image/delete/:id",
 				{
-					method: "DELETE",
+					method: "POST",
 					use: [sessionMiddleware],
 				},
 				async (ctx) => {
