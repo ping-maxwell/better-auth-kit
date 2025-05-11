@@ -1,4 +1,4 @@
-import { generateId, type BetterAuthPlugin } from "better-auth";
+import { type BetterAuthPlugin } from "better-auth";
 import { createAuthEndpoint, sessionMiddleware } from "better-auth/api";
 import {
 	mergeSchema,
@@ -180,7 +180,6 @@ export const profileImage = (options?: ProfileImageOptions) => {
 						await ctx.context.adapter.create<ProfileImageEntryModified>({
 							model,
 							data: {
-								id: generateId(),
 								...profileImageData,
 								...additionalFields,
 								createdAt: new Date(),
