@@ -1,6 +1,11 @@
-import type { User } from "better-auth";
+import type { LogLevel, User } from "better-auth";
 import type { FieldAttribute } from "better-auth/db";
 import type { ProfileImageEntry } from "./schema";
+
+export type StorageLogger = Record<
+	LogLevel,
+	(message: string, ...args: any[]) => void
+>;
 
 /**
  * Storage provider interface for profile images, allowing you
@@ -10,19 +15,25 @@ export interface StorageProvider {
 	/**
 	 * Upload an image file
 	 */
-	uploadImage: (params: {
-		file: File;
-		userId: string;
-	}) => Promise<{ url: string; key: string }>;
+	uploadImage: (
+		params: {
+			file: File;
+			userId: string;
+		},
+		logger: StorageLogger,
+	) => Promise<{ url: string; key: string }>;
 
 	/**
 	 * Delete an image from storage
 	 */
-	deleteImage?: (params: {
-		key: string;
-		url: string;
-		userId: string;
-	}) => Promise<void>;
+	deleteImage?: (
+		params: {
+			key: string;
+			url: string;
+			userId: string;
+		},
+		logger: StorageLogger,
+	) => Promise<void>;
 }
 
 export interface ProfileImageOptions {

@@ -1,10 +1,13 @@
 import { UTApi } from "uploadthing/server";
-import type { StorageProvider } from "../types";
+import type { StorageLogger, StorageProvider } from "../types";
 
 const utapi = new UTApi();
 
 export class UploadThingProvider implements StorageProvider {
-	async uploadImage(params: { file: File; userId: string }): Promise<{
+	async uploadImage(
+		params: { file: File; userId: string },
+		logger: StorageLogger,
+	): Promise<{
 		url: string;
 		key: string;
 		size: number;
@@ -28,16 +31,19 @@ export class UploadThingProvider implements StorageProvider {
 				size: fileData.data.size,
 			};
 		} catch (error) {
-			console.error("Error uploading image:", error);
+			logger.error("Error uploading image:", error);
 			throw new Error("Failed to upload image");
 		}
 	}
 
-	async deleteImage(params: {
-		key?: string;
-		url: string;
-		userId: string;
-	}): Promise<void> {
+	async deleteImage(
+		params: {
+			key?: string;
+			url: string;
+			userId: string;
+		},
+		logger: StorageLogger,
+	): Promise<void> {
 		const { key } = params;
 
 		if (!key) {
@@ -48,7 +54,7 @@ export class UploadThingProvider implements StorageProvider {
 			// Delete the file using UploadThing
 			await utapi.deleteFiles([key]);
 		} catch (error) {
-			console.error("Error deleting image:", error);
+			logger.error("Error deleting image:", error);
 			throw new Error("Failed to delete image");
 		}
 	}

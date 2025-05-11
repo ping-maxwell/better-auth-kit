@@ -135,10 +135,13 @@ export const profileImage = (options?: ProfileImageOptions) => {
 					let url: string;
 					let key: string;
 					try {
-						const res = await opts.storageProvider.uploadImage({
-							file,
-							userId,
-						});
+						const res = await opts.storageProvider.uploadImage(
+							{
+								file,
+								userId,
+							},
+							ctx.context.logger,
+						);
 						url = res.url;
 						key = res.key;
 					} catch (error) {
@@ -241,11 +244,14 @@ export const profileImage = (options?: ProfileImageOptions) => {
 
 					// Delete from storage provider if possible
 					if (opts.storageProvider.deleteImage && profileImage.key) {
-						await opts.storageProvider.deleteImage({
-							key: profileImage.key,
-							url: profileImage.url,
-							userId: user.id,
-						});
+						await opts.storageProvider.deleteImage(
+							{
+								key: profileImage.key,
+								url: profileImage.url,
+								userId: user.id,
+							},
+							ctx.context.logger,
+						);
 					}
 
 					// Delete from database
