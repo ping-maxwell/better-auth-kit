@@ -1,29 +1,37 @@
-import { describe, it, expect } from "vitest";
-import { getTestInstance } from "@better-auth-kit/tests";
-import { reverify } from "../src/index";
 import { reverifyClientPlugin } from "../src/client";
 
-describe("reverify plugin", async () => {
-	const { auth, client, testUser, signInWithTestUser } = await getTestInstance(
-		{
-			plugins: [reverify()],
-		},
-		{
-			clientOptions: {
-				plugins: [reverifyClientPlugin()],
-			},
-		},
-	);
+import { getTestInstance, tryCatch } from "@better-auth-kit/tests";
+import { beforeAll, describe, expect, it } from "vitest";
+import { auth } from "./auth";
+import type { User } from "better-auth";
 
-	const { headers } = await signInWithTestUser();
+const { resetDatabase, client, signUpWithTestUser, testUser } =
+	await getTestInstance(auth, {
+		clientOptions: {
+			plugins: [reverifyClientPlugin()],
+		},
+	});
+
+describe("reverify plugin", async () => {
+	let headers: Headers;
+	beforeAll(async () => {
+		await resetDatabase();
+		const result = await signUpWithTestUser();
+		headers = result.headers;
+	});
 
 	it("Should correctly verify the user's identity via password using auth-client instance", async () => {
-		const { data: isValid } = await client.reverify.password({
+		const { data: isValid, error } = await client.reverify.password({
 			password: testUser.password,
 			fetchOptions: {
 				headers,
 			},
 		});
+		console.log(isValid, error);
+		if (error) {
+			console.error(error);
+			throw error;
+		}
 		expect(isValid?.valid).toBe(true);
 
 		const { data: isInvalid } = await client.reverify.password({

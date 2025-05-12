@@ -16,9 +16,9 @@
 	"scripts": {
 		"dev": "bun build-dev.ts",
 		"build": "bun build.ts",
-		"test": "cd test && bunx vitest",
-		"test:db": "cd test && bunx @better-auth-kit/cli@latest db",
-		"test:migrate": "cd test && bunx @better-auth/cli@latest migrate -y"
+		"test": "cd tests && bunx vitest",
+		"test:db": "cd tests && bunx @better-auth-kit/cli@latest db",
+		"test:migrate": "cd tests && bunx @better-auth/cli@latest migrate -y"
 	},
 	"keywords": ["better-auth", "legal-consent", "plugin"],
 	"author": "ping-maxwell",

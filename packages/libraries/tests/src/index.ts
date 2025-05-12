@@ -50,6 +50,41 @@ export async function getTestInstance<C extends ClientOptions>(
 		await runMigrations();
 	}
 
+	async function signUpWithTestUser() {
+		if (config?.disableTestUser) {
+			throw new Error("Test user is disabled");
+		}
+		const headers = new Headers();
+		const setCookie = (name: string, value: string) => {
+			const current = headers.get("cookie");
+			headers.set("cookie", `${current || ""}; ${name}=${value}`);
+		};
+		//@ts-expect-error
+		const { data, error } = await client.signUp.email({
+			email: testUser.email,
+			password: testUser.password,
+			name: testUser.name,
+			fetchOptions: {
+				//@ts-expect-error
+				onSuccess(context) {
+					const header = context.response.headers.get("set-cookie");
+					const cookies = parseSetCookieHeader(header || "");
+					const signedCookie = cookies.get("better-auth.session_token")?.value;
+					headers.set("cookie", `better-auth.session_token=${signedCookie}`);
+				},
+			},
+		});
+		if (error) {
+			console.error(error);
+			throw error;
+		}
+		return {
+			session: data.session as Session,
+			user: data.user as User,
+			headers,
+			setCookie,
+		};
+	}
 	async function signInWithTestUser() {
 		if (config?.disableTestUser) {
 			throw new Error("Test user is disabled");
@@ -165,6 +200,7 @@ export async function getTestInstance<C extends ClientOptions>(
 		sessionSetter,
 		db: await getAdapter(auth.options),
 		resetDatabase,
+		signUpWithTestUser,
 	};
 }
 

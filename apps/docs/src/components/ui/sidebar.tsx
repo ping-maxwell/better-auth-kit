@@ -97,7 +97,7 @@ const SidebarProvider = React.forwardRef<
 
 		// Helper to toggle the sidebar.
 		// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-				const toggleSidebar = React.useCallback(() => {
+		const toggleSidebar = React.useCallback(() => {
 			return isMobile
 				? setOpenMobile((open) => !open)
 				: setOpen((open) => !open);

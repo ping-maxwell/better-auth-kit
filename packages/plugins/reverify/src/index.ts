@@ -1,14 +1,10 @@
-import type { BetterAuthPlugin } from "better-auth";
+import { logger, type BetterAuthPlugin } from "better-auth";
 import {
 	APIError,
 	createAuthEndpoint,
 	sessionMiddleware,
 } from "better-auth/api";
 import { z } from "zod";
-
-export const ERROR_CODES = {
-	NO_SESSION: "No session found.",
-} as const;
 
 export const reverify = () => {
 	return {
@@ -25,12 +21,6 @@ export const reverify = () => {
 				},
 				async (ctx) => {
 					const session = ctx.context.session;
-
-					if (!session) {
-						throw new APIError("UNAUTHORIZED", {
-							message: ERROR_CODES.NO_SESSION,
-						});
-					}
 					let validPassword = false;
 					try {
 						validPassword = await ctx.context.password.checkPassword(
@@ -38,11 +28,12 @@ export const reverify = () => {
 							ctx,
 						);
 					} catch (error: unknown) {
-						console.error(error);
+						logger.error(`[Reverify] Error checking password`, error);
 						if (
 							error instanceof APIError &&
 							error?.body?.code === "INVALID_PASSWORD"
 						) {
+							logger.info(`[Reverify] Password is invalid`);
 							return ctx.json({ valid: false });
 						}
 						throw error;
