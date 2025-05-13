@@ -110,7 +110,6 @@
         "vitest": "^2.1.8",
       },
       "peerDependencies": {
-        "better-auth": "^1.2.3",
         "convex": "^1.17.4",
         "typescript": "^5.7.2",
       },
@@ -177,7 +176,7 @@
     },
     "packages/libraries/tests": {
       "name": "@better-auth-kit/tests",
-      "version": "0.1.6",
+      "version": "0.2.0",
       "dependencies": {
         "better-auth": "^1.2.4",
         "react": "^19.0.0",
@@ -230,7 +229,7 @@
     },
     "packages/plugins/legal-consent": {
       "name": "@better-auth-kit/legal-consent",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "devDependencies": {
         "@better-auth-kit/internal-build": "workspace:*",
         "@better-auth-kit/tests": "workspace:*",

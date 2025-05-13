@@ -27,6 +27,9 @@ export const createTransform = ({
 		const new_where: Where[] = [];
 
 		for (const w of where) {
+			if (w.field === "id") {
+				w.field = "_id";
+			}
 			if (w.operator === "in") {
 				(w.value as []).forEach((v, i) => {
 					new_where.push({
