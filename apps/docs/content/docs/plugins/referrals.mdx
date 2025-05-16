@@ -1,0 +1,362 @@
+---
+title: Referrals
+description: Add a referral system to your application with automatic code generation
+---
+
+<GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/plugins/referrals" />
+<NpmButton url="https://www.npmjs.com/package/@better-auth-kit/referrals" />
+
+The Referrals plugin adds a complete referral system to your application, generating unique codes for users and tracking referrals automatically. It supports both URL-based referrals and manual code entry.
+
+This doesn't handle applying the reward to the referrer, but we provide a configurable callback `onReferral`.
+
+<Steps>
+  <Step>
+        ### 1. Install the plugin
+
+        ```package-install
+        @better-auth-kit/referrals
+        ```
+
+  </Step>
+
+  <Step>
+    ### 2. Initialize the plugin
+
+    ```ts title="auth.ts"
+    import { betterAuth } from "better-auth";
+    import { referrals } from "@better-auth-kit/referrals";
+
+    export const auth = betterAuth({
+      plugins: [
+        referrals({
+          urlFormat: "?ref=",        // Format for referral URLs
+          baseUrl: "/",              // Base URL for referral links
+          codeLength: 8,             // Length of generated codes
+          canUseReferrals: (user) => user.role === 'owner', // Optional: control who can use referrals
+          generateReferralCode: (length) => {  // Optional: custom code generator
+            return "REF-" + Math.random().toString(36).substr(2, length-4);
+          },
+          onReferral: async ({userId, referrerId, referralCode}) => {
+            // Optional: custom logic when a referral happens
+            console.log(`User ${userId} was referred by ${referrerId}`);
+          }
+        }),
+      ],
+    });
+    ```
+
+    ```ts title="auth-client.ts"
+    import { createAuthClient } from "better-auth";
+    import { referralsClient } from "@better-auth-kit/referrals/client";
+
+    export const authClient = createAuthClient({
+      plugins: [referralsClient()],
+    });
+    ```
+
+  </Step>
+  <Step>
+    ### 3. Use the plugin
+
+    <Tabs items={["client", "server"]}>
+      <Tab value="client">
+        ```ts
+        // Get user's referral URL
+        const { url, code } = await authClient.referrals.getReferralUrl();
+
+        // Validate a referral code
+        const { valid, referrerId } = await authClient.referrals.validateReferralCode("ABC123XY");
+
+        // Referral codes in URLs are processed automatically
+        // https://yourdomain.com/?ref=ABC123XY
+
+        // Get information about who referred the current user
+        const { referrerId, referrer, createdAt } = await authClient.referrals.getMyReferrer() || {};
+        
+        // Get list of users referred by the current user
+        const myReferrals = await authClient.referrals.getMyReferrals();
+        // Each item: { userId, user, createdAt }
+        
+        // Get count of users referred by the current user
+        const { count } = await authClient.referrals.getReferralCount();
+        ```
+      </Tab>
+      <Tab value="server">
+        ```ts
+        // Get user's referral URL
+        const response = await auth.api.getReferralUrl();
+        const { url, code } = response;
+
+        // Validate a referral code
+        const validation = await auth.api.validateReferralCode({
+          body: {
+            code: "ABC123XY"
+          }
+        });
+        
+        // Handle potential errors
+        try {
+          const validation = await auth.api.validateReferralCode({
+            body: { code: "INVALID" }
+          });
+        } catch (error) {
+          // Handles ERROR_CODES.INVALID_REFERRAL_CODE
+          console.error(error);
+        }
+
+        // Access referral analytics
+        const { referrerId, referrer, createdAt } = await auth.api.getMyReferrer() || {};
+        
+        const myReferrals = await auth.api.getMyReferrals();
+        // Each item: { userId, user, createdAt }
+        
+        const { count } = await auth.api.getReferralCount();
+        ```
+      </Tab>
+    </Tabs>
+
+  </Step>
+</Steps>
+
+<div className="h-10" />
+
+<Comprehensive>
+## What does it do?
+
+The Referrals plugin adds a complete referral system to your application:
+
+1. Automatically generates a unique referral code for each user
+2. Tracks which users were referred by others
+3. Provides both URL-based referrals and manual code entry
+4. Offers validation and URL generation endpoints
+5. Allows custom handling of successful referrals
+6. Provides detailed referral analytics and tracking
+
+### How it works:
+
+- Each user gets a unique referral code stored in the referrals table
+- They can share their referral link with others (e.g., `yourdomain.com/?ref=CODE`)
+- When someone follows the link or enters the code, the plugin tracks the referral
+- The referral relationship is stored in the referrals table
+- Custom business logic can be triggered via the onReferral handler
+- Analytics endpoints allow tracking and displaying referral data
+
+## Configuration Options
+
+You can customize the Referrals plugin with the following options:
+
+```ts
+referrals({
+  // URL configuration
+  urlFormat: "?ref=", // Format for the URL parameter (default: "?ref=")
+  baseUrl: "/", // Base URL for referral links (default: "/")
+
+  // Code settings
+  codeLength: 8, // Length of generated referral codes (default: 8)
+  generateReferralCode: (length) => {
+    // Custom function to generate referral codes
+    return (
+      "REF" +
+      Math.random()
+        .toString(36)
+        .substr(2, length - 3)
+    );
+  },
+
+  // User permissions
+  canUseReferrals: (user) => {
+    // Function to control who can use referrals
+    return user.emailVerified === true;
+  },
+
+  // Custom referral handler
+  onReferral: async ({ userId, referrerId, referralCode }) => {
+    // Custom logic to execute when a referral is detected
+    await creditReferrer(referrerId, 10);
+    await sendWelcomeEmail(userId, { referredBy: referrerId });
+  },
+
+  // Customize schema field names
+  schema: {
+    referrals: {
+      modelName: "referralEntries", // Rename the model
+      fields: {
+        userId: "authorId", // Rename fields
+        referralCode: "code",
+        referrerId: "invitedBy",
+        createdAt: "createdAt",
+      },
+    },
+  },
+
+  // Add additional fields to the schema
+  additionalFields: {
+    rewardClaimed: { type: "boolean", required: false },
+    referralSource: { type: "string", required: false },
+  },
+});
+```
+
+## Referral Analytics
+
+The plugin provides powerful analytics capabilities to track and leverage your referral program:
+
+### Getting Referrer Information
+
+```ts
+// Find out who referred the current user
+const { referrerId, referrer, createdAt } = await authClient.referrals.getMyReferrer() || {};
+
+// Example values:
+// referrerId: "user_123"        // ID of the user who referred
+// referrer: { id: "user_123", name: "John Doe", ... } // User object (if available)
+// createdAt: "2023-06-15T10:30:00Z" // When the referral happened
+// (Returns null if user wasn't referred)
+```
+
+### Listing Users You've Referred
+
+```ts
+// Get all users the current user has referred
+const referredUsers = await authClient.referrals.getMyReferrals();
+
+// Returns array of:
+// [
+//   {
+//     userId: "user_456",         // ID of the referred user
+//     user: { id: "user_456", name: "Jane Smith", ... }, // User object (if available)
+//     createdAt: "2023-06-20T14:45:00Z" // When the referral happened
+//   },
+//   ...
+// ]
+```
+
+### Counting Referrals
+
+```ts
+// Get the total count of users referred
+const { count } = await authClient.referrals.getReferralCount();
+
+// Returns: { count: 12 } // Number of successful referrals
+```
+
+### Building Features with Analytics
+
+You can use these endpoints to build:
+
+- Referral leaderboards showing top referrers
+- User dashboards showing referral activity
+- Achievement systems based on referral count
+- Reward systems for reaching referral milestones
+
+</Comprehensive>
+
+## Schema
+
+The plugin creates a referrals table with the following schema:
+
+<DatabaseTable
+  fields={[
+    {
+      name: "id",
+      type: "string",
+      description: "Unique identifier for the referral entry",
+    },
+    {
+      name: "userId",
+      type: "string",
+      description: "ID of the user who owns this referral code",
+    },
+    {
+      name: "referralCode",
+      type: "string",
+      description: "The unique referral code",
+    },
+    {
+      name: "referrerId",
+      type: "string (optional)",
+      description: "ID of the user who referred (if applicable)",
+    },
+    {
+      name: "createdAt",
+      type: "date",
+      description: "Timestamp when the referral was created",
+    },
+  ]}
+/>
+
+## API Reference
+
+### GET /referrals/url
+
+Generates or retrieves the referral URL for the current user.
+
+**Response:**
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| code | string | The referral code for the current user |
+| url | string | The complete referral URL that can be shared |
+
+**Errors:**
+- `USER_NOT_FOUND`: Returned when the user is not found or not authenticated
+- `USER_NOT_ALLOWED`: Returned when the user is not allowed to use referrals
+
+### POST /referrals/validate
+
+Validates if a given referral code is valid.
+
+**Request Body:**
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| code | string | The referral code to validate |
+
+**Response:**
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| valid | boolean | Whether the code is valid |
+| referrerId | string | The ID of the user who owns this referral code |
+
+**Errors:**
+- `INVALID_REFERRAL_CODE`: Returned when the provided referral code is invalid
+
+### GET /referrals/my-referrer
+
+Gets information about who referred the current user.
+
+**Response:**
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| referrerId | string | The ID of the user who referred the current user |
+| referrer | User \| null | The user object of the referrer (if available) |
+| createdAt | Date | When the referral happened |
+
+**Errors:**
+- `USER_NOT_FOUND`: Returned when the user is not found or not authenticated
+
+### GET /referrals/my-referrals
+
+Gets a list of all users referred by the current user.
+
+**Response:**
+Returns an array of objects with the following structure:
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| userId | string | ID of the referred user |
+| user | User \| null | User object of the referred user (if available) |
+| createdAt | Date | When the referral happened |
+
+**Errors:**
+- `USER_NOT_FOUND`: Returned when the user is not found or not authenticated
+
+### GET /referrals/count
+
+Gets the count of users referred by the current user.
+
+**Response:**
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| count | number | Number of successful referrals |
+
+**Errors:**
+- `USER_NOT_FOUND`: Returned when the user is not found or not authenticated
