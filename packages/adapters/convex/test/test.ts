@@ -6,7 +6,7 @@ import { ConvexHttpClient } from "convex/browser";
 const client = new ConvexHttpClient(process.env.CONVEX_URL!);
 
 export const auth = betterAuth({
-	database: convexAdapter(client, { enable_debug_logs: true }),
+	database: convexAdapter(client, { debugLogs: true }),
 	plugins: [],
 	//... other options
 });

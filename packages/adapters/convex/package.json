@@ -46,7 +46,6 @@
 		"@better-auth-kit/internal-build": "workspace:*"
 	},
 	"peerDependencies": {
-		"better-auth": "^1.2.3",
 		"convex": "^1.17.4",
 		"typescript": "^5.7.2"
 	},

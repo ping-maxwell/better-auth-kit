@@ -1,318 +1,347 @@
 import type { ConvexHttpClient } from "convex/browser";
-import type { Adapter, AdapterInstance, BetterAuthOptions } from "better-auth";
+import type { Adapter, BetterAuthOptions, Where } from "better-auth";
+import { createAdapter } from "better-auth/adapters";
 import type { ConvexAdapterOptions } from "./types";
-import { createTransform } from "./transform";
 import { queryBuilder } from "./handler/index";
 import type { PaginationResult } from "convex/server";
+import { countDb, deleteDb, insertDb, updateDb } from "./handler/calls";
+import { queryDb } from "./handler/calls";
 
-export type ConvexAdapter = (
-	convexClient: ConvexHttpClient,
+export type ConvexAdapter = {
+	convexClient: ConvexHttpClient;
+	config?: ConvexAdapterOptions;
+};
+
+type DbInsert = {
+	action: "insert";
+	tableName: string;
+	values: Record<string, any>;
+};
+
+type DbQuery = {
+	action: "query";
+	tableName: string;
+	query?: string;
+	order?: "asc" | "desc";
+	single?: boolean;
+	limit?: number;
+	paginationOpts?: { numItems: number; cursor?: string };
+};
+
+type DbDelete = {
+	action: "delete";
+	tableName: string;
+	query: string;
+	deleteAll?: boolean;
+};
+
+type DbUpdate = {
+	action: "update";
+	tableName: string;
+	query: string;
+	update: Record<string, any>;
+};
+
+type DbCount = {
+	action: "count";
+	tableName: string;
+	query?: string;
+};
+
+export const convexAdapter = (
+	client: ConvexHttpClient,
 	config?: ConvexAdapterOptions,
-) => AdapterInstance;
+) =>
+	createAdapter({
+		config: {
+			adapterId: "convex",
+			adapterName: "Convex Adapter",
+			supportsJSON: false,
+			debugLogs: config?.debugLogs,
+			supportsDates: false,
+		},
+		adapter: ({}) => {
+			function filterInvalidOperators(where: Where[] | undefined): void {
+				if (!where) return;
+				const invalidOps = ["contains", "starts_with", "ends_with"];
+				if (
+					where.filter((w) => invalidOps.includes(w.operator || "")).length > 0
+				) {
+					throw new Error(
+						`Convex does not support ${invalidOps.join(", ")} operators`,
+					);
+				}
+			}
 
-export const convexAdapter: ConvexAdapter = (client, config = {}) => {
-	function debugLog(message: any[]) {
-		if (config.enable_debug_logs) {
-			console.log(`[convex-adapter]`, ...message);
-		}
-	}
+			function transformWhereOperators(where: Where[] | undefined): Where[] {
+				if (!where) return [];
+				const new_where: Where[] = [];
 
-	return (options: BetterAuthOptions): Adapter => {
-		const {
-			transformInput,
-			filterInvalidOperators,
-			db,
-			transformOutput,
-			transformWhereOperators,
-		} = createTransform({
-			config,
-			options,
-			client,
-		});
-
-		return {
-			id: "convex",
-			create: async ({ data: values, model, select }) => {
-				const start = Date.now();
-				debugLog(["create", { model, values, select }]);
-				const transformed = transformInput(values, model, "create");
-
-				const res = await db({
-					action: "insert",
-					tableName: model,
-					values: transformed,
-				});
-				let result: Record<string, any> | null = null;
-
-				if (!select || select.length === 0) result = res;
-				else {
-					result = {};
-					for (const key of select) {
-						result[key] = res[key];
+				for (const w of where) {
+					if (w.operator === "in") {
+						(w.value as []).forEach((v, i) => {
+							new_where.push({
+								field: w.field,
+								value: v,
+								operator: "eq",
+								connector: i < (w.value as []).length - 1 ? "OR" : undefined,
+							});
+						});
+					} else {
+						new_where.push(w);
 					}
 				}
-				result = result ? (transformOutput(result, model) as any) : result;
-				debugLog([
-					"create result",
-					{ result, duration: `${Date.now() - start}ms` },
-				]);
-				return result as any;
-			},
-			findOne: async ({ model, where, select }) => {
-				const start = Date.now();
-				filterInvalidOperators(where);
-				where = transformWhereOperators(where);
-				debugLog(["findOne", { model, where, select }]);
-				const res = await db({
-					action: "query",
-					tableName: model,
-					query: queryBuilder((q) => {
-						const eqs = where.map((w) => q.eq(w.field, w.value));
-						return eqs.reduce((acc, cur, indx) =>
-							q[
-								(where[indx - 1].connector || "AND").toLowerCase() as
-									| "and"
-									| "or"
-							](acc, cur),
-						);
-					}),
-					single: true,
-				});
 
-				let result: Record<string, any> | null = null;
+				return new_where;
+			}
 
-				if (!select || select.length === 0) result = res;
-				else {
-					result = {};
-					for (const key of select) {
-						result[key] = res[key];
-					}
+			async function db(
+				options: DbInsert | DbQuery | DbDelete | DbUpdate | DbCount,
+			) {
+				if (options.action === "query") {
+					return await queryDb(client, {
+						tableName: options.tableName,
+						order: options.order,
+						query: options.query,
+						single: options.single,
+						limit: options.limit,
+						paginationOpts: options.paginationOpts,
+					});
 				}
-				result = result ? (transformOutput(result, model) as any) : result;
-				debugLog([
-					"findOne result",
-					{ result, duration: `${Date.now() - start}ms` },
-				]);
-				return result as any;
-			},
-			findMany: async ({ model, where, limit, offset, sortBy }) => {
-				const start = Date.now();
-				filterInvalidOperators(where);
-				where = transformWhereOperators(where);
-				debugLog(["findMany", { model, where, limit, offset, sortBy }]);
+				if (options.action === "insert") {
+					return await insertDb(client, {
+						tableName: options.tableName,
+						values: options.values,
+					});
+				}
+				if (options.action === "delete") {
+					return await deleteDb(client, {
+						tableName: options.tableName,
+						query: options.query,
+						deleteAll: options.deleteAll,
+					});
+				}
+				if (options.action === "update") {
+					return await updateDb(client, {
+						tableName: options.tableName,
+						query: options.query,
+						update: options.update,
+					});
+				}
+				if (options.action === "count") {
+					return await countDb(client, {
+						tableName: options.tableName,
+						query: options.query,
+					});
+				}
+				return "";
+			}
 
-				const queryString =
-					where && where.length > 0
-						? queryBuilder((q) => {
-								const eqs = where.map((w) =>
-									//@ts-ignore
-									q[w.operator || "eq"](w.field, w.value),
-								);
-								if (eqs.length === 1) return eqs[0];
-								return eqs.reduce((acc, cur, indx) =>
-									q[
-										(where[indx - 1].connector || "AND").toLowerCase() as
-											| "and"
-											| "or"
-									](acc, cur),
-								);
-							})
-						: null;
-				debugLog(["findMany queryString", { queryString }]);
-				if (typeof offset === "number") {
-					let continueCursor = undefined;
-					let isDone = false;
-
-					const results = [];
-
-					while (!isDone) {
-						const opts = (await db({
-							action: "query",
-							tableName: model,
-							query: queryString ?? undefined,
-							order: sortBy?.direction,
-							single: false,
-							limit: limit,
-							paginationOpts: {
-								numItems: 100,
-								cursor: continueCursor,
-							},
-						})) as PaginationResult<any>;
-						continueCursor = opts.continueCursor;
-						results.push(...opts.page);
-						debugLog(["findMany paginated page", { page: opts.page }]);
-						if (results.length >= offset + (limit || 1)) {
-							isDone = true;
-							const result = (
-								limit
-									? results.slice(offset, offset + limit)
-									: results.slice(offset)
-							).map((x) => transformOutput(x, model));
-							debugLog([
-								"findMany pagination done",
-								{ result, duration: `${Date.now() - start}ms` },
-							]);
-							return result;
-						}
-					}
-				} else {
+			return {
+				async create({ data, model, select }) {
+					const res = await db({
+						action: "insert",
+						tableName: model,
+						values: data,
+					});
+					return res;
+				},
+				async findOne({ model, where, select }) {
 					const res = await db({
 						action: "query",
 						tableName: model,
-						query: queryString ? queryString : undefined,
-						order: sortBy?.direction,
-						single: false,
-						limit: limit,
+						query: queryBuilder((q) => {
+							const eqs = where.map((w) => q.eq(w.field, w.value));
+							return eqs.reduce((acc, cur, indx) =>
+								q[
+									(where[indx - 1].connector || "AND").toLowerCase() as
+										| "and"
+										| "or"
+								](acc, cur),
+							);
+						}),
+						single: true,
 					});
-					const result = res.map((x: any) => transformOutput(x, model));
-					debugLog([
-						"findMany result",
-						{ result, duration: `${Date.now() - start}ms` },
-					]);
-					return result;
-				}
-			},
-			update: async ({ model, where, update }) => {
-				const start = Date.now();
-				filterInvalidOperators(where);
-				where = transformWhereOperators(where);
-				debugLog(["update", { model, where, update }]);
+					return res;
+				},
+				async findMany({ model, where: where_, limit, offset, sortBy }) {
+					filterInvalidOperators(where_);
+					const where = transformWhereOperators(where_);
 
-				const transformed = transformInput(update, model, "update");
-				const res = await db({
-					action: "update",
-					tableName: model,
-					query: queryBuilder((q) => {
-						const eqs = where.map((w) =>
-							//@ts-ignore
-							q[w.operator || "eq"](w.field, w.value),
-						);
-						return eqs.reduce((acc, cur, indx) =>
-							q[
-								(where[indx - 1].connector || "AND").toLowerCase() as
-									| "and"
-									| "or"
-							](acc, cur),
-						);
-					}),
-					update: transformed,
-				});
-				const result = transformOutput(res, model) as any;
-				debugLog([
-					"update result",
-					{ result, duration: `${Date.now() - start}ms` },
-				]);
-				return result;
-			},
-			updateMany: async ({ model, where, update }) => {
-				const start = Date.now();
-				filterInvalidOperators(where);
-				where = transformWhereOperators(where);
-				debugLog(["updateMany", { model, where, update }]);
+					const queryString =
+						where && where.length > 0
+							? queryBuilder((q) => {
+									const eqs = where.map((w) =>
+										//@ts-ignore
+										q[w.operator || "eq"](w.field, w.value),
+									);
+									if (eqs.length === 1) return eqs[0];
+									return eqs.reduce((acc, cur, indx) =>
+										q[
+											(where[indx - 1].connector || "AND").toLowerCase() as
+												| "and"
+												| "or"
+										](acc, cur),
+									);
+								})
+							: null;
+					if (typeof offset === "number") {
+						let continueCursor = undefined;
+						let isDone = false;
 
-				const transformed = transformInput(update, model, "update");
-				const res = await db({
-					action: "update",
-					tableName: model,
-					query: queryBuilder((q) => {
-						const eqs = where.map((w) =>
-							//@ts-ignore
-							q[w.operator || "eq"](w.field, w.value),
-						);
-						return eqs.reduce((acc, cur, indx) =>
-							q[
-								(where[indx - 1].connector || "AND").toLowerCase() as
-									| "and"
-									| "or"
-							](acc, cur),
-						);
-					}),
-					update: transformed,
-				});
-				const result = transformOutput(res, model) as any;
-				debugLog([
-					"updateMany result",
-					{ result, duration: `${Date.now() - start}ms` },
-				]);
-				return result;
-			},
-			delete: async ({ model, where }) => {
-				const start = Date.now();
-				filterInvalidOperators(where);
-				where = transformWhereOperators(where);
-				debugLog(["delete", { model, where }]);
+						const results = [];
 
-				await db({
-					action: "delete",
-					tableName: model,
-					query: queryBuilder((q) => {
-						const eqs = where.map((w) =>
-							//@ts-ignore
-							q[w.operator || "eq"](w.field, w.value),
-						);
-						return eqs.reduce((acc, cur, indx) =>
-							q[
-								(where[indx - 1].connector || "AND").toLowerCase() as
-									| "and"
-									| "or"
-							](acc, cur),
-						);
-					}),
-				});
-				debugLog(["delete complete", { duration: `${Date.now() - start}ms` }]);
-				return;
-			},
-			deleteMany: async ({ model, where }) => {
-				const start = Date.now();
-				filterInvalidOperators(where);
-				where = transformWhereOperators(where);
-				debugLog(["deleteMany", { model, where }]);
+						while (!isDone) {
+							const opts = (await db({
+								action: "query",
+								tableName: model,
+								query: queryString ?? undefined,
+								order: sortBy?.direction,
+								single: false,
+								limit: limit,
+								paginationOpts: {
+									numItems: 100,
+									cursor: continueCursor,
+								},
+							})) as PaginationResult<any>;
+							continueCursor = opts.continueCursor;
+							results.push(...opts.page);
+							if (results.length >= offset + (limit || 1)) {
+								isDone = true;
+								const result = limit
+									? results.slice(offset, offset + limit)
+									: results.slice(offset);
 
-				const res = await db({
-					action: "delete",
-					tableName: model,
-					deleteAll: true,
-					query: queryBuilder((q) => {
-						const eqs = where.map((w) =>
-							//@ts-ignore
-							q[w.operator || "eq"](w.field, w.value),
-						);
-						return eqs.reduce((acc, cur, indx) =>
-							q[
-								(where[indx - 1].connector || "AND").toLowerCase() as
-									| "and"
-									| "or"
-							](acc, cur),
-						);
-					}),
-				});
-				debugLog([
-					"deleteMany result",
-					{ result: res, duration: `${Date.now() - start}ms` },
-				]);
-				return res as number;
-			},
-			count: async ({ model, where }) => {
-				const res = await db({
-					action: "count",
-					tableName: model,
-					query: queryBuilder((q) => {
-						if (!where) return "";
-						const eqs = where.map((w) =>
-							//@ts-ignore
-							q[w.operator || "eq"](w.field, w.value),
-						);
-						return eqs.reduce((acc, cur, indx) =>
-							q[
-								(where[indx - 1].connector || "AND").toLowerCase() as
-									| "and"
-									| "or"
-							](acc, cur),
-						);
-					}),
-				});
-				return res;
-			},
-		};
-	};
-};
+								return result;
+							}
+						}
+					} else {
+						const res = await db({
+							action: "query",
+							tableName: model,
+							query: queryString ? queryString : undefined,
+							order: sortBy?.direction,
+							single: false,
+							limit: limit,
+						});
+						return res;
+					}
+				},
+				async update({ model, where: where_, update }) {
+					filterInvalidOperators(where_);
+					const where = transformWhereOperators(where_);
+					console.log(update, where);
+					const res = await db({
+						action: "update",
+						tableName: model,
+						query: queryBuilder((q) => {
+							const eqs = where.map((w) =>
+								//@ts-ignore
+								q[w.operator || "eq"](w.field, w.value),
+							);
+							return eqs.reduce((acc, cur, indx) =>
+								q[
+									(where[indx - 1].connector || "AND").toLowerCase() as
+										| "and"
+										| "or"
+								](acc, cur),
+							);
+						}),
+						update: update as any,
+					});
+					console.log(`Result:`, res);
+					return res;
+				},
+				async updateMany({ model, where: where_, update }) {
+					filterInvalidOperators(where_);
+					const where = transformWhereOperators(where_);
+					const res = await db({
+						action: "update",
+						tableName: model,
+						query: queryBuilder((q) => {
+							const eqs = where.map((w) =>
+								//@ts-ignore
+								q[w.operator || "eq"](w.field, w.value),
+							);
+							return eqs.reduce((acc, cur, indx) =>
+								q[
+									(where[indx - 1].connector || "AND").toLowerCase() as
+										| "and"
+										| "or"
+								](acc, cur),
+							);
+						}),
+						update: update as any,
+					});
+					return res;
+				},
+				async delete({ model, where: where_ }) {
+					filterInvalidOperators(where_);
+					const where = transformWhereOperators(where_);
+					const res = await db({
+						action: "delete",
+						tableName: model,
+						query: queryBuilder((q) => {
+							const eqs = where.map((w) =>
+								//@ts-ignore
+								q[w.operator || "eq"](w.field, w.value),
+							);
+							return eqs.reduce((acc, cur, indx) =>
+								q[
+									(where[indx - 1].connector || "AND").toLowerCase() as
+										| "and"
+										| "or"
+								](acc, cur),
+							);
+						}),
+					});
+					return res;
+				},
+				async deleteMany({ model, where: where_ }) {
+					filterInvalidOperators(where_);
+					const where = transformWhereOperators(where_);
+					const res = await db({
+						action: "delete",
+						tableName: model,
+						query: queryBuilder((q) => {
+							const eqs = where.map((w) =>
+								//@ts-ignore
+								q[w.operator || "eq"](w.field, w.value),
+							);
+							return eqs.reduce((acc, cur, indx) =>
+								q[
+									(where[indx - 1].connector || "AND").toLowerCase() as
+										| "and"
+										| "or"
+								](acc, cur),
+							);
+						}),
+						deleteAll: true,
+					});
+					return res;
+				},
+				async count({ model, where: where_ }) {
+					filterInvalidOperators(where_);
+					const where = transformWhereOperators(where_);
+					const res = await db({
+						action: "count",
+						tableName: model,
+						query: queryBuilder((q) => {
+							const eqs = where.map((w) =>
+								//@ts-ignore
+								q[w.operator || "eq"](w.field, w.value),
+							);
+							return eqs.reduce((acc, cur, indx) =>
+								q[
+									(where[indx - 1].connector || "AND").toLowerCase() as
+										| "and"
+										| "or"
+								](acc, cur),
+							);
+						}),
+					});
+					return res;
+				},
+			};
+		},
+	});

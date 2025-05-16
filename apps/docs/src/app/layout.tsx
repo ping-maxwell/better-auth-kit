@@ -26,6 +26,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 		<html lang="en" className={inter.className} suppressHydrationWarning>
 			<head>
 				<link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+			
 			</head>
 			<body className="flex flex-col min-h-screen overflow-hidden bg-background text-foreground antialiased">
 				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
