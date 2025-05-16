@@ -26,20 +26,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 		<html lang="en" className={inter.className} suppressHydrationWarning>
 			<head>
 				<link rel="icon" href="/favicon/favicon.ico" sizes="any" />
-				<script
-					src={"https://app.databuddy.cc/databuddy.js"}
-					data-client-id={"z0XffqWWczdDDQEeVXS2b"}
-					data-api-url={"https://basket.databuddy.cc"}
-					data-track-screen-views="true"
-					data-track-performance="true"
-					data-track-web-vitals="false"
-					data-track-errors="true"
-					// data-enable-batching="true"
-					// data-batch-size="20"
-					// data-batch-timeout="5000"
-					// strategy="afterInteractive"
-					defer
-				/>
+			
 			</head>
 			<body className="flex flex-col min-h-screen overflow-hidden bg-background text-foreground antialiased">
 				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
