@@ -12,7 +12,7 @@
 		}
 	},
 	"dependencies": {
-		"better-auth": "^1.2.4",
+		"better-auth": "^1.2.8",
 		"chalk": "^5.4.1",
 		"log-update": "^6.1.0",
 		"prompts": "^2.4.2"

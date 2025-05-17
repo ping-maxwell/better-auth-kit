@@ -149,6 +149,7 @@ export function Seed(
 						await adapter.create({
 							model,
 							data: row,
+							forceAllowId: true,
 						});
 					} catch (error: any) {
 						if (
