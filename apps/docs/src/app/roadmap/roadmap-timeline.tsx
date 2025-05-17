@@ -55,6 +55,15 @@ export function RoadmapTimeline() {
 			],
 		},
 		{
+			title: "Database Explorer",
+			description:
+				"A Better-Auth powered database explorer and schema visualizer.",
+			details: [
+				"add: Functionality to edit rows",
+				"add: Row filtering functionality",
+			],
+		},
+		{
 			title: "Legal Consent Plugin",
 			description:
 				"Ensure legal compliance by requiring users to accept terms of service, privacy policy, age verification, and other consent requirements during sign-up.",
