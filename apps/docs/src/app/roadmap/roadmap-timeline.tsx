@@ -112,20 +112,6 @@ export function RoadmapTimeline() {
 			],
 		},
 		{
-			title: "Better-Auth Dashboard CLI",
-			description:
-				"A Clerk-like dashboard for your Better-Auth project. This will be a Next.js project that is styled with shadcn/ui.",
-			details: [
-				"add: /dashboard route that watches for that device's localhost:3887",
-				"add: UI toggle Better-Auth configs",
-				"add: Database view - similar to Drizzle Studio",
-				"add: User management",
-				"add: Session management",
-				"add: API-Key management",
-				"add: Organization management",
-			],
-		},
-		{
 			title: "PocketBase DB support",
 			description: "A database adapter for PocketBase",
 			details: [
@@ -154,7 +140,8 @@ export function RoadmapTimeline() {
 				"~~chore: update docs~~",
 				"~~fix: any issues or bugs with the library~~",
 				"~~add: `count` method to the database adapter~~",
-				"chore: add tests for `count` method <- delayed.",
+				"~~chore: add tests for `count` method <- delayed.~~",
+				"refactor: Migrate to `createAdapter` from BetterAuth",
 				"add: Custom CLI tool to generate schema",
 			],
 		},
