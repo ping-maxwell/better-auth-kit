@@ -146,12 +146,6 @@ export const contents: Content[] = [
 				icon: () => <Database size={16} />,
 				isNotReady: true,
 			},
-			{
-				href: "/docs/adapters/instantdb",
-				title: "InstantDB",
-				icon: () => <Database size={16} />,
-				isNotReady: true,
-			},
 		],
 	},
 	{
