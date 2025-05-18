@@ -5,9 +5,9 @@ import { profileImage, UploadThingProvider } from "@better-auth-kit/profile-imag
 import { UTApi } from "uploadthing/server";
 import "dotenv/config";
 
-const utapi = new UTApi({
-	apiKey: process.env.UPLOADTHING_API_KEY!,
-});
+// const utapi = new UTApi({
+// 	apiKey: process.env.UPLOADTHING_API_KEY!,
+// });
 
 export const auth = betterAuth({
 	database: new Database("./test.db"),
@@ -21,9 +21,9 @@ export const auth = betterAuth({
 		},
 	},
 	plugins: [
-		profileImage({
-			storageProvider: new UploadThingProvider(utapi),
-		}),
+		// profileImage({
+		// 	storageProvider: new UploadThingProvider(utapi),
+		// }),
 		nextCookies(),
 	],
 });
