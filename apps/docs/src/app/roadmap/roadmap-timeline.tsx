@@ -61,6 +61,7 @@ export function RoadmapTimeline() {
 			details: [
 				"add: Functionality to edit rows",
 				"add: Row filtering functionality",
+				"fix: All the err logs when running the CLI",
 			],
 		},
 		{
