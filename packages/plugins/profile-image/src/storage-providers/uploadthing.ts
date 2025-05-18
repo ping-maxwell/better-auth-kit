@@ -1,9 +1,12 @@
-import { UTApi } from "uploadthing/server";
+import type { UTApi } from "uploadthing/server";
 import type { StorageLogger, StorageProvider } from "../types";
 
-const utapi = new UTApi();
-
 export class UploadThingProvider implements StorageProvider {
+	utapi: UTApi;
+	constructor(UTAPI: UTApi) {
+		this.utapi = UTAPI;
+	}
+
 	async uploadImage(
 		params: { file: File; userId: string },
 		logger: StorageLogger,
@@ -13,10 +16,18 @@ export class UploadThingProvider implements StorageProvider {
 		size: number;
 	}> {
 		const { file, userId } = params;
-
 		try {
+			const ext = file.name.split(".").pop();
+			const newFile = new File([file], `${userId}.${ext}`, {
+				type: file.type,
+			});
+			logger.info(
+				`[BETTER-AUTH-KIT: Profile Image]: Uploading file:`,
+				newFile.name,
+			);
+
 			// Upload the file using UploadThing
-			const response = await utapi.uploadFiles([file], {
+			const response = await this.utapi.uploadFiles([newFile], {
 				metadata: { userId },
 			});
 
@@ -38,21 +49,16 @@ export class UploadThingProvider implements StorageProvider {
 
 	async deleteImage(
 		params: {
-			key?: string;
-			url: string;
+			imageURL: string;
 			userId: string;
 		},
 		logger: StorageLogger,
 	): Promise<void> {
-		const { key } = params;
-
-		if (!key) {
-			throw new Error("Image key is required for deletion");
-		}
+		const { imageURL } = params;
 
 		try {
 			// Delete the file using UploadThing
-			await utapi.deleteFiles([key]);
+			await this.utapi.deleteFiles([imageURL]);
 		} catch (error) {
 			logger.error("Error deleting image:", error);
 			throw new Error("Failed to delete image");

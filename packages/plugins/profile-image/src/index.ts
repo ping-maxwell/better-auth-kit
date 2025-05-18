@@ -1,19 +1,12 @@
-import { type BetterAuthPlugin } from "better-auth";
+import { z } from "zod";
+import type { BetterAuthPlugin } from "better-auth";
 import { createAuthEndpoint, sessionMiddleware } from "better-auth/api";
-import {
-	mergeSchema,
-	type FieldAttribute,
-	type InferFieldsInput,
-} from "better-auth/db";
-import { z, type ZodRawShape, type ZodTypeAny } from "zod";
-import { schema, type ProfileImageEntry } from "./schema";
-import { UploadThingProvider } from "./storage-providers/uploadthing";
 import type { ProfileImageOptions } from "./types";
 
 export * from "./client";
-export * from "./schema";
 export * from "./storage-providers/uploadthing";
 export * from "./types";
+export * from "./utils";
 
 export const ERROR_CODES = {
 	FILE_TOO_LARGE: "File is too large",
@@ -21,13 +14,17 @@ export const ERROR_CODES = {
 	USER_NOT_LOGGED_IN: "User must be logged in to upload a profile image",
 	USER_NOT_FOUND: "User not found",
 	USER_NOT_ALLOWED: "You are not allowed to upload a profile image",
-	FILE_REQUIRED: "File is required",
+	MISSING_OR_INVALID_FILE: "Missing or invalid file",
 	PROFILE_IMAGE_NOT_FOUND: "Profile image not found",
+	MISSING_REQUEST_BODY:
+		"Missing request body. This is likely caused by the endpoint being called from auth.api.",
+	USER_DOES_NOT_OWN_IMAGE: "You are not allowed to delete this image",
+	FAILED_TO_UPLOAD_IMAGE: "Failed to upload image",
 } as const;
 
-export const profileImage = (options?: ProfileImageOptions) => {
+export const profileImage = (options: ProfileImageOptions) => {
 	const opts = {
-		storageProvider: options?.storageProvider ?? new UploadThingProvider(),
+		storageProvider: options?.storageProvider,
 		maxSize: options?.maxSize ?? 5 * 1024 * 1024, // 5MB default
 		allowedTypes: options?.allowedTypes ?? [
 			"image/jpeg",
@@ -35,50 +32,24 @@ export const profileImage = (options?: ProfileImageOptions) => {
 			"image/webp",
 		],
 		canUploadImage: options?.canUploadImage,
-		schema: options?.schema,
-		additionalFields: options?.additionalFields ?? {},
 		onImageUploaded: options?.onImageUploaded,
-		generateFilename:
-			options?.generateFilename ??
-			((params) => {
-				const { userId, originalFilename } = params;
-				const timestamp = Date.now();
-				const extension = originalFilename.split(".").pop() || "";
-				return `${userId}_${timestamp}.${extension}`;
-			}),
 	} satisfies ProfileImageOptions;
-
-	// Start with a deep copy of the schema
-	const baseSchema = {
-		profileImage: {
-			...schema.profileImage,
-			fields: {
-				...schema.profileImage.fields,
-			},
-		},
-	};
-
-	// Now merge with user-provided schema
-	const merged_schema = mergeSchema(baseSchema, opts.schema);
-	merged_schema.profileImage.fields = {
-		...merged_schema.profileImage.fields,
-		...opts.additionalFields,
-	};
-
-	type ProfileImageEntryModified = ProfileImageEntry &
-		InferFieldsInput<typeof opts.additionalFields>;
-
-	const model = Object.keys(merged_schema)[0];
 
 	return {
 		id: "profileImage",
-		schema: merged_schema,
 		$ERROR_CODES: ERROR_CODES,
 		endpoints: {
 			uploadProfileImage: createAuthEndpoint(
 				"/profile-image/upload",
 				{
 					method: "POST",
+					body: z.object({
+						file: z.object({
+							name: z.string(),
+							type: z.string(),
+							base64Image: z.string().base64(),
+						}),
+					}),
 					use: [sessionMiddleware],
 				},
 				async (ctx) => {
@@ -86,7 +57,9 @@ export const profileImage = (options?: ProfileImageOptions) => {
 
 					// Check if user is allowed to upload an image
 					if (opts.canUploadImage) {
-						const isAllowed = await Promise.resolve(opts.canUploadImage(user));
+						const isAllowed = await Promise.resolve(
+							opts.canUploadImage(ctx.context.session),
+						);
 						if (!isAllowed) {
 							throw ctx.error("FORBIDDEN", {
 								message: ERROR_CODES.USER_NOT_ALLOWED,
@@ -94,13 +67,14 @@ export const profileImage = (options?: ProfileImageOptions) => {
 						}
 					}
 
-					// Get file from request
-					const formData = await ctx.request!.formData();
-					const file = formData.get("file") as File | null;
+					const fileBuffer = Buffer.from(ctx.body.file.base64Image, "base64");
+					const file = new File([fileBuffer], ctx.body.file.name, {
+						type: ctx.body.file.type,
+					});
 
-					if (!file) {
+					if (!file || !(file instanceof File)) {
 						throw ctx.error("BAD_REQUEST", {
-							message: ERROR_CODES.FILE_REQUIRED,
+							message: ERROR_CODES.MISSING_OR_INVALID_FILE,
 						});
 					}
 
@@ -119,10 +93,6 @@ export const profileImage = (options?: ProfileImageOptions) => {
 					}
 
 					const userId = user.id;
-					const filename = opts.generateFilename({
-						userId,
-						originalFilename: file.name,
-					});
 
 					// Upload file using storage provider
 					let url: string;
@@ -139,165 +109,81 @@ export const profileImage = (options?: ProfileImageOptions) => {
 						key = res.key;
 					} catch (error) {
 						ctx.context.logger.error(
-							"#BETTER_AUTH_KIT: Failed to upload image with Storage Provider:",
+							`[BETTER-AUTH-KIT: Profile Image]: User "${userId}" failed to upload image with Storage Provider:`,
 							error,
 						);
 						throw ctx.error("INTERNAL_SERVER_ERROR", {
-							message: "Failed to upload image",
+							message: ERROR_CODES.FAILED_TO_UPLOAD_IMAGE,
 						});
 					}
-
-					// Store file information in database
-					const profileImageData: Omit<
-						ProfileImageEntryModified,
-						"id" | "createdAt" | "updatedAt"
-					> = {
-						userId,
-						url,
-						key,
-						filename,
-						mimeType: file.type,
-						size: file.size,
-					};
-
-					// Add any additional fields from form data
-					const additionalFields: Record<string, any> = {};
-					Object.keys(opts.additionalFields).forEach((field) => {
-						const value = formData.get(field);
-						if (value !== null) {
-							additionalFields[field] = value;
-						}
-					});
-
-					const profileImageEntry =
-						await ctx.context.adapter.create<ProfileImageEntryModified>({
-							model,
-							data: {
-								...profileImageData,
-								...additionalFields,
-								createdAt: new Date(),
-								updatedAt: new Date(),
-							} as ProfileImageEntryModified,
-						});
 
 					// Call onImageUploaded handler if provided
 					if (opts.onImageUploaded && user) {
 						await Promise.resolve(
 							opts.onImageUploaded({
-								profileImage: profileImageEntry,
+								profileImage: {
+									url,
+									key,
+								},
 								user,
 							}),
 						);
 					}
 
-					return ctx.json(profileImageEntry);
+					// Update the user with the new image
+					await ctx.context.adapter.update({
+						model: "user",
+						where: [{ field: "id", value: user.id }],
+						update: {
+							image: url,
+						},
+					});
+
+					return ctx.json({
+						success: true,
+						image: {
+							url,
+							key,
+						},
+					});
 				},
 			),
 
 			deleteProfileImage: createAuthEndpoint(
-				"/profile-image/delete/:id",
+				"/profile-image/delete",
 				{
 					method: "POST",
 					use: [sessionMiddleware],
 				},
 				async (ctx) => {
-					const { id } = ctx.params;
-
 					const user = ctx.context.session.user;
 
-					// Find the profile image entry
-					const profileImage =
-						await ctx.context.adapter.findOne<ProfileImageEntryModified>({
-							model,
-							where: [{ field: "id", value: id, operator: "eq" }],
-						});
-					if (!profileImage) {
+					if (!user.image) {
 						return ctx.json({ success: true });
 					}
 
-					// Check if the user owns this image
-					if (profileImage.userId !== user.id) {
-						throw ctx.error("FORBIDDEN", {
-							message: "You are not allowed to delete this image",
-						});
-					}
-
 					// Delete from storage provider if possible
-					if (opts.storageProvider.deleteImage && profileImage.key) {
+					if (opts.storageProvider.deleteImage) {
 						await opts.storageProvider.deleteImage(
 							{
-								key: profileImage.key,
-								url: profileImage.url,
+								imageURL: user.image,
 								userId: user.id,
 							},
 							ctx.context.logger,
 						);
+						// Set the user.image to null
+						await ctx.context.adapter.update({
+							model: "user",
+							where: [{ field: "id", value: user.id }],
+							update: {
+								image: null,
+							},
+						});
 					}
-
-					// Delete from database
-					await ctx.context.adapter.delete({
-						model,
-						where: [{ field: "id", value: id, operator: "eq" }],
-					});
 
 					return ctx.json({ success: true });
-				},
-			),
-
-			getUserProfileImage: createAuthEndpoint(
-				"/profile-image/user/:userId",
-				{
-					method: "GET",
-				},
-				async (ctx) => {
-					const { userId } = ctx.params;
-
-					// Find the latest profile image for user
-					const profileImage =
-						await ctx.context.adapter.findOne<ProfileImageEntryModified>({
-							model,
-							where: [{ field: "userId", value: userId, operator: "eq" }],
-						});
-
-					if (!profileImage) {
-						return ctx.error("NOT_FOUND", {
-							message: ERROR_CODES.PROFILE_IMAGE_NOT_FOUND,
-						});
-					}
-
-					return ctx.json(profileImage);
 				},
 			),
 		},
 	} satisfies BetterAuthPlugin;
 };
-
-function convertAdditionalFieldsToZodSchema(
-	additionalFields: Record<string, FieldAttribute>,
-) {
-	const additionalFieldsZodSchema: ZodRawShape = {};
-	for (const [key, value] of Object.entries(additionalFields)) {
-		let res: ZodTypeAny;
-
-		if (value.type === "string") {
-			res = z.string();
-		} else if (value.type === "number") {
-			res = z.number();
-		} else if (value.type === "boolean") {
-			res = z.boolean();
-		} else if (value.type === "date") {
-			res = z.date();
-		} else if (value.type === "string[]") {
-			res = z.array(z.string());
-		} else {
-			res = z.array(z.number());
-		}
-
-		if (!value.required) {
-			res = res.optional();
-		}
-
-		additionalFieldsZodSchema[key] = res;
-	}
-	return z.object(additionalFieldsZodSchema);
-}

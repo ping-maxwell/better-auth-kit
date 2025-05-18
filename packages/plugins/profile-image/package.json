@@ -11,21 +11,24 @@
 		"profile",
 		"image",
 		"avatar",
-		"upload"
+		"upload",
+		"better-auth-kit",
+		"kit"
 	],
 	"license": "MIT",
 	"author": "better-auth-kit",
 	"files": ["./dist/**/*"],
 	"scripts": {
 		"build": "bun build.ts",
-		"build:dev": "bun build-dev.ts",
+		"dev": "bun build-dev.ts",
 		"test": "vitest",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"zod": "^3.24.2",
+		"@uploadthing/shared": "^6.7.9",
+		"dotenv": "^16.5.0",
 		"uploadthing": "^6.13.3",
-		"@uploadthing/shared": "^6.7.9"
+		"zod": "^3.24.2"
 	},
 	"peerDependencies": {
 		"better-auth": "^1.1.21"

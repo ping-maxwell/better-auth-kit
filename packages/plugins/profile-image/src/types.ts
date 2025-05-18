@@ -1,6 +1,4 @@
-import type { LogLevel, User } from "better-auth";
-import type { FieldAttribute } from "better-auth/db";
-import type { ProfileImageEntry } from "./schema";
+import type { LogLevel, Session, User } from "better-auth";
 
 export type StorageLogger = Record<
 	LogLevel,
@@ -28,8 +26,7 @@ export interface StorageProvider {
 	 */
 	deleteImage?: (
 		params: {
-			key: string;
-			url: string;
+			imageURL: string;
 			userId: string;
 		},
 		logger: StorageLogger,
@@ -39,9 +36,8 @@ export interface StorageProvider {
 export interface ProfileImageOptions {
 	/**
 	 * Storage provider to use for image uploads
-	 * If not provided, will use UploadThing as the default
 	 */
-	storageProvider?: StorageProvider;
+	storageProvider: StorageProvider;
 
 	/**
 	 * Maximum file size in bytes
@@ -59,38 +55,19 @@ export interface ProfileImageOptions {
 	 * Optional function to determine if a user is allowed to upload an image
 	 * @default undefined (all users allowed)
 	 */
-	canUploadImage?: (user: User) => boolean | Promise<boolean>;
-
-	/**
-	 * Custom schema configuration
-	 */
-	schema?: {
-		profileImage?: {
-			modelName?: string;
-			fields?: Record<string, string>;
-		};
-	};
-
-	/**
-	 * Additional fields to add to the profile image schema
-	 */
-	additionalFields?: Record<string, FieldAttribute>;
+	canUploadImage?: (session: { user: User; session: Session }) =>
+		| boolean
+		| Promise<boolean>;
 
 	/**
 	 * Callback function that gets executed server-side when an image is uploaded
 	 * @param params Object containing profile image entry and user
 	 */
 	onImageUploaded?: (params: {
-		profileImage: ProfileImageEntry;
+		profileImage: {
+			url: string;
+			key: string;
+		};
 		user: User;
 	}) => void | Promise<void>;
-
-	/**
-	 * Optional function to generate the image filename
-	 * @default function that uses userId and timestamp
-	 */
-	generateFilename?: (params: {
-		userId: string;
-		originalFilename: string;
-	}) => string;
 }
