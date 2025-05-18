@@ -17,6 +17,9 @@ import {
 	Gift,
 	Gauge,
 	MessageCircle,
+	PopcornIcon,
+	Brain,
+	Book,
 } from "lucide-react";
 import type { Content } from "./sidebar";
 
@@ -81,17 +84,12 @@ export const contents: Content[] = [
 				icon: () => <OctagonMinus size={16} />,
 				isNotReady: true,
 			},
-			{
-				title: "Libraries",
-				href: "/docs/offer/libraries",
-				group: true,
-				icon: () => <Package size={16} />,
-			},
-			{
-				href: "/docs/libraries/tests",
-				title: "Better Auth tests",
-				icon: () => <TestTube size={16} />,
-			},
+			// {
+			// 	title: "Libraries",
+			// 	href: "/docs/offer/libraries",
+			// 	group: true,
+			// 	icon: () => <Package size={16} />,
+			// },
 			{
 				title: "CLI",
 				href: "/docs/libraries/cli",
@@ -148,11 +146,22 @@ export const contents: Content[] = [
 				icon: () => <Database size={16} />,
 				isNotReady: true,
 			},
+		],
+	},
+	{
+		title: "Random Other Stuff",
+		Icon: () => <PopcornIcon size={16} />,
+		list: [
 			{
-				href: "/docs/adapters/instantdb",
-				title: "InstantDB",
-				icon: () => <Database size={16} />,
-				isNotReady: true,
+				title: "Guides / Blogs",
+				href: "/docs/random-other-stuff/guide",
+				icon: () => <Book size={16} />,
+				group: true,
+			},
+			{
+				title: "How to think about Better Auth",
+				href: "/docs/random-other-stuff/how-to-think-about-better-auth",
+				icon: () => <Brain size={16} />,
 			},
 		],
 	},

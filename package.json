@@ -6,6 +6,7 @@
 		"dev": "turbo run dev --concurrency 20",
 		"format": "biome format --write",
 		"lint": "biome lint",
+		"lint:fix": "biome lint --write",
 		"check-types": "turbo run check-types",
 		"test": "turbo test"
 	},

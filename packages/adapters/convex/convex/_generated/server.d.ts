@@ -8,7 +8,7 @@
  * @module
  */
 
-import {
+import type {
 	ActionBuilder,
 	HttpActionBuilder,
 	MutationBuilder,

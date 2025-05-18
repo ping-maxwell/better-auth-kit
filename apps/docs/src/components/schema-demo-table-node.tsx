@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Fingerprint, Hash, Key, Table2 } from "lucide-react";
-import { Handle, useReactFlow, type NodeProps } from "@xyflow/react";
-import { useEffect, useRef } from "react";
+import { Handle, type NodeProps } from "@xyflow/react";
 import { TooltipContent } from "@/components/ui/tooltip";
 import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipProvider } from "@/components/ui/tooltip";

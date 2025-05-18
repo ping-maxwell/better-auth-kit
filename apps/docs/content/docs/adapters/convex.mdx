@@ -251,3 +251,22 @@ Convex doesn't support the usage of the `fs` module in it's native enviroment, s
 To get around this, we intend to build a custom CLI specifically for schema generation, which will be available in the `@better-auth-kit/cli` package.
 
 Keep an eye out for this in our [roadmap](/roadmap).
+
+## Using JWT plugin in Convex
+
+The JWT plugin in Better Auth doesn't work off the bat in Convex, this is due to certain algorithms not being supported in Convex's Enviroment.
+
+We recommend using the `RS256` algorithm, which is supported in Convex.
+
+```ts
+export const auth = betterAuth({
+  database: convexAdapter(convexClient),
+  plugins: [
+    jwt({
+      algorithm: "RS256",
+    }),
+  ],
+});
+```
+
+For a minimal repo implementing this, check out [this repo](https://github.com/juliusmarminge/convex-betterauth/tree/main) by <GithubUser>juliusmarminge</GithubUser>.

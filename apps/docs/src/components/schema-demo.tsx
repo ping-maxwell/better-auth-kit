@@ -25,14 +25,15 @@ import { TableNode, type TableNodeData } from "./schema-demo-table-node";
 import "./schema-demo-styles.css";
 import type { FieldAttribute } from "better-auth/db";
 import { getDetailedAuthTables } from "@/lib/database-explorer-plugin";
-import { ZoomSlider } from "./zoom-slider";
 import { CircleDot, CornerLeftUp, CornerRightUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
-import { TooltipContent } from "./ui/tooltip";
-import { TooltipProvider } from "./ui/tooltip";
-import { TooltipTrigger } from "./ui/tooltip";
-import { Tooltip } from "@radix-ui/react-tooltip";
+import {
+	TooltipContent,
+	Tooltip,
+	TooltipProvider,
+	TooltipTrigger,
+} from "./ui/tooltip";
 
 type BetterAuthDbSchema = {
 	[key: string]: {

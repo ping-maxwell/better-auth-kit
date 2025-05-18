@@ -1,4 +1,9 @@
-import type { BetterAuthClientPlugin, Session, User } from "better-auth";
+import type {
+	BetterAuthClientPlugin,
+	Session,
+	User,
+	APIError,
+} from "better-auth";
 import type { betterAuth } from "better-auth";
 import {
 	createAuthClient,
@@ -6,7 +11,7 @@ import {
 	type SuccessContext,
 } from "better-auth/react";
 import { getBaseURL } from "./utils/url";
-import { getMigrations, getAdapter } from "better-auth/db";
+import { getMigrations, getAdapter, getSchema } from "better-auth/db";
 import { parseSetCookieHeader, setCookieToHeader } from "better-auth/cookies";
 
 interface ClientOptions {
@@ -18,7 +23,7 @@ interface ClientOptions {
 }
 
 export async function getTestInstance<C extends ClientOptions>(
-	auth: ReturnType<typeof betterAuth>,
+	auth_: { api: any; options: any } & Record<string, any>,
 	config?: {
 		clientOptions?: C;
 		port?: number;
@@ -27,6 +32,7 @@ export async function getTestInstance<C extends ClientOptions>(
 		shouldRunMigrations?: boolean;
 	},
 ) {
+	const auth = auth_ as ReturnType<typeof betterAuth>;
 	const opts = auth.options;
 
 	const testUser = {
@@ -36,15 +42,6 @@ export async function getTestInstance<C extends ClientOptions>(
 		...config?.testUser,
 	};
 
-	async function createTestUser() {
-		if (config?.disableTestUser) {
-			return;
-		}
-		const res = await auth.api.signUpEmail({
-			body: testUser,
-		});
-	}
-
 	if (config?.shouldRunMigrations) {
 		const { runMigrations } = await getMigrations({
 			...auth.options,
@@ -53,8 +50,41 @@ export async function getTestInstance<C extends ClientOptions>(
 		await runMigrations();
 	}
 
-	await createTestUser();
-
+	async function signUpWithTestUser() {
+		if (config?.disableTestUser) {
+			throw new Error("Test user is disabled");
+		}
+		const headers = new Headers();
+		const setCookie = (name: string, value: string) => {
+			const current = headers.get("cookie");
+			headers.set("cookie", `${current || ""}; ${name}=${value}`);
+		};
+		//@ts-expect-error
+		const { data, error } = await client.signUp.email({
+			email: testUser.email,
+			password: testUser.password,
+			name: testUser.name,
+			fetchOptions: {
+				//@ts-expect-error
+				onSuccess(context) {
+					const header = context.response.headers.get("set-cookie");
+					const cookies = parseSetCookieHeader(header || "");
+					const signedCookie = cookies.get("better-auth.session_token")?.value;
+					headers.set("cookie", `better-auth.session_token=${signedCookie}`);
+				},
+			},
+		});
+		if (error) {
+			console.error(error);
+			throw error;
+		}
+		return {
+			session: data.session as Session,
+			user: data.user as User,
+			headers,
+			setCookie,
+		};
+	}
 	async function signInWithTestUser() {
 		if (config?.disableTestUser) {
 			throw new Error("Test user is disabled");
@@ -140,9 +170,28 @@ export async function getTestInstance<C extends ClientOptions>(
 		},
 	});
 
+	async function resetDatabase(
+		tables: string[] = ["session", "account", "verification", "user"],
+	) {
+		const ctx = await auth.$context;
+		const adapter = ctx.adapter;
+		for (const modelName of tables) {
+			const allRows = await adapter.findMany<{ id: string }>({
+				model: modelName,
+				limit: 1000,
+			});
+			for (const row of allRows) {
+				await adapter.delete({
+					model: modelName,
+					where: [{ field: "id", value: row.id }],
+				});
+			}
+		}
+		console.log("Database successfully reset.");
+	}
+
 	return {
-		auth: auth as unknown as ReturnType<typeof betterAuth>,
-		client: client as unknown as ReturnType<typeof createAuthClient>,
+		client: client as unknown as ReturnType<typeof createAuthClient<C>>,
 		testUser,
 		signInWithTestUser,
 		signInWithUser,
@@ -150,5 +199,30 @@ export async function getTestInstance<C extends ClientOptions>(
 		customFetchImpl,
 		sessionSetter,
 		db: await getAdapter(auth.options),
+		resetDatabase,
+		signUpWithTestUser,
 	};
+}
+
+export type Success<T> = {
+	data: T;
+	error: null;
+};
+
+export type Failure<E> = {
+	data: null;
+	error: E;
+};
+
+export type Result<T, E = APIError> = Success<T> | Failure<E>;
+
+export async function tryCatch<T, E = APIError>(
+	promise: Promise<T>,
+): Promise<Result<T, E>> {
+	try {
+		const data = await promise;
+		return { data, error: null };
+	} catch (error) {
+		return { data: null, error: error as E };
+	}
 }

@@ -26,7 +26,7 @@
 		"@babel/preset-typescript": "^7.26.0",
 		"@types/express": "^5.0.1",
 		"@types/fs-extra": "^11.0.4",
-		"better-auth": "^1.2.7",
+		"better-auth": "^1.2.8",
 		"c12": "^3.0.2",
 		"chalk": "^5.4.1",
 		"commander": "^13.1.0",

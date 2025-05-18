@@ -175,7 +175,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
 						const newBody = { ...body };
 
 						if (opts.requireTOS) {
-							if (body[opts.schema.tosAccepted] === undefined)
+							if (!body[opts.schema.tosAccepted])
 								throw new APIError("BAD_REQUEST", {
 									message: ERROR_CODES.TOS_NOT_ACCEPTED,
 								});
@@ -184,7 +184,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
 						}
 
 						if (opts.requirePrivacyPolicy) {
-							if (body[opts.schema.privacyPolicyAccepted] === undefined)
+							if (!body[opts.schema.privacyPolicyAccepted])
 								throw new APIError("BAD_REQUEST", {
 									message: ERROR_CODES.PRIVACY_NOT_ACCEPTED,
 								});
@@ -194,7 +194,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
 						}
 
 						if (opts.requireAgeVerification) {
-							if (body[opts.schema.ageVerified] === undefined)
+							if (!body[opts.schema.ageVerified])
 								throw new APIError("BAD_REQUEST", {
 									message: ERROR_CODES.AGE_NOT_ACCEPTED,
 								});
@@ -204,7 +204,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
 						}
 
 						if (opts.requireMarketingConsent) {
-							if (body[opts.schema.marketingConsentAccepted] === undefined)
+							if (!body[opts.schema.marketingConsentAccepted])
 								throw new APIError("BAD_REQUEST", {
 									message: ERROR_CODES.MARKETING_NOT_ACCEPTED,
 								});
@@ -214,7 +214,7 @@ export const legalConsent = (options?: LegalConsentOptions) => {
 						}
 
 						if (opts.requireCookieConsent) {
-							if (body[opts.schema.cookieConsentAccepted] === undefined)
+							if (!body[opts.schema.cookieConsentAccepted])
 								throw new APIError("BAD_REQUEST", {
 									message: ERROR_CODES.COOKIE_NOT_ACCEPTED,
 								});
