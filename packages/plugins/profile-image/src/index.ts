@@ -49,7 +49,9 @@ export const profileImage = (options: ProfileImageOptions) => {
 				"/profile-image/upload",
 				{
 					method: "POST",
-					body: z.instanceof(Blob),
+					body: z.object({
+						image: z.instanceof(Blob),
+					}),
 					use: [sessionMiddleware],
 				},
 				async (ctx) => {
@@ -66,7 +68,7 @@ export const profileImage = (options: ProfileImageOptions) => {
 							});
 						}
 					}
-					const blob = ctx.body;
+					const blob = ctx.body.image;
 					const result = await detectFileTypeFromBlob(blob);
 
 					if (!result) {
@@ -147,15 +149,11 @@ export const profileImage = (options: ProfileImageOptions) => {
 					});
 
 					return ctx.json({
-						success: true,
-						image: {
-							url,
-							key,
-						},
+						url,
+						key,
 					});
 				},
 			),
-
 			deleteProfileImage: createAuthEndpoint(
 				"/profile-image/delete",
 				{
@@ -213,7 +211,10 @@ export const profileImage = (options: ProfileImageOptions) => {
 										}
 
 										const origin = new URL(result.data).origin;
-										if (opts.trustedImageOrigins && !opts.trustedImageOrigins.includes(origin)) {
+										if (
+											opts.trustedImageOrigins &&
+											!opts.trustedImageOrigins.includes(origin)
+										) {
 											ctx.logger.error(
 												`[BETTER-AUTH-KIT: Profile Image]: User "${user.id}" tried to update their profile image with an unauthorized image origin:`,
 												user.image,
@@ -230,18 +231,27 @@ export const profileImage = (options: ProfileImageOptions) => {
 							},
 							create: {
 								async before(user) {
-									if(user.image !== null){
+									if (user.image !== null) {
 										const validator = z.string().url();
 										const result = validator.safeParse(user.image);
-										if(!result.success){
-											ctx.logger.error(`[BETTER-AUTH-KIT: Profile Image]: User "${user.id}" tried to create their profile image with an invalid image URL:`, user.image);
+										if (!result.success) {
+											ctx.logger.error(
+												`[BETTER-AUTH-KIT: Profile Image]: User "${user.id}" tried to create their profile image with an invalid image URL:`,
+												user.image,
+											);
 											throw new APIError("FORBIDDEN", {
 												message: "Invalid image URL",
 											});
 										}
 										const origin = new URL(result.data).origin;
-										if(opts.trustedImageOrigins && !opts.trustedImageOrigins.includes(origin)){
-											ctx.logger.error(`[BETTER-AUTH-KIT: Profile Image]: User "${user.id}" tried to create their profile image with an unauthorized image origin:`, user.image);
+										if (
+											opts.trustedImageOrigins &&
+											!opts.trustedImageOrigins.includes(origin)
+										) {
+											ctx.logger.error(
+												`[BETTER-AUTH-KIT: Profile Image]: User "${user.id}" tried to create their profile image with an unauthorized image origin:`,
+												user.image,
+											);
 											throw new APIError("FORBIDDEN", {
 												message: "Unauthorized image origin",
 											});
@@ -251,7 +261,7 @@ export const profileImage = (options: ProfileImageOptions) => {
 										data: user,
 									};
 								},
-							}
+							},
 						},
 					},
 				},

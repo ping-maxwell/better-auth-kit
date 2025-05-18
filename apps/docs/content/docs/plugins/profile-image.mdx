@@ -60,7 +60,7 @@ Additionally, it provides a way to store the profile picture in a storage provid
         import { authClient } from "@/lib/auth-client";
 
         const { data } = await authClient.profileImage.upload({// [!code highlight]
-          base64Image: await fileToBase64(imageFile),// [!code highlight]
+          image: someFileOrBlob,// [!code highlight]
         });// [!code highlight]
 
         const { url, key } = data; // URL and key of the uploaded image.
@@ -80,11 +80,7 @@ Additionally, it provides a way to store the profile picture in a storage provid
           const uploadImage = async () => {
             if (!image) return;
             const { data, error } = await authClient.profileImage.upload({
-              file: {
-                name: image.name,
-                type: image.type,
-                base64Image: await fileToBase64(image),
-              },
+              image: blob,
             });
             if(data){
               console.log(`Successfully uploaded image to ${data.image.url}`);
@@ -114,7 +110,83 @@ Additionally, it provides a way to store the profile picture in a storage provid
   </Step>
 </Steps>
 
+## Usage
 
+### Uploading an image
+
+Upload an image to the user's profile.
+
+```ts
+import { authClient } from "@/lib/auth-client";
+
+// Get a file or blob from somewhere, e.g. from a file input.
+const someFileOrBlob = new File([], "image.png", { type: "image/png" });
+
+const { data, error } = await authClient.profileImage.upload({ // [!code highlight]
+  image: someFileOrBlob, // [!code highlight]
+}); // [!code highlight]
+
+if(data){
+  console.log(`Successfully uploaded image to ${data.url}`);
+}else{
+  console.error(`Something went wrong:`, error);
+}
+```
+
+
+<Callout>
+The profile image upload functionality is currently only supported through the auth-client.
+Server-side auth instance support is still in development and testing.
+</Callout>
+
+#### Upload a compressed image
+
+By uploading a compressed image, you can reduce the size of the image by lowering the quality of the image, and converting it to JPEG
+before it is uploaded to the server.
+
+If you're using a set of cusom `allowedTypes` in the plugin options, you should ensure to include `image/jpeg` in the list.
+This is because the `compressImage` function will convert the image to JPEG.
+
+
+```ts
+import { compressImage } from "@better-auth-kit/profile-image/client";
+
+// Get a file or blob from somewhere, e.g. from a file input.
+const someFileOrBlob = new File([], "image.png", { type: "image/png" });
+
+const compressedImage = await compressImage(someFileOrBlob, 0.7);// [!code highlight]
+if(!compressedImage) return;
+
+const { data, error } = await authClient.profileImage.upload({
+  image: compressedImage,
+});
+```
+
+<Callout type="warn">
+  This only works on the browser, since it requires the `createImageBitmap` API.
+</Callout>
+
+
+### Deleting an image
+
+Delete the user's profile image.
+
+<Tabs items={["client", "server"]}>
+  <Tab value="client">
+    ```ts
+    import { authClient } from "@/lib/auth-client";
+
+    const { error } = await authClient.profileImage.delete();
+    ```
+  </Tab>
+  <Tab value="server">
+    ```ts
+    import { auth } from "@/lib/auth";
+
+    await auth.api.deleteProfileImage({ headers: await headers() });
+    ```
+  </Tab>
+</Tabs>
 ## Plugin Options
 
 ```ts
@@ -145,7 +217,11 @@ export const auth = betterAuth({
 
 ## Security
 
-We recommend to set up a trusted image origins, to prevent users from having any way of setting their profile picture to an image from an untrusted origin.
+Any attempts at modifying or creating a user's `image` will run through validation checks to ensure they're a valid URL,
+and are part of the `trustedImageOrigins` if enabled in the plugin config.
+
+We recommend to set up a trusted image origins, to prevent users from having any way of
+setting their profile picture to an image from an untrusted origin.
 
 ```ts
 export const auth = betterAuth({
@@ -160,8 +236,6 @@ export const auth = betterAuth({
 <Callout type="warn">
   If you're using the UploadThing provider, we recommend adding `https://<YOUR_APP_ID>.ufs.sh` to the trusted image origins.
 </Callout>
-
-
 
 
 ## Optimizations

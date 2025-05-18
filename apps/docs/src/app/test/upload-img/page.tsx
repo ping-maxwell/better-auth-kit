@@ -22,10 +22,12 @@ export default function Page() {
 		if (!image) return;
 		console.log("Uploading", image);
 
-
 		const blob = await compressImage(image);
 		if(!blob) return;
-		const res = await authClient.profileImage.upload(blob);
+
+		const res = await authClient.profileImage.upload({
+			image: blob,
+		});
 		console.log(res);
 	};
 
@@ -82,7 +84,9 @@ function UploadProfileImage() {
 		const blob = await compressImage(image);
 		if(!blob) return;
 
-		const { data, error } = await authClient.profileImage.upload(blob);
+		const { data, error } = await authClient.profileImage.upload({
+			image: blob
+		});
 
 		if(data){
 			console.log(`Successfully uploaded image to ${data.image.url}`);
