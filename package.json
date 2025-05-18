@@ -3,7 +3,7 @@
 	"private": true,
 	"scripts": {
 		"build": "turbo run build",
-		"dev": "turbo run dev --concurrency 11",
+		"dev": "turbo run dev --concurrency 20",
 		"format": "biome format --write",
 		"lint": "biome lint",
 		"lint:fix": "biome lint --write",

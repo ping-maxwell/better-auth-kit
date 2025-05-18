@@ -1,8 +1,14 @@
 import { betterAuth } from "better-auth";
-import { apiKey, openAPI, organization, username } from "better-auth/plugins";
 import { nextCookies } from "better-auth/next-js";
 import Database from "better-sqlite3";
-import { legalConsent } from "@better-auth-kit/legal-consent";
+import { profileImage } from "@better-auth-kit/profile-image";
+import { UploadThingProvider } from "@better-auth-kit/profile-image";
+import { UTApi } from "uploadthing/server";
+import "dotenv/config";
+
+const utapi = new UTApi({
+	apiKey: process.env.UPLOADTHING_API_KEY!,
+});
 
 export const auth = betterAuth({
 	database: new Database("./test.db"),
@@ -16,38 +22,9 @@ export const auth = betterAuth({
 		},
 	},
 	plugins: [
-		// waitlist({
-		//   enabled: true,
-		//   waitlistEndConfig: {
-		//     event: "max-signups-reached",
-		//     onWaitlistEnd: () => {
-		//       console.log("Waitlist complete!");
-		//     },
-		//   },
-		// }),
-		organization(),
-		openAPI(),
-		apiKey(),
-		username(),
+		profileImage({
+			storageProvider: new UploadThingProvider(utapi),
+		}),
 		nextCookies(),
 	],
-	databaseHooks: {
-		user: {
-			create: {
-				after: async (user, ctx) => {
-					//@ts-ignore - erroring because `getActiveOrganization` is not defined
-					const organization = await getActiveOrganization(user.id);
-					if (!organization) {
-						auth.api.createOrganization({
-							body: {
-								name: "My Organization",
-								slug: "my-organization",
-								userId: user.id,
-							},
-						});
-					}
-				},
-			},
-		},
-	},
 });

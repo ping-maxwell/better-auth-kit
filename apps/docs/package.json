@@ -31,6 +31,7 @@
 	"dependencies": {
 		"@better-auth-kit/legal-consent": "workspace:*",
 		"@better-auth-kit/waitlist": "workspace:*",
+		"@better-auth-kit/profile-image": "workspace:*",
 		"@dagrejs/dagre": "^1.1.4",
 		"@faker-js/faker": "^9.5.1",
 		"@hookform/resolvers": "^4.1.3",
