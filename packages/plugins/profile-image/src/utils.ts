@@ -52,11 +52,10 @@ export function detectImageFormatFromBase64(
 	return null;
 }
 
-
 export async function detectFileTypeFromBlob(blob: Blob) {
 	const arrayBuffer = await blob.arrayBuffer(); // convert blob to ArrayBuffer
 	const uint8Array = new Uint8Array(arrayBuffer); // required by file-type
-  
+
 	const fileType = await fileTypeFromBuffer(uint8Array);
 	return fileType; // returns { ext: "png", mime: "image/png" } or undefined
-  }
+}

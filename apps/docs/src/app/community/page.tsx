@@ -86,7 +86,8 @@ export default async function CommunityPage() {
 		},
 		{
 			name: "@better-auth-kit/profile-image",
-			description: "Upload, delete, and manage profile pictures for your users.",
+			description:
+				"Upload, delete, and manage profile pictures for your users.",
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/plugins/profile-image",

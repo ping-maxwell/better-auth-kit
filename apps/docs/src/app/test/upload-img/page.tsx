@@ -23,7 +23,7 @@ export default function Page() {
 		console.log("Uploading", image);
 
 		const blob = await compressImage(image);
-		if(!blob) return;
+		if (!blob) return;
 
 		const res = await authClient.profileImage.upload({
 			image: blob,
@@ -67,8 +67,6 @@ export default function Page() {
 	);
 }
 
-
-
 function UploadProfileImage() {
 	const [image, setImage] = useState<File | null>(null);
 
@@ -82,19 +80,18 @@ function UploadProfileImage() {
 		if (!image) return;
 
 		const blob = await compressImage(image);
-		if(!blob) return;
+		if (!blob) return;
 
 		const { data, error } = await authClient.profileImage.upload({
-			image: blob
+			image: blob,
 		});
 
-		if(data){
+		if (data) {
 			console.log(`Successfully uploaded image to ${data.image.url}`);
-		}else{
+		} else {
 			console.error(`Something went wrong:`, error);
 		}
 	};
-
 
 	return (
 		<div>

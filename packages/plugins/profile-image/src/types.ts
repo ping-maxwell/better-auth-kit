@@ -77,7 +77,7 @@ export interface ProfileImageOptions {
 
 	/**
 	 * Optional array of trusted image origins. If undefined, any origin is trusted.
-	 * 
+	 *
 	 * @default undefined
 	 */
 	trustedImageOrigins?: string[] | undefined;
