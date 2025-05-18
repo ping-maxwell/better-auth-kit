@@ -20,6 +20,7 @@ import {
 	PopcornIcon,
 	Brain,
 	Book,
+	User,
 } from "lucide-react";
 import type { Content } from "./sidebar";
 
@@ -65,6 +66,11 @@ export const contents: Content[] = [
 				href: "/docs/plugins/legal-consent",
 				title: "Legal Consent",
 				icon: () => <Scale size={16} />,
+			},
+			{
+				href: "/docs/plugins/profile-picture",
+				title: "Profile Picture",
+				icon: () => <User size={16} />,
 			},
 			{
 				href: "/docs/plugins/blockade",

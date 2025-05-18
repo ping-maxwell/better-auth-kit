@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
+import { compressImage } from "@better-auth-kit/profile-image";
 import { useState } from "react";
-import { fileToBase64 } from "@better-auth-kit/profile-image";
 
 export default function Page() {
 	const [image, setImage] = useState<File | null>(null);
@@ -22,14 +22,10 @@ export default function Page() {
 		if (!image) return;
 		console.log("Uploading", image);
 
-		const res = await authClient.profileImage.upload({
-			file: {
-				name: image.name,
-				type: image.type,
-				base64Image: await fileToBase64(image),
-			},
-		});
 
+		const blob = await compressImage(image);
+		if(!blob) return;
+		const res = await authClient.profileImage.upload(blob);
 		console.log(res);
 	};
 
@@ -65,6 +61,47 @@ export default function Page() {
 					</>
 				)}
 			</div>
+		</div>
+	);
+}
+
+
+
+function UploadProfileImage() {
+	const [image, setImage] = useState<File | null>(null);
+
+	const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (!file) return;
+		setImage(file);
+	};
+
+	const uploadImage = async () => {
+		if (!image) return;
+
+		const blob = await compressImage(image);
+		if(!blob) return;
+
+		const { data, error } = await authClient.profileImage.upload(blob);
+
+		if(data){
+			console.log(`Successfully uploaded image to ${data.image.url}`);
+		}else{
+			console.error(`Something went wrong:`, error);
+		}
+	};
+
+
+	return (
+		<div>
+			<Label htmlFor="image-upload">Upload Image</Label>
+			<Input
+				id="image-upload"
+				type="file"
+				accept="image/*"
+				onChange={handleFileChange}
+			/>
+			<Button onClick={uploadImage}>Upload Image</Button>
 		</div>
 	);
 }

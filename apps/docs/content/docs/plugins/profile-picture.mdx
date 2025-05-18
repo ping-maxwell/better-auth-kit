@@ -1,0 +1,281 @@
+---
+title: Profile Picture
+description: Upload, delete, and manage profile pictures for your users.
+---
+
+<StatsBadge npmPackage="@better-auth-kit/profile-image" />
+<GithubButton url="https://github.com/ping-maxwell/better-auth-kit/tree/main/packages/plugins/profile-image" />
+<NpmButton url="https://www.npmjs.com/package/@better-auth-kit/profile-image" />
+
+This plugin allow your users to upload, delete, and manage their profile pictures.
+Additionally, it provides a way to store the profile picture in a storage provider of your choice, set up validation rules, and more.
+
+<Steps>
+  <Step>
+        ### 1. Install the plugin
+
+        ```package-install
+        @better-auth-kit/profile-image
+        ```
+  </Step>
+
+  <Step>
+    ### 2. Initialize the plugin
+
+    Make sure you have defined `UPLOADTHING_API_KEY` in your environment variables, or define it as the `apiKey` property of the `UTApi` instance.
+
+    ```ts title="auth.ts"
+    import { profileImage, UploadThingProvider } from "@better-auth-kit/profile-image";
+    import { UTApi } from "uploadthing/server";
+    import { betterAuth } from "better-auth";
+
+    const utApi = new UTApi();
+    const provider = new UploadThingProvider(utApi);
+
+    export const auth = betterAuth({ // [!code highlight]
+      plugins: [profileImage({ storageProvider: provider })],// [!code highlight]
+    });// [!code highlight]
+    ```
+
+    ```ts title="auth-client.ts"
+    import { profileImageClient } from "@better-auth-kit/profile-image/client";
+    import { createAuthClient } from "better-auth/client";
+
+    export const authClient = createAuthClient({// [!code highlight]
+      plugins: [profileImageClient()],// [!code highlight]
+    });// [!code highlight]
+    ```
+
+    <Callout type="info">
+      Want to use another storage provider? Check out the [storage providers](#storage-providers) section.
+    </Callout>
+  </Step>
+  <Step>
+    ### 3. Use the plugin
+
+    <Tabs items={["Basic Example", "React Example"]}>
+      <Tab value="Basic Example">
+        ```ts
+        import { fileToBase64 } from "@better-auth-kit/profile-image";
+        import { authClient } from "@/lib/auth-client";
+
+        const { data } = await authClient.profileImage.upload({// [!code highlight]
+          base64Image: await fileToBase64(imageFile),// [!code highlight]
+        });// [!code highlight]
+
+        const { url, key } = data; // URL and key of the uploaded image.
+      ```
+      </Tab>
+      <Tab value="React Example">
+        ```tsx
+        function UploadProfileImage() {
+          const [image, setImage] = useState<File | null>(null);
+
+          const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+            const file = e.target.files?.[0];
+            if (!file) return;
+            setImage(file);
+          };
+
+          const uploadImage = async () => {
+            if (!image) return;
+            const { data, error } = await authClient.profileImage.upload({
+              file: {
+                name: image.name,
+                type: image.type,
+                base64Image: await fileToBase64(image),
+              },
+            });
+            if(data){
+              console.log(`Successfully uploaded image to ${data.image.url}`);
+            }else{
+              console.error(`Something went wrong:`, error);
+            }
+          };
+
+
+          return (
+            <div>
+              <Label htmlFor="image-upload">Upload Image</Label>
+              <Input
+                id="image-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+              <Button onClick={uploadImage}>Upload Image</Button>
+            </div>
+          );
+        }
+
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+</Steps>
+
+
+## Plugin Options
+
+```ts
+import { profileImage } from "@better-auth-kit/profile-image";
+
+export const auth = betterAuth({
+  plugins: [
+    profileImage({
+      // A storage provider adapter, see the storage providers section below.
+      storageProvider: provider, 
+       // Maximum file size in bytes, default is 5MB
+      maxSize: 5 * 1024 * 1024,
+      // Allowed file types, default is ["image/jpeg", "image/png", "image/webp"]
+      allowedTypes: ["image/jpeg", "image/webp"], 
+      canUploadImage: (session) => {
+        // A function that returns a boolean, default is `true`.
+        return session.user.id === "123"; 
+      },
+      onImageUploaded: ({ profileImage, user }) => {
+        // A function that is called when the image is uploaded, default is `undefined`.
+      },
+      // Optional array of trusted image origins, default is undefined. If undefined, any origin is trusted.
+      trustedImageOrigins: ["https://example.com"],
+    }),
+  ],
+});
+```
+
+## Security
+
+We recommend to set up a trusted image origins, to prevent users from having any way of setting their profile picture to an image from an untrusted origin.
+
+```ts
+export const auth = betterAuth({
+  plugins: [
+    profileImage({
+      trustedImageOrigins: ["https://example.com"],
+    }),
+  ],
+});
+```
+
+<Callout type="warn">
+  If you're using the UploadThing provider, we recommend adding `https://<YOUR_APP_ID>.ufs.sh` to the trusted image origins.
+</Callout>
+
+
+
+
+## Optimizations
+
+To optimize the performance of an image upload, you have several options:
+
+<Accordions>
+  <Accordion title="Compress the image on the client side">
+    You can compress the image on the client side using the `compressImage` function.
+    This will reduce the size of the image by lowering the quality of the image, and converting it to JPEG
+     before it is uploaded to the server.
+
+    <Callout type="warn">
+    If you're using a set of cusom `allowedTypes` in the plugin options, you should ensure to include `image/jpeg` in the list.
+    This is because the `compressImage` function will convert the image to JPEG.
+    </Callout>
+    
+    ```ts
+    import { compressImage } from "@better-auth-kit/profile-image/client";
+    ```
+
+    ```ts
+    // 0.7 is the default quality.
+    const compressedImage = await compressImage(imageBlob, 0.7); 
+
+    // `null` is returned if the image could not be created for any reason.
+    if(!compressedImage) return; 
+
+    // Upload the compressed image to the server.
+    const { data, error } = await authClient.profileImage.upload(compressedImage);
+    ```
+  </Accordion>
+  <Accordion title="Enforce a maximum file size">
+      You can enforce a maximum file size in the plugin options, but also add checks on the client side to ensure the
+      image is not too large before uploading.
+
+      ```tsx
+      const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        if(file.size > 1000000) { // 1MB
+          // Display an error message to the user.
+        }
+      };
+      ```
+
+      Here's how you can enforce a maximum file size in the plugin options, like so:
+
+      ```ts
+      import { profileImage } from "@better-auth-kit/profile-image";
+
+      export const auth = betterAuth({
+        plugins: [
+          profileImage({
+            maxSize: 1000000, // 1MB, default is 5MB
+          }),
+        ],
+      });
+      ```
+    </Accordion>
+  <Accordion title="Enforce specific file types">
+    By forcing the user to only upload JPEG, or WebP images, you can reduce the image size versus uploading PNGs.
+
+    You can run checks on the client side to ensure the image is of the correct type before uploading, like so:
+
+    ```tsx
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      if(!file.type.includes("image")) {
+        // Display an error message to the user.
+      }
+    };
+    ```
+
+    And ensure to enable the `allowedTypes` option in the plugin options, like so:
+
+    ```ts
+    import { profileImage } from "@better-auth-kit/profile-image";
+
+    export const auth = betterAuth({
+      plugins: [
+        profileImage({
+          allowedTypes: ["image/jpeg", "image/webp"],
+        }),
+      ],
+    });
+    ```
+  </Accordion>
+</Accordions>
+
+## Storage Providers
+
+Right now, we only support [UploadThing](https://uploadthing.com), however we plan to support more storage providers in the future.
+
+
+We hope to add these storage providers in the future:
+
+- [Cloudflare R2](https://developers.cloudflare.com/r2/)
+- [AWS S3](https://aws.amazon.com/s3/)
+- [Google Cloud Storage](https://cloud.google.com/storage)
+- [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs)
+- [Cloud Storage for Firebase](https://firebase.google.com/docs/storage)
+
+Feel free to help us by contributing any of these storage providers,
+we greatly appriciate any effort towards improving the Better Auth ecosystem!
+
+
+## Future plans
+We're actively working on expanding the plugin's capabilities, including features like profile picture history 
+and integration with additional [storage providers](#storage-providers).
+Your feedback and contributions are invaluable to us -
+if you have suggestions or would like to help implement new features, we'd love to hear from you through issues or pull requests.
+
+## Shoutout
+
+Big thanks to <GithubUser>zpg6</GithubUser> for the plugin idea and the initial implementation. ❤️

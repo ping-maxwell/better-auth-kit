@@ -74,4 +74,11 @@ export interface ProfileImageOptions {
 		};
 		user: User;
 	}) => void | Promise<void>;
+
+	/**
+	 * Optional array of trusted image origins. If undefined, any origin is trusted.
+	 * 
+	 * @default undefined
+	 */
+	trustedImageOrigins?: string[] | undefined;
 }

@@ -1,12 +1,17 @@
+import { fileTypeFromBuffer } from "file-type";
 import { z } from "zod";
 import type { BetterAuthPlugin } from "better-auth";
-import { createAuthEndpoint, sessionMiddleware } from "better-auth/api";
+import {
+	APIError,
+	createAuthEndpoint,
+	sessionMiddleware,
+} from "better-auth/api";
 import type { ProfileImageOptions } from "./types";
+import { detectFileTypeFromBlob, detectImageFormatFromBase64 } from "./utils";
 
 export * from "./client";
 export * from "./storage-providers/uploadthing";
 export * from "./types";
-export * from "./utils";
 
 export const ERROR_CODES = {
 	FILE_TOO_LARGE: "File is too large",
@@ -14,7 +19,7 @@ export const ERROR_CODES = {
 	USER_NOT_LOGGED_IN: "User must be logged in to upload a profile image",
 	USER_NOT_FOUND: "User not found",
 	USER_NOT_ALLOWED: "You are not allowed to upload a profile image",
-	MISSING_OR_INVALID_FILE: "Missing or invalid file",
+	INVALID_BLOB: "Invalid blob image value.",
 	PROFILE_IMAGE_NOT_FOUND: "Profile image not found",
 	MISSING_REQUEST_BODY:
 		"Missing request body. This is likely caused by the endpoint being called from auth.api.",
@@ -33,6 +38,7 @@ export const profileImage = (options: ProfileImageOptions) => {
 		],
 		canUploadImage: options?.canUploadImage,
 		onImageUploaded: options?.onImageUploaded,
+		trustedImageOrigins: options?.trustedImageOrigins ?? undefined,
 	} satisfies ProfileImageOptions;
 
 	return {
@@ -43,13 +49,7 @@ export const profileImage = (options: ProfileImageOptions) => {
 				"/profile-image/upload",
 				{
 					method: "POST",
-					body: z.object({
-						file: z.object({
-							name: z.string(),
-							type: z.string(),
-							base64Image: z.string().base64(),
-						}),
-					}),
+					body: z.instanceof(Blob),
 					use: [sessionMiddleware],
 				},
 				async (ctx) => {
@@ -66,17 +66,19 @@ export const profileImage = (options: ProfileImageOptions) => {
 							});
 						}
 					}
+					const blob = ctx.body;
+					const result = await detectFileTypeFromBlob(blob);
 
-					const fileBuffer = Buffer.from(ctx.body.file.base64Image, "base64");
-					const file = new File([fileBuffer], ctx.body.file.name, {
-						type: ctx.body.file.type,
-					});
-
-					if (!file || !(file instanceof File)) {
+					if (!result) {
 						throw ctx.error("BAD_REQUEST", {
-							message: ERROR_CODES.MISSING_OR_INVALID_FILE,
+							message: ERROR_CODES.INVALID_BLOB,
 						});
 					}
+					const { ext, mime } = result;
+
+					const file = new File([blob], `${user.id}${ext}`, {
+						type: mime,
+					});
 
 					// Validate file size
 					if (file.size > opts.maxSize) {
@@ -190,5 +192,86 @@ export const profileImage = (options: ProfileImageOptions) => {
 				},
 			),
 		},
+		init(ctx) {
+			return {
+				options: {
+					databaseHooks: {
+						user: {
+							update: {
+								async before(user) {
+									if (user.image !== null) {
+										const validator = z.string().url();
+										const result = validator.safeParse(user.image);
+										if (!result.success) {
+											ctx.logger.error(
+												`[BETTER-AUTH-KIT: Profile Image]: User "${user.id}" tried to update their profile image with an invalid image URL:`,
+												user.image,
+											);
+											throw new APIError("FORBIDDEN", {
+												message: "Invalid image URL",
+											});
+										}
+
+										const origin = new URL(result.data).origin;
+										if (opts.trustedImageOrigins && !opts.trustedImageOrigins.includes(origin)) {
+											ctx.logger.error(
+												`[BETTER-AUTH-KIT: Profile Image]: User "${user.id}" tried to update their profile image with an unauthorized image origin:`,
+												user.image,
+											);
+											throw new APIError("FORBIDDEN", {
+												message: "Unauthorized image origin",
+											});
+										}
+									}
+									return {
+										data: user,
+									};
+								},
+							},
+							create: {
+								async before(user) {
+									if(user.image !== null){
+										const validator = z.string().url();
+										const result = validator.safeParse(user.image);
+										if(!result.success){
+											ctx.logger.error(`[BETTER-AUTH-KIT: Profile Image]: User "${user.id}" tried to create their profile image with an invalid image URL:`, user.image);
+											throw new APIError("FORBIDDEN", {
+												message: "Invalid image URL",
+											});
+										}
+										const origin = new URL(result.data).origin;
+										if(opts.trustedImageOrigins && !opts.trustedImageOrigins.includes(origin)){
+											ctx.logger.error(`[BETTER-AUTH-KIT: Profile Image]: User "${user.id}" tried to create their profile image with an unauthorized image origin:`, user.image);
+											throw new APIError("FORBIDDEN", {
+												message: "Unauthorized image origin",
+											});
+										}
+									}
+									return {
+										data: user,
+									};
+								},
+							}
+						},
+					},
+				},
+			};
+		},
 	} satisfies BetterAuthPlugin;
 };
+
+/**
+ * Convert a file to a base64 string.
+ */
+export function fileToBase64(file: File): Promise<string> {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onload = () => {
+			const result = reader.result?.toString().split(",")[1];
+			if (!result) throw new Error("Failed to read file");
+			resolve(result);
+		};
+		reader.onerror = reject;
+		reader.readAsDataURL(file);
+	});
+}

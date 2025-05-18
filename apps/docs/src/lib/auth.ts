@@ -1,8 +1,7 @@
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
 import Database from "better-sqlite3";
-import { profileImage } from "@better-auth-kit/profile-image";
-import { UploadThingProvider } from "@better-auth-kit/profile-image";
+import { profileImage, UploadThingProvider } from "@better-auth-kit/profile-image";
 import { UTApi } from "uploadthing/server";
 import "dotenv/config";
 
