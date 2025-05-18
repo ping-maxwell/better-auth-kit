@@ -85,8 +85,13 @@ export const profileImage = (options: ProfileImageOptions) => {
 						});
 					}
 
+					const allowedTypes =
+						typeof opts.allowedTypes === "function"
+							? await opts.allowedTypes(ctx.context.session)
+							: opts.allowedTypes;
+
 					// Validate file type
-					if (!opts.allowedTypes.includes(file.type)) {
+					if (!allowedTypes.includes(file.type)) {
 						throw ctx.error("BAD_REQUEST", {
 							message: ERROR_CODES.INVALID_FILE_TYPE,
 						});

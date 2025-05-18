@@ -49,7 +49,11 @@ export interface ProfileImageOptions {
 	 * Allowed file types
 	 * @default ["image/jpeg", "image/png", "image/webp"]
 	 */
-	allowedTypes?: string[];
+	allowedTypes?:
+		| string[]
+		| ((session: { user: User; session: Session }) =>
+				| string[]
+				| Promise<string[]>);
 
 	/**
 	 * Optional function to determine if a user is allowed to upload an image
