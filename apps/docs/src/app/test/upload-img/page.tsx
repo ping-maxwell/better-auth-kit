@@ -87,7 +87,7 @@ function UploadProfileImage() {
 		});
 
 		if (data) {
-			console.log(`Successfully uploaded image to ${data.image.url}`);
+			console.log(`Successfully uploaded image to ${data.url}`);
 		} else {
 			console.error(`Something went wrong:`, error);
 		}
