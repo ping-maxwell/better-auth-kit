@@ -41,7 +41,7 @@ export function SignUp(props?: SignUpProps) {
 	const { builder } = useBuilder();
 
 	const form = useForm({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(formSchema as any),
 		defaultValues: {
 			email: "",
 			name: "",
