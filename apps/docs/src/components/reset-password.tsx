@@ -31,7 +31,7 @@ export interface ResetPasswordProps {
 
 export function ResetPassword(props?: ResetPasswordProps) {
 	const form = useForm({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(formSchema as any),
 		defaultValues: {
 			password: "",
 		},

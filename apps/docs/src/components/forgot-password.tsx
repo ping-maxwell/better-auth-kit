@@ -29,7 +29,7 @@ export interface ForgotPasswordProps {
 
 export function ForgotPassword(props?: ForgotPasswordProps) {
 	const form = useForm({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(formSchema as any),
 		defaultValues: {
 			email: "",
 		},

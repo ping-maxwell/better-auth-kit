@@ -37,7 +37,7 @@ export interface SignUpProps {
 
 export function SignUp(props?: SignUpProps) {
 	const form = useForm({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(formSchema as any),
 		defaultValues: {
 			email: "",
 			name: "",
