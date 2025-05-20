@@ -9,10 +9,6 @@
 			"types": "./src/index.ts"
 		}
 	},
-	"scripts": {
-		"dev": "echo already built",
-		"build": "echo already built"
-	},
 	"author": "ping-maxwell",
 	"license": "MIT",
 	"devDependencies": {

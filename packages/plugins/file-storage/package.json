@@ -1,0 +1,54 @@
+{
+	"name": "@better-auth-kit/file-storage",
+	"version": "0.1.0",
+	"description": "Manage uploading, deleting, or downloading files from a file storage service.",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"keywords": [
+		"better-auth",
+		"auth",
+		"plugin",
+		"file",
+		"storage",
+		"upload",
+		"download",
+		"delete",
+		"better-auth-kit",
+		"kit"
+	],
+	"license": "MIT",
+	"author": "better-auth-kit",
+	"files": ["./dist/**/*"],
+	"scripts": {
+		"build": "bun build.ts",
+		"dev": "bun build-dev.ts",
+		"test": "vitest",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"dotenv": "^16.5.0",
+		"file-type": "^20.5.0",
+		"zod": "^3.24.2"
+	},
+	"peerDependencies": {
+		"better-auth": "^1.1.21"
+	},
+	"devDependencies": {
+		"@better-auth-kit/internal-build": "workspace:*",
+		"vitest": "^3.0.8",
+		"@better-auth-kit/tests": "workspace:*"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./client": {
+			"types": "./dist/client.d.ts",
+			"default": "./dist/client.js"
+		}
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

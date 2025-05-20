@@ -5,6 +5,9 @@ export const profileImageClient = () => {
 	return {
 		id: "profileImage",
 		$InferServerPlugin: {} as ReturnType<typeof profileImage>,
+		fetchPlugins: [
+			
+		]
 	} satisfies BetterAuthClientPlugin;
 };
 

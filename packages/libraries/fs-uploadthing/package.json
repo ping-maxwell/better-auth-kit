@@ -1,0 +1,49 @@
+{
+	"name": "@better-auth-kit/fs-uploadthing",
+	"version": "0.1.0",
+	"description": "UploadThing provider for the @better-auth-kit/file-storage plugin.",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"keywords": [
+		"better-auth",
+		"auth",
+		"provider",
+		"file",
+		"storage",
+		"upload",
+		"thing",
+		"uploadthing",
+		"better-auth-kit",
+		"kit"
+	],
+	"license": "MIT",
+	"author": "better-auth-kit",
+	"files": ["./dist/**/*"],
+	"scripts": {
+		"build": "bun build.ts",
+		"dev": "bun build-dev.ts",
+		"test": "vitest",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"dotenv": "^16.5.0",
+		"file-type": "^20.5.0",
+		"zod": "^3.24.2"
+	},
+	"peerDependencies": {
+		"better-auth": "^1.1.21"
+	},
+	"devDependencies": {
+		"@better-auth-kit/internal-build": "workspace:*",
+		"@better-auth-kit/file-storage": "workspace:*"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		}
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

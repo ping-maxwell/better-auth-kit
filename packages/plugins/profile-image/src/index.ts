@@ -50,8 +50,10 @@ export const profileImage = (options: ProfileImageOptions) => {
 				{
 					method: "POST",
 					body: z.object({
-						image: z.instanceof(Blob),
+						image: z.any().optional(),
+						test: z.any().optional(),
 					}),
+					
 					use: [sessionMiddleware],
 				},
 				async (ctx) => {
@@ -69,6 +71,12 @@ export const profileImage = (options: ProfileImageOptions) => {
 						}
 					}
 					const blob = ctx.body.image;
+					console.log(123, ctx.body)
+					if (!(blob instanceof Blob)) {
+						throw ctx.error("BAD_REQUEST", {
+							message: ERROR_CODES.INVALID_BLOB, 
+						});
+					} 
 					const result = await detectFileTypeFromBlob(blob);
 
 					if (!result) {
