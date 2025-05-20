@@ -53,7 +53,7 @@ export const profileImage = (options: ProfileImageOptions) => {
 						image: z.any().optional(),
 						test: z.any().optional(),
 					}),
-					
+
 					use: [sessionMiddleware],
 				},
 				async (ctx) => {
@@ -71,12 +71,12 @@ export const profileImage = (options: ProfileImageOptions) => {
 						}
 					}
 					const blob = ctx.body.image;
-					console.log(123, ctx.body)
+					console.log(123, ctx.body);
 					if (!(blob instanceof Blob)) {
 						throw ctx.error("BAD_REQUEST", {
-							message: ERROR_CODES.INVALID_BLOB, 
+							message: ERROR_CODES.INVALID_BLOB,
 						});
-					} 
+					}
 					const result = await detectFileTypeFromBlob(blob);
 
 					if (!result) {

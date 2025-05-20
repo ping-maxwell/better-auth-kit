@@ -8,4 +8,3 @@ export const fileStorageClient = () => {
 		fetchPlugins: [],
 	} satisfies BetterAuthClientPlugin;
 };
-

@@ -27,7 +27,7 @@ export default function Page() {
 
 		const res = await authClient.profileImage.upload({
 			image: blob,
-			test: 2
+			test: 2,
 		});
 		console.log(res);
 	};

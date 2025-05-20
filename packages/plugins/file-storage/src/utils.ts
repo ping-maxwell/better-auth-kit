@@ -21,11 +21,12 @@ type CapitalizeFirst<S extends string> = S extends `${infer First}${infer Rest}`
 	? `${Uppercase<First>}${Rest}`
 	: S;
 
-export type TransformPath<S extends string> = S extends `${infer Head}/${infer Tail}`
-	? TransformPath<`${Head}${CapitalizeFirst<Tail>}`>
-	: S extends `${infer Head}-${infer Tail}`
+export type TransformPath<S extends string> =
+	S extends `${infer Head}/${infer Tail}`
 		? TransformPath<`${Head}${CapitalizeFirst<Tail>}`>
-		: CapitalizeFirst<S>;
+		: S extends `${infer Head}-${infer Tail}`
+			? TransformPath<`${Head}${CapitalizeFirst<Tail>}`>
+			: CapitalizeFirst<S>;
 
 export async function detectFileTypeFromBlob(blob: Blob) {
 	const arrayBuffer = await blob.arrayBuffer(); // convert blob to ArrayBuffer
@@ -34,4 +35,3 @@ export async function detectFileTypeFromBlob(blob: Blob) {
 	const fileType = await fileTypeFromBuffer(uint8Array);
 	return fileType; // returns { ext: "png", mime: "image/png" } or undefined
 }
-
