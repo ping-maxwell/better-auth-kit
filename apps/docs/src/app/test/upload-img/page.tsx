@@ -25,11 +25,11 @@ export default function Page() {
 		const blob = await compressImage(image);
 		if (!blob) return;
 
-		const res = await authClient.profileImage.upload({
-			image: blob,
-			test: 2,
-		});
-		console.log(res);
+		// const res = await authClient.profileImage.upload({
+		// 	image: blob,
+		// 	test: 2,
+		// });
+		// console.log(res);
 	};
 
 	return (
@@ -64,46 +64,6 @@ export default function Page() {
 					</>
 				)}
 			</div>
-		</div>
-	);
-}
-
-function UploadProfileImage() {
-	const [image, setImage] = useState<File | null>(null);
-
-	const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0];
-		if (!file) return;
-		setImage(file);
-	};
-
-	const uploadImage = async () => {
-		if (!image) return;
-
-		const blob = await compressImage(image);
-		if (!blob) return;
-
-		const { data, error } = await authClient.profileImage.upload({
-			image: blob,
-		});
-
-		if (data) {
-			console.log(`Successfully uploaded image to ${data.url}`);
-		} else {
-			console.error(`Something went wrong:`, error);
-		}
-	};
-
-	return (
-		<div>
-			<Label htmlFor="image-upload">Upload Image</Label>
-			<Input
-				id="image-upload"
-				type="file"
-				accept="image/*"
-				onChange={handleFileChange}
-			/>
-			<Button onClick={uploadImage}>Upload Image</Button>
 		</div>
 	);
 }
