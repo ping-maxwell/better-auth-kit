@@ -3,7 +3,7 @@ import type { reverify } from "./index";
 
 type ReverifyPlugin = typeof reverify;
 
-export const reverifyClientPlugin = () => {
+export const reverifyClient = () => {
 	return {
 		id: "reverify",
 		$InferServerPlugin: {} as ReturnType<ReverifyPlugin>,
