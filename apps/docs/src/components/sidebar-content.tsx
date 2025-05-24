@@ -68,11 +68,6 @@ export const contents: Content[] = [
 				icon: () => <Scale size={16} />,
 			},
 			{
-				href: "/docs/plugins/profile-image",
-				title: "Profile Image",
-				icon: () => <User size={16} />,
-			},
-			{
 				href: "/docs/plugins/blockade",
 				title: "Blockade",
 				icon: () => <ShieldBan size={16} />,
