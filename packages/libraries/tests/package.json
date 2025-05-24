@@ -5,6 +5,11 @@
 	"license": "MIT",
 	"author": "ping-maxwell",
 	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit",
+		"directory": "packages/libraries/tests"
+	},
 	"exports": {
 		".": {
 			"default": "./dist/index.js",

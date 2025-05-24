@@ -3,6 +3,11 @@
 	"version": "0.0.1",
 	"private": true,
 	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit",
+		"directory": "packages/internal/bun-build"
+	},
 	"exports": {
 		".": {
 			"default": "./src/index.ts",

@@ -6,7 +6,8 @@
 	"type": "module",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/ping-maxwell/better-auth-kit"
+		"url": "https://github.com/ping-maxwell/better-auth-kit",
+		"directory": "packages/libraries/ui"
 	},
 	"scripts": {
 		"build": "shadcn build --output ../../../apps/docs/public/r && cd ../../../ && bun run format"

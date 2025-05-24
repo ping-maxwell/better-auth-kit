@@ -1,13 +1,18 @@
 {
 	"name": "@better-auth-kit/internal-utils",
+	"description": "Internal utilities for Better-Auth-Kit",
 	"version": "0.0.1",
-	"private": true,
 	"type": "module",
 	"exports": {
 		".": {
 			"default": "./dist/index.js",
 			"types": "./dist/index.d.ts"
 		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit",
+		"directory": "packages/internal/utils"
 	},
 	"author": "ping-maxwell",
 	"license": "MIT",
@@ -17,5 +22,8 @@
 	},
 	"devDependencies": {
 		"@better-auth-kit/internal-build": "workspace:*"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

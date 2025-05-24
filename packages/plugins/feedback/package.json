@@ -6,8 +6,13 @@
 	"types": "./dist/index.d.ts",
 	"keywords": ["better-auth", "auth", "plugin", "feedback"],
 	"license": "MIT",
-	"author": "better-auth-kit",
+	"author": "ping-maxwell",
 	"files": ["./dist/**/*"],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit",
+		"directory": "packages/plugins/feedback"
+	},
 	"scripts": {
 		"build": "bun build.ts",
 		"build:dev": "bun build-dev.ts",

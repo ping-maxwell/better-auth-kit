@@ -1,5 +1,6 @@
 .turbo
 build.ts
+build-dev.ts
 bun.lockb
 bun.lock
 node_modules

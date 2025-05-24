@@ -16,6 +16,11 @@
 		"better-auth-kit",
 		"kit"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit",
+		"directory": "packages/libraries/fs-uploadthing"
+	},
 	"license": "MIT",
 	"author": "better-auth-kit",
 	"files": ["./dist/**/*"],
