@@ -42,19 +42,6 @@ export function RoadmapTimeline() {
 			],
 		},
 		{
-			title: "Reverify plugin",
-			description:
-				"Prompt the user to reverify their identity by providing a form of authentication for revalidation.",
-			details: [
-				"~~add: Reverify plugin~~",
-				"~~add: Reverify plugin docs~~",
-				"~~add: Reverify plugin tests~~",
-				"~~chore: Documentation~~",
-				"add: Other auth methods (OTP, Magic link, etc) support",
-				"add: session freshness check - if session is fresh, skip re-verification. And configurable in plugin options",
-			],
-		},
-		{
 			title: "Database Explorer",
 			description:
 				"A Better-Auth powered database explorer and schema visualizer.",
