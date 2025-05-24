@@ -5,6 +5,7 @@ import {
 	sessionMiddleware,
 } from "better-auth/api";
 import { z } from "zod";
+import { tryCatch } from "@better-auth-kit/internal-utils";
 
 export const reverify = () => {
 	return {
@@ -21,22 +22,26 @@ export const reverify = () => {
 				},
 				async (ctx) => {
 					const session = ctx.context.session;
-					let validPassword = false;
-					try {
-						validPassword = await ctx.context.password.checkPassword(
-							session.user.id,
-							ctx,
+
+					const { data: validPassword, error } = await tryCatch(
+						ctx.context.password.checkPassword(session.user.id, ctx),
+					);
+
+					if (error) {
+						logger.error(
+							`[Better-Auth-Kit: Reverify] Error checking password`,
+							error,
 						);
-					} catch (error: unknown) {
-						logger.error(`[Reverify] Error checking password`, error);
 						if (
 							error instanceof APIError &&
 							error?.body?.code === "INVALID_PASSWORD"
 						) {
-							logger.info(`[Reverify] Password is invalid`);
-							return ctx.json({ valid: false });
+							logger.info(`[Better-Auth-Kit: Reverify] Password is invalid`);
+							return ctx.json({ valid: false, newSession: null });
 						}
-						throw error;
+						throw new APIError("INTERNAL_SERVER_ERROR", {
+							message: "Something went wrong while checking the password",
+						});
 					}
 
 					return ctx.json({ valid: validPassword });
