@@ -110,6 +110,13 @@ export function RoadmapTimeline() {
 			],
 		},
 		{
+			title: "Resend Audience Plugin",
+			description: "Marketng email management with Resend",
+			details: [
+				"add: Basic endpoints to configure opt-in/out of marketing emails",
+			],
+		},
+		{
 			title: "PocketBase DB support",
 			description: "A database adapter for PocketBase",
 			details: [
