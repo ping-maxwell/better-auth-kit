@@ -21,6 +21,7 @@ import {
 	Brain,
 	Book,
 	User,
+	UserPlus,
 } from "lucide-react";
 import type { Content } from "./sidebar";
 
@@ -66,6 +67,11 @@ export const contents: Content[] = [
 				href: "/docs/plugins/legal-consent",
 				title: "Legal Consent",
 				icon: () => <Scale size={16} />,
+			},
+			{
+				href: "/docs/plugins/app-invite",
+				title: "App Invite",
+				icon: () => <UserPlus size={16} />,
 			},
 			{
 				href: "/docs/plugins/blockade",

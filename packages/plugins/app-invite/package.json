@@ -1,0 +1,46 @@
+{
+	"name": "@better-auth-kit/app-invite",
+	"version": "0.1.0",
+	"description": "Invite users to your application and allow them to sign up.",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"keywords": ["better-auth", "auth", "plugin", "app-invite", "invite", "kit", "signup", "invite-only"],
+	"license": "MIT",
+	"author": "ping-maxwell",
+	"files": ["./dist/**/*"],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ping-maxwell/better-auth-kit",
+		"directory": "packages/plugins/app-invite"
+	},
+	"scripts": {
+		"build": "bun build.ts",
+		"build:dev": "bun build-dev.ts",
+		"test": "vitest",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"zod": "^3.24.2"
+	},
+	"peerDependencies": {
+		"better-auth": "^1.2.8"
+	},
+	"devDependencies": {
+		"@better-auth-kit/internal-build": "workspace:*",
+		"vitest": "^3.0.8",
+		"@better-auth-kit/tests": "workspace:*"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./client": {
+			"types": "./dist/client.d.ts",
+			"default": "./dist/client.js"
+		}
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
