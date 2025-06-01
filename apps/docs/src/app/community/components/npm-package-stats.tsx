@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export interface PackageData {
 	name: string;
@@ -17,6 +18,7 @@ export interface PackageData {
 	downloads: number;
 	version: string;
 	docs: string;
+	isReleased: boolean;
 }
 
 interface NpmPackageStatsProps {
@@ -25,7 +27,7 @@ interface NpmPackageStatsProps {
 
 export function NpmPackageStats({ package: pkg }: NpmPackageStatsProps) {
 	return (
-		<Card className="overflow-hidden">
+		<Card className={cn("overflow-hidden", pkg.isReleased ? "opacity-100" : "opacity-50")}>
 			<CardHeader className="pb-2">
 				<div className="flex justify-between items-start">
 					<div>

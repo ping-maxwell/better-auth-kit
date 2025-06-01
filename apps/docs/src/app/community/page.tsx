@@ -26,6 +26,7 @@ export default async function CommunityPage() {
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/plugins/waitlist",
+			isReleased: false,
 		},
 		{
 			name: "@better-auth-kit/legal-consent",
@@ -33,6 +34,7 @@ export default async function CommunityPage() {
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/plugins/legal-consent",
+			isReleased: true,
 		},
 		{
 			name: "@better-auth-kit/convex",
@@ -40,6 +42,7 @@ export default async function CommunityPage() {
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/adapters/convex",
+			isReleased: true,
 		},
 		{
 			name: "@better-auth-kit/reverify",
@@ -47,21 +50,7 @@ export default async function CommunityPage() {
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/plugins/reverify",
-		},
-		{
-			name: "better-auth-dashboard",
-			description: "Admin dashboard for Better Auth",
-			downloads: 0,
-			version: "0",
-			docs: "https://better-auth-kit.com/docs/libraries/admin-dashboard",
-		},
-		{
-			name: "@better-auth-kit/tests",
-			description:
-				"A collection of utilities to help you test your Better-Auth plugins",
-			downloads: 0,
-			version: "0",
-			docs: "https://better-auth-kit.com/docs/libraries/tests",
+			isReleased: true,
 		},
 		{
 			name: "@better-auth-kit/seed",
@@ -69,6 +58,7 @@ export default async function CommunityPage() {
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/cli/seed",
+			isReleased: true,
 		},
 		{
 			name: "@better-auth-kit/cli",
@@ -76,6 +66,7 @@ export default async function CommunityPage() {
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/cli/introduction",
+			isReleased: true,
 		},
 		{
 			name: "@better-auth-kit/feedback",
@@ -83,15 +74,16 @@ export default async function CommunityPage() {
 			downloads: 0,
 			version: "0",
 			docs: "https://better-auth-kit.com/docs/plugins/feedback",
+			isReleased: true,
 		},
 		{
-			name: "@better-auth-kit/profile-image",
-			description:
-				"Upload, delete, and manage profile pictures for your users.",
+			name: '@better-auth-kit/app-invite',
+			description: 'A plugin to invite users to your application',
 			downloads: 0,
-			version: "0",
-			docs: "https://better-auth-kit.com/docs/plugins/profile-image",
-		},
+			version: '0',
+			docs: 'https://better-auth-kit.com/docs/plugins/app-invite',
+			isReleased: true,
+		}
 	];
 
 	for (const pkg of packages) {
@@ -102,7 +94,10 @@ export default async function CommunityPage() {
 		packages[packages.indexOf(pkg)].version = latestVersion.version;
 	}
 
+	// sort by downloads
 	packages = packages.sort((a, b) => b.downloads - a.downloads);
+	// sort by isReleased
+	packages = packages.sort((a, b) => b.isReleased ? 1 : -1);
 
 	return (
 		<div className="w-screen h-screen">
