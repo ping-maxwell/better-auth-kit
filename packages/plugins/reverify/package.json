@@ -1,6 +1,6 @@
 {
 	"name": "@better-auth-kit/reverify",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Prompt the user to re-verify their identity by providing a form of authentication for revalidation.",
 	"type": "module",
 	"repository": {
@@ -29,12 +29,14 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@better-auth-kit/internal-build": "workspace:*",
-		"@better-auth-kit/internal-utils": "workspace:*",
 		"vitest": "^3.0.8",
 		"@better-auth-kit/tests": "workspace:*"
 	},
 	"peerDependencies": {
 		"better-auth": "^1.2.8"
+	},
+	"dependencies": {
+		"@better-auth-kit/internal-utils": "workspace:*"
 	},
 	"publishConfig": {
 		"access": "public"
