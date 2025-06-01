@@ -14,7 +14,6 @@ export const APP_INVITE_ERROR_CODES = {
 	EMAIL_DOMAIN_IS_NOT_IN_WHITELIST: "Email domain is not in whitelist",
 } as const;
 
-
 export const BASE_ERROR_CODES = {
 	USER_NOT_FOUND: "User not found",
 	FAILED_TO_CREATE_USER: "Failed to create user",

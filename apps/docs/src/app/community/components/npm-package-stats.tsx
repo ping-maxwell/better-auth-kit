@@ -27,7 +27,12 @@ interface NpmPackageStatsProps {
 
 export function NpmPackageStats({ package: pkg }: NpmPackageStatsProps) {
 	return (
-		<Card className={cn("overflow-hidden", pkg.isReleased ? "opacity-100" : "opacity-50")}>
+		<Card
+			className={cn(
+				"overflow-hidden",
+				pkg.isReleased ? "opacity-100" : "opacity-50",
+			)}
+		>
 			<CardHeader className="pb-2">
 				<div className="flex justify-between items-start">
 					<div>

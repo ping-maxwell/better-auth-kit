@@ -77,13 +77,13 @@ export default async function CommunityPage() {
 			isReleased: true,
 		},
 		{
-			name: '@better-auth-kit/app-invite',
-			description: 'A plugin to invite users to your application',
+			name: "@better-auth-kit/app-invite",
+			description: "A plugin to invite users to your application",
 			downloads: 0,
-			version: '0',
-			docs: 'https://better-auth-kit.com/docs/plugins/app-invite',
+			version: "0",
+			docs: "https://better-auth-kit.com/docs/plugins/app-invite",
 			isReleased: true,
-		}
+		},
 	];
 
 	for (const pkg of packages) {
@@ -97,7 +97,7 @@ export default async function CommunityPage() {
 	// sort by downloads
 	packages = packages.sort((a, b) => b.downloads - a.downloads);
 	// sort by isReleased
-	packages = packages.sort((a, b) => b.isReleased ? 1 : -1);
+	packages = packages.sort((a, b) => (b.isReleased ? 1 : -1));
 
 	return (
 		<div className="w-screen h-screen">
