@@ -90,11 +90,13 @@ export const feedback = (options?: FeedbackOptions) => {
 					if (text.length < opts.minLength) {
 						throw ctx.error("BAD_REQUEST", {
 							message: ERROR_CODES.FEEDBACK_TOO_SHORT,
+							code: "FEEDBACK_TOO_SHORT",
 						});
 					}
 					if (text.length > opts.maxLength) {
 						throw ctx.error("BAD_REQUEST", {
 							message: ERROR_CODES.FEEDBACK_TOO_LONG,
+							code: "FEEDBACK_TOO_LONG",
 						});
 					}
 
@@ -106,6 +108,7 @@ export const feedback = (options?: FeedbackOptions) => {
 						if (!ctx.context.session?.user) {
 							throw ctx.error("BAD_REQUEST", {
 								message: ERROR_CODES.USER_NOT_LOGGED_IN,
+								code: "USER_NOT_LOGGED_IN",
 							});
 						}
 
@@ -120,6 +123,7 @@ export const feedback = (options?: FeedbackOptions) => {
 							if (!isAllowed) {
 								throw ctx.error("FORBIDDEN", {
 									message: ERROR_CODES.USER_NOT_ALLOWED,
+									code: "USER_NOT_ALLOWED",
 								});
 							}
 						}
@@ -136,6 +140,7 @@ export const feedback = (options?: FeedbackOptions) => {
 							if (feedbackCount >= opts.feedbackLimit) {
 								throw ctx.error("FORBIDDEN", {
 									message: ERROR_CODES.FEEDBACK_LIMIT_REACHED,
+									code: "FEEDBACK_LIMIT_REACHED",
 								});
 							}
 						}
