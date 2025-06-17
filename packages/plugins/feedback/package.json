@@ -1,6 +1,6 @@
 {
 	"name": "@better-auth-kit/feedback",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Feedback plugin for Better Auth Kit",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
