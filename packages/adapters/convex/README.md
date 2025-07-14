@@ -1,9 +1,5 @@
 # Convex Adapter for Better-Auth
 
-## Documentation
+## Deprecated!
 
-You can read our documentation [here](https://www.better-auth-kit.com/docs/adapters/convex).
-
-## License
-
-[MIT License](https://github.com/ping-maxwell/better-auth-kit/blob/main/packages/adapters/convex/LICENSE)
+Please do not use this in any new projects. We recommend checking out https://github.com/get-convex/better-auth
