@@ -13,8 +13,8 @@ export default function HomePage() {
 		<main className="w-screen h-screen relative overflow-hidden">
 			<BackgroundBeams className="absolute inset-0 w-full h-full" />
 
-			<div className="w-full absolute inset-0 h-screen overflow-y-auto">
-				<div className="w-full mt-16 overflow-y-auto h-screen">
+			<div className="w-full absolute pt-16 inset-0 h-screen overflow-y-auto">
+				<div className="w-full ">
 					<BetaWarning />
 					<Hero />
 					<Callout />

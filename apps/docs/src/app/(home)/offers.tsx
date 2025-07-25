@@ -104,7 +104,7 @@ export function Offers() {
 					/>
 				))}
 			</BentoGrid>
-			<h2 className="text-center text-2xl font-bold mt-15">And more!</h2>
+			<h2 className="text-center text-2xl font-bold py-16">And more!</h2>
 		</div>
 	);
 }
